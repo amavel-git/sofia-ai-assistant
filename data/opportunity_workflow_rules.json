@@ -1,0 +1,49 @@
+{
+  "version": "1.0",
+  "workflow_rules": {
+    "default_status_flow": [
+      "new",
+      "validated",
+      "rejected",
+      "converted_to_intake",
+      "draft_created",
+      "in_review",
+      "approved",
+      "published"
+    ],
+    "approval_required_before_draft": true,
+    "allow_examiner_direct_requests_to_skip_validation": true,
+    "require_cannibalization_check": true,
+    "require_local_topic_check": true,
+    "require_language_check": true,
+    "default_priority_threshold_for_review": "medium",
+    "auto_create_draft_when": {
+      "source": "examiner_request",
+      "cannibalization_status": "clear",
+      "local_topic_status": "allowed"
+    },
+    "never_auto_publish": true
+  },
+  "priority_scoring": {
+    "demand_signal": {
+      "low": 1,
+      "medium": 3,
+      "high": 5
+    },
+    "business_value": {
+      "low": 1,
+      "medium": 3,
+      "high": 5
+    },
+    "competition_gap": {
+      "low": 1,
+      "medium": 3,
+      "high": 5
+    },
+    "priority_result": {
+      "low": "1-5",
+      "medium": "6-10",
+      "high": "11-15"
+    }
+  }
+}

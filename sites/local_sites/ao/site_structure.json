@@ -1,0 +1,169 @@
+{
+  "workspace_id": "local.ao",
+  "domain": "https://poligrafoangola.com",
+  "source": "sitemap",
+  "last_updated": "2026-04-24",
+  "pages": [
+    {
+      "url": "https://poligrafoangola.com/",
+      "slug": "",
+      "section": "home",
+      "page_type": "home",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/",
+      "slug": "pericias-poligrafo",
+      "section": "pericias",
+      "page_type": "category",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+      "slug": "poligrafo-infidelidade-fidelidade",
+      "section": "pericias",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-roubo-furto/",
+      "slug": "poligrafo-roubo-furto",
+      "section": "pericias",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-provar-inocencia/",
+      "slug": "poligrafo-provar-inocencia",
+      "section": "pericias",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-agressao-sexual/",
+      "slug": "poligrafo-agressao-sexual",
+      "section": "pericias",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-casos-legais/",
+      "slug": "poligrafo-casos-legais",
+      "section": "pericias",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-recursos-humanos/",
+      "slug": "poligrafo-recursos-humanos",
+      "section": "pericias",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/poligrafo-ao/",
+      "slug": "poligrafo-ao",
+      "section": "core",
+      "page_type": "pillar",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/poligrafo-ao/funcionamento-poligrafo/",
+      "slug": "funcionamento-poligrafo",
+      "section": "core",
+      "page_type": "info_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/poligrafo-ao/perguntas-respostas/",
+      "slug": "perguntas-respostas",
+      "section": "core",
+      "page_type": "faq",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/solucoes-pol/",
+      "slug": "solucoes-pol",
+      "section": "solutions",
+      "page_type": "category",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/solucoes-pol/poligrafo-particulares/",
+      "slug": "poligrafo-particulares",
+      "section": "solutions",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/solucoes-pol/poligrafo-empresas/",
+      "slug": "poligrafo-empresas",
+      "section": "solutions",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/solucoes-pol/poligrafo-advogados/",
+      "slug": "poligrafo-advogados",
+      "section": "solutions",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/solucoes-pol/poligrafo-justica/",
+      "slug": "poligrafo-justica",
+      "section": "solutions",
+      "page_type": "service_page",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/quem-somos/",
+      "slug": "quem-somos",
+      "section": "about",
+      "page_type": "about",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/quem-somos/codigo-etico/",
+      "slug": "codigo-etico",
+      "section": "about",
+      "page_type": "legal",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/quem-somos/onde-estamos/",
+      "slug": "onde-estamos",
+      "section": "about",
+      "page_type": "location",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/quem-somos/peritos-poligrafo/",
+      "slug": "peritos-poligrafo",
+      "section": "about",
+      "page_type": "team",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/contato/",
+      "slug": "contato",
+      "section": "contact",
+      "page_type": "contact",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/blog/",
+      "slug": "blog",
+      "section": "blog",
+      "page_type": "blog_index",
+      "language": "pt-PT"
+    },
+    {
+      "url": "https://poligrafoangola.com/poligrafo-casais/",
+      "slug": "poligrafo-casais",
+      "section": "blog",
+      "page_type": "blog_post",
+      "language": "pt-PT"
+    }
+  ]
+}

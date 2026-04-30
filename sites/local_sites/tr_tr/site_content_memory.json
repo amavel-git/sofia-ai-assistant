@@ -1,0 +1,18 @@
+{
+  "workspace_info": {
+    "workspace_id": "local.tr_tr",
+    "brand": "local_sites",
+    "workspace_type": "local_market",
+    "language": "tr",
+    "market_code": "tr",
+    "domain": "https://polygraphturkey.com/tr",
+    "base_path": "/"
+  },
+  "published_content": [],
+  "draft_content": [],
+  "content_topics": [],
+  "keyword_index": [],
+  "protected_topics": [],
+  "cannibalization_notes": [],
+  "content_opportunities": []
+}

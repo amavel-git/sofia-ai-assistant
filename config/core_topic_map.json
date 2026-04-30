@@ -1,0 +1,307 @@
+{
+  "version": "1.2",
+  "description": "Global, language-neutral polygraph topic map used by Sofia to identify content gaps and opportunities across countries, languages, and website types. Localization is handled separately in topic_localization_rules.json.",
+
+  "topic_groups": {
+    "local_market": [
+      {
+        "topic_id": "local_polygraph_service",
+        "topic_name": "Polygraph test service in local market",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "service",
+        "keywords": [
+          "polygraph test",
+          "lie detector test",
+          "polygraph service"
+        ],
+        "concept_signals": [
+          "polygraph",
+          "test",
+          "service",
+          "local"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "polygraph_price",
+        "topic_name": "Polygraph test price",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "polygraph price",
+          "polygraph cost",
+          "lie detector test price"
+        ],
+        "concept_signals": [
+          "polygraph",
+          "price",
+          "cost",
+          "fee"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "infidelity_polygraph",
+        "topic_name": "Infidelity and relationship polygraph",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "service",
+        "keywords": [
+          "infidelity polygraph",
+          "relationship polygraph",
+          "lie detector test for couples"
+        ],
+        "concept_signals": [
+          "infidelity",
+          "fidelity",
+          "relationship",
+          "couples",
+          "partner"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "employee_theft_polygraph",
+        "topic_name": "Employee theft polygraph",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "service",
+        "keywords": [
+          "employee theft polygraph",
+          "workplace polygraph",
+          "company lie detector test"
+        ],
+        "concept_signals": [
+          "employee",
+          "theft",
+          "workplace",
+          "company",
+          "fraud"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "pre_employment_polygraph",
+        "topic_name": "Pre-employment polygraph testing",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "pre employment polygraph",
+          "pre employment lie detector test",
+          "polygraph screening employees"
+        ],
+        "concept_signals": [
+          "pre employment",
+          "screening",
+          "recruitment",
+          "hiring",
+          "employee"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "maintenance_polygraph",
+        "topic_name": "Employee maintenance polygraph testing",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "employee maintenance polygraph",
+          "periodic polygraph testing employees",
+          "polygraph employee screening ongoing"
+        ],
+        "concept_signals": [
+          "maintenance",
+          "periodic",
+          "ongoing screening",
+          "employee",
+          "workplace"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "legal_polygraph",
+        "topic_name": "Legal and lawyer polygraph cases",
+        "priority": "medium",
+        "recommended_action": "create_new_page",
+        "search_intent": "service",
+        "keywords": [
+          "legal polygraph",
+          "lawyer polygraph",
+          "polygraph for legal cases"
+        ],
+        "concept_signals": [
+          "legal",
+          "lawyer",
+          "court",
+          "justice",
+          "case"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "how_polygraph_works",
+        "topic_name": "How a polygraph test works",
+        "priority": "medium",
+        "recommended_action": "create_blog_post",
+        "search_intent": "informational",
+        "keywords": [
+          "how polygraph works",
+          "how lie detector test works",
+          "polygraph procedure"
+        ],
+        "concept_signals": [
+          "how works",
+          "procedure",
+          "process",
+          "functioning"
+        ],
+        "dedicated_page_required": false
+      },
+      {
+        "topic_id": "polygraph_faq",
+        "topic_name": "Polygraph questions and answers",
+        "priority": "medium",
+        "recommended_action": "create_blog_post",
+        "search_intent": "informational",
+        "keywords": [
+          "polygraph FAQ",
+          "polygraph questions",
+          "lie detector questions"
+        ],
+        "concept_signals": [
+          "faq",
+          "questions",
+          "answers"
+        ],
+        "dedicated_page_required": false
+      }
+    ],
+
+    "product": [
+      {
+        "topic_id": "polygraph_instruments",
+        "topic_name": "Polygraph instruments",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "polygraph instrument",
+          "polygraph equipment",
+          "lie detector machine"
+        ],
+        "concept_signals": [
+          "instrument",
+          "equipment",
+          "machine",
+          "hardware"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "polygraph_software",
+        "topic_name": "Polygraph software",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "polygraph software",
+          "lie detector software",
+          "polygraph analysis software"
+        ],
+        "concept_signals": [
+          "software",
+          "analysis",
+          "chart analysis",
+          "digital"
+        ],
+        "dedicated_page_required": true
+      }
+    ],
+
+    "training": [
+      {
+        "topic_id": "polygraph_training_course",
+        "topic_name": "Polygraph examiner training course",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "polygraph training",
+          "polygraph examiner course",
+          "lie detection training"
+        ],
+        "concept_signals": [
+          "training",
+          "course",
+          "education",
+          "examiner"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "polygraph_certification",
+        "topic_name": "Polygraph certification",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "commercial",
+        "keywords": [
+          "polygraph certification",
+          "certified polygraph examiner",
+          "polygraph examiner certification"
+        ],
+        "concept_signals": [
+          "certification",
+          "certified",
+          "certificate",
+          "credential"
+        ],
+        "dedicated_page_required": true
+      }
+    ],
+
+    "institutional": [
+      {
+        "topic_id": "forensic_polygraph_services",
+        "topic_name": "Forensic polygraph services",
+        "priority": "high",
+        "recommended_action": "create_new_page",
+        "search_intent": "service",
+        "keywords": [
+          "forensic polygraph",
+          "polygraph services",
+          "forensic lie detection"
+        ],
+        "concept_signals": [
+          "forensic",
+          "services",
+          "polygraph",
+          "lie detection"
+        ],
+        "dedicated_page_required": true
+      },
+      {
+        "topic_id": "expert_polygraph_examiner",
+        "topic_name": "Expert polygraph examiner",
+        "priority": "medium",
+        "recommended_action": "create_new_page",
+        "search_intent": "service",
+        "keywords": [
+          "polygraph examiner",
+          "expert polygraph examiner",
+          "forensic examiner"
+        ],
+        "concept_signals": [
+          "examiner",
+          "expert",
+          "specialist",
+          "professional"
+        ],
+        "dedicated_page_required": true
+      }
+    ]
+  }
+}

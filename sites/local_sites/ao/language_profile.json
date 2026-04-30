@@ -1,0 +1,211 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "default_language": "pt",
+  "supported_languages": [
+    "pt-PT"
+  ],
+  "region": {
+    "country_name": "Angola",
+    "country_code": "AO",
+    "market_type": "local_market"
+  },
+  "content_strategy_templates": {
+  "blog": {
+    "content_goal": "Construir confiança e responder a uma pergunta comum antes de o visitante contactar o serviço.",
+    "target_audience": "Pessoas que pesquisam testes de polígrafo, fiabilidade, processo ou possíveis utilizações.",
+    "conversion_goal": "Levar o leitor da informação geral ao contacto com um examinador profissional.",
+    "recommended_angle": "Explicar o tema com linguagem simples, precisa e equilibrada, sem exagerar o que o polígrafo pode fazer.",
+    "required_sections": [
+      "Resposta direta",
+      "Explicação do conceito",
+      "Exemplos práticos",
+      "Limitações do polígrafo",
+      "Quando contactar um examinador profissional"
+    ]
+  },
+  "service": {
+    "content_goal": "Gerar contactos qualificados explicando o serviço de forma clara e profissional.",
+    "target_audience": "Potenciais clientes que procuram serviços profissionais de polígrafo.",
+    "conversion_goal": "Incentivar o visitante a contactar um examinador para uma avaliação confidencial.",
+    "recommended_angle": "Apresentar o tema como um serviço profissional, ético e adaptado ao caso concreto.",
+    "required_sections": [
+      "O que é este serviço",
+      "Quando este serviço pode ser útil",
+      "Como funciona o processo",
+      "Limitações e considerações éticas importantes",
+      "Como solicitar uma avaliação"
+    ]
+  },
+  "faq_templates": {
+  "required": true,
+  "section_heading": "Perguntas frequentes",
+  "minimum_questions": 4,
+  "maximum_questions": 6,
+  "question_format": "<h3>Question</h3><p>Answer</p>",
+  "instructions": [
+    "Include an internal FAQ section near the end of every page.",
+    "Questions must be directly related to the page topic.",
+    "Answers must be concise, factual, and cautious.",
+    "Do not make legal guarantees.",
+    "Minimum 4 questions",
+    "Use long-tail keywords",
+    "Questions must reflect real user searches",
+    "Examples of good questions:",
+    "O teste de polígrafo funciona mesmo?",
+    "O polígrafo é fiável em casos de infidelidade?",
+    "Quanto custa um teste de polígrafo?",
+    "Answers must be clear, realistic, and helpful",
+    "Do not invent prices, addresses, phone numbers, time durations, or legal claims."
+  ],
+  "example_questions": [
+    "O teste de polígrafo funciona mesmo?",
+    "O polígrafo é fiável em casos de infidelidade?",
+    "Quanto custa um teste de polígrafo?",
+    "Como funciona um teste de polígrafo profissional?",
+    "O polígrafo pode ser usado em empresas?"
+  ]
+  },
+  "faq_intents": [
+  "cost",
+  "reliability",
+  "how_it_works",
+  "use_cases",
+  "process",
+  "limitations"
+  ],
+  "warnings_by_concept": {
+    "price_or_cost_query": [
+      "Evitar publicar preços fixos salvo se a política local permitir."
+    ],
+    "polygraph_reliability_query": [
+      "Evitar afirmações absolutas como 100% preciso ou resultado garantido."
+    ],
+    "company_or_corporate_testing_query": [
+      "Evitar afirmar que o teste de polígrafo é obrigatório ou universalmente permitido em contexto laboral."
+    ]
+  },
+  "recommended_angles_by_concept": {
+    "price_or_cost_query": "Explicar os fatores que influenciam o preço e convidar o visitante a solicitar uma avaliação específica.",
+    "polygraph_reliability_query": "Explicar a fiabilidade de forma equilibrada, incluindo o procedimento profissional e as limitações.",
+    "company_or_corporate_testing_query": "Apresentar o teste corporativo como um serviço profissional que deve respeitar a lei local, o consentimento e boas práticas."
+  },
+  "internal_linking_notes": [
+    "Ligar à página principal do serviço de polígrafo quando relevante.",
+    "Ligar a conteúdos educativos ou FAQ relacionados, se existirem.",
+    "Evitar links para páginas com a mesma palavra-chave principal para prevenir canibalização."
+  ]
+  },
+  "content_rules": {
+    "language_name": "Portuguese (pt-PT)",
+    "language_code": "pt-PT",
+    "regional_variant": "Angolan Portuguese",
+    "tone": "professional, neutral, trustworthy",
+    "formality": "formal",
+    "write_for_region": "Angola",
+    "avoid_overly_promotional_language": true,
+    "avoid_absolute_claims": true,
+    "avoid_unverified_legal_claims": true
+  },
+  "content_quality_rules": {
+  "minimum_word_count": 800,
+  "ideal_word_count": 1200,
+  "require_faq": true,
+  "minimum_faq_questions": 4,
+  "maximum_faq_questions": 6
+},
+"risky_phrase_rules": {
+  "forbidden_phrases": [
+    "100%",
+    "garantido",
+    "garantia",
+    "infalível",
+    "legalmente aceite",
+    "legalmente aceitável",
+    "admissibilidade jurídica",
+    "validade legal",
+    "jurisprudência",
+    "enganar",
+    "distinguir entre medo e nervosismo",
+    "certificado",
+    "licenciado"
+  ],
+  "safe_replacements": {
+    "não é infalível": "deve ser interpretado como uma ferramenta auxiliar",
+    "infalível": "uma ferramenta auxiliar",
+    "legalmente aceite": "dependente do contexto e da orientação profissional adequada",
+    "legalmente aceitável": "dependente do contexto e da orientação profissional adequada",
+    "admissibilidade jurídica": "utilização em contexto legal",
+    "validade legal": "utilização em contexto legal",
+    "jurisprudência": "orientação legal aplicável",
+    "enganar": "influenciar",
+    "certificado": "qualificado",
+    "licenciado": "qualificado"
+  }
+},
+  "seo_templates": {
+    "page_title": "{topic} em {country_name}",
+    "seo_title": "{topic} em {country_name}",
+    "meta_description_service": "Saiba mais sobre {topic} em {country_name}. Informação profissional sobre testes de polígrafo, aplicações, limitações e contacto para avaliação.",
+    "meta_description_blog": "Entenda {topic}: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
+    "image_alt_text": "{topic} em {country_name}",
+    "image_filename": "{slug}-{country_slug}.jpg"
+  },
+  "heading_translations": {
+    "service_h1": "{topic}",
+    "blog_h1": "{topic}",
+    "service_sections": [
+      "Quando este serviço pode ser útil?",
+      "Como funciona o processo?",
+      "Limitações e cuidados importantes",
+      "Como solicitar uma avaliação"
+    ],
+    "blog_sections": [
+      "Resposta direta",
+      "Explicação do conceito",
+      "Exemplos práticos",
+      "Limitações do polígrafo",
+      "Quando contactar um examinador profissional"
+    ]
+  },
+  "cta_templates": {
+    "soft_contact": "Para mais informações ou para solicitar uma avaliação, entre em contacto com um examinador profissional.",
+    "service_contact": "Se pretende avaliar a possibilidade de realizar um teste de polígrafo, contacte um examinador profissional para analisar o caso de forma confidencial.",
+    "blog_contact": "Se tiver dúvidas sobre a aplicação do polígrafo no seu caso, procure orientação de um examinador profissional."
+  },
+  "forbidden_elements": [
+    "fake phone numbers",
+    "fake emails",
+    "fake addresses",
+    "fake prices",
+    "guarantees of accuracy",
+    "claims that the polygraph is 100% accurate",
+    "claims that the test is legally admissible without local verification",
+    "claims that the test replaces legal, psychological, or judicial evaluation"
+  ],
+  "preferred_terms": {
+    "polygraph": "polígrafo",
+    "polygraph_test": "teste de polígrafo",
+    "examiner": "examinador profissional",
+    "lie_detector": "detector de mentiras",
+    "assessment": "avaliação"
+  },
+  "avoid_terms": [
+    "infalível",
+    "garantido",
+    "prova definitiva",
+    "100% preciso",
+    "expositores",
+    "licenciado",
+    "certificado",
+    "legalmente aceite",
+    "legalmente aceite em todos os casos"
+  ],
+  "prompt_instructions": {
+    "output_language_instruction": "Write all visible content in Portuguese suitable for Angola.",
+    "heading_instruction": "All headings must be written in Portuguese. Do not use English headings.",
+    "html_instruction": "Return only the HTML body content. Do not include <!DOCTYPE>, <html>, <head>, or <body> tags.",
+    "contact_instruction": "Do not invent phone numbers, emails, addresses, domains, prices, or office locations. Use only a generic call-to-action.",
+    "legal_instruction": "Do not make legal guarantees or claims of admissibility. Explain limitations clearly."
+  }
+}

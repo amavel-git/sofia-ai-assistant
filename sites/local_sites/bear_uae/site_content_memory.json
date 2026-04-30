@@ -1,0 +1,18 @@
+{
+  "workspace_info": {
+    "workspace_id": "bear_uae",
+    "brand": "bear",
+    "workspace_type": "local_market",
+    "language": "en",
+    "market_code": "uae",
+    "domain": "https://bearforensics.com/uae",
+    "base_path": "/"
+  },
+  "published_content": [],
+  "draft_content": [],
+  "content_topics": [],
+  "keyword_index": [],
+  "protected_topics": [],
+  "cannibalization_notes": [],
+  "content_opportunities": []
+}

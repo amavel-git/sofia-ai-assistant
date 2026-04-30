@@ -1,0 +1,73 @@
+{
+  "variants": [
+    {
+      "draft_id": "DRAFT-0001",
+      "created_at": "2026-04-29T16:32:02.543284+00:00",
+      "variants": {
+        "mini_blog": "Teste de polígrafo em Angola\n\nThis article explains teste de polígrafo Angola in a simple and practical way for clients.",
+        "facebook_post": "Did you know about teste de polígrafo Angola? Contact us for professional and confidential polygraph testing.",
+        "linkedin_post": "Polygraph testing plays an important role in professional environments. Learn more about teste de polígrafo Angola.",
+        "image_assets": {
+          "website": {
+            "type": "stock_preferred",
+            "prompt": "Professional polygraph test setting related to teste de polígrafo Angola",
+            "filename": "teste-de-polígrafo-Angola.jpg",
+            "alt_text": "teste de polígrafo Angola professional polygraph test"
+          },
+          "social": {
+            "type": "ai_allowed",
+            "prompt": "Modern visual representing teste de polígrafo Angola in a clean and professional style",
+            "filename": "teste-de-polígrafo-Angola-social.jpg",
+            "alt_text": "teste de polígrafo Angola concept visual"
+          }
+        }
+      }
+    },
+    {
+      "draft_id": "DRAFT-0001",
+      "created_at": "2026-04-29T16:34:54.412770+00:00",
+      "variants": {
+        "mini_blog": "Teste de polígrafo em Angola\n\nThis article explains teste de polígrafo Angola in a simple and practical way for clients.",
+        "facebook_post": "Did you know about teste de polígrafo Angola? Contact us for professional and confidential polygraph testing.",
+        "linkedin_post": "Polygraph testing plays an important role in professional environments. Learn more about teste de polígrafo Angola.",
+        "image_assets": {
+          "website": {
+            "type": "stock_preferred",
+            "prompt": "Professional polygraph test setting related to teste de polígrafo Angola",
+            "filename": "teste-de-polígrafo-Angola.jpg",
+            "alt_text": "teste de polígrafo Angola professional polygraph test"
+          },
+          "social": {
+            "type": "ai_allowed",
+            "prompt": "Modern visual representing teste de polígrafo Angola in a clean and professional style",
+            "filename": "teste-de-polígrafo-Angola-social.jpg",
+            "alt_text": "teste de polígrafo Angola concept visual"
+          }
+        }
+      }
+    },
+    {
+      "draft_id": "DRAFT-0001",
+      "created_at": "2026-04-29T16:44:47.242667+00:00",
+      "variants": {
+        "mini_blog": "Teste de polígrafo em Angola\n\nThis article explains teste de polígrafo Angola in a simple and practical way for clients.",
+        "facebook_post": "Did you know about teste de polígrafo Angola? Contact us for professional and confidential polygraph testing.",
+        "linkedin_post": "Polygraph testing plays an important role in professional environments. Learn more about teste de polígrafo Angola.",
+        "image_assets": {
+          "website": {
+            "type": "stock_preferred",
+            "prompt": "Professional polygraph test setting related to teste de polígrafo Angola",
+            "filename": "teste-de-polígrafo-Angola.jpg",
+            "alt_text": "teste de polígrafo Angola professional polygraph test"
+          },
+          "social": {
+            "type": "ai_allowed",
+            "prompt": "Modern visual representing teste de polígrafo Angola in a clean and professional style",
+            "filename": "teste-de-polígrafo-Angola-social.jpg",
+            "alt_text": "teste de polígrafo Angola concept visual"
+          }
+        }
+      }
+    }
+  ]
+}

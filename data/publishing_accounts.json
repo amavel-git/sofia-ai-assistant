@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "wordpress": {
+    "local.ao": {
+      "site_url": "https://poligrafoangola.com",
+      "api_base": "https://poligrafoangola.com/wp-json/wp/v2",
+      "username_env": "SOFIA_WP_AO_USERNAME",
+      "application_password_env": "SOFIA_WP_AO_APP_PASSWORD",
+      "default_status": "draft",
+      "allow_publish": false
+    }
+  },
+  "social_media": {
+    "local.ao": {
+      "facebook": {
+        "enabled": false,
+        "page_id_env": "SOFIA_FB_AO_PAGE_ID",
+        "access_token_env": "SOFIA_FB_AO_TOKEN"
+      },
+      "x": {
+        "enabled": false,
+        "access_token_env": "SOFIA_X_AO_TOKEN"
+      },
+      "linkedin": {
+        "enabled": false,
+        "access_token_env": "SOFIA_LINKEDIN_AO_TOKEN"
+      }
+    }
+  }
+}

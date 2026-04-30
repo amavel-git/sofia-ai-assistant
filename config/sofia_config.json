@@ -1,0 +1,89 @@
+{
+  "assistant_name": "Sofia",
+  "chapter": "Chapter 1 - Sofia Foundation",
+  "version": "0.1",
+  "local_root": "C:\\AI\\assistants\\sofia",
+  "structure_mode": "workspace_based",
+  "default_language": "en",
+  "supported_languages": [
+    "en",
+    "es",
+    "fr",
+    "pt"
+  ],
+  "supported_workspace_types": [
+    "institutional",
+    "training",
+    "product",
+    "local_market"
+  ],
+  "supported_brands": [
+    "bear",
+    "institute",
+    "polar",
+    "local_sites"
+  ],
+  "draft_statuses": [
+    "idea",
+    "queued",
+    "drafting",
+    "review",
+    "approved",
+    "published",
+    "rejected",
+    "on_hold"
+  ],
+  "review_modes": [
+    "none",
+    "workspace_review",
+    "local_market_review"
+  ],
+  "features": {
+    "content_memory_enabled": true,
+    "cannibalization_check_enabled": true,
+    "review_queue_enabled": true,
+    "telegram_review_routing_enabled": true,
+    "wordpress_draft_publication_enabled": false,
+    "auto_publish_enabled": false
+  },
+  "workspace_rules": {
+    "workspace_memory_file": "site_content_memory.json",
+    "workspace_review_file": "review_queue.json",
+    "local_market_review_file": "local_review_queue.json",
+    "local_market_profile_file": "country_profile.json"
+  },
+  "naming_logic": {
+    "site_language_workspaces_use_real_language_naming": true,
+    "examples": [
+      "en.forensics",
+      "es.forensics",
+      "fr.forensics",
+      "pt.forensics",
+      "en.institute",
+      "es.institute",
+      "fr.institute",
+      "pt.institute",
+      "en.polygraph",
+      "fr.polygraph",
+      "es.poligrafo",
+      "pt.poligrafo"
+    ]
+  },
+  "local_market_logic": {
+    "local_market_folders_require_country_profile": true,
+    "local_market_folders_require_local_review_queue": true,
+    "local_market_folders_require_site_memory": true
+  },
+  "workspace_logic": {
+    "workspace_folders_require_site_memory": true,
+    "workspace_folders_require_review_queue": true,
+    "workspace_folders_require_country_profile": false
+  },
+  "notes": [
+    "Sofia is organized by workspace, not by country only.",
+    "A workspace is defined by brand, purpose, and language or market.",
+    "Cannibalization checks should happen inside the relevant workspace first.",
+    "Local market folders are operational units and may route drafts to country-specific Telegram groups.",
+    "Workspace folders such as forensics, institute, and polar are content memory units and may use a general review queue."
+  ]
+}

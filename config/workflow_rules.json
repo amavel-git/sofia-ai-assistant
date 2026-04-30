@@ -1,0 +1,75 @@
+{
+  "phase": "phase_1_manual",
+  "workflow_name": "sofia_content_workflow",
+  "description": "Manual workflow for content intake, workspace lookup, cannibalization check, draft creation, and review routing.",
+
+  "entry_point": {
+    "file": "sites/content_intake.json",
+    "root_key": "content_ideas"
+  },
+
+  "draft_registry": {
+    "file": "sites/draft_registry.json",
+    "root_key": "drafts"
+  },
+
+  "workspace_lookup": {
+    "file": "data/workspaces.json",
+    "match_field": "workspace_id",
+    "required_fields": [
+      "workspace_id",
+      "workspace_type",
+      "domain",
+      "folder_path",
+      "review_mode"
+    ]
+  },
+
+  "cannibalization_check": {
+    "enabled": true,
+    "scope": "target_workspace_only",
+    "memory_file_name": "site_content_memory.json",
+    "check_fields": [
+      "published_content",
+      "draft_content",
+      "content_topics",
+      "keyword_index"
+    ],
+    "results": [
+      "clear",
+      "possible_overlap",
+      "needs_review"
+    ]
+  },
+
+  "draft_creation": {
+    "enabled": true,
+    "source_status_required": "approved_for_draft",
+    "draft_id_prefix": "DRAFT-"
+  },
+
+  "review_routing": {
+    "workspace_review_file": "review_queue.json",
+    "local_market_review_file": "local_review_queue.json",
+    "review_modes": [
+      "workspace_review",
+      "local_market_review"
+    ]
+  },
+
+  "intake_statuses": [
+    "new",
+    "checked",
+    "approved_for_draft",
+    "converted_to_draft",
+    "rejected"
+  ],
+
+  "draft_statuses": [
+    "draft_created",
+    "in_review",
+    "approved",
+    "ready_for_wordpress",
+    "published"
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "workspace_id": "local.ao",
+  "description": "Local topic matching rules for Angola. These rules help Sofia distinguish exact dedicated coverage from broad related coverage.",
+
+  "topic_overrides": {
+
+    "polygraph_price": {
+      "exact_slug_signals": [
+        "preco-poligrafo",
+        "custo-poligrafo",
+        "valor-poligrafo",
+        "tarifa-poligrafo"
+      ],
+      "partial_slug_signals": [
+        "preco",
+        "custo",
+        "valor",
+        "poligrafo-ao",
+        "perguntas-respostas"
+      ]
+    },
+
+    "pre_employment_polygraph": {
+      "exact_slug_signals": [
+        "pre-emprego",
+        "pre-admissional",
+        "recrutamento",
+        "selecao-pessoal"
+      ],
+      "partial_slug_signals": [
+        "recursos-humanos",
+        "empresas",
+        "poligrafo-empresas"
+      ]
+    },
+
+    "maintenance_polygraph": {
+      "exact_slug_signals": [
+        "manutencao",
+        "teste-periodico",
+        "controlo-periodico",
+        "avaliacao-continua"
+      ],
+      "partial_slug_signals": [
+        "recursos-humanos",
+        "empresas",
+        "poligrafo-empresas"
+      ]
+    },
+
+    "infidelity_polygraph": {
+      "exact_slug_signals": [
+        "infidelidade",
+        "fidelidade",
+        "casais"
+      ],
+      "partial_slug_signals": [
+        "relacionamento"
+      ]
+    },
+
+    "employee_theft_polygraph": {
+      "exact_slug_signals": [
+        "roubo",
+        "furto"
+      ],
+      "partial_slug_signals": [
+        "recursos-humanos",
+        "empresas"
+      ]
+    },
+
+    "legal_polygraph": {
+      "exact_slug_signals": [
+        "legal",
+        "casos-legais",
+        "justica",
+        "juridico"
+      ],
+      "partial_slug_signals": [
+        "poligrafo-ao",
+        "perguntas-respostas"
+      ]
+    }
+
+  }
+}

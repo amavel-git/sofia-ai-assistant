@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "language": "pt",
+  "concept_terms": {
+    "anime_or_fiction_reference": [
+      "one piece"
+    ],
+    "game_or_toy_query": [
+      "jogo",
+      "brinquedo"
+    ],
+    "free_online_tool_query": [
+      "online grátis",
+      "grátis",
+      "gratis",
+      "site grátis",
+      "por voz grátis"
+    ],
+    "school_assignment_query": [
+      "escolar"
+    ],
+    "translation_query": [
+      "em espanhol"
+    ],
+    "unrelated_government_exam_query": [
+      "detran"
+    ],
+    "price_or_cost_query": [
+      "preço",
+      "valor",
+      "quanto custa"
+    ],
+    "where_to_do_test_query": [
+      "onde fazer",
+      "onde posso fazer"
+    ],
+    "company_or_corporate_testing_query": [
+      "empresa",
+      "empresas",
+      "corporativo"
+    ],
+    "relationship_or_infidelity_testing_query": [
+      "infidelidade",
+      "casal",
+      "relacionamento",
+      "traição",
+      "traicao"
+    ],
+    "criminal_or_forensic_testing_query": [
+      "criminal",
+      "forense"
+    ],
+    "employee_theft_or_internal_investigation_query": [
+      "roubo",
+      "furto",
+      "funcionário",
+      "funcionario",
+      "colaborador"
+    ],
+    "does_polygraph_work_query": [
+      "funciona"
+    ],
+    "polygraph_reliability_query": [
+      "confiável",
+      "confiavel"
+    ],
+    "polygraph_meaning_query": [
+      "significado"
+    ],
+    "what_is_polygraph_used_for_query": [
+      "para que serve"
+    ],
+    "polygraph_test_process_query": [
+      "teste"
+    ]
+  }
+}

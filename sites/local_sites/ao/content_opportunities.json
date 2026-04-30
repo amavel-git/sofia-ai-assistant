@@ -1,0 +1,300 @@
+{
+  "workspace_id": "local.ao",
+  "domain": "https://poligrafoangola.com",
+  "locale": "pt-PT",
+  "generated_at": "2026-04-27",
+  "covered_topics": [
+    {
+      "opportunity_id": "OPP-local.ao-polygraph_price",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "polygraph_price",
+      "topic_name": "Polygraph test price",
+      "priority": "high",
+      "recommended_action": "create_new_page",
+      "search_intent": "commercial",
+      "target_keyword": "polygraph price",
+      "secondary_keywords": [
+        "polygraph cost",
+        "lie detector test price"
+      ],
+      "suggested_slug": "polygraph-price",
+      "coverage_status": "covered_exact",
+      "matched_existing_url": "",
+      "matched_existing_slug": "preco-poligrafo-angola",
+      "matched_terms": [
+        "poligrafo",
+        "polígrafo",
+        "preco",
+        "preco-poligrafo",
+        "preço"
+      ],
+      "reason": "Dedicated local slug signal or strong exact match was found.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-infidelity_polygraph",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "infidelity_polygraph",
+      "topic_name": "Infidelity and relationship polygraph",
+      "priority": "high",
+      "recommended_action": "create_new_page",
+      "search_intent": "service",
+      "target_keyword": "infidelity polygraph",
+      "secondary_keywords": [
+        "relationship polygraph",
+        "lie detector test for couples"
+      ],
+      "suggested_slug": "infidelity-polygraph",
+      "coverage_status": "covered_exact",
+      "matched_existing_url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+      "matched_existing_slug": "poligrafo-infidelidade-fidelidade",
+      "matched_terms": [
+        "fidelidade",
+        "infidelidade"
+      ],
+      "reason": "Dedicated local slug signal or strong exact match was found.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-employee_theft_polygraph",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "employee_theft_polygraph",
+      "topic_name": "Employee theft polygraph",
+      "priority": "high",
+      "recommended_action": "create_new_page",
+      "search_intent": "service",
+      "target_keyword": "employee theft polygraph",
+      "secondary_keywords": [
+        "workplace polygraph",
+        "company lie detector test"
+      ],
+      "suggested_slug": "employee-theft-polygraph",
+      "coverage_status": "covered_exact",
+      "matched_existing_url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-roubo-furto/",
+      "matched_existing_slug": "poligrafo-roubo-furto",
+      "matched_terms": [
+        "furto",
+        "roubo"
+      ],
+      "reason": "Dedicated local slug signal or strong exact match was found.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-legal_polygraph",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "legal_polygraph",
+      "topic_name": "Legal and lawyer polygraph cases",
+      "priority": "medium",
+      "recommended_action": "create_new_page",
+      "search_intent": "service",
+      "target_keyword": "legal polygraph",
+      "secondary_keywords": [
+        "lawyer polygraph",
+        "polygraph for legal cases"
+      ],
+      "suggested_slug": "legal-polygraph",
+      "coverage_status": "covered_exact",
+      "matched_existing_url": "https://poligrafoangola.com/solucoes-pol/poligrafo-justica/",
+      "matched_existing_slug": "poligrafo-justica",
+      "matched_terms": [
+        "justica"
+      ],
+      "reason": "Dedicated local slug signal or strong exact match was found.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-how_polygraph_works",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "how_polygraph_works",
+      "topic_name": "How a polygraph test works",
+      "priority": "medium",
+      "recommended_action": "create_blog_post",
+      "search_intent": "informational",
+      "target_keyword": "how polygraph works",
+      "secondary_keywords": [
+        "how lie detector test works",
+        "polygraph procedure"
+      ],
+      "suggested_slug": "how-polygraph-works",
+      "coverage_status": "covered_exact",
+      "matched_existing_url": "https://poligrafoangola.com/poligrafo-ao/funcionamento-poligrafo/",
+      "matched_existing_slug": "funcionamento-poligrafo",
+      "matched_terms": [
+        "funcionamento",
+        "funciona"
+      ],
+      "reason": "Related informational content is sufficient for this non-dedicated topic.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-polygraph_faq",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "polygraph_faq",
+      "topic_name": "Polygraph questions and answers",
+      "priority": "medium",
+      "recommended_action": "create_blog_post",
+      "search_intent": "informational",
+      "target_keyword": "polygraph FAQ",
+      "secondary_keywords": [
+        "polygraph questions",
+        "lie detector questions"
+      ],
+      "suggested_slug": "polygraph-faq",
+      "coverage_status": "covered_exact",
+      "matched_existing_url": "https://poligrafoangola.com/poligrafo-ao/perguntas-respostas/",
+      "matched_existing_slug": "perguntas-respostas",
+      "matched_terms": [
+        "respostas",
+        "perguntas-respostas",
+        "perguntas respostas",
+        "perguntas"
+      ],
+      "reason": "Related informational content is sufficient for this non-dedicated topic.",
+      "status": "new",
+      "notes": ""
+    }
+  ],
+  "partial_opportunities": [
+    {
+      "opportunity_id": "OPP-local.ao-local_polygraph_service",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "local_polygraph_service",
+      "topic_name": "Polygraph test service in local market",
+      "priority": "high",
+      "recommended_action": "create_new_page",
+      "search_intent": "service",
+      "target_keyword": "polygraph test",
+      "secondary_keywords": [
+        "lie detector test",
+        "polygraph service"
+      ],
+      "suggested_slug": "polygraph-test",
+      "coverage_status": "covered_partial",
+      "matched_existing_url": "",
+      "matched_existing_slug": "teste-poligrafo-angola",
+      "matched_terms": [
+        "test",
+        "teste",
+        "polígrafo",
+        "poligrafo"
+      ],
+      "reason": "Related content exists, but no dedicated page was detected.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-pre_employment_polygraph",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "pre_employment_polygraph",
+      "topic_name": "Pre-employment polygraph testing",
+      "priority": "high",
+      "recommended_action": "create_new_page",
+      "search_intent": "commercial",
+      "target_keyword": "pre employment polygraph",
+      "secondary_keywords": [
+        "pre employment lie detector test",
+        "polygraph screening employees"
+      ],
+      "suggested_slug": "pre-employment-polygraph",
+      "coverage_status": "covered_partial",
+      "matched_existing_url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-recursos-humanos/",
+      "matched_existing_slug": "poligrafo-recursos-humanos",
+      "matched_terms": [
+        "recursos-humanos",
+        "recursos humanos",
+        "humanos",
+        "recursos"
+      ],
+      "reason": "Related content exists, but no dedicated page was detected.",
+      "status": "new",
+      "notes": ""
+    },
+    {
+      "opportunity_id": "OPP-local.ao-maintenance_polygraph",
+      "created_at": "2026-04-27",
+      "workspace_id": "local.ao",
+      "workspace_type": "local_market",
+      "workspace_path": "sites/local_sites/ao",
+      "domain": "https://poligrafoangola.com",
+      "market_code": "ao",
+      "language": "pt",
+      "topic_id": "maintenance_polygraph",
+      "topic_name": "Employee maintenance polygraph testing",
+      "priority": "high",
+      "recommended_action": "create_new_page",
+      "search_intent": "commercial",
+      "target_keyword": "employee maintenance polygraph",
+      "secondary_keywords": [
+        "periodic polygraph testing employees",
+        "polygraph employee screening ongoing"
+      ],
+      "suggested_slug": "employee-maintenance-polygraph",
+      "coverage_status": "covered_partial",
+      "matched_existing_url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-recursos-humanos/",
+      "matched_existing_slug": "poligrafo-recursos-humanos",
+      "matched_terms": [
+        "recursos-humanos",
+        "recursos humanos",
+        "humanos",
+        "recursos"
+      ],
+      "reason": "Related content exists, but no dedicated page was detected.",
+      "status": "new",
+      "notes": ""
+    }
+  ],
+  "missing_opportunities": []
+}

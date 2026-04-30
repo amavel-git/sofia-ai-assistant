@@ -1,0 +1,18 @@
+{
+  "workspace_info": {
+    "workspace_id": "local.es",
+    "brand": "local_sites",
+    "workspace_type": "local_market",
+    "language": "es",
+    "market_code": "es",
+    "domain": "https://poligrafoespana.com",
+    "base_path": "/"
+  },
+  "published_content": [],
+  "draft_content": [],
+  "content_topics": [],
+  "keyword_index": [],
+  "protected_topics": [],
+  "cannibalization_notes": [],
+  "content_opportunities": []
+}

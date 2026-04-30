@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "description": "Global conceptual filtering rules for Sofia external signals. Local files provide language-specific terms.",
+  "default_action": "needs_review",
+  "actions": {
+    "relevant": "Signal appears commercially or informationally useful.",
+    "noise": "Signal is irrelevant, misleading, entertainment-related, or not useful for Sofia content strategy.",
+    "needs_review": "Signal may be useful but requires human or later AI review."
+  },
+  "concept_filters": {
+    "reject_concepts": [
+      "anime_or_fiction_reference",
+      "game_or_toy_query",
+      "free_online_tool_query",
+      "school_assignment_query",
+      "translation_query",
+      "unrelated_government_exam_query"
+    ],
+    "business_concepts": [
+      "price_or_cost_query",
+      "where_to_do_test_query",
+      "service_availability_query",
+      "company_or_corporate_testing_query",
+      "relationship_or_infidelity_testing_query",
+      "criminal_or_forensic_testing_query",
+      "employee_theft_or_internal_investigation_query"
+    ],
+    "informational_concepts": [
+      "does_polygraph_work_query",
+      "polygraph_reliability_query",
+      "polygraph_meaning_query",
+      "what_is_polygraph_used_for_query",
+      "polygraph_test_process_query"
+    ],
+    "high_intent_concepts": [
+      "price_or_cost_query",
+      "where_to_do_test_query",
+      "service_availability_query",
+      "company_or_corporate_testing_query",
+      "relationship_or_infidelity_testing_query",
+      "criminal_or_forensic_testing_query"
+    ]
+  },
+  "priority_logic": {
+    "reject_overrides_relevant": true,
+    "high_intent_default_priority": "high",
+    "business_default_priority": "medium",
+    "informational_default_priority": "medium",
+    "unknown_default_priority": "low"
+  },
+  "notes": [
+    "This file is language-neutral and applies globally.",
+    "Language-specific terms belong in local signal filter files.",
+    "Reject concepts override business and informational concepts.",
+    "Local markets may add or disable concepts using local overrides."
+  ]
+}

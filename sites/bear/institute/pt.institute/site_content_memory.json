@@ -1,0 +1,18 @@
+{
+  "workspace_info": {
+    "workspace_id": "pt.institute",
+    "brand": "institute",
+    "workspace_type": "training",
+    "language": "pt-PT",
+    "market_code": "global",
+    "domain": "https://institute.bearforensics.com/pt",
+    "base_path": "/"
+  },
+  "published_content": [],
+  "draft_content": [],
+  "content_topics": [],
+  "keyword_index": [],
+  "protected_topics": [],
+  "cannibalization_notes": [],
+  "content_opportunities": []
+}

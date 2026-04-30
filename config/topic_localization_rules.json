@@ -1,0 +1,106 @@
+{
+  "en": {
+    "polygraph": ["polygraph", "lie detector", "truth verification"],
+    "test": ["test", "examination", "exam"],
+    "price": ["price", "cost", "fee", "pricing"],
+    "infidelity": ["infidelity", "cheating", "fidelity", "unfaithfulness"],
+    "relationship": ["relationship", "couples", "partner", "marriage"],
+    "employee": ["employee", "staff", "workplace", "human resources", "hr"],
+    "theft": ["theft", "stealing", "robbery", "fraud"],
+    "pre employment": ["pre employment", "pre-employment", "screening", "background check"],
+    "maintenance": ["maintenance", "periodic", "ongoing screening"],
+    "legal": ["legal", "lawyer", "attorney", "court", "justice"],
+    "how works": ["how it works", "procedure", "process", "functioning"],
+    "faq": ["faq", "questions", "answers", "frequently asked questions"]
+  },
+
+  "fr": {
+    "polygraph": ["polygraphe", "détecteur de mensonges", "détection du mensonge"],
+    "test": ["test", "examen", "épreuve"],
+    "price": ["prix", "coût", "tarif"],
+    "infidelity": ["infidélité", "fidélité", "adultère", "tromperie"],
+    "relationship": ["couple", "relation", "relations", "conjoint", "partenaire"],
+    "employee": ["employé", "salarié", "personnel", "ressources humaines", "rh"],
+    "theft": ["vol", "détournement", "fraude"],
+    "pre employment": ["pré-emploi", "pré emploi", "recrutement", "sélection du personnel"],
+    "maintenance": ["maintenance", "contrôle périodique", "suivi du personnel"],
+    "legal": ["juridique", "légal", "avocat", "justice", "tribunal"],
+    "how works": ["fonctionnement", "comment ça marche", "procédure"],
+    "faq": ["faq", "questions fréquentes", "questions", "réponses"]
+  },
+
+  "pt-PT": {
+    "polygraph": ["polígrafo", "poligrafo", "detetor de mentiras", "detector de mentiras"],
+    "test": ["teste", "exame", "avaliação"],
+    "price": ["preço", "preco", "custo", "valor", "tarifa"],
+    "infidelity": ["infidelidade", "fidelidade", "adultério", "traição"],
+    "relationship": ["casais", "casal", "relacionamento", "relação", "conjugal"],
+    "employee": ["funcionário", "funcionarios", "colaborador", "colaboradores", "recursos humanos", "rh"],
+    "theft": ["roubo", "furto", "desvio", "fraude"],
+    "pre employment": ["pré-emprego", "pre emprego", "recrutamento", "seleção de pessoal"],
+    "maintenance": ["manutenção", "controlo periódico", "teste periódico", "avaliação contínua"],
+    "legal": ["legal", "jurídico", "juridico", "advogado", "advogados", "justiça", "justica"],
+    "how works": ["funcionamento", "como funciona", "procedimento"],
+    "faq": ["perguntas respostas", "perguntas-respostas", "perguntas frequentes", "perguntas", "respostas"]
+  },
+
+  "pt-BR": {
+    "polygraph": ["polígrafo", "poligrafo", "detector de mentiras"],
+    "test": ["teste", "exame", "avaliação"],
+    "price": ["preço", "preco", "custo", "valor"],
+    "infidelity": ["infidelidade", "fidelidade", "adultério", "traição"],
+    "relationship": ["casais", "casal", "relacionamento", "relação", "cônjuge"],
+    "employee": ["funcionário", "funcionarios", "colaborador", "colaboradores", "recursos humanos", "rh"],
+    "theft": ["roubo", "furto", "desvio", "fraude"],
+    "pre employment": ["pré-admissional", "pre admissional", "pré-emprego", "processo seletivo"],
+    "maintenance": ["manutenção", "teste periódico", "avaliação periódica", "triagem contínua"],
+    "legal": ["legal", "jurídico", "juridico", "advogado", "advogados", "justiça", "justica"],
+    "how works": ["funcionamento", "como funciona", "procedimento"],
+    "faq": ["perguntas frequentes", "perguntas", "respostas", "faq"]
+  },
+
+  "es": {
+    "polygraph": ["polígrafo", "poligrafo", "detector de mentiras"],
+    "test": ["test", "prueba", "examen"],
+    "price": ["precio", "coste", "costo", "tarifa", "valor"],
+    "infidelity": ["infidelidad", "fidelidad", "adulterio", "engaño"],
+    "relationship": ["pareja", "relación", "relacion", "matrimonio", "cónyuge"],
+    "employee": ["empleado", "empleados", "personal", "recursos humanos", "rrhh"],
+    "theft": ["robo", "hurto", "fraude", "sustracción"],
+    "pre employment": ["pre empleo", "pre-empleo", "prelaboral", "selección de personal"],
+    "maintenance": ["mantenimiento", "control periódico", "evaluación periódica"],
+    "legal": ["legal", "jurídico", "juridico", "abogado", "abogados", "justicia", "tribunal"],
+    "how works": ["funcionamiento", "como funciona", "procedimiento"],
+    "faq": ["preguntas frecuentes", "preguntas", "respuestas", "faq"]
+  },
+
+  "ru": {
+    "polygraph": ["полиграф", "детектор лжи", "проверка на полиграфе"],
+    "test": ["тест", "проверка", "экзамен", "исследование"],
+    "price": ["цена", "стоимость", "тариф"],
+    "infidelity": ["измена", "верность", "неверность", "супружеская измена"],
+    "relationship": ["отношения", "пара", "супруг", "партнер", "брак"],
+    "employee": ["сотрудник", "персонал", "работник", "кадры", "hr"],
+    "theft": ["кража", "хищение", "мошенничество"],
+    "pre employment": ["проверка при приеме на работу", "предварительная проверка", "скрининг персонала"],
+    "maintenance": ["периодическая проверка", "плановая проверка", "контроль персонала"],
+    "legal": ["юридический", "правовой", "адвокат", "суд", "правосудие"],
+    "how works": ["как работает", "процедура", "процесс"],
+    "faq": ["частые вопросы", "вопросы и ответы", "faq"]
+  },
+
+  "tr": {
+    "polygraph": ["poligraf", "yalan makinesi", "yalan testi"],
+    "test": ["test", "muayene", "inceleme"],
+    "price": ["fiyat", "ücret", "ucret", "maliyet"],
+    "infidelity": ["aldatma", "sadakat", "ihanet", "evlilik sadakati"],
+    "relationship": ["ilişki", "iliski", "çift", "cift", "eş", "es", "partner"],
+    "employee": ["çalışan", "calisan", "personel", "insan kaynakları", "ik"],
+    "theft": ["hırsızlık", "hirsizlik", "çalma", "calma", "dolandırıcılık"],
+    "pre employment": ["işe alım", "ise alim", "iş öncesi", "ise oncesi", "personel tarama"],
+    "maintenance": ["periyodik test", "düzenli kontrol", "personel kontrolü"],
+    "legal": ["hukuki", "yasal", "avukat", "mahkeme", "adalet"],
+    "how works": ["nasıl çalışır", "nasil calisir", "prosedür", "surec"],
+    "faq": ["sık sorulan sorular", "sik sorulan sorular", "sorular", "cevaplar"]
+  }
+}

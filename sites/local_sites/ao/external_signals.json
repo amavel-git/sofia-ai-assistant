@@ -1,0 +1,591 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "signals": [
+    {
+      "id": "SIG-AO-001",
+      "created_at": "2026-04-27",
+      "source": "examiner_request",
+      "source_detail": "manual_input",
+      "submitted_by": "admin",
+      "language": "pt",
+      "raw_signal": "Create a page about post-conviction sex offender polygraph testing.",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Initial test signal for Sofia external intelligence workflow.",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-002",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-003",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo significado",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "polygraph_meaning_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-001"
+    },
+    {
+      "id": "SIG-AO-004",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo funciona",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "does_polygraph_work_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-002"
+    },
+    {
+      "id": "SIG-AO-005",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo escolar",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "school_assignment_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-006",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo é confiável",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "polygraph_reliability_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-003"
+    },
+    {
+      "id": "SIG-AO-007",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo teste",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-004"
+    },
+    {
+      "id": "SIG-AO-008",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafos",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-009",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo preço",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "price_or_cost_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "high",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-005"
+    },
+    {
+      "id": "SIG-AO-010",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo em espanhol",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "translation_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-011",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "polígrafo one piece",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo",
+      "detected_concepts": [
+        "anime_or_fiction_reference"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-012",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de polígrafo",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-006"
+    },
+    {
+      "id": "SIG-AO-013",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de polígrafo para que serve",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "what_is_polygraph_used_for_query",
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-007"
+    },
+    {
+      "id": "SIG-AO-014",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de poligrafo funciona",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "does_polygraph_work_query",
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-008"
+    },
+    {
+      "id": "SIG-AO-015",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de poligrafo onde fazer",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "where_to_do_test_query",
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "high",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-009"
+    },
+    {
+      "id": "SIG-AO-016",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de poligrafo é confiável",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "polygraph_reliability_query",
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-010"
+    },
+    {
+      "id": "SIG-AO-017",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de poligrafo em fortaleza",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-011"
+    },
+    {
+      "id": "SIG-AO-018",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de poligrafo brasil",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-012"
+    },
+    {
+      "id": "SIG-AO-019",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste de poligrafo valor",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "price_or_cost_query",
+        "polygraph_test_process_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "high",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-013"
+    },
+    {
+      "id": "SIG-AO-020",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "teste polígrafo detran",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: teste de polígrafo",
+      "detected_concepts": [
+        "unrelated_government_exam_query",
+        "polygraph_test_process_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-021",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-022",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras online",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-023",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras funciona",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [
+        "does_polygraph_work_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "medium",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-014"
+    },
+    {
+      "id": "SIG-AO-024",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras real",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-025",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras nome",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-026",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras online por voz grátis",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [
+        "free_online_tool_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-027",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras online grátis",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [
+        "free_online_tool_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-028",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras jogo",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [
+        "game_or_toy_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-029",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras brinquedo",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [
+        "game_or_toy_query"
+      ],
+      "classification": "noise",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-030",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "detector de mentiras site",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: detector de mentiras",
+      "detected_concepts": [],
+      "classification": "needs_review",
+      "priority_hint": "low"
+    },
+    {
+      "id": "SIG-AO-031",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "poligrafo empresa",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo empresa",
+      "detected_concepts": [
+        "company_or_corporate_testing_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "high",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-015"
+    },
+    {
+      "id": "SIG-AO-032",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "poligrafo para empresas",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo empresa",
+      "detected_concepts": [
+        "company_or_corporate_testing_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "high",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-016"
+    },
+    {
+      "id": "SIG-AO-033",
+      "created_at": "2026-04-27",
+      "source": "web_search",
+      "source_detail": "google_suggestions",
+      "submitted_by": "sofia",
+      "language": "pt",
+      "raw_signal": "prueba del poligrafo empresas",
+      "country": "AO",
+      "status": "processed",
+      "notes": "Discovered from Google suggestions using seed keyword: polígrafo empresa",
+      "detected_concepts": [
+        "company_or_corporate_testing_query"
+      ],
+      "classification": "relevant",
+      "priority_hint": "high",
+      "converted_to_opportunity": true,
+      "opportunity_id": "OPP-AO-017"
+    }
+  ]
+}

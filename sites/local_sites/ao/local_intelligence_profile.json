@@ -1,0 +1,86 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "country": {
+    "name": "Angola",
+    "code": "AO",
+    "primary_language": "pt",
+    "secondary_languages": []
+  },
+  "site": {
+    "domain": "https://poligrafoangola.com",
+    "purpose": "lead_generation",
+    "market_size": "small",
+    "priority_level": "test_workspace"
+  },
+  "telegram": {
+    "content_group_name": "Content Angola",
+    "content_group_id": "",
+    "approval_required": true
+  },
+  "search_seed_keywords": [
+  "polígrafo",
+  "teste de polígrafo",
+  "detector de mentiras",
+  "polígrafo infidelidade",
+  "polígrafo empresa",
+  "polígrafo criminal"
+  ],
+  "local_geo_terms": [
+  "angola",
+  "luanda"
+  ],
+  "foreign_geo_terms": [
+    "brasil",
+    "fortaleza",
+    "lisboa",
+    "portugal",
+    "madrid",
+    "españa"
+  ],
+  "priority_services": [
+    "infidelity polygraph testing",
+    "employee theft polygraph testing",
+    "criminal case polygraph testing",
+    "corporate polygraph testing",
+    "post-conviction sex offender polygraph testing"
+  ],
+  "sensitive_topics": [
+    {
+      "topic": "post-conviction sex offender polygraph testing",
+      "status": "requires_examiner_review",
+      "notes": "Must be adapted carefully to local legal, clinical, and forensic context."
+    },
+    {
+      "topic": "court admissibility",
+      "status": "requires_examiner_review",
+      "notes": "Avoid making legal guarantees."
+    },
+    {
+      "topic": "employment screening",
+      "status": "requires_examiner_review",
+      "notes": "Must avoid unsupported claims about legality or mandatory use."
+    }
+  ],
+  "topics_to_avoid": [],
+  "preferred_content_types": [
+    "service_page",
+    "landing_page",
+    "faq",
+    "blog_post",
+    "social_post"
+  ],
+  "local_sources_to_monitor": {
+    "search_engines": [
+      "Google Angola",
+      "Google Portugal"
+    ],
+    "competitor_sites": [],
+    "news_sources": [],
+    "social_sources": [],
+    "examiner_sources": [
+      "Content Angola Telegram group"
+    ]
+  },
+  "notes": "Angola is being used as the first test workspace for Sofia external intelligence. The structure must remain reusable for all countries."
+}

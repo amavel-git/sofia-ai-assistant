@@ -1,0 +1,176 @@
+{
+  "version": "1.0",
+  "description": "Global internal linking rules for Sofia. This file defines structural SEO linking behavior. Local anchor text and language-specific wording should be handled by local or language-specific files.",
+
+  "page_role_rules": {
+    "service_page": {
+      "should_link_to": [
+        "faq",
+        "how_it_works",
+        "contact",
+        "related_service"
+      ],
+      "reason": "Service pages should support user trust, answer questions, explain the process, and guide users toward conversion."
+    },
+
+    "pillar": {
+      "should_link_to": [
+        "service_page",
+        "faq",
+        "how_it_works",
+        "contact"
+      ],
+      "reason": "Pillar pages should distribute authority to supporting service and informational pages."
+    },
+
+    "category": {
+      "should_link_to": [
+        "child_service_page"
+      ],
+      "reason": "Category pages should guide users to specific child service pages."
+    },
+
+    "info_page": {
+      "should_link_to": [
+        "main_service_page",
+        "related_service",
+        "faq",
+        "contact"
+      ],
+      "reason": "Informational pages should guide users toward relevant service pages and conversion paths."
+    },
+
+    "faq": {
+      "should_link_to": [
+        "main_service_page",
+        "related_service",
+        "contact"
+      ],
+      "reason": "FAQ pages should answer doubts and guide users to relevant service pages."
+    },
+
+    "blog_post": {
+      "should_link_to": [
+        "main_service_page",
+        "related_service",
+        "faq"
+      ],
+      "reason": "Blog posts should support topical authority and send users toward service pages."
+    },
+
+    "contact": {
+      "should_link_to": [],
+      "reason": "Contact pages are conversion endpoints and usually do not need many outgoing internal links."
+    }
+  },
+
+  "topic_relationships": {
+    "infidelity_polygraph": {
+      "related_topics": [
+        "how_polygraph_works",
+        "polygraph_faq",
+        "legal_polygraph",
+        "local_polygraph_service"
+      ]
+    },
+
+    "employee_theft_polygraph": {
+      "related_topics": [
+        "pre_employment_polygraph",
+        "maintenance_polygraph",
+        "polygraph_faq",
+        "how_polygraph_works",
+        "local_polygraph_service"
+      ]
+    },
+
+    "pre_employment_polygraph": {
+      "related_topics": [
+        "employee_theft_polygraph",
+        "maintenance_polygraph",
+        "polygraph_faq",
+        "how_polygraph_works",
+        "local_polygraph_service"
+      ]
+    },
+
+    "maintenance_polygraph": {
+      "related_topics": [
+        "pre_employment_polygraph",
+        "employee_theft_polygraph",
+        "polygraph_faq",
+        "how_polygraph_works",
+        "local_polygraph_service"
+      ]
+    },
+
+    "legal_polygraph": {
+      "related_topics": [
+        "polygraph_faq",
+        "how_polygraph_works",
+        "local_polygraph_service"
+      ]
+    },
+
+    "polygraph_price": {
+      "related_topics": [
+        "local_polygraph_service",
+        "polygraph_faq",
+        "contact"
+      ]
+    },
+
+    "how_polygraph_works": {
+      "related_topics": [
+        "local_polygraph_service",
+        "polygraph_faq",
+        "infidelity_polygraph",
+        "employee_theft_polygraph",
+        "legal_polygraph"
+      ]
+    },
+
+    "polygraph_faq": {
+      "related_topics": [
+        "local_polygraph_service",
+        "how_polygraph_works",
+        "infidelity_polygraph",
+        "employee_theft_polygraph",
+        "legal_polygraph"
+      ]
+    }
+  },
+
+  "link_priority_rules": {
+    "service_page_to_faq": "high",
+    "service_page_to_how_it_works": "high",
+    "service_page_to_contact": "high",
+    "pillar_to_service_page": "high",
+    "blog_post_to_service_page": "medium",
+    "info_page_to_service_page": "medium",
+    "faq_to_service_page": "medium",
+    "category_to_child_service_page": "medium",
+    "related_service_to_related_service": "medium",
+    "partial_topic_to_main_service_page": "medium"
+  },
+
+  "link_types": [
+    "supporting_information",
+    "conversion",
+    "topic_related",
+    "silo_support",
+    "navigation",
+    "partial_topic_support"
+  ],
+
+  "anchor_text_strategy": {
+    "description": "Anchor text should be generated or localized outside this global file.",
+    "rules": [
+      "Use descriptive anchor text.",
+      "Avoid generic anchors such as click here.",
+      "Use the target page topic naturally.",
+      "Do not overuse exact-match keywords.",
+      "Adapt anchor text to the workspace language and locale."
+    ]
+  }
+}

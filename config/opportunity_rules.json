@@ -1,0 +1,260 @@
+{
+  "phase": "chapter_3_phase_1",
+  "name": "sofia_opportunity_decision_rules",
+  "description": "Basic rules for deciding whether a content opportunity should become a webpage update, new page, blog post, social media post, monitoring item, or no action.",
+
+  "allowed_actions": [
+    "create_new_page",
+    "update_existing_page",
+    "review_existing_content",
+    "create_blog_post",
+    "create_social_post",
+    "monitor_only",
+    "no_action"
+  ],
+
+  "content_action_types": {
+    "website_actions": [
+      "create_new_page",
+      "update_existing_page",
+      "review_existing_content",
+      "create_blog_post"
+    ],
+    "social_actions": [
+      "create_social_post"
+    ],
+    "non_publishing_actions": [
+      "monitor_only",
+      "no_action"
+    ]
+  },
+
+  "allowed_social_channels": [
+    "facebook",
+    "x",
+    "linkedin",
+    "instagram",
+    "telegram",
+    "youtube",
+    "none"
+  ],
+
+  "decision_inputs": [
+    "idea_title",
+    "idea_summary",
+    "target_keyword",
+    "suggested_slug",
+    "content_type",
+    "search_intent",
+    "workspace_id",
+    "source",
+    "source_platform",
+    "country_code",
+    "language"
+  ],
+
+  "comparison_sources": {
+    "primary": "site_structure.json",
+    "secondary": "site_content_memory.json",
+    "workflow": "draft_registry.json",
+    "country_context": "country_profile.json",
+    "social_context": "country_groups.json"
+  },
+
+  "decision_priority_order": [
+    "safety_or_unsuitable_check",
+    "duplicate_draft_check",
+    "existing_page_check",
+    "memory_keyword_check",
+    "website_opportunity_check",
+    "social_opportunity_check",
+    "monitoring_check"
+  ],
+
+  "website_decision_factors": [
+    "existing_slug",
+    "existing_topic",
+    "existing_keyword",
+    "search_intent",
+    "commercial_value",
+    "service_relevance",
+    "evergreen_value",
+    "local_market_relevance"
+  ],
+
+  "social_decision_factors": [
+    "source_platform",
+    "country_platform_preferences",
+    "topic_timeliness",
+    "topic_size",
+    "audience_relevance",
+    "public_interest",
+    "does_not_require_webpage_change"
+  ],
+
+  "link_back_strategy": {
+  "enabled": true,
+  "required_when_relevant": true,
+  "prefer_existing_page": true,
+  "create_page_if_missing_and_important": true,
+  "apply_to_actions": [
+    "create_social_post",
+    "create_blog_post"
+  ],
+  "purpose": [
+    "drive traffic to existing pages",
+    "strengthen topical authority",
+    "support internal linking",
+    "increase backlink potential"
+  ]
+  },
+
+  "default_social_channel_logic": {
+    "if_source_platform_is_known": "prefer_same_platform_if_allowed_for_country",
+    "if_source_platform_is_unknown": "use_country_default_social_channel",
+    "if_no_country_preference_exists": "facebook"
+  },
+
+  "recommended_output_format": {
+    "recommended_action": "",
+    "recommended_channel": "none",
+    "confidence": "low | medium | high",
+    "reason": "",
+    "related_existing_url": "",
+    "related_existing_draft_id": "",
+    "should_enter_workflow_engine": false
+  },
+
+  "workflow_entry_rules": {
+    "create_new_page": {
+      "send_to_content_intake": true,
+      "reason": "A new SEO page may be needed."
+    },
+    "update_existing_page": {
+      "send_to_content_intake": false,
+      "reason": "This should update an existing URL, not create a new draft page."
+    },
+    "create_blog_post": {
+      "send_to_content_intake": true,
+      "reason": "A blog post can enter the content workflow."
+    },
+    "create_social_post": {
+      "send_to_content_intake": false,
+      "reason": "Social content should enter a separate social workflow, not the webpage draft workflow."
+    },
+    "review_existing_content": {
+      "send_to_content_intake": false,
+      "reason": "Existing page or draft should be reviewed before creating anything new."
+    },
+    "monitor_only": {
+      "send_to_content_intake": false,
+      "reason": "Store or observe the opportunity, but do not publish yet."
+    },
+    "no_action": {
+      "send_to_content_intake": false,
+      "reason": "No content action should be taken."
+    }
+  },
+
+  "rules": [
+    {
+      "rule_id": "RULE-001",
+      "name": "Unsafe or unsuitable topic",
+      "condition": "Topic is inappropriate for professional, legal, ethical, brand, or safety reasons.",
+      "recommended_action": "no_action",
+      "recommended_channel": "none",
+      "confidence": "high",
+      "reason": "The idea should not be developed as public content."
+    },
+    {
+      "rule_id": "RULE-002",
+      "name": "Exact duplicate already in draft registry",
+      "condition": "Target keyword matches an existing draft in the same workspace.",
+      "recommended_action": "no_action",
+      "recommended_channel": "none",
+      "confidence": "high",
+      "reason": "The idea is already in Sofia's draft pipeline."
+    },
+    {
+      "rule_id": "RULE-003",
+      "name": "Exact slug already exists",
+      "condition": "Suggested slug matches an existing slug in site_structure.json.",
+      "recommended_action": "update_existing_page",
+      "recommended_channel": "none",
+      "confidence": "high",
+      "reason": "The page already exists and should not be recreated."
+    },
+    {
+      "rule_id": "RULE-004",
+      "name": "Exact keyword already exists in workspace memory",
+      "condition": "Target keyword matches keyword_index or draft_content in site_content_memory.json.",
+      "recommended_action": "update_existing_page",
+      "recommended_channel": "none",
+      "confidence": "high",
+      "reason": "The keyword is already covered or in progress."
+    },
+    {
+      "rule_id": "RULE-005",
+      "name": "Commercial or service topic missing",
+      "condition": "Search intent is service or commercial and no matching slug, keyword, or draft exists.",
+      "recommended_action": "create_new_page",
+      "recommended_channel": "none",
+      "confidence": "medium",
+      "reason": "The topic may deserve a dedicated SEO page."
+    },
+    {
+      "rule_id": "RULE-006",
+      "name": "Informational topic missing",
+      "condition": "Search intent is informational and no matching slug, keyword, or draft exists.",
+      "recommended_action": "create_blog_post",
+      "recommended_channel": "none",
+      "confidence": "medium",
+      "reason": "The topic is educational and may be better as a blog post."
+    },
+    {
+      "rule_id": "RULE-007",
+      "name": "Useful but too small for webpage",
+      "condition": "Topic is useful, relevant, and short, but does not justify a full webpage or blog post.",
+      "recommended_action": "create_social_post",
+      "recommended_channel": "use_social_channel_logic",
+      "confidence": "medium",
+      "reason": "The topic is better suited for social media than permanent website content."
+    },
+    {
+      "rule_id": "RULE-008",
+      "name": "Source came from social media",
+      "condition": "Opportunity source is a social platform and no website update is required.",
+      "recommended_action": "create_social_post",
+      "recommended_channel": "prefer_source_platform",
+      "confidence": "medium",
+      "reason": "The opportunity came from social media and may be best answered on the same or preferred local platform."
+    },
+    {
+      "rule_id": "RULE-009",
+      "name": "Timely local market item",
+      "condition": "Topic is locally relevant and timely, but not evergreen enough for a webpage.",
+      "recommended_action": "create_social_post",
+      "recommended_channel": "use_country_default_social_channel",
+      "confidence": "medium",
+      "reason": "The content is locally relevant but better suited to short-form communication."
+    },
+    {
+      "rule_id": "RULE-010",
+      "name": "Potential future opportunity",
+      "condition": "Topic may become useful later but is not strong enough for publication now.",
+      "recommended_action": "monitor_only",
+      "recommended_channel": "none",
+      "confidence": "low",
+      "reason": "The opportunity should be kept under observation but not published yet."
+    },
+    {
+      "rule_id": "RULE-011",
+      "name": "Existing webpage sufficient but social reminder useful",
+      "condition": "Relevant webpage already exists, no page update is needed, but the topic can be promoted socially.",
+      "recommended_action": "create_social_post",
+      "recommended_channel": "use_social_channel_logic",
+      "confidence": "medium",
+      "reason": "No website change is needed, but the existing content can be reused or promoted on social media."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "sources": {
+    "examiner_request": {
+      "description": "Direct content request from a local examiner or coordinator.",
+      "trust_level": "high",
+      "requires_human_validation": false
+    },
+    "examiner_signal": {
+      "description": "Observation from examiner about repeated client questions or local demand.",
+      "trust_level": "high",
+      "requires_human_validation": true
+    },
+    "web_search": {
+      "description": "Opportunity detected from search engine results or suggestions.",
+      "trust_level": "medium",
+      "requires_human_validation": true
+    },
+    "competitor_site": {
+      "description": "Topic detected from competitor websites or similar service providers.",
+      "trust_level": "medium",
+      "requires_human_validation": true
+    },
+    "social_media": {
+      "description": "Topic detected from social media posts, groups, videos, or public discussions.",
+      "trust_level": "low",
+      "requires_human_validation": true
+    },
+    "news_or_legal_update": {
+      "description": "Topic detected from news, legislation, legal cases, or public institutional information.",
+      "trust_level": "medium",
+      "requires_human_validation": true
+    },
+    "website_gap": {
+      "description": "Missing or weak topic detected from Sofia's own website analysis.",
+      "trust_level": "high",
+      "requires_human_validation": true
+    }
+  }
+}

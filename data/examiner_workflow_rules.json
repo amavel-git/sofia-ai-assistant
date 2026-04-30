@@ -1,0 +1,129 @@
+{
+  "workflow_name": "SOFIA Examiner Review Workflow",
+  "version": "1.0",
+  "purpose": "Manage examiner validation of Sofia-generated SEO drafts before publication.",
+
+  "responsibility_separation": {
+    "sofia_responsibilities": [
+      "SEO structure",
+      "GEO and AI-friendly formatting",
+      "keyword targeting",
+      "draft generation",
+      "internal link suggestions",
+      "cannibalization avoidance",
+      "publishing preparation"
+    ],
+    "examiner_responsibilities": [
+      "Professional correctness",
+      "Local legal and cultural suitability",
+      "Service availability",
+      "Local terminology accuracy",
+      "Pricing or logistical accuracy",
+      "Final content approval before publication"
+    ]
+  },
+
+  "review_statuses": {
+    "draft_created": "Draft exists but has not yet been sent to the examiner.",
+    "in_examiner_review": "Draft has been sent to the examiner for review.",
+    "revision_requested": "Examiner requested changes.",
+    "revised_by_sofia": "Sofia has revised the draft after examiner feedback.",
+    "approved_by_examiner": "Examiner approved the draft.",
+    "rejected_by_examiner": "Examiner rejected the draft.",
+    "ready_for_publishing": "Draft is approved and can enter the publishing pipeline.",
+    "published": "Draft has been published."
+  },
+
+  "allowed_examiner_actions": {
+    "approve": {
+      "meaning": "Examiner approves the draft for publication preparation.",
+      "new_status": "approved_by_examiner",
+      "requires_comment": false
+    },
+    "revise": {
+      "meaning": "Examiner requests changes before approval.",
+      "new_status": "revision_requested",
+      "requires_comment": true
+    },
+    "reject": {
+      "meaning": "Examiner rejects the draft as unsuitable.",
+      "new_status": "rejected_by_examiner",
+      "requires_comment": true
+    }
+  },
+
+  "telegram_review_message_template": {
+    "title": "[SOFIA – DRAFT REVIEW]",
+    "fields": [
+      "Draft ID",
+      "Country",
+      "Workspace",
+      "Language",
+      "Title",
+      "Content Type",
+      "Focus Keyphrase",
+      "Review Priority"
+    ],
+    "instructions": [
+      "Please review the draft for professional and local accuracy.",
+      "Sofia is responsible for SEO and structure.",
+      "The examiner is responsible for professional validation.",
+      "Reply using one of the approved response formats."
+    ]
+  },
+
+  "approved_response_formats": {
+    "approve": "APPROVE DRAFT-0001",
+    "revise": "REVISE DRAFT-0001: Explain what must be changed.",
+    "reject": "REJECT DRAFT-0001: Explain why this draft should not be used."
+  },
+
+  "telegram_group_strategy": {
+    "group_scope": "one_group_per_country_or_market",
+    "recommended_group_name_format": "Sofia – {Country}",
+    "initial_mode": "notification_and_manual_review",
+    "automation_level": "manual_status_update_first",
+    "future_automation": [
+      "Telegram reply parsing",
+      "Automatic draft status update",
+      "Examiner assistant integration",
+      "Lead follow-up integration"
+    ]
+  },
+
+  "publishing_gatekeeping": {
+    "require_examiner_approval_before_publishing": true,
+    "allowed_statuses_for_publishing_pipeline": [
+      "approved_by_examiner",
+      "ready_for_publishing"
+    ],
+    "blocked_statuses_for_publishing_pipeline": [
+      "draft_created",
+      "in_examiner_review",
+      "revision_requested",
+      "revised_by_sofia",
+      "rejected_by_examiner"
+    ]
+  },
+
+  "review_queue_requirements": {
+    "required_fields": [
+      "review_id",
+      "draft_id",
+      "workspace_id",
+      "country",
+      "language",
+      "title",
+      "content_type",
+      "focus_keyphrase",
+      "status",
+      "review_priority",
+      "telegram_group",
+      "telegram_notified",
+      "examiner_decision",
+      "examiner_comments",
+      "created_at",
+      "updated_at"
+    ]
+  }
+}

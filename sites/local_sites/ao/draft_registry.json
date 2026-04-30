@@ -1,0 +1,33 @@
+{
+  "drafts": [
+    {
+      "draft_id": "DRAFT-0001",
+      "title": "Teste de polígrafo em Angola",
+      "language": "pt-PT",
+      "content_type": "seo_page",
+      "focus_keyphrase": "teste de polígrafo Angola",
+      "status": "ready_for_publishing",
+      "created_at": "2026-04-29T00:00:00Z",
+      "updated_at": "2026-04-29T16:44:47.138258+00:00",
+      "examiner_decision": "approve",
+      "examiner_comments": "",
+      "ready_for_publishing": true,
+      "publishing_gate_passed": true,
+      "publishing_gate_passed_at": "2026-04-29T16:44:47.138258+00:00",
+      "revision_history": [
+        {
+          "revision_note": "Updated draft to mention examiner travel outside Luanda.",
+          "based_on_examiner_comments": "Please mention that the examiner can travel outside Luanda.",
+          "created_at": "2026-04-29T15:36:37.324065+00:00"
+        },
+        {
+          "revision_note": "Updated draft to mention examiner travel outside Luanda.",
+          "based_on_examiner_comments": "Please mention that the examiner can travel outside Luanda.",
+          "created_at": "2026-04-29T15:43:01.917419+00:00"
+        }
+      ],
+      "content_expansion_generated": true,
+      "content_expansion_generated_at": "2026-04-29T16:44:47.255182+00:00"
+    }
+  ]
+}

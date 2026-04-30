@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "opportunity_types": {
+    "new_service_page": {
+      "description": "A new commercial service page should be created.",
+      "default_content_type": "service_page",
+      "business_value": 5
+    },
+    "new_landing_page": {
+      "description": "A targeted local landing page should be created.",
+      "default_content_type": "landing_page",
+      "business_value": 5
+    },
+    "blog_topic": {
+      "description": "An informational article should be created.",
+      "default_content_type": "blog_post",
+      "business_value": 3
+    },
+    "faq_expansion": {
+      "description": "Existing FAQ should be expanded with a new question or answer.",
+      "default_content_type": "faq",
+      "business_value": 2
+    },
+    "content_refresh": {
+      "description": "Existing content should be updated or improved.",
+      "default_content_type": "content_update",
+      "business_value": 3
+    },
+    "geo_optimization": {
+      "description": "Existing content should be improved for AI search, answer engines, and local relevance.",
+      "default_content_type": "geo_update",
+      "business_value": 4
+    },
+    "social_post": {
+      "description": "A social media post should be created.",
+      "default_content_type": "social_post",
+      "business_value": 2
+    }
+  }
+}

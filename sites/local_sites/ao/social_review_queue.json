@@ -1,0 +1,31 @@
+{
+  "social_items": [
+    {
+      "social_id": "SOCIAL-0001",
+      "intake_id": "INTAKE-0007",
+      "created_at": "2026-04-24",
+      "workspace_id": "local.ao",
+      "workspace_path": "sites/local_sites/ao",
+      "language": "pt",
+      "site_target": "https://poligrafoangola.com",
+      "platform": "facebook",
+      "source_platform": "facebook",
+      "status": "drafted",
+      "idea_title": "O polígrafo pode ser usado em conflitos de relacionamento?",
+      "idea_summary": "Short social media post explaining that polygraph tests may be used in private relationship disputes when handled professionally and ethically.",
+      "target_keyword": "poligrafo conflitos relacionamento",
+      "secondary_keywords": [
+        "poligrafo relacionamento",
+        "detector de mentiras casal"
+      ],
+      "recommended_action": "create_social_post",
+      "link_back": {
+        "recommended": true,
+        "target_url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+        "reason": "Related page found in site structure."
+      },
+      "draft_text": "Em conflitos de relacionamento, um polígrafo pode ajudar a esclarecer dúvidas quando usado profissionalmente e éticamente. É importante lembrar que essa ferramenta não prova a verdade com certeza absoluta, mas pode fornecer informações valiosas em situações complexas. Saiba mais sobre como o polígrafo pode ser usado para testes de fidelidade em nosso site: [https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/](https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/)",
+      "review_notes": ""
+    }
+  ]
+}

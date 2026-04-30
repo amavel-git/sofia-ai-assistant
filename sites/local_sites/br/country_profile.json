@@ -1,0 +1,41 @@
+{
+  "workspace_info": {
+    "workspace_id": "local.br",
+    "workspace_type": "local_market"
+  },
+
+  "country_info": {
+    "country_code": "br",
+    "country_name": "Brazil",
+    "language": "pt-BR",
+    "secondary_languages": []
+  },
+
+  "site_info": {
+    "domain": "https://poligrafobrasil.com",
+    "base_path": "",
+    "site_purpose": "lead_generation"
+  },
+
+  "review_settings": {
+    "review_mode": "local_market_review",
+    "primary_reviewer": "",
+    "backup_reviewer": "",
+    "review_required": true
+  },
+
+  "telegram_settings": {
+    "group_name": "",
+    "chat_id": "",
+    "notifications_enabled": true
+  },
+
+  "content_rules": {
+    "allow_city_pages": true,
+    "allow_service_pages": true,
+    "allow_blog_content": true,
+    "notes": []
+  },
+
+  "local_notes": []
+}

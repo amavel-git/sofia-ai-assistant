@@ -1,0 +1,8 @@
+{
+  "site_url": "https://poligrafoangola.com",
+  "api_base": "https://poligrafoangola.com/wp-json/wp/v2",
+  "username_env": "SOFIA_WP_AO_USERNAME",
+  "application_password_env": "SOFIA_WP_AO_APP_PASSWORD",
+  "default_status": "draft",
+  "allow_publish": false
+}
