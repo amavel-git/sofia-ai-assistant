@@ -13,7 +13,30 @@
       "draft_registry_path": "sites/bear/forensics/en.forensics/draft_registry.json",
       "review_queue_path": "sites/bear/forensics/en.forensics/local_review_queue.json",
       "telegram_group": "Sofia – Bear Forensics EN",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003788110595,
+      "review_mode": "workspace_review",
+
+      "channels": {
+        "website": {
+          "enabled": true,
+          "platform": "wordpress",
+          "url": "https://bearforensics.com",
+          "content_types": ["page", "post"],
+          "approval_required": true,
+          "publishing_mode": "manual"
+        },
+        "facebook": { "enabled": false, "url": "", "content_types": ["post"], "approval_required": true },
+        "linkedin": { "enabled": false, "url": "", "content_types": ["post", "article"], "approval_required": true },
+        "x_twitter": { "enabled": false, "url": "", "content_types": ["post", "thread"], "approval_required": true }
+      },
+
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_FORENSICS_EN_USERNAME",
+        "password_env": "SOFIA_WP_FORENSICS_EN_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "es.forensics",
@@ -28,7 +51,15 @@
       "draft_registry_path": "sites/bear/forensics/es.forensics/draft_registry.json",
       "review_queue_path": "sites/bear/forensics/es.forensics/local_review_queue.json",
       "telegram_group": "Sofia – Bear Forensics ES",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003788110595,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_FORENSICS_ES_USERNAME",
+        "password_env": "SOFIA_WP_FORENSICS_ES_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "fr.forensics",
@@ -43,7 +74,15 @@
       "draft_registry_path": "sites/bear/forensics/fr.forensics/draft_registry.json",
       "review_queue_path": "sites/bear/forensics/fr.forensics/local_review_queue.json",
       "telegram_group": "Sofia – Bear Forensics FR",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003788110595,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_FORENSICS_FR_USERNAME",
+        "password_env": "SOFIA_WP_FORENSICS_FR_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "pt.forensics",
@@ -58,7 +97,15 @@
       "draft_registry_path": "sites/bear/forensics/pt.forensics/draft_registry.json",
       "review_queue_path": "sites/bear/forensics/pt.forensics/local_review_queue.json",
       "telegram_group": "Sofia – Bear Forensics PT",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003788110595,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_FORENSICS_PT_USERNAME",
+        "password_env": "SOFIA_WP_FORENSICS_PT_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "en.institute",
@@ -73,7 +120,15 @@
       "draft_registry_path": "sites/bear/institute/en.institute/draft_registry.json",
       "review_queue_path": "sites/bear/institute/en.institute/local_review_queue.json",
       "telegram_group": "Sofia – Institute EN",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003925250140,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_INSTITUTE_EN_USERNAME",
+        "password_env": "SOFIA_WP_INSTITUTE_EN_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "es.institute",
@@ -88,7 +143,15 @@
       "draft_registry_path": "sites/bear/institute/es.institute/draft_registry.json",
       "review_queue_path": "sites/bear/institute/es.institute/local_review_queue.json",
       "telegram_group": "Sofia – Institute ES",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003925250140,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_INSTITUTE_ES_USERNAME",
+        "password_env": "SOFIA_WP_INSTITUTE_ES_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "fr.institute",
@@ -103,7 +166,15 @@
       "draft_registry_path": "sites/bear/institute/fr.institute/draft_registry.json",
       "review_queue_path": "sites/bear/institute/fr.institute/local_review_queue.json",
       "telegram_group": "Sofia – Institute FR",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003925250140,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_INSTITUTE_FR_USERNAME",
+        "password_env": "SOFIA_WP_INSTITUTE_FR_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "pt.institute",
@@ -118,7 +189,15 @@
       "draft_registry_path": "sites/bear/institute/pt.institute/draft_registry.json",
       "review_queue_path": "sites/bear/institute/pt.institute/local_review_queue.json",
       "telegram_group": "Sofia – Institute PT",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003925250140,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_INSTITUTE_PT_USERNAME",
+        "password_env": "SOFIA_WP_INSTITUTE_PT_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "en.polygraph",
@@ -133,7 +212,15 @@
       "draft_registry_path": "sites/polar/en.polygraph/draft_registry.json",
       "review_queue_path": "sites/polar/en.polygraph/local_review_queue.json",
       "telegram_group": "Sofia – Polar Polygraph EN",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003971563076,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_POLAR_EN_USERNAME",
+        "password_env": "SOFIA_WP_POLAR_EN_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "fr.polygraph",
@@ -148,7 +235,15 @@
       "draft_registry_path": "sites/polar/fr.polygraph/draft_registry.json",
       "review_queue_path": "sites/polar/fr.polygraph/local_review_queue.json",
       "telegram_group": "Sofia – Polar Polygraph FR",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003971563076,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_POLAR_FR_USERNAME",
+        "password_env": "SOFIA_WP_POLAR_FR_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "es.poligrafo",
@@ -163,7 +258,15 @@
       "draft_registry_path": "sites/polar/es.poligrafo/draft_registry.json",
       "review_queue_path": "sites/polar/es.poligrafo/local_review_queue.json",
       "telegram_group": "Sofia – Polar Polígrafo ES",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003971563076,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_POLAR_ES_USERNAME",
+        "password_env": "SOFIA_WP_POLAR_ES_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "pt.poligrafo",
@@ -178,7 +281,15 @@
       "draft_registry_path": "sites/polar/pt.poligrafo/draft_registry.json",
       "review_queue_path": "sites/polar/pt.poligrafo/local_review_queue.json",
       "telegram_group": "Sofia – Polar Polígrafo PT",
-      "review_mode": "workspace_review"
+      "telegram_group_id": -1003971563076,
+      "review_mode": "workspace_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_POLAR_PT_USERNAME",
+        "password_env": "SOFIA_WP_POLAR_PT_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.es",
@@ -193,7 +304,45 @@
       "draft_registry_path": "sites/local_sites/es/draft_registry.json",
       "review_queue_path": "sites/local_sites/es/local_review_queue.json",
       "telegram_group": "Sofia – Spain",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003544610424,
+      "review_mode": "local_market_review",
+
+      "channels": {
+        "website": {
+          "enabled": true,
+          "platform": "wordpress",
+          "url": "https://poligrafoespana.com",
+          "content_types": ["page", "post"],
+          "approval_required": true,
+          "publishing_mode": "manual"
+        },
+        "facebook": {
+          "enabled": true,
+          "url": "",
+          "content_types": ["post"],
+          "approval_required": true
+        },
+        "linkedin": {
+          "enabled": true,
+          "url": "https://www.linkedin.com/company/110042557",
+          "content_types": ["post", "article"],
+          "approval_required": true
+        },
+        "x_twitter": {
+          "enabled": true,
+          "url": "",
+          "content_types": ["post", "thread"],
+          "approval_required": true
+        }
+      },
+
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_ES_USERNAME",
+        "password_env": "SOFIA_WP_ES_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.pt",
@@ -208,7 +357,45 @@
       "draft_registry_path": "sites/local_sites/pt/draft_registry.json",
       "review_queue_path": "sites/local_sites/pt/local_review_queue.json",
       "telegram_group": "Sofia – Portugal",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003998856489,
+      "review_mode": "local_market_review",
+
+      "channels": {
+        "website": {
+          "enabled": true,
+          "platform": "wordpress",
+          "url": "https://poligrafoportugal.com",
+          "content_types": ["page", "post"],
+          "approval_required": true,
+          "publishing_mode": "manual"
+        },
+        "facebook": {
+          "enabled": true,
+          "url": "",
+          "content_types": ["post"],
+          "approval_required": true
+        },
+        "linkedin": {
+          "enabled": true,
+          "url": "https://www.linkedin.com/company/110043571",
+          "content_types": ["post", "article"],
+          "approval_required": true
+        },
+        "x_twitter": {
+          "enabled": true,
+          "url": "",
+          "content_types": ["post", "thread"],
+          "approval_required": true
+        }
+      },
+
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_PT_USERNAME",
+        "password_env": "SOFIA_WP_PT_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.fr",
@@ -223,7 +410,15 @@
       "draft_registry_path": "sites/local_sites/fr/draft_registry.json",
       "review_queue_path": "sites/local_sites/fr/local_review_queue.json",
       "telegram_group": "Sofia – France",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003795313038,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_FR_USERNAME",
+        "password_env": "SOFIA_WP_FR_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.br",
@@ -238,8 +433,15 @@
       "draft_registry_path": "sites/local_sites/br/draft_registry.json",
       "review_queue_path": "sites/local_sites/br/local_review_queue.json",
       "telegram_group": "Sofia – Brazil",
-      "telegram_group_id": -5080595538,
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003952360652,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_BR_USERNAME",
+        "password_env": "SOFIA_WP_BR_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.tr_tr",
@@ -254,7 +456,15 @@
       "draft_registry_path": "sites/local_sites/tr_tr/draft_registry.json",
       "review_queue_path": "sites/local_sites/tr_tr/local_review_queue.json",
       "telegram_group": "Sofia – Turkey TR",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003527811200,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_TR_TR_USERNAME",
+        "password_env": "SOFIA_WP_TR_TR_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.tr_ru",
@@ -269,7 +479,15 @@
       "draft_registry_path": "sites/local_sites/tr_ru/draft_registry.json",
       "review_queue_path": "sites/local_sites/tr_ru/local_review_queue.json",
       "telegram_group": "Sofia – Turkey RU",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003527811200,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_TR_RU_USERNAME",
+        "password_env": "SOFIA_WP_TR_RU_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.tr_en",
@@ -284,7 +502,15 @@
       "draft_registry_path": "sites/local_sites/tr_en/draft_registry.json",
       "review_queue_path": "sites/local_sites/tr_en/local_review_queue.json",
       "telegram_group": "Sofia – Turkey EN",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003527811200,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_TR_EN_USERNAME",
+        "password_env": "SOFIA_WP_TR_EN_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.in",
@@ -299,7 +525,15 @@
       "draft_registry_path": "sites/local_sites/in/draft_registry.json",
       "review_queue_path": "sites/local_sites/in/local_review_queue.json",
       "telegram_group": "Sofia – India",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003216846987,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_IN_USERNAME",
+        "password_env": "SOFIA_WP_IN_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.be",
@@ -314,7 +548,15 @@
       "draft_registry_path": "sites/local_sites/be/draft_registry.json",
       "review_queue_path": "sites/local_sites/be/local_review_queue.json",
       "telegram_group": "Sofia – Belgium",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003567285019,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_BE_USERNAME",
+        "password_env": "SOFIA_WP_BE_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.co",
@@ -329,8 +571,15 @@
       "draft_registry_path": "sites/local_sites/co/draft_registry.json",
       "review_queue_path": "sites/local_sites/co/local_review_queue.json",
       "telegram_group": "Sofia – Colombia",
-      "telegram_group_id": -5080595538,
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003912704275,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_CO_USERNAME",
+        "password_env": "SOFIA_WP_CO_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.ao",
@@ -346,7 +595,44 @@
       "review_queue_path": "sites/local_sites/ao/local_review_queue.json",
       "telegram_group": "Sofia – Angola",
       "telegram_group_id": -1003981768831,
-      "review_mode": "local_market_review"
+      "review_mode": "local_market_review",
+
+      "channels": {
+        "website": {
+          "enabled": true,
+          "platform": "wordpress",
+          "url": "https://poligrafoangola.com",
+          "content_types": ["page", "post"],
+          "approval_required": true,
+          "publishing_mode": "manual"
+        },
+        "facebook": {
+          "enabled": false,
+          "url": "",
+          "content_types": ["post"],
+          "approval_required": true
+        },
+        "linkedin": {
+          "enabled": false,
+          "url": "",
+          "content_types": ["post", "article"],
+          "approval_required": true
+        },
+        "x_twitter": {
+          "enabled": false,
+          "url": "",
+          "content_types": ["post", "thread"],
+          "approval_required": true
+        }
+      },
+
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_AO_USERNAME",
+        "password_env": "SOFIA_WP_AO_APP_PASSWORD",
+        "default_status": "draft"
+      }
     },
     {
       "workspace_id": "local.uae",
@@ -361,7 +647,15 @@
       "draft_registry_path": "sites/local_sites/bear_uae/draft_registry.json",
       "review_queue_path": "sites/local_sites/bear_uae/local_review_queue.json",
       "telegram_group": "Sofia – UAE",
-      "review_mode": "local_market_review"
+      "telegram_group_id": -1003767704969,
+      "review_mode": "local_market_review",
+      "wordpress": {
+        "enabled": true,
+        "content_endpoint": "pages",
+        "username_env": "SOFIA_WP_UAE_USERNAME",
+        "password_env": "SOFIA_WP_UAE_APP_PASSWORD",
+        "default_status": "draft"
+      }
     }
   ]
 }

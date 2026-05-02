@@ -4,10 +4,13 @@ import sys
 import requests
 from pathlib import Path
 from datetime import datetime, timezone
+from dotenv import load_dotenv
 
 
 ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(ROOT / ".env", override=True)
 WORKSPACES_PATH = ROOT / "data" / "workspaces.json"
+TEMPLATES_PATH = ROOT / "data" / "telegram_message_templates.json"
 
 
 def load_json(path):
@@ -31,54 +34,141 @@ def find_workspace(workspaces, workspace_id):
     return None
 
 
-def build_message(review):
+def normalize_language(language):
+    if not language:
+        return "en"
+
+    language = language.strip()
+
+    if language in ["pt-PT", "pt-BR"]:
+        return language
+
+    if language.startswith("pt"):
+        return "pt-PT"
+
+    if language.startswith("es"):
+        return "es"
+
+    if language.startswith("fr"):
+        return "fr"
+
+    if language.startswith("tr"):
+        return "tr"
+
+    if language.startswith("ru"):
+        return "ru"
+
+    if language.startswith("en"):
+        return "en"
+
+    return "en"
+
+
+def get_template(message_type, language):
+    templates = load_json(TEMPLATES_PATH)
+    normalized = normalize_language(language)
+
+    message_templates = templates.get(message_type, {})
+
+    return (
+        message_templates.get(normalized)
+        or message_templates.get("en")
+        or {}
+    )
+
+
+def format_enabled_channels(workspace, template):
+    channels = workspace.get("channels", {})
+    lines = []
+
+    url_not_configured = template.get("url_not_configured", "URL not configured")
+    types_label = template.get("types_label", "types")
+    no_channels = template.get("no_channels", "No active channels configured.")
+
+    for channel_name, channel in channels.items():
+        if channel.get("enabled") is True:
+            url = channel.get("url", "")
+            content_types = ", ".join(channel.get("content_types", []))
+            lines.append(
+                f"- {channel_name}: {url or url_not_configured} | {types_label}: {content_types}"
+            )
+
+    if not lines:
+        return no_channels
+
+    return "\n".join(lines)
+
+
+def build_message(item, workspace):
+    language = workspace.get("language", "en")
+    template = get_template("draft_review", language)
+
+    draft_id = item.get("draft_id")
+    title = item.get("working_title")
+    keyphrase = item.get("target_keyword")
+
+    channels_text = format_enabled_channels(workspace, template)
+    check_items = template.get("check_items", [])
+    check_items_text = "\n".join([f"- {item}" for item in check_items])
+
     return f"""
-[SOFIA – DRAFT REVIEW]
+{template.get("header", "[SOFIA – DRAFT REVIEW]")}
 
-Draft ID: {review.get("draft_id")}
-Review ID: {review.get("review_id")}
-Country: {review.get("country")}
-Workspace: {review.get("workspace_id")}
-Language: {review.get("language")}
-Title: {review.get("title")}
-Content Type: {review.get("content_type")}
-Focus Keyphrase: {review.get("focus_keyphrase")}
-Priority: {review.get("review_priority")}
+{template.get("draft_id_label", "Draft ID")}: {draft_id}
+{template.get("workspace_label", "Workspace")}: {workspace.get("workspace_id")}
+{template.get("country_label", "Country")}: {workspace.get("country")}
+{template.get("language_label", "Language")}: {workspace.get("language")}
 
-ACTION REQUIRED:
+{template.get("title_label", "Title")}:
+{title}
 
-Please review this draft for professional and local accuracy.
+{template.get("keyphrase_label", "Focus Keyphrase")}:
+{keyphrase}
 
-Sofia is responsible for:
-- SEO structure
-- GEO / AI-friendly formatting
-- keyword targeting
-- internal links
-- cannibalization avoidance
+{template.get("channels_label", "Channels where this content may be used")}:
+{channels_text}
 
-The examiner is responsible for:
-- professional correctness
-- local legal/cultural suitability
-- terminology accuracy
-- service availability
-- pricing/logistical accuracy
+{template.get("task_label", "Examiner task")}:
+{template.get("action", "Please review this draft for professional and local accuracy.")}
 
-Reply using one of these formats:
+{template.get("check_label", "Please confirm:")}
+{check_items_text}
 
-APPROVE {review.get("draft_id")}
+{template.get("next_step_label", "Next step after approval")}:
+{template.get("next_step", "Sofia will prepare or update the corresponding draft for final review.")}
 
-REVISE {review.get("draft_id")}: explain what must be changed
+{template.get("reply", "Reply using one of these formats or use the buttons below:")}
 
-REJECT {review.get("draft_id")}: explain why this draft should not be used
+APPROVE {draft_id}
+
+REVISE {draft_id}: {template.get("revise_instruction", "explain what must be changed")}
+
+REJECT {draft_id}: {template.get("reject_instruction", "explain why this draft should not be used")}
 """.strip()
 
 
-def send_telegram_message(bot_token, chat_id, text):
+def build_decision_keyboard(draft_id, workspace_id):
+    return {
+        "inline_keyboard": [
+            [
+                {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{draft_id}"},
+                {"text": "✏️ Revise", "callback_data": f"REVISE|{workspace_id}|{draft_id}"},
+                {"text": "❌ Reject", "callback_data": f"REJECT|{workspace_id}|{draft_id}"},
+            ]
+        ]
+    }
+
+
+def send_telegram_message(bot_token, chat_id, text, reply_markup=None):
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+
     payload = {
         "chat_id": chat_id,
         "text": text
     }
+
+    if reply_markup:
+        payload["reply_markup"] = reply_markup
 
     response = requests.post(url, json=payload, timeout=20)
     response.raise_for_status()
@@ -124,17 +214,19 @@ def main():
         return
 
     bot_token = os.getenv("SOFIA_TELEGRAM_BOT_TOKEN")
+    if bot_token:
+        bot_token = bot_token.strip().strip('"').strip("'")
 
     if mode == "--send" and not bot_token:
         print("Missing environment variable: SOFIA_TELEGRAM_BOT_TOKEN")
-        print("Set it temporarily like this:")
-        print("export SOFIA_TELEGRAM_BOT_TOKEN='YOUR_BOT_TOKEN'")
         return
 
+    review_items = review_queue.get("review_items", [])
+
     pending_reviews = [
-        review for review in review_queue.get("reviews", [])
-        if review.get("status") == "in_examiner_review"
-        and review.get("telegram_notified") is False
+        item for item in review_items
+        if item.get("status") == "pending_review"
+        and item.get("telegram_notified") is not True
     ]
 
     if not pending_reviews:
@@ -144,7 +236,8 @@ def main():
     sent_count = 0
 
     for review in pending_reviews:
-        message = build_message(review)
+        message = build_message(review, workspace)
+        keyboard = build_decision_keyboard(review.get("draft_id"), workspace_id)
 
         print("\n" + "=" * 60)
         print(f"TELEGRAM GROUP: {telegram_group}")
@@ -154,16 +247,19 @@ def main():
         print("=" * 60)
 
         if mode == "--send":
-            send_telegram_message(bot_token, telegram_group_id, message)
-            print("Telegram message sent.")
+            send_telegram_message(
+                bot_token,
+                telegram_group_id,
+                message,
+                reply_markup=keyboard
+            )
+            print("Telegram message sent with buttons.")
 
-        if mode == "--send":
             review["telegram_notified"] = True
             review["telegram_notified_at"] = now_iso()
             review["updated_at"] = now_iso()
             sent_count += 1
         else:
-            # preview mode → do not modify data
             sent_count += 1
 
     if mode == "--send":
