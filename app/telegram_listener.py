@@ -53,6 +53,111 @@ def log(message):
         f.write(line + "\n")
 
 
+def normalize_language(language):
+    if not language:
+        return "en"
+
+    language = str(language).lower()
+
+    if language.startswith("pt-br"):
+        return "pt-BR"
+    if language.startswith("pt"):
+        return "pt-PT"
+    if language.startswith("es"):
+        return "es"
+    if language.startswith("fr"):
+        return "fr"
+    if language.startswith("en"):
+        return "en"
+
+    return "en"
+
+
+def get_workspace_by_id(workspace_id):
+    data = load_json(WORKSPACES_PATH, {"workspaces": []})
+
+    for workspace in data.get("workspaces", []):
+        if workspace.get("workspace_id") == workspace_id:
+            return workspace
+
+    return {}
+
+
+def get_ui_text(workspace_id):
+    workspace = get_workspace_by_id(workspace_id)
+    lang = normalize_language(workspace.get("language", "en"))
+
+    texts = {
+        "en": {
+            "approve": "✅ Approve",
+            "revise": "✏️ Revise",
+            "modify": "✏️ Modify",
+            "reject_delete": "🗑️ Reject/Delete",
+            "never": "🚫 Never suggest again",
+            "skip": "⏳ Skip for now",
+            "angle": "🔄 Suggest different angle",
+            "cancel": "❌ Cancel",
+            "revise_prompt": "✏️ Please send your revision instructions using this format:\n\nREVISE {item_id}: explain what Sofia should change\n\nExample:\nREVISE {item_id}: mention examiner travel outside Luanda.",
+            "modify_prompt": "✏️ Please send your modification instructions using this format:\n\nMODIFY {item_id}: explain what Sofia should change\n\nExample:\nMODIFY {item_id}: focus this opportunity on corporate fraud instead of personal relationship cases.",
+            "reject_prompt": "🗑️ Are you sure you want to reject/delete this opportunity?\n\nOpportunity: {item_id}\n\nPlease choose how Sofia should handle similar content in the future:",
+        },
+        "pt-PT": {
+            "approve": "✅ Aprovar",
+            "revise": "✏️ Rever",
+            "modify": "✏️ Modificar",
+            "reject_delete": "🗑️ Rejeitar/Eliminar",
+            "never": "🚫 Nunca sugerir novamente",
+            "skip": "⏳ Ignorar por agora",
+            "angle": "🔄 Sugerir outro ângulo",
+            "cancel": "❌ Cancelar",
+            "revise_prompt": "✏️ Por favor, envie as instruções de revisão usando este formato:\n\nREVISE {item_id}: explique o que a Sofia deve alterar\n\nExemplo:\nREVISE {item_id}: mencionar que testes fora de Luanda exigem coordenação de deslocação.",
+            "modify_prompt": "✏️ Por favor, envie as instruções de modificação usando este formato:\n\nMODIFY {item_id}: explique o que a Sofia deve alterar\n\nExemplo:\nMODIFY {item_id}: focar esta oportunidade em fraude corporativa em vez de casos de relacionamento pessoal.",
+            "reject_prompt": "🗑️ Tem a certeza de que deseja rejeitar/eliminar esta oportunidade?\n\nOportunidade: {item_id}\n\nEscolha como a Sofia deve tratar conteúdos semelhantes no futuro:",
+        },
+        "pt-BR": {
+            "approve": "✅ Aprovar",
+            "revise": "✏️ Revisar",
+            "modify": "✏️ Modificar",
+            "reject_delete": "🗑️ Rejeitar/Excluir",
+            "never": "🚫 Nunca sugerir novamente",
+            "skip": "⏳ Ignorar por enquanto",
+            "angle": "🔄 Sugerir outro ângulo",
+            "cancel": "❌ Cancelar",
+            "revise_prompt": "✏️ Por favor, envie as instruções de revisão usando este formato:\n\nREVISE {item_id}: explique o que a Sofia deve alterar\n\nExemplo:\nREVISE {item_id}: mencionar que testes fora da cidade exigem coordenação de deslocamento.",
+            "modify_prompt": "✏️ Por favor, envie as instruções de modificação usando este formato:\n\nMODIFY {item_id}: explique o que a Sofia deve alterar\n\nExemplo:\nMODIFY {item_id}: focar esta oportunidade em fraude corporativa em vez de casos pessoais.",
+            "reject_prompt": "🗑️ Tem certeza de que deseja rejeitar/excluir esta oportunidade?\n\nOportunidade: {item_id}\n\nEscolha como a Sofia deve tratar conteúdos semelhantes no futuro:",
+        },
+        "es": {
+            "approve": "✅ Aprobar",
+            "revise": "✏️ Revisar",
+            "modify": "✏️ Modificar",
+            "reject_delete": "🗑️ Rechazar/Eliminar",
+            "never": "🚫 No sugerir de nuevo",
+            "skip": "⏳ Omitir por ahora",
+            "angle": "🔄 Sugerir otro enfoque",
+            "cancel": "❌ Cancelar",
+            "revise_prompt": "✏️ Por favor, envíe las instrucciones de revisión usando este formato:\n\nREVISE {item_id}: explique lo que Sofia debe cambiar\n\nEjemplo:\nREVISE {item_id}: mencionar que las pruebas fuera de la ciudad requieren coordinación de desplazamiento.",
+            "modify_prompt": "✏️ Por favor, envíe las instrucciones de modificación usando este formato:\n\nMODIFY {item_id}: explique lo que Sofia debe cambiar\n\nEjemplo:\nMODIFY {item_id}: enfocar esta oportunidad en fraude corporativo en lugar de casos personales.",
+            "reject_prompt": "🗑️ ¿Está seguro de que desea rechazar/eliminar esta oportunidad?\n\nOportunidad: {item_id}\n\nElija cómo debe Sofia tratar contenidos similares en el futuro:",
+        },
+        "fr": {
+            "approve": "✅ Approuver",
+            "revise": "✏️ Réviser",
+            "modify": "✏️ Modifier",
+            "reject_delete": "🗑️ Rejeter/Supprimer",
+            "never": "🚫 Ne plus suggérer",
+            "skip": "⏳ Ignorer pour l’instant",
+            "angle": "🔄 Suggérer un autre angle",
+            "cancel": "❌ Annuler",
+            "revise_prompt": "✏️ Veuillez envoyer vos instructions de révision avec ce format :\n\nREVISE {item_id}: expliquez ce que Sofia doit modifier\n\nExemple :\nREVISE {item_id}: mentionner que les tests hors de la ville nécessitent une coordination du déplacement.",
+            "modify_prompt": "✏️ Veuillez envoyer vos instructions de modification avec ce format :\n\nMODIFY {item_id}: expliquez ce que Sofia doit modifier\n\nExemple :\nMODIFY {item_id}: orienter cette opportunité vers la fraude d’entreprise plutôt que les cas personnels.",
+            "reject_prompt": "🗑️ Êtes-vous sûr de vouloir rejeter/supprimer cette opportunité ?\n\nOpportunité : {item_id}\n\nChoisissez comment Sofia doit traiter les contenus similaires à l’avenir :",
+        },
+    }
+
+    return texts.get(lang, texts["en"])
+
+
 def get_bot_token():
     token = os.getenv("SOFIA_TELEGRAM_BOT_TOKEN")
     if not token:
@@ -149,14 +254,15 @@ def answer_callback_query(bot_token, callback_query_id, text="Sofia is processin
 
 def build_decision_keyboard(item_id, workspace_id):
     item_id = str(item_id)
+    t = get_ui_text(workspace_id)
 
     if item_id.startswith("OPP-"):
         return {
             "inline_keyboard": [
                 [
-                    {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{item_id}"},
-                    {"text": "✏️ Modify", "callback_data": f"MODIFY_PROMPT|{workspace_id}|{item_id}"},
-                    {"text": "🗑️ Reject/Delete", "callback_data": f"REJECT_PROMPT|{workspace_id}|{item_id}"},
+                    {"text": t["approve"], "callback_data": f"APPROVE|{workspace_id}|{item_id}"},
+                    {"text": t["modify"], "callback_data": f"MODIFY_PROMPT|{workspace_id}|{item_id}"},
+                    {"text": t["reject_delete"], "callback_data": f"REJECT_PROMPT|{workspace_id}|{item_id}"},
                 ]
             ]
         }
@@ -164,37 +270,39 @@ def build_decision_keyboard(item_id, workspace_id):
     return {
         "inline_keyboard": [
             [
-                {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{item_id}"},
-                {"text": "✏️ Revise", "callback_data": f"REVISE_PROMPT|{workspace_id}|{item_id}"},
+                {"text": t["approve"], "callback_data": f"APPROVE|{workspace_id}|{item_id}"},
+                {"text": t["revise"], "callback_data": f"REVISE_PROMPT|{workspace_id}|{item_id}"},
             ]
         ]
     }
 
 
 def build_opportunity_reject_confirmation_keyboard(opportunity_id, workspace_id):
+    t = get_ui_text(workspace_id)
+
     return {
         "inline_keyboard": [
             [
                 {
-                    "text": "🚫 Never suggest again",
+                    "text": t["never"],
                     "callback_data": f"REJECT_NEVER|{workspace_id}|{opportunity_id}"
                 }
             ],
             [
                 {
-                    "text": "⏳ Skip for now",
+                    "text": t["skip"],
                     "callback_data": f"REJECT_SKIP|{workspace_id}|{opportunity_id}"
                 }
             ],
             [
                 {
-                    "text": "🔄 Suggest different angle",
+                    "text": t["angle"],
                     "callback_data": f"REJECT_ANGLE|{workspace_id}|{opportunity_id}"
                 }
             ],
             [
                 {
-                    "text": "❌ Cancel",
+                    "text": t["cancel"],
                     "callback_data": f"REJECT_CANCEL|{workspace_id}|{opportunity_id}"
                 }
             ]
@@ -558,6 +666,7 @@ def handle_callback(update, workspace_by_chat_id):
 
     decision = decision.upper()
     item_id = item_id.upper()
+    t = get_ui_text(workspace_id)
 
     if decision == "REVISE_PROMPT":
         log(
@@ -565,12 +674,7 @@ def handle_callback(update, workspace_by_chat_id):
             f"workspace={workspace_id} chat_id={chat_id} item={item_id}"
         )
 
-        instruction = (
-            "✏️ Please send your revision instructions using this format:\n\n"
-            f"REVISE {item_id}: explain what Sofia should change\n\n"
-            "Example:\n"
-            f"REVISE {item_id}: adapt the terminology for the local market and mention examiner travel outside Luanda."
-        )
+        instruction = t["revise_prompt"].format(item_id=item_id)
 
         send_telegram_message(
             bot_token,
@@ -579,42 +683,7 @@ def handle_callback(update, workspace_by_chat_id):
             reply_to_message_id=message_id,
         )
         return
-    
-    if decision == "REJECT_PROMPT":
-        log(
-            "CALLBACK reject prompt "
-            f"workspace={workspace_id} chat_id={chat_id} item={item_id}"
-        )
 
-        if not item_id.startswith("OPP-"):
-            send_telegram_message(
-                bot_token,
-                chat_id,
-                "⚠️ Reject/Delete confirmation is currently only available for opportunities.",
-                reply_to_message_id=message_id,
-            )
-            return
-
-        text = (
-            "🗑️ Are you sure you want to reject/delete this opportunity?\n\n"
-            f"Opportunity: {item_id}\n\n"
-            "Please choose how Sofia should handle similar content in the future:"
-        )
-
-        keyboard = build_opportunity_reject_confirmation_keyboard(
-            item_id,
-            workspace_id
-        )
-
-        send_telegram_message(
-            bot_token,
-            chat_id,
-            text,
-            reply_to_message_id=message_id,
-            reply_markup=keyboard,
-        )
-        return
-    
     if decision == "MODIFY_PROMPT":
         log(
             "CALLBACK modify prompt "
@@ -630,12 +699,7 @@ def handle_callback(update, workspace_by_chat_id):
             )
             return
 
-        instruction = (
-            "✏️ Please send your modification instructions using this format:\n\n"
-            f"MODIFY {item_id}: explain what Sofia should change\n\n"
-            "Example:\n"
-            f"MODIFY {item_id}: focus this opportunity on corporate fraud instead of personal relationship cases."
-        )
+        instruction = t["modify_prompt"].format(item_id=item_id)
 
         send_telegram_message(
             bot_token,
@@ -644,7 +708,38 @@ def handle_callback(update, workspace_by_chat_id):
             reply_to_message_id=message_id,
         )
         return
-    
+
+    if decision == "REJECT_PROMPT":
+        log(
+            "CALLBACK reject prompt "
+            f"workspace={workspace_id} chat_id={chat_id} item={item_id}"
+        )
+
+        if not item_id.startswith("OPP-"):
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                "⚠️ Reject/Delete confirmation is currently only available for opportunities.",
+                reply_to_message_id=message_id,
+            )
+            return
+
+        text = t["reject_prompt"].format(item_id=item_id)
+
+        keyboard = build_opportunity_reject_confirmation_keyboard(
+            item_id,
+            workspace_id
+        )
+
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            text,
+            reply_to_message_id=message_id,
+            reply_markup=keyboard,
+        )
+        return
+
     if decision in ["REJECT_NEVER", "REJECT_SKIP", "REJECT_ANGLE", "REJECT_CANCEL"]:
         log(
             "CALLBACK opportunity reject option "
@@ -655,7 +750,9 @@ def handle_callback(update, workspace_by_chat_id):
             send_telegram_message(
                 bot_token,
                 chat_id,
-                f"❌ Rejection cancelled.\n\nOpportunity: {item_id}",
+                f"{t['cancel']} Rejeição cancelada.\n\nOportunidade: {item_id}"
+                if normalize_language(get_workspace_by_id(workspace_id).get("language", "en")).startswith("pt")
+                else f"{t['cancel']} Rejection cancelled.\n\nOpportunity: {item_id}",
                 reply_to_message_id=message_id,
             )
             return
@@ -667,39 +764,127 @@ def handle_callback(update, workspace_by_chat_id):
         }
 
         preference = preference_labels.get(decision, "rejected")
-
         reply_text = f"REJECT {item_id}: {preference}"
 
         ok, process_output = process_decision(workspace_id, reply_text)
 
+        lang = normalize_language(get_workspace_by_id(workspace_id).get("language", "en"))
+
         if ok:
             if decision == "REJECT_NEVER":
-                text = (
-                    "🚫 Opportunity rejected.\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Opportunity: {item_id}\n\n"
-                    "Sofia will try not to suggest this same topic again."
-                )
+                if lang.startswith("pt"):
+                    text = (
+                        "🚫 Oportunidade rejeitada.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Oportunidade: {item_id}\n\n"
+                        "A Sofia tentará não sugerir este mesmo tema novamente."
+                    )
+                elif lang == "es":
+                    text = (
+                        "🚫 Oportunidad rechazada.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Oportunidad: {item_id}\n\n"
+                        "Sofia intentará no volver a sugerir este mismo tema."
+                    )
+                elif lang == "fr":
+                    text = (
+                        "🚫 Opportunité rejetée.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Opportunité : {item_id}\n\n"
+                        "Sofia essaiera de ne plus suggérer ce même sujet."
+                    )
+                else:
+                    text = (
+                        "🚫 Opportunity rejected.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Opportunity: {item_id}\n\n"
+                        "Sofia will try not to suggest this same topic again."
+                    )
+
             elif decision == "REJECT_SKIP":
+                if lang.startswith("pt"):
+                    text = (
+                        "⏳ Oportunidade ignorada por agora.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Oportunidade: {item_id}\n\n"
+                        "A Sofia poderá sugerir conteúdo semelhante mais tarde, se voltar a ser relevante."
+                    )
+                elif lang == "es":
+                    text = (
+                        "⏳ Oportunidad omitida por ahora.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Oportunidad: {item_id}\n\n"
+                        "Sofia podrá sugerir contenido similar más adelante si vuelve a ser relevante."
+                    )
+                elif lang == "fr":
+                    text = (
+                        "⏳ Opportunité ignorée pour l’instant.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Opportunité : {item_id}\n\n"
+                        "Sofia pourra suggérer un contenu similaire plus tard si cela redevient pertinent."
+                    )
+                else:
+                    text = (
+                        "⏳ Opportunity skipped for now.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Opportunity: {item_id}\n\n"
+                        "Sofia may suggest similar content later if it becomes relevant."
+                    )
+
+            else:
+                if lang.startswith("pt"):
+                    text = (
+                        "🔄 Oportunidade rejeitada com pedido de outro ângulo.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Oportunidade: {item_id}\n\n"
+                        "A Sofia deverá procurar um ângulo melhor antes de sugerir este tema novamente."
+                    )
+                elif lang == "es":
+                    text = (
+                        "🔄 Oportunidad rechazada con solicitud de otro enfoque.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Oportunidad: {item_id}\n\n"
+                        "Sofia deberá buscar un mejor enfoque antes de volver a sugerir este tema."
+                    )
+                elif lang == "fr":
+                    text = (
+                        "🔄 Opportunité rejetée avec demande d’un autre angle.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Opportunité : {item_id}\n\n"
+                        "Sofia devra chercher un meilleur angle avant de suggérer à nouveau ce sujet."
+                    )
+                else:
+                    text = (
+                        "🔄 Opportunity rejected with request for a different angle.\n\n"
+                        f"Workspace: {workspace_id}\n"
+                        f"Opportunity: {item_id}\n\n"
+                        "Sofia should look for a better angle before suggesting this topic again."
+                    )
+        else:
+            if lang.startswith("pt"):
                 text = (
-                    "⏳ Opportunity skipped for now.\n\n"
+                    "⚠️ A Sofia não conseguiu rejeitar esta oportunidade.\n\n"
                     f"Workspace: {workspace_id}\n"
-                    f"Opportunity: {item_id}\n\n"
-                    "Sofia may suggest similar content later if it becomes relevant."
+                    f"Oportunidade: {item_id}"
+                )
+            elif lang == "es":
+                text = (
+                    "⚠️ Sofia no pudo rechazar esta oportunidad.\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Oportunidad: {item_id}"
+                )
+            elif lang == "fr":
+                text = (
+                    "⚠️ Sofia n’a pas pu rejeter cette opportunité.\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunité : {item_id}"
                 )
             else:
                 text = (
-                    "🔄 Opportunity rejected with request for a different angle.\n\n"
+                    "⚠️ Sofia could not reject this opportunity.\n\n"
                     f"Workspace: {workspace_id}\n"
-                    f"Opportunity: {item_id}\n\n"
-                    "Sofia should look for a better angle before suggesting this topic again."
+                    f"Opportunity: {item_id}"
                 )
-        else:
-            text = (
-                "⚠️ Sofia could not reject this opportunity.\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Opportunity: {item_id}"
-            )
 
         send_telegram_message(
             bot_token,
@@ -712,6 +897,29 @@ def handle_callback(update, workspace_by_chat_id):
             send_next_pending_item(bot_token, chat_id, workspace_id)
 
         return
+
+    reply_text = f"{decision} {item_id}"
+
+    log(
+        "CALLBACK Sofia decision "
+        f"workspace={workspace_id} chat_id={chat_id} "
+        f"from={from_user.get('first_name', '')} text={reply_text!r}"
+    )
+
+    ok, process_output = process_decision(workspace_id, reply_text)
+
+    send_processing_result(
+        chat_id=chat_id,
+        reply_to_message_id=message_id,
+        workspace_id=workspace_id,
+        item_id=item_id,
+        decision=decision,
+        ok=ok,
+        process_output=process_output,
+    )
+
+    if ok:
+        send_next_pending_item(bot_token, chat_id, workspace_id)
 
 
     reply_text = f"{decision} {item_id}"

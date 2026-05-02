@@ -137,22 +137,52 @@ def build_message(item, workspace):
 {template.get("next_step_label", "Next step after approval")}:
 {template.get("next_step", "Sofia will prepare or update the corresponding draft for final review.")}
 
-{template.get("reply", "Reply using one of these formats or use the buttons below:")}
+{template.get("button_instruction", "Use the buttons below to approve or request changes.")}
 
-APPROVE {draft_id}
-
-REVISE {draft_id}: {template.get("revise_instruction", "explain what must be changed")}
-
-REJECT {draft_id}: {template.get("reject_instruction", "explain why this draft should not be used")}
 """.strip()
 
 
-def build_decision_keyboard(draft_id, workspace_id):
+def get_button_labels(language):
+    language = str(language or "en").lower()
+
+    if language.startswith("pt-br"):
+        return {
+            "approve": "✅ Aprovar",
+            "revise": "✏️ Revisar",
+        }
+
+    if language.startswith("pt"):
+        return {
+            "approve": "✅ Aprovar",
+            "revise": "✏️ Rever",
+        }
+
+    if language.startswith("es"):
+        return {
+            "approve": "✅ Aprobar",
+            "revise": "✏️ Revisar",
+        }
+
+    if language.startswith("fr"):
+        return {
+            "approve": "✅ Approuver",
+            "revise": "✏️ Réviser",
+        }
+
+    return {
+        "approve": "✅ Approve",
+        "revise": "✏️ Revise",
+    }
+
+
+def build_decision_keyboard(draft_id, workspace_id, language="en"):
+    labels = get_button_labels(language)
+
     return {
         "inline_keyboard": [
             [
-                {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{draft_id}"},
-                {"text": "✏️ Revise", "callback_data": f"REVISE_PROMPT|{workspace_id}|{draft_id}"},
+                {"text": labels["approve"], "callback_data": f"APPROVE|{workspace_id}|{draft_id}"},
+                {"text": labels["revise"], "callback_data": f"REVISE_PROMPT|{workspace_id}|{draft_id}"},
             ]
         ]
     }
@@ -236,7 +266,11 @@ def main():
 
     for review in pending_reviews:
         message = build_message(review, workspace)
-        keyboard = build_decision_keyboard(review.get("draft_id"), workspace_id)
+        keyboard = build_decision_keyboard(
+            draft_id,
+            workspace_id,
+            workspace.get("language", "en")
+        )
 
         print("\n" + "=" * 60)
         print(f"TELEGRAM GROUP: {telegram_group}")

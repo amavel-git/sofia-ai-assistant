@@ -164,23 +164,58 @@ def build_message(opportunity, workspace):
 {template.get("check_label", "Please check:")}
 {check_items_text}
 
-{template.get("reply", "Reply using one of these formats or use the buttons below:")}
+{template.get("button_instruction", "Use the buttons below to approve or request changes.")}
 
-APPROVE {opportunity_id}
-
-MODIFY {opportunity_id}: {template.get("modify_instruction", "explain what Sofia should change")}
-
-REJECT {opportunity_id}: {template.get("reject_instruction", "explain why this opportunity should not be used")}
 """.strip()
 
 
-def build_decision_keyboard(opportunity_id, workspace_id):
+def get_button_labels(language):
+    language = str(language or "en").lower()
+
+    if language.startswith("pt-br"):
+        return {
+            "approve": "✅ Aprovar",
+            "modify": "✏️ Modificar",
+            "reject_delete": "🗑️ Rejeitar/Excluir",
+        }
+
+    if language.startswith("pt"):
+        return {
+            "approve": "✅ Aprovar",
+            "modify": "✏️ Modificar",
+            "reject_delete": "🗑️ Rejeitar/Eliminar",
+        }
+
+    if language.startswith("es"):
+        return {
+            "approve": "✅ Aprobar",
+            "modify": "✏️ Modificar",
+            "reject_delete": "🗑️ Rechazar/Eliminar",
+        }
+
+    if language.startswith("fr"):
+        return {
+            "approve": "✅ Approuver",
+            "modify": "✏️ Modifier",
+            "reject_delete": "🗑️ Rejeter/Supprimer",
+        }
+
+    return {
+        "approve": "✅ Approve",
+        "modify": "✏️ Modify",
+        "reject_delete": "🗑️ Reject/Delete",
+    }
+
+
+def build_decision_keyboard(opportunity_id, workspace_id, language="en"):
+    labels = get_button_labels(language)
+
     return {
         "inline_keyboard": [
             [
-                {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{opportunity_id}"},
-                {"text": "✏️ Modify", "callback_data": f"MODIFY_PROMPT|{workspace_id}|{opportunity_id}"},
-                {"text": "🗑️ Reject/Delete", "callback_data": f"REJECT_PROMPT|{workspace_id}|{opportunity_id}"},
+                {"text": labels["approve"], "callback_data": f"APPROVE|{workspace_id}|{opportunity_id}"},
+                {"text": labels["modify"], "callback_data": f"MODIFY_PROMPT|{workspace_id}|{opportunity_id}"},
+                {"text": labels["reject_delete"], "callback_data": f"REJECT_PROMPT|{workspace_id}|{opportunity_id}"},
             ]
         ]
     }
@@ -275,7 +310,11 @@ def main():
     for opportunity in pending_opportunities:
         message = build_message(opportunity, workspace)
         opportunity_id = opportunity.get("id") or opportunity.get("opportunity_id")
-        keyboard = build_decision_keyboard(opportunity_id, workspace_id)
+        keyboard = build_decision_keyboard(
+            opportunity_id,
+            workspace_id,
+            workspace.get("language", "en")
+        )
 
         print("\n" + "=" * 60)
         print(f"TELEGRAM GROUP: {telegram_group}")
