@@ -140,6 +140,22 @@ def process_opportunity_decision(workspace, item_id, decision, comment):
 
     save_json(opportunities_path, data)
 
+    if decision == "MODIFY":
+        if comment:
+            run_pipeline_command(
+                [
+                    "python3",
+                    "app/apply_opportunity_modification.py",
+                    workspace.get("workspace_id"),
+                    item_id,
+                    comment
+                ],
+                "Apply opportunity modification"
+            )
+        else:
+            print("\nModification requested, but no comment was provided.")
+            print("No automatic opportunity modification loop was triggered.")
+
     if decision == "APPROVE":
         workspace_id = workspace.get("workspace_id")
 
@@ -184,6 +200,29 @@ def find_review_item(review_items, draft_id):
         if item.get("draft_id") == draft_id:
             return item
     return None
+
+def get_validation_status(draft):
+    validation = draft.get("validation", {})
+    status = validation.get("status", "")
+    issues = validation.get("issues", [])
+
+    return status, issues
+
+
+def format_validation_issues(issues):
+    if not issues:
+        return "No validation issues listed."
+
+    return "\n".join([f"- {issue}" for issue in issues])
+
+def reload_draft_from_registry(draft_id):
+    if not GLOBAL_DRAFT_REGISTRY.exists():
+        return None
+
+    draft_data = load_json(GLOBAL_DRAFT_REGISTRY)
+    drafts = draft_data.get("drafts", [])
+
+    return find_draft(drafts, draft_id)
 
 
 def process_draft_decision(workspace, item_id, decision, comment):
@@ -270,6 +309,67 @@ def process_draft_decision(workspace, item_id, decision, comment):
 
     save_json(GLOBAL_DRAFT_REGISTRY, draft_data)
     save_json(review_queue_path, review_queue)
+
+    if decision == "APPROVE":
+        validation_status, validation_issues = get_validation_status(draft)
+
+        if validation_status != "passed":
+            print("\nApproval received, but validation has not passed.")
+            print("Sofia will attempt automatic refinement before publication preparation.")
+            print(f"Current validation status: {validation_status or 'missing'}")
+            print("Validation issues:")
+            print(format_validation_issues(validation_issues))
+
+            repair_ok = run_pipeline_command(
+                [
+                    "python3",
+                    "app/repair_generated_content.py",
+                    item_id
+                ],
+                "Auto-refine approved draft content"
+            )
+
+            if repair_ok:
+                run_pipeline_command(
+                    [
+                        "python3",
+                        "app/clean_generated_html.py",
+                        item_id
+                    ],
+                    "Clean auto-refined approved draft"
+                )
+
+                run_pipeline_command(
+                    [
+                        "python3",
+                        "app/validate_generated_content.py",
+                        item_id
+                    ],
+                    "Validate auto-refined approved draft"
+                )
+
+            fresh_draft = reload_draft_from_registry(item_id)
+
+            if fresh_draft:
+                validation_status, validation_issues = get_validation_status(fresh_draft)
+
+        if validation_status == "passed":
+            run_pipeline_command(
+                [
+                    "python3",
+                    "app/run_publishing_pipeline.py",
+                    item_id,
+                    "--after-approval"
+                ],
+                "Prepare publication drafts after approval"
+            )
+        else:
+            print("\nApproval received, but publication preparation was blocked.")
+            print(f"Validation status: {validation_status or 'missing'}")
+            print("Validation issues:")
+            print(format_validation_issues(validation_issues))
+            print("\nNo WordPress/platform draft was prepared.")
+            print("Sofia must continue internal SEO/quality refinement before publication preparation.")
 
     if decision == "REVISE":
         if comment:

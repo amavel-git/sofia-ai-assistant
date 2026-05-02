@@ -179,8 +179,8 @@ def build_decision_keyboard(opportunity_id, workspace_id):
         "inline_keyboard": [
             [
                 {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{opportunity_id}"},
-                {"text": "✏️ Modify", "callback_data": f"MODIFY|{workspace_id}|{opportunity_id}"},
-                {"text": "❌ Reject", "callback_data": f"REJECT|{workspace_id}|{opportunity_id}"},
+                {"text": "✏️ Modify", "callback_data": f"MODIFY_PROMPT|{workspace_id}|{opportunity_id}"},
+                {"text": "🗑️ Reject/Delete", "callback_data": f"REJECT_PROMPT|{workspace_id}|{opportunity_id}"},
             ]
         ]
     }

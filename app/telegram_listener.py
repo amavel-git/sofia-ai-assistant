@@ -147,13 +147,56 @@ def answer_callback_query(bot_token, callback_query_id, text="Sofia is processin
         return False
 
 
-def build_decision_keyboard(draft_id, workspace_id):
+def build_decision_keyboard(item_id, workspace_id):
+    item_id = str(item_id)
+
+    if item_id.startswith("OPP-"):
+        return {
+            "inline_keyboard": [
+                [
+                    {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{item_id}"},
+                    {"text": "✏️ Modify", "callback_data": f"MODIFY_PROMPT|{workspace_id}|{item_id}"},
+                    {"text": "🗑️ Reject/Delete", "callback_data": f"REJECT_PROMPT|{workspace_id}|{item_id}"},
+                ]
+            ]
+        }
+
     return {
         "inline_keyboard": [
             [
-                {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{draft_id}"},
-                {"text": "✏️ Revise", "callback_data": f"REVISE_PROMPT|{workspace_id}|{draft_id}"},
-                {"text": "🌐 Platforms", "callback_data": f"PLATFORMS|{workspace_id}|{draft_id}"},
+                {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{item_id}"},
+                {"text": "✏️ Revise", "callback_data": f"REVISE_PROMPT|{workspace_id}|{item_id}"},
+            ]
+        ]
+    }
+
+
+def build_opportunity_reject_confirmation_keyboard(opportunity_id, workspace_id):
+    return {
+        "inline_keyboard": [
+            [
+                {
+                    "text": "🚫 Never suggest again",
+                    "callback_data": f"REJECT_NEVER|{workspace_id}|{opportunity_id}"
+                }
+            ],
+            [
+                {
+                    "text": "⏳ Skip for now",
+                    "callback_data": f"REJECT_SKIP|{workspace_id}|{opportunity_id}"
+                }
+            ],
+            [
+                {
+                    "text": "🔄 Suggest different angle",
+                    "callback_data": f"REJECT_ANGLE|{workspace_id}|{opportunity_id}"
+                }
+            ],
+            [
+                {
+                    "text": "❌ Cancel",
+                    "callback_data": f"REJECT_CANCEL|{workspace_id}|{opportunity_id}"
+                }
             ]
         ]
     }
@@ -234,19 +277,29 @@ def process_decision(workspace_id, reply_text):
         capture_output=True,
     )
 
+    combined_output = ""
+
     if result.stdout:
+        combined_output += result.stdout
         for line in result.stdout.strip().splitlines():
             log(f"PROCESS STDOUT | {line}")
 
     if result.stderr:
+        combined_output += "\n" + result.stderr
         for line in result.stderr.strip().splitlines():
             log(f"PROCESS STDERR | {line}")
 
     failure_signals = [
         "not found",
         "invalid",
-        "error",
         "could not parse",
+        "auto step failed",
+        "pipeline failed",
+        "wordpress pipeline failed",
+        "wordpress update/upload failed",
+        "publication preparation was blocked",
+        "validation status: failed",
+        "no wordpress/platform draft was prepared",
     ]
 
     stdout_lower = result.stdout.lower() if result.stdout else ""
@@ -255,9 +308,9 @@ def process_decision(workspace_id, reply_text):
     for signal in failure_signals:
         if signal in stdout_lower or signal in stderr_lower:
             log(f"Detected logical failure: {signal}")
-            return False
+            return False, combined_output
 
-    return result.returncode == 0
+    return result.returncode == 0, combined_output
 
 
 def send_next_pending_item(bot_token, chat_id, workspace_id):
@@ -347,22 +400,115 @@ def send_next_pending_item(bot_token, chat_id, workspace_id):
     return False
 
 
-def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, decision, ok):
-    if ok:
+def extract_wordpress_result(process_output):
+    if not process_output:
+        return {}
+
+    wordpress_id = None
+    wordpress_link = None
+    wordpress_status = None
+
+    for line in process_output.splitlines():
+        clean = line.strip()
+
+        if clean.startswith("WordPress ID:"):
+            wordpress_id = clean.replace("WordPress ID:", "").strip()
+
+        elif clean.startswith("Link:"):
+            wordpress_link = clean.replace("Link:", "").strip()
+
+        elif "WordPress draft updated successfully" in clean:
+            wordpress_status = "updated"
+
+        elif "WordPress draft created successfully" in clean:
+            wordpress_status = "created"
+
+    return {
+        "wordpress_id": wordpress_id,
+        "wordpress_link": wordpress_link,
+        "wordpress_status": wordpress_status,
+    }
+
+
+def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, decision, ok, process_output=""):
+    is_draft = str(item_id).startswith("DRAFT-")
+    is_opportunity = str(item_id).startswith("OPP-")
+
+    wp_result = extract_wordpress_result(process_output)
+
+    if ok and is_draft and decision == "APPROVE":
+        wordpress_status = wp_result.get("wordpress_status")
+        wordpress_id = wp_result.get("wordpress_id")
+        wordpress_link = wp_result.get("wordpress_link")
+
+        prepared_lines = []
+
+        if wordpress_status:
+            prepared_lines.append(f"- WordPress draft {wordpress_status} successfully")
+        else:
+            prepared_lines.append("- WordPress / website draft: prepared or updated if configured")
+
+        if wordpress_id:
+            prepared_lines.append(f"- WordPress ID: {wordpress_id}")
+
+        if wordpress_link:
+            prepared_lines.append(f"- Draft link: {wordpress_link}")
+
+        prepared_text = "\n".join(prepared_lines)
+
+        text = (
+            "✅ Draft approved and prepared for publication\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Prepared:\n"
+            f"{prepared_text}\n\n"
+            "Final live publication has NOT been done automatically.\n"
+            "Please review the draft in WordPress and publish manually when ready."
+        )
+
+    elif ok and is_draft and decision == "REVISE":
+        text = (
+            "✅ Revision request processed\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Sofia has processed the revision request and will return the draft for review."
+        )
+
+    elif ok and is_opportunity and decision == "APPROVE":
+        text = (
+            "✅ Opportunity approved\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Opportunity: {item_id}\n\n"
+            "Sofia has converted the approved opportunity into the next content workflow step."
+        )
+
+    elif ok:
         text = (
             "✅ Sofia decision processed\n\n"
             f"Workspace: {workspace_id}\n"
             f"Item: {item_id}\n"
             f"Decision: {decision}"
         )
+
     else:
-        text = (
-            "⚠️ Sofia could not process this decision.\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Item: {item_id}\n"
-            f"Decision: {decision}\n\n"
-            "Please check that the ID exists and the format is correct."
-        )
+        if is_draft and decision == "APPROVE":
+            text = (
+                "⚠️ Draft approved, but publication preparation was blocked\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Draft: {item_id}\n\n"
+                "The examiner approval was received, but Sofia could not prepare the publication draft yet "
+                "because the content still needs internal SEO/quality refinement.\n\n"
+                "No WordPress/platform draft has been prepared.\n"
+                "Sofia should continue refining the content until validation passes."
+            )
+        else:
+            text = (
+                "⚠️ Sofia could not process this decision.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Item: {item_id}\n"
+                f"Decision: {decision}\n\n"
+                "Please check that the ID exists and the format is correct."
+            )
 
     send_telegram_message(
         get_bot_token(),
@@ -433,18 +579,62 @@ def handle_callback(update, workspace_by_chat_id):
             reply_to_message_id=message_id,
         )
         return
-
-    if decision == "PLATFORMS":
+    
+    if decision == "REJECT_PROMPT":
         log(
-            "CALLBACK platforms prompt "
+            "CALLBACK reject prompt "
             f"workspace={workspace_id} chat_id={chat_id} item={item_id}"
         )
 
+        if not item_id.startswith("OPP-"):
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                "⚠️ Reject/Delete confirmation is currently only available for opportunities.",
+                reply_to_message_id=message_id,
+            )
+            return
+
+        text = (
+            "🗑️ Are you sure you want to reject/delete this opportunity?\n\n"
+            f"Opportunity: {item_id}\n\n"
+            "Please choose how Sofia should handle similar content in the future:"
+        )
+
+        keyboard = build_opportunity_reject_confirmation_keyboard(
+            item_id,
+            workspace_id
+        )
+
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            text,
+            reply_to_message_id=message_id,
+            reply_markup=keyboard,
+        )
+        return
+    
+    if decision == "MODIFY_PROMPT":
+        log(
+            "CALLBACK modify prompt "
+            f"workspace={workspace_id} chat_id={chat_id} item={item_id}"
+        )
+
+        if not item_id.startswith("OPP-"):
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                "⚠️ Modify is currently only available for opportunities.",
+                reply_to_message_id=message_id,
+            )
+            return
+
         instruction = (
-            "🌐 Platform selection is the next step.\n\n"
-            f"Draft: {item_id}\n"
-            "For now, please continue with approval or send a manual platform note.\n\n"
-            f"Example:\nPLATFORMS {item_id}: website, Facebook, LinkedIn"
+            "✏️ Please send your modification instructions using this format:\n\n"
+            f"MODIFY {item_id}: explain what Sofia should change\n\n"
+            "Example:\n"
+            f"MODIFY {item_id}: focus this opportunity on corporate fraud instead of personal relationship cases."
         )
 
         send_telegram_message(
@@ -454,6 +644,75 @@ def handle_callback(update, workspace_by_chat_id):
             reply_to_message_id=message_id,
         )
         return
+    
+    if decision in ["REJECT_NEVER", "REJECT_SKIP", "REJECT_ANGLE", "REJECT_CANCEL"]:
+        log(
+            "CALLBACK opportunity reject option "
+            f"workspace={workspace_id} chat_id={chat_id} item={item_id} option={decision}"
+        )
+
+        if decision == "REJECT_CANCEL":
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                f"❌ Rejection cancelled.\n\nOpportunity: {item_id}",
+                reply_to_message_id=message_id,
+            )
+            return
+
+        preference_labels = {
+            "REJECT_NEVER": "never_suggest_again",
+            "REJECT_SKIP": "skip_for_now",
+            "REJECT_ANGLE": "suggest_different_angle",
+        }
+
+        preference = preference_labels.get(decision, "rejected")
+
+        reply_text = f"REJECT {item_id}: {preference}"
+
+        ok, process_output = process_decision(workspace_id, reply_text)
+
+        if ok:
+            if decision == "REJECT_NEVER":
+                text = (
+                    "🚫 Opportunity rejected.\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunity: {item_id}\n\n"
+                    "Sofia will try not to suggest this same topic again."
+                )
+            elif decision == "REJECT_SKIP":
+                text = (
+                    "⏳ Opportunity skipped for now.\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunity: {item_id}\n\n"
+                    "Sofia may suggest similar content later if it becomes relevant."
+                )
+            else:
+                text = (
+                    "🔄 Opportunity rejected with request for a different angle.\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunity: {item_id}\n\n"
+                    "Sofia should look for a better angle before suggesting this topic again."
+                )
+        else:
+            text = (
+                "⚠️ Sofia could not reject this opportunity.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Opportunity: {item_id}"
+            )
+
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            text,
+            reply_to_message_id=message_id,
+        )
+
+        if ok:
+            send_next_pending_item(bot_token, chat_id, workspace_id)
+
+        return
+
 
     reply_text = f"{decision} {item_id}"
 
@@ -463,7 +722,7 @@ def handle_callback(update, workspace_by_chat_id):
         f"from={from_user.get('first_name', '')} text={reply_text!r}"
     )
 
-    ok = process_decision(workspace_id, reply_text)
+    ok, process_output = process_decision(workspace_id, reply_text)
 
     send_processing_result(
         chat_id=chat_id,
@@ -472,6 +731,7 @@ def handle_callback(update, workspace_by_chat_id):
         item_id=item_id,
         decision=decision,
         ok=ok,
+        process_output=process_output,
     )
 
     if ok:
@@ -532,7 +792,7 @@ def handle_update(update, workspace_by_chat_id):
         f"from={msg['from_name'] or msg['from_username']} text={clean_text!r}"
     )
 
-    ok = process_decision(workspace_id, clean_text)
+    ok, process_output = process_decision(workspace_id, clean_text)
 
     parsed = VALID_REPLY_RE.fullmatch(clean_text.strip())
     decision = parsed.group(1).upper()
@@ -550,6 +810,7 @@ def handle_update(update, workspace_by_chat_id):
         item_id=item_id,
         decision=decision,
         ok=ok,
+        process_output=process_output,
     )
 
     if ok:
@@ -598,4 +859,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-PY

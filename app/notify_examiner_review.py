@@ -152,8 +152,7 @@ def build_decision_keyboard(draft_id, workspace_id):
         "inline_keyboard": [
             [
                 {"text": "✅ Approve", "callback_data": f"APPROVE|{workspace_id}|{draft_id}"},
-                {"text": "✏️ Revise", "callback_data": f"REVISE|{workspace_id}|{draft_id}"},
-                {"text": "❌ Reject", "callback_data": f"REJECT|{workspace_id}|{draft_id}"},
+                {"text": "✏️ Revise", "callback_data": f"REVISE_PROMPT|{workspace_id}|{draft_id}"},
             ]
         ]
     }
