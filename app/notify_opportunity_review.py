@@ -12,6 +12,7 @@ load_dotenv(ROOT / ".env", override=True)
 
 WORKSPACES_PATH = ROOT / "data" / "workspaces.json"
 TEMPLATES_PATH = ROOT / "data" / "telegram_message_templates.json"
+ACTIVATION_PATH = ROOT / "data" / "workspace_activation.json"
 
 
 def load_json(path):
@@ -22,6 +23,26 @@ def load_json(path):
 def save_json(path, data):
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def load_activation_state():
+    if not ACTIVATION_PATH.exists():
+        return {"workspaces": {}, "updated_at": None}
+
+    return load_json(ACTIVATION_PATH)
+
+
+def is_workspace_active(workspace_id):
+    state = load_activation_state()
+    workspace_state = state.get("workspaces", {}).get(workspace_id)
+
+    if not workspace_state:
+        return False
+
+    return (
+    workspace_state.get("external_opportunities_active") is True
+    or workspace_state.get("sofia_active") is True
+)
 
 
 def now_iso():
@@ -267,6 +288,10 @@ def main():
 
     if not workspace:
         print(f"Workspace not found: {workspace_id}")
+        return
+    
+    if not is_workspace_active(workspace_id):
+        print(f"Sofia workspace inactive for {workspace_id}. No opportunity notification sent.")
         return
 
     folder_path = workspace.get("folder_path", "")

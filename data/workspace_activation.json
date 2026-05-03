@@ -1,0 +1,17 @@
+{
+  "workspaces": {
+    "local.es": {
+      "external_opportunities_active": false,
+      "updated_at": "2026-05-03T08:59:27.099700+00:00",
+      "updated_by_telegram_user_id": "179799897",
+      "updated_by_name": "Amável"
+    },
+    "local.ao": {
+      "external_opportunities_active": true,
+      "updated_at": "2026-05-03T09:55:16.205622+00:00",
+      "updated_by_telegram_user_id": "179799897",
+      "updated_by_name": "Amável"
+    }
+  },
+  "updated_at": "2026-05-03T09:55:16.205622+00:00"
+}

@@ -18,6 +18,7 @@ ENV_PATH = SOFIA_ROOT / ".env"
 WORKSPACES_PATH = SOFIA_ROOT / "data" / "workspaces.json"
 STATE_PATH = SOFIA_ROOT / "logs" / "telegram_listener_state.json"
 LOG_PATH = SOFIA_ROOT / "logs" / "telegram_listener.log"
+ACTIVATION_PATH = SOFIA_ROOT / "data" / "workspace_activation.json"
 
 load_dotenv(ENV_PATH, override=True)
 
@@ -43,6 +44,206 @@ def save_json(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def get_admin_user_ids():
+    raw = os.getenv("SOFIA_TELEGRAM_ADMIN_USER_IDS", "")
+    return {item.strip() for item in raw.split(",") if item.strip()}
+
+
+def is_admin_user(user_id):
+    return str(user_id) in get_admin_user_ids()
+
+
+def load_activation_state():
+    return load_json(ACTIVATION_PATH, {"workspaces": {}, "updated_at": None})
+
+
+def save_activation_state(data):
+    save_json(ACTIVATION_PATH, data)
+
+
+def get_workspace_label(workspace_id):
+    data = load_json(WORKSPACES_PATH, {"workspaces": []})
+
+    for workspace in data.get("workspaces", []):
+        if workspace.get("workspace_id") == workspace_id:
+            country = workspace.get("country") or workspace.get("country_name") or ""
+            domain = workspace.get("domain") or workspace.get("site_url") or workspace.get("site_target") or ""
+            label_parts = [workspace_id]
+
+            if country:
+                label_parts.append(country)
+
+            if domain:
+                label_parts.append(domain)
+
+            return " | ".join(label_parts)
+
+    return workspace_id
+
+
+def workspace_exists(workspace_id):
+    data = load_json(WORKSPACES_PATH, {"workspaces": []})
+
+    for workspace in data.get("workspaces", []):
+        if workspace.get("workspace_id") == workspace_id:
+            return True
+
+    return False
+
+
+def set_workspace_active(workspace_id, active, admin_user_id, admin_name=""):
+    state = load_activation_state()
+
+    if "workspaces" not in state:
+        state["workspaces"] = {}
+
+    timestamp = now_iso()
+
+    state["workspaces"][workspace_id] = {
+        "external_opportunities_active": active,
+        "updated_at": timestamp,
+        "updated_by_telegram_user_id": str(admin_user_id),
+        "updated_by_name": admin_name,
+    }
+    state["updated_at"] = timestamp
+
+    save_activation_state(state)
+
+
+def is_workspace_active(workspace_id):
+    state = load_activation_state()
+    workspace_state = state.get("workspaces", {}).get(workspace_id)
+
+    if not workspace_state:
+        return False
+
+    return workspace_state.get("external_opportunities_active") is True
+
+
+def format_workspace_status(workspace_id):
+    active = is_workspace_active(workspace_id)
+    status = "external opportunities active ✅" if active else "external opportunities inactive ⛔"
+    return f"{workspace_id}: {status}"
+
+
+def handle_admin_command(msg):
+    text = msg.get("text", "").strip()
+    user_id = msg.get("from_id") or msg.get("from_user_id")
+
+    if not text.upper().startswith("SOFIA"):
+        return False
+
+    if not is_admin_user(user_id):
+        send_telegram_message(
+            get_bot_token(),
+            msg["chat_id"],
+            "⚠️ This Sofia admin command is restricted.",
+            reply_to_message_id=msg.get("message_id"),
+        )
+        return True
+
+    parts = text.split()
+    command = parts[1].upper() if len(parts) >= 2 else "HELP"
+    admin_name = msg.get("from_name") or msg.get("from_username") or ""
+
+    if command in ["HELP", "COMMANDS"]:
+        response = (
+            "Sofia admin commands:\n\n"
+            "SOFIA STATUS\n"
+            "SOFIA STATUS local.es\n"
+            "SOFIA ACTIVATE local.es\n"
+            "SOFIA DEACTIVATE local.es\n"
+            "SOFIA ACTIVE LIST"
+        )
+
+    elif command == "STATUS":
+        if len(parts) >= 3:
+            workspace_id = parts[2]
+            if not workspace_exists(workspace_id):
+                response = f"⚠️ Workspace not found: {workspace_id}"
+            else:
+                response = (
+                    "Sofia workspace status:\n\n"
+                    f"{format_workspace_status(workspace_id)}\n"
+                    f"{get_workspace_label(workspace_id)}"
+                )
+        else:
+            state = load_activation_state()
+            active_items = []
+
+            for workspace_id, info in state.get("workspaces", {}).items():
+                if info.get("sofia_active") is True:
+                    active_items.append(f"- {get_workspace_label(workspace_id)}")
+
+            if active_items:
+                response = "Sofia active workspaces:\n\n" + "\n".join(active_items)
+            else:
+                response = "No Sofia workspaces are currently active."
+
+    elif command == "ACTIVATE":
+        if len(parts) < 3:
+            response = "⚠️ Please specify a workspace ID.\nExample: SOFIA ACTIVATE local.es"
+        else:
+            workspace_id = parts[2]
+            if not workspace_exists(workspace_id):
+                response = f"⚠️ Workspace not found: {workspace_id}"
+            else:
+                set_workspace_active(workspace_id, True, user_id, admin_name)
+                response = (
+                    "✅ External opportunities activated\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"{get_workspace_label(workspace_id)}\n\n"
+                    "Sofia may now suggest external content opportunities for this workspace."
+                )
+
+    elif command in ["DEACTIVATE", "DESACTIVATE"]:
+        if len(parts) < 3:
+            response = "⚠️ Please specify a workspace ID.\nExample: SOFIA DEACTIVATE local.es"
+        else:
+            workspace_id = parts[2]
+            if not workspace_exists(workspace_id):
+                response = f"⚠️ Workspace not found: {workspace_id}"
+            else:
+                set_workspace_active(workspace_id, False, user_id, admin_name)
+                response = (
+                    "⛔ External opportunities deactivated\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"{get_workspace_label(workspace_id)}\n\n"
+                    "Sofia will not proactively suggest external content opportunities for this workspace."
+                )
+
+    elif command == "ACTIVE" and len(parts) >= 3 and parts[2].upper() == "LIST":
+        state = load_activation_state()
+        active_items = []
+
+        for workspace_id, info in state.get("workspaces", {}).items():
+            if info.get("sofia_active") is True:
+                active_items.append(f"- {get_workspace_label(workspace_id)}")
+
+        if active_items:
+            response = "Sofia active workspaces:\n\n" + "\n".join(active_items)
+        else:
+            response = "No Sofia workspaces are currently active."
+
+    else:
+        response = (
+            "⚠️ Unknown Sofia admin command.\n\n"
+            "Try:\n"
+            "SOFIA STATUS\n"
+            "SOFIA ACTIVATE local.es\n"
+            "SOFIA DEACTIVATE local.es"
+        )
+
+    send_telegram_message(
+        get_bot_token(),
+        msg["chat_id"],
+        response,
+        reply_to_message_id=msg.get("message_id"),
+    )
+
+    return True
 
 
 def log(message):
@@ -325,6 +526,7 @@ def extract_message(update):
         "chat_id": str(chat.get("id")),
         "chat_title": chat.get("title", ""),
         "text": text.strip(),
+        "from_id": str(from_user.get("id", "")),
         "from_username": from_user.get("username", ""),
         "from_name": " ".join(
             p for p in [
@@ -956,6 +1158,9 @@ def handle_update(update, workspace_by_chat_id):
     text = msg["text"]
 
     if not text:
+        return
+    
+    if handle_admin_command(msg):
         return
 
     if not is_valid_sofia_reply(text):
