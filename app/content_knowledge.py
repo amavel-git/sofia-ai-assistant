@@ -108,46 +108,178 @@ def score_block(block: Dict[str, Any], topic: str, tags_hint: Optional[List[str]
     score = 0
 
     topic_tokens = set(tokenize(topic))
-    tags_hint = tags_hint or []
+    tags_hint = [str(tag).lower() for tag in (tags_hint or [])]
 
     block_tags = set(str(tag).lower() for tag in block.get("tags", []))
     block_category = str(block.get("category", "")).lower()
     block_text = str(block.get("text", "") or block.get("content", "") or "").lower()
     block_title = str(block.get("title", "") or block.get("block_id", "") or "").lower()
+    source_type = str(block.get("source_type", "")).lower()
+
+    # ------------------------------------------------------------
+    # Strong preference for semantic/service/topic blocks
+    # ------------------------------------------------------------
+
+    preferred_categories = {
+        "infidelity",
+        "theft",
+        "legal_tests",
+        "polygraph_process",
+        "examiner_qualifications",
+        "ethics",
+        "quality_standards",
+        "confidentiality",
+        "limitations",
+        "sexual_harassment",
+        "pre_employment",
+        "maintenance_testing",
+        "applications",
+        "procedure",
+        "results",
+    }
+
+    if block_category in preferred_categories:
+        score += 20
+
+    # ------------------------------------------------------------
+    # FAQ blocks should help, but not dominate
+    # ------------------------------------------------------------
+
+    faq_penalty_categories = {
+        "pricing",
+        "booking",
+        "questions",
+        "duration",
+        "location",
+        "medication",
+        "nervousness",
+        "minors",
+    }
+
+    if block_category in faq_penalty_categories:
+        score -= 4
+
+    # ------------------------------------------------------------
+    # Prefer approved semantic scraped blocks
+    # ------------------------------------------------------------
+
+    if source_type == "approved_scraped_website_candidate":
+        score += 12
+
+    # ------------------------------------------------------------
+    # Tag hint matching
+    # ------------------------------------------------------------
 
     for tag in tags_hint:
-        tag = str(tag).lower()
-        if tag in block_tags or tag == block_category:
-            score += 8
+        if tag in block_tags:
+            score += 12
+
+        if tag == block_category:
+            score += 15
+
+    # ------------------------------------------------------------
+    # Topic semantic/token matching
+    # ------------------------------------------------------------
 
     for token in topic_tokens:
         if token in block_tags:
-            score += 5
-        if token in block_category:
-            score += 4
-        if token in block_title:
-            score += 3
-        if token in block_text:
-            score += 1
+            score += 8
 
-    # Always useful foundation blocks for polygraph content.
+        if token in block_category:
+            score += 7
+
+        if token in block_title:
+            score += 5
+
+        if token in block_text:
+            score += 2
+
+    # ------------------------------------------------------------
+    # Polygraph foundation knowledge
+    # ------------------------------------------------------------
+
     useful_tags = {
         "procedure",
         "accuracy",
         "reliability",
         "confidentiality",
         "privacy",
-        "questions",
         "ethics",
         "results",
-        "booking",
-        "pricing",
+        "limitations",
+        "quality_standards",
+        "examiner_qualifications",
     }
 
     if block_tags.intersection(useful_tags):
-        score += 2
+        score += 5
+
+    # ------------------------------------------------------------
+    # Penalize very short/weak blocks
+    # ------------------------------------------------------------
+
+    if len(block_text) < 120:
+        score -= 6
 
     return score
+
+
+def is_clean_enough_block(block: Dict[str, Any]) -> bool:
+    source_type = str(block.get("source_type", "")).lower()
+    text = str(block.get("text", "") or block.get("content", "") or "").strip()
+    text_lower = text.lower()
+
+    # Old FAQ blocks are generally curated already.
+    if source_type != "approved_scraped_website_candidate":
+        return True
+
+    if not text:
+        return False
+
+    # Reject truncated scraped fragments.
+    if text.endswith("..."):
+        return False
+
+    # Reject fragments that start mid-sentence.
+    if text[0].islower():
+        return False
+
+    # Reject obvious navigation/contact/location noise.
+    noisy_terms = [
+        "features calling messaging groups status channels",
+        "meta ai",
+        "whatsapp",
+        "telegram",
+        "tlm:",
+        "email:",
+        "rua ",
+        "avenida ",
+        "porto",
+        "lisboa",
+        "faro",
+        "contacto polígrafo portugal",
+        "escritórios polígrafo portugal",
+        "betclic",
+        "youtube",
+        "tvi",
+        "sic",
+    ]
+
+    if any(term in text_lower for term in noisy_terms):
+        return False
+
+    # Reject entertainment/media-heavy fragments.
+    entertainment_terms = [
+        "maquina da verdade na televisão",
+        "programas de televisão",
+        "entretenimento",
+        "influenciadores",
+    ]
+
+    if any(term in text_lower for term in entertainment_terms):
+        return False
+
+    return True
 
 
 def select_relevant_blocks(
@@ -180,6 +312,9 @@ def select_relevant_blocks(
     matching_language_blocks = []
 
     for block in approved_blocks:
+        if not is_clean_enough_block(block):
+            continue
+
         block_language = normalize_language(block.get("language", ""))
 
         if block_language in accepted_languages:
@@ -195,7 +330,31 @@ def select_relevant_blocks(
 
     scored.sort(key=lambda item: item[0], reverse=True)
 
-    selected = [block for score, block in scored[:max_blocks]]
+    selected = []
+    category_counts = {}
+
+    for score, block in scored:
+        category = str(block.get("category", "general")).lower()
+        source_type = str(block.get("source_type", "")).lower()
+        text = str(block.get("text", "") or block.get("content", "") or "").strip()
+
+        # Avoid letting one category dominate the whole package.
+        max_per_category = 2
+        if category_counts.get(category, 0) >= max_per_category:
+            continue
+
+        # Avoid rough scraped fragments when possible.
+        if source_type == "approved_scraped_website_candidate":
+            if text and text[0].islower():
+                continue
+            if text.endswith("..."):
+                continue
+
+        selected.append(block)
+        category_counts[category] = category_counts.get(category, 0) + 1
+
+        if len(selected) >= max_blocks:
+            break
 
     if not selected:
         selected = matching_language_blocks[:max_blocks]

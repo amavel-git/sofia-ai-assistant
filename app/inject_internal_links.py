@@ -3,6 +3,11 @@ import sys
 import re
 from pathlib import Path
 
+from workspace_paths import (
+    find_draft_any_workspace,
+    get_workspace_draft_registry_path,
+)
+
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
 
@@ -17,6 +22,18 @@ def load_json(path: Path):
 def save_json(path: Path, data):
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def load_draft_registry_for_draft(draft_id):
+    workspace_id, draft = find_draft_any_workspace(draft_id)
+
+    if not workspace_id or not draft:
+        raise RuntimeError(f"Draft not found in any workspace registry: {draft_id}")
+
+    registry_path = get_workspace_draft_registry_path(workspace_id)
+    registry_data = load_json(registry_path)
+
+    return workspace_id, registry_path, registry_data, draft
 
 
 def load_internal_links(workspace_path: str):
@@ -50,7 +67,7 @@ def find_relevant_links(suggestions):
         selected.append(s)
         types_used.add(link_type)
 
-        if len(selected) >= 3:
+        if len(selected) >= 5:
             break
 
     return selected
@@ -99,6 +116,30 @@ def inject_links_into_html(content: str, links):
 
 def derive_keyword_from_url(url: str):
     slug = url.strip("/").split("/")[-1]
+
+    slug = slug.replace("-", " ")
+    slug = slug.replace("_", " ")
+
+    replacements = {
+        "poligrafo": "teste de polígrafo",
+        "polygraph": "polygraph test",
+        "infidelidade": "teste de polígrafo para infidelidade",
+        "furto": "teste de polígrafo para furto",
+        "roubo": "teste de polígrafo para roubo",
+        "empresas": "testes de polígrafo para empresas",
+        "pre emprego": "teste de polígrafo pré-emprego",
+        "sexual": "teste de polígrafo para assédio sexual",
+        "legal": "teste de polígrafo para questões legais",
+    }
+
+    keyword = slug.lower()
+
+    for source, replacement in replacements.items():
+        if source in keyword:
+            return replacement
+
+    return slug
+    slug = url.strip("/").split("/")[-1]
     slug = slug.replace("-", " ")
     return slug
 
@@ -106,14 +147,35 @@ def derive_keyword_from_url(url: str):
 def inject_fallback_link(content: str, keyword: str, url: str):
     paragraphs = re.split(r"(</p>)", content)
 
+    inserted = False
+
     for i in range(0, len(paragraphs), 2):
-        if "<p>" in paragraphs[i]:
-            paragraphs[i] = paragraphs[i].replace(
-                "</p>",
-                f' Saiba mais sobre <a href="{url}">{keyword}</a>.</p>',
-                1
-            )
-            break
+        paragraph = paragraphs[i]
+
+        if "<p>" not in paragraph:
+            continue
+
+        # Avoid injecting into FAQ answers repeatedly.
+        if "faq" in paragraph.lower():
+            continue
+
+        # Avoid injecting into already linked paragraphs.
+        if "<a " in paragraph.lower():
+            continue
+
+        paragraphs[i] = paragraph.replace(
+            "</p>",
+            f' Para mais informações, consulte também <a href="{url}">{keyword}</a>.</p>',
+            1
+        )
+
+        inserted = True
+        break
+
+    if not inserted:
+        content += f'\n<p>Para mais informações, consulte também <a href="{url}">{keyword}</a>.</p>'
+
+        return content
 
     return "".join(paragraphs)
 
@@ -128,17 +190,26 @@ def main():
 
     draft_id = sys.argv[1]
 
-    draft_data = load_json(DRAFT_REGISTRY_FILE)
-    drafts = draft_data.get("drafts", [])
-
-    draft = next((d for d in drafts if d.get("draft_id") == draft_id), None)
+    try:
+        workspace_id, draft_registry_file, draft_data, draft = load_draft_registry_for_draft(draft_id)
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return
 
     if not draft:
         print(f"Draft not found: {draft_id}")
         return
 
-    if draft.get("draft_status") != "content_generated":
-        print("Draft must be in content_generated status.")
+    allowed_statuses = [
+        "content_generated",
+        "internal_links_added",
+        "ai_internal_links_added",
+        "approved",
+    ]
+
+    if draft.get("draft_status") not in allowed_statuses:
+        print(f"Draft must be in one of these statuses: {allowed_statuses}")
+        print(f"Current status: {draft.get('draft_status')}")
         return
 
     content_block = draft.get("generated_content", {})
@@ -162,13 +233,20 @@ def main():
 
     updated_content = inject_links_into_html(content, selected_links)
 
+    if "generated_content" not in draft or not isinstance(draft["generated_content"], dict):
+        draft["generated_content"] = {}
+
     draft["generated_content"]["content"] = updated_content
+    draft["html_content"] = updated_content
     draft["draft_status"] = "internal_links_added"
 
-    save_json(DRAFT_REGISTRY_FILE, draft_data)
+    draft_data["scope"] = "workspace"
+    draft_data["workspace_id"] = workspace_id
+    save_json(draft_registry_file, draft_data)
 
     print(f"Internal links added to {draft_id}")
     print(f"Links injected: {len(selected_links)}")
+    print(f"Workspace registry: {draft_registry_file}")
 
 
 if __name__ == "__main__":

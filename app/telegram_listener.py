@@ -11,6 +11,12 @@ from dotenv import load_dotenv
 
 import notify_examiner_review
 import notify_opportunity_review
+import create_internal_opportunity
+
+from workspace_paths import (
+    find_draft_any_workspace,
+    get_workspace_draft_registry_path,
+)
 
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
@@ -19,12 +25,30 @@ WORKSPACES_PATH = SOFIA_ROOT / "data" / "workspaces.json"
 STATE_PATH = SOFIA_ROOT / "logs" / "telegram_listener_state.json"
 LOG_PATH = SOFIA_ROOT / "logs" / "telegram_listener.log"
 ACTIVATION_PATH = SOFIA_ROOT / "data" / "workspace_activation.json"
+# Deprecated: draft registries are now workspace-level.
+GLOBAL_DRAFT_REGISTRY_PATH = SOFIA_ROOT / "sites" / "draft_registry.json"
 
 load_dotenv(ENV_PATH, override=True)
 
 
 VALID_REPLY_RE = re.compile(
-    r"^(APPROVE|MODIFY|REVISE|REJECT)\s+(?:(\S+)\s+)?([A-Z]+-[A-Z0-9-]+|DRAFT-\d+)(?::\s*(.*))?$",
+    r"^(APPROVE|MODIFY|REVISE|REJECT|COMPLETE)\s+(?:(\S+)\s+)?([A-Z]+-[A-Z0-9-]+|DRAFT-\d+)(?::\s*(.*))?$",
+    re.IGNORECASE,
+)
+
+ADMIN_COMMAND_RE = re.compile(
+    r"^\s*SOFIA\s+(STATUS|ACTIVATE|DEACTIVATE|DESACTIVATE|ACTIVE|HELP|COMMANDS)\b",
+    re.IGNORECASE,
+)
+
+INTERNAL_TRIGGER_RE = re.compile(
+    r"^\s*SOFIA\s*[,:\-]?\s+("
+    r"create|prepare|generate|write|make|"
+    r"create\s+a|create\s+an|"
+    r"criar|cria|crie|preparar|prepara|prepare|gerar|gera|gere|"
+    r"crear|crea|preparar|prepara|generar|genera|"
+    r"rédiger|rediger|créer|creer|crée|cree|préparer|preparer|prépare|prepare"
+    r")\b",
     re.IGNORECASE,
 )
 
@@ -132,7 +156,7 @@ def handle_admin_command(msg):
     text = msg.get("text", "").strip()
     user_id = msg.get("from_id") or msg.get("from_user_id")
 
-    if not text.upper().startswith("SOFIA"):
+    if not ADMIN_COMMAND_RE.match(text):
         return False
 
     if not is_admin_user(user_id):
@@ -291,6 +315,7 @@ def get_ui_text(workspace_id):
     texts = {
         "en": {
             "approve": "✅ Approve",
+            "complete": "✅ Completed",
             "revise": "✏️ Revise",
             "modify": "✏️ Modify",
             "reject_delete": "🗑️ Reject/Delete",
@@ -304,6 +329,7 @@ def get_ui_text(workspace_id):
         },
         "pt-PT": {
             "approve": "✅ Aprovar",
+            "complete": "✅ Finalizado",
             "revise": "✏️ Rever",
             "modify": "✏️ Modificar",
             "reject_delete": "🗑️ Rejeitar/Eliminar",
@@ -317,6 +343,7 @@ def get_ui_text(workspace_id):
         },
         "pt-BR": {
             "approve": "✅ Aprovar",
+            "complete": "✅ Finalizado",
             "revise": "✏️ Revisar",
             "modify": "✏️ Modificar",
             "reject_delete": "🗑️ Rejeitar/Excluir",
@@ -330,6 +357,7 @@ def get_ui_text(workspace_id):
         },
         "es": {
             "approve": "✅ Aprobar",
+            "complete": "✅ Finalizado",
             "revise": "✏️ Revisar",
             "modify": "✏️ Modificar",
             "reject_delete": "🗑️ Rechazar/Eliminar",
@@ -343,6 +371,7 @@ def get_ui_text(workspace_id):
         },
         "fr": {
             "approve": "✅ Approuver",
+            "complete": "✅ Terminé",
             "revise": "✏️ Réviser",
             "modify": "✏️ Modifier",
             "reject_delete": "🗑️ Rejeter/Supprimer",
@@ -468,6 +497,16 @@ def build_decision_keyboard(item_id, workspace_id):
             ]
         }
 
+    if draft_has_wordpress_draft(item_id, workspace_id):
+        return {
+            "inline_keyboard": [
+                [
+                    {"text": t.get("complete", "✅ Completed"), "callback_data": f"COMPLETE|{workspace_id}|{item_id}"},
+                    {"text": t["revise"], "callback_data": f"REVISE_PROMPT|{workspace_id}|{item_id}"},
+                ]
+            ]
+        }
+
     return {
         "inline_keyboard": [
             [
@@ -572,6 +611,129 @@ def resolve_workspace_from_reply(chat_id, text, workspace_by_chat_id):
     return None, text, "workspace_required"
 
 
+def is_internal_content_trigger(text):
+    return bool(INTERNAL_TRIGGER_RE.match(str(text or "").strip()))
+
+
+def resolve_workspace_from_group_for_internal_trigger(chat_id, workspace_by_chat_id):
+    workspaces = workspace_by_chat_id.get(str(chat_id), [])
+
+    if not workspaces:
+        return None, "unmapped_chat"
+
+    if len(workspaces) == 1:
+        return workspaces[0], None
+
+    return None, "workspace_required"
+
+
+def handle_internal_content_trigger(msg, workspace_by_chat_id):
+    text = msg.get("text", "").strip()
+
+    if not is_internal_content_trigger(text):
+        return False
+
+    bot_token = get_bot_token()
+    chat_id = msg["chat_id"]
+
+    workspace_id, error = resolve_workspace_from_group_for_internal_trigger(
+        chat_id,
+        workspace_by_chat_id,
+    )
+
+    if error == "unmapped_chat":
+        log(
+            "IGNORED internal trigger from unmapped Telegram chat "
+            f"chat_id={chat_id} chat_title={msg.get('chat_title', '')} text={text!r}"
+        )
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            "⚠️ This Telegram group is not mapped to a Sofia workspace yet.",
+            reply_to_message_id=msg.get("message_id"),
+        )
+        return True
+
+    if error == "workspace_required":
+        available = workspace_by_chat_id.get(chat_id, [])
+        guidance = (
+            "⚠️ This Telegram group manages multiple Sofia workspaces.\n\n"
+            "Please include the workspace ID in the request for now.\n\n"
+            "Examples:\n"
+            "Sofia en.forensics create a landing page about corporate polygraph services\n"
+            "Sofia es.forensics create a landing page about prueba de polígrafo empresarial\n\n"
+            "Available workspaces:\n"
+            + "\n".join(f"- {w}" for w in available)
+        )
+
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            guidance,
+            reply_to_message_id=msg.get("message_id"),
+        )
+        return True
+
+    workspace = get_workspace_by_id(workspace_id)
+
+    requested_by = msg.get("from_name") or msg.get("from_username") or msg.get("from_id") or ""
+
+    try:
+        opportunity, opportunities_path = create_internal_opportunity.create_internal_opportunity(
+            workspace_id=workspace_id,
+            raw_request=text,
+            requested_by=requested_by,
+            telegram_chat_id=chat_id,
+            telegram_message_id=msg.get("message_id"),
+        )
+
+        opportunity_id = opportunity.get("id") or opportunity.get("opportunity_id")
+        message = notify_opportunity_review.build_message(opportunity, workspace)
+        keyboard = build_decision_keyboard(opportunity_id, workspace_id)
+
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            message,
+            reply_to_message_id=msg.get("message_id"),
+            reply_markup=keyboard,
+        )
+
+        opportunity["telegram_notified"] = True
+        opportunity["telegram_notified_at"] = now_iso()
+        opportunity["updated_at"] = now_iso()
+
+        data = load_json(opportunities_path, {"opportunities": []})
+        for stored in data.get("opportunities", []):
+            stored_id = stored.get("id") or stored.get("opportunity_id")
+            if stored_id == opportunity_id:
+                stored.update(opportunity)
+                break
+
+        save_json(opportunities_path, data)
+
+        log(
+            "CREATED internal opportunity "
+            f"workspace={workspace_id} chat_id={chat_id} opportunity={opportunity_id}"
+        )
+
+        return True
+
+    except Exception as e:
+        log(f"ERROR creating internal opportunity: {type(e).__name__}: {e}")
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            (
+                "⚠️ Sofia could not create the internal content opportunity.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Error: {type(e).__name__}"
+            ),
+            reply_to_message_id=msg.get("message_id"),
+        )
+        return True
+
+
 def process_decision(workspace_id, reply_text):
     cmd = [
         "python3",
@@ -600,15 +762,16 @@ def process_decision(workspace_id, reply_text):
             log(f"PROCESS STDERR | {line}")
 
     failure_signals = [
-        "not found",
-        "invalid",
-        "could not parse",
-        "auto step failed",
+        "could not parse examiner reply",
+        "invalid opportunity decision",
+        "invalid draft decision",
+        "workspace not found",
+        "opportunity not found",
+        "draft not found",
         "pipeline failed",
         "wordpress pipeline failed",
         "wordpress update/upload failed",
         "publication preparation was blocked",
-        "validation status: failed",
         "no wordpress/platform draft was prepared",
     ]
 
@@ -621,6 +784,61 @@ def process_decision(workspace_id, reply_text):
             return False, combined_output
 
     return result.returncode == 0, combined_output
+
+
+def find_draft_in_global_registry(draft_id):
+    # Deprecated compatibility wrapper.
+    # Drafts are now stored in workspace-level draft_registry.json files.
+    workspace_id, draft = find_draft_any_workspace(draft_id)
+    return draft
+
+
+def find_draft_in_workspace_registry(draft_id, workspace_id):
+    try:
+        registry_path = get_workspace_draft_registry_path(workspace_id)
+    except Exception:
+        return None
+
+    if not registry_path.exists():
+        return None
+
+    data = load_json(registry_path, {"drafts": []})
+
+    for draft in data.get("drafts", []):
+        if draft.get("draft_id") == draft_id:
+            return draft
+
+    return None
+
+
+def is_draft_ready_for_examiner_review(draft_id):
+    draft = find_draft_in_global_registry(draft_id)
+
+    if not draft:
+        return False
+
+    return draft.get("validation", {}).get("status") == "passed"
+
+
+def draft_has_wordpress_draft(draft_id, workspace_id=None):
+    if workspace_id:
+        draft = find_draft_in_workspace_registry(draft_id, workspace_id)
+    else:
+        draft = find_draft_in_global_registry(draft_id)
+
+    if not draft:
+        return False
+
+    upload = draft.get("wordpress_upload", {}) or {}
+    update = draft.get("wordpress_update", {}) or {}
+
+    return (
+        upload.get("uploaded") is True
+        and bool(upload.get("wordpress_id"))
+    ) or (
+        update.get("updated") is True
+        and bool(update.get("wordpress_id"))
+    )
 
 
 def send_next_pending_item(bot_token, chat_id, workspace_id):
@@ -642,30 +860,38 @@ def send_next_pending_item(bot_token, chat_id, workspace_id):
     if review_queue_path.exists():
         review_queue = load_json(review_queue_path, {"review_items": []})
 
-        for item in review_queue.get("review_items", []):
-            if (
-                item.get("status") == "pending_review"
-                and item.get("telegram_notified") is not True
-            ):
-                item_id = item.get("draft_id")
-                message = notify_examiner_review.build_message(item, workspace)
-                keyboard = build_decision_keyboard(item_id, workspace_id)
+    for item in review_queue.get("review_items", []):
+        if (
+            item.get("status") == "pending_review"
+            and item.get("telegram_notified") is not True
+        ):
+            item_id = item.get("draft_id")
 
-                send_telegram_message(
-                    bot_token,
-                    chat_id,
-                    message,
-                    reply_markup=keyboard,
+            if not is_draft_ready_for_examiner_review(item_id):
+                log(
+                    "Skipped pending draft because validation has not passed "
+                    f"workspace={workspace_id} draft={item_id}"
                 )
+                continue
 
-                item["telegram_notified"] = True
-                item["telegram_notified_at"] = now_iso()
-                item["updated_at"] = now_iso()
+            message = notify_examiner_review.build_message(item, workspace)
+            keyboard = build_decision_keyboard(item_id, workspace_id)
 
-                save_json(review_queue_path, review_queue)
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                message,
+                reply_markup=keyboard,
+            )
 
-                log(f"Sent next pending draft: {item_id} workspace={workspace_id}")
-                return True
+            item["telegram_notified"] = True
+            item["telegram_notified_at"] = now_iso()
+            item["updated_at"] = now_iso()
+
+            save_json(review_queue_path, review_queue)
+
+            log(f"Sent next pending draft: {item_id} workspace={workspace_id}")
+            return True
 
     # Priority 2: pending opportunities
     opportunities_path = SOFIA_ROOT / workspace["folder_path"] / "external_opportunities.json"
@@ -727,6 +953,9 @@ def extract_wordpress_result(process_output):
         elif clean.startswith("Link:"):
             wordpress_link = clean.replace("Link:", "").strip()
 
+        elif "WordPress draft uploaded successfully" in clean:
+            wordpress_status = "uploaded"
+
         elif "WordPress draft updated successfully" in clean:
             wordpress_status = "updated"
 
@@ -747,50 +976,319 @@ def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, 
     wp_result = extract_wordpress_result(process_output)
 
     if ok and is_draft and decision == "APPROVE":
+        workspace = get_workspace_by_id(workspace_id)
+        lang = normalize_language(workspace.get("language", "en"))
+
+        output_lower = process_output.lower() if process_output else ""
+        background_wp_job_created = (
+            "background job created for wordpress draft preparation" in output_lower
+            or "wordpress preparation pipeline will be handled by sofia_worker.py" in output_lower
+            or "job-wp-draft" in output_lower
+        )
+
         wordpress_status = wp_result.get("wordpress_status")
         wordpress_id = wp_result.get("wordpress_id")
         wordpress_link = wp_result.get("wordpress_link")
 
-        prepared_lines = []
+        if background_wp_job_created:
+            if lang.startswith("pt"):
+                text = (
+                    "✅ Aprovação recebida\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Rascunho: {item_id}\n\n"
+                    "A Sofia colocou a preparação do rascunho WordPress na fila de processamento em segundo plano.\n\n"
+                    "Quando o rascunho WordPress estiver pronto, a Sofia enviará uma nova mensagem com o link para revisão final.\n\n"
+                    "Nenhuma ação é necessária neste momento."
+                )
 
-        if wordpress_status:
-            prepared_lines.append(f"- WordPress draft {wordpress_status} successfully")
+            elif lang == "es":
+                text = (
+                    "✅ Aprobación recibida\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Borrador: {item_id}\n\n"
+                    "Sofia ha puesto la preparación del borrador WordPress en la cola de procesamiento en segundo plano.\n\n"
+                    "Cuando el borrador WordPress esté listo, Sofia enviará un nuevo mensaje con el enlace para revisión final.\n\n"
+                    "No se requiere ninguna acción en este momento."
+                )
+
+            elif lang == "fr":
+                text = (
+                    "✅ Approbation reçue\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Brouillon : {item_id}\n\n"
+                    "Sofia a placé la préparation du brouillon WordPress dans la file de traitement en arrière-plan.\n\n"
+                    "Lorsque le brouillon WordPress sera prêt, Sofia enverra un nouveau message avec le lien pour révision finale.\n\n"
+                    "Aucune action n’est nécessaire pour le moment."
+                )
+
+            else:
+                text = (
+                    "✅ Approval received\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Draft: {item_id}\n\n"
+                    "Sofia has queued WordPress draft preparation for background processing.\n\n"
+                    "When the WordPress draft is ready, Sofia will send a new message with the final review link.\n\n"
+                    "No action is needed right now."
+                )
+
         else:
-            prepared_lines.append("- WordPress / website draft: prepared or updated if configured")
+            prepared_lines = []
 
-        if wordpress_id:
-            prepared_lines.append(f"- WordPress ID: {wordpress_id}")
+            if lang.startswith("pt"):
+                if wordpress_status:
+                    prepared_lines.append(f"- Rascunho WordPress {wordpress_status} com sucesso")
+                else:
+                    prepared_lines.append("- Rascunho WordPress / website: preparado ou atualizado, se configurado")
 
-        if wordpress_link:
-            prepared_lines.append(f"- Draft link: {wordpress_link}")
+                if wordpress_id:
+                    prepared_lines.append(f"- ID no WordPress: {wordpress_id}")
 
-        prepared_text = "\n".join(prepared_lines)
+                if wordpress_link:
+                    prepared_lines.append(f"- Link do rascunho: {wordpress_link}")
 
-        text = (
-            "✅ Draft approved and prepared for publication\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Draft: {item_id}\n\n"
-            "Prepared:\n"
-            f"{prepared_text}\n\n"
-            "Final live publication has NOT been done automatically.\n"
-            "Please review the draft in WordPress and publish manually when ready."
-        )
+                prepared_text = "\n".join(prepared_lines)
+
+                text = (
+                    "✅ Rascunho aprovado e preparado para publicação\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Rascunho: {item_id}\n\n"
+                    "Preparado:\n"
+                    f"{prepared_text}\n\n"
+                    "A publicação final ao vivo NÃO foi feita automaticamente.\n"
+                    "Por favor, reveja o rascunho no WordPress e publique manualmente quando estiver pronto."
+                )
+
+            elif lang == "es":
+                if wordpress_status:
+                    prepared_lines.append(f"- Borrador de WordPress {wordpress_status} correctamente")
+                else:
+                    prepared_lines.append("- Borrador de WordPress / sitio web: preparado o actualizado si está configurado")
+
+                if wordpress_id:
+                    prepared_lines.append(f"- ID de WordPress: {wordpress_id}")
+
+                if wordpress_link:
+                    prepared_lines.append(f"- Enlace del borrador: {wordpress_link}")
+
+                prepared_text = "\n".join(prepared_lines)
+
+                text = (
+                    "✅ Borrador aprobado y preparado para publicación\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Borrador: {item_id}\n\n"
+                    "Preparado:\n"
+                    f"{prepared_text}\n\n"
+                    "La publicación final en vivo NO se ha realizado automáticamente.\n"
+                    "Por favor, revise el borrador en WordPress y publíquelo manualmente cuando esté listo."
+                )
+
+            elif lang == "fr":
+                if wordpress_status:
+                    prepared_lines.append(f"- Brouillon WordPress {wordpress_status} avec succès")
+                else:
+                    prepared_lines.append("- Brouillon WordPress / site web : préparé ou mis à jour si configuré")
+
+                if wordpress_id:
+                    prepared_lines.append(f"- ID WordPress : {wordpress_id}")
+
+                if wordpress_link:
+                    prepared_lines.append(f"- Lien du brouillon : {wordpress_link}")
+
+                prepared_text = "\n".join(prepared_lines)
+
+                text = (
+                    "✅ Brouillon approuvé et préparé pour publication\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Brouillon : {item_id}\n\n"
+                    "Préparé :\n"
+                    f"{prepared_text}\n\n"
+                    "La publication finale en ligne n’a PAS été effectuée automatiquement.\n"
+                    "Veuillez examiner le brouillon dans WordPress et le publier manuellement lorsqu’il est prêt."
+                )
+
+            else:
+                if wordpress_status:
+                    prepared_lines.append(f"- WordPress draft {wordpress_status} successfully")
+                else:
+                    prepared_lines.append("- WordPress / website draft: prepared or updated if configured")
+
+                if wordpress_id:
+                    prepared_lines.append(f"- WordPress ID: {wordpress_id}")
+
+                if wordpress_link:
+                    prepared_lines.append(f"- Draft link: {wordpress_link}")
+
+                prepared_text = "\n".join(prepared_lines)
+
+                text = (
+                    "✅ Draft approved and prepared for publication\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Draft: {item_id}\n\n"
+                    "Prepared:\n"
+                    f"{prepared_text}\n\n"
+                    "Final live publication has NOT been done automatically.\n"
+                    "Please review the draft in WordPress and publish manually when ready."
+                )
+
+    elif ok and is_draft and decision == "COMPLETE":
+        workspace = get_workspace_by_id(workspace_id)
+        lang = normalize_language(workspace.get("language", "en"))
+
+        if lang.startswith("pt"):
+            text = (
+                "✅ Rascunho marcado como finalizado\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia registou este rascunho como concluído para revisão/publicação manual no WordPress.\n\n"
+                "A publicação final ao vivo NÃO foi feita automaticamente."
+            )
+        elif lang == "es":
+            text = (
+                "✅ Borrador marcado como finalizado\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia registró este borrador como completado para revisión/publicación manual en WordPress.\n\n"
+                "La publicación final en vivo NO se realizó automáticamente."
+            )
+        elif lang == "fr":
+            text = (
+                "✅ Brouillon marqué comme terminé\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia a enregistré ce brouillon comme terminé pour révision/publication manuelle dans WordPress.\n\n"
+                "La publication finale en ligne n’a PAS été effectuée automatiquement."
+            )
+        else:
+            text = (
+                "✅ Draft marked as completed\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Draft: {item_id}\n\n"
+                "Sofia recorded this draft as completed for manual WordPress review/publication.\n\n"
+                "Final live publication has NOT been done automatically."
+            )
 
     elif ok and is_draft and decision == "REVISE":
-        text = (
-            "✅ Revision request processed\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Draft: {item_id}\n\n"
-            "Sofia has processed the revision request and will return the draft for review."
-        )
+        workspace = get_workspace_by_id(workspace_id)
+        lang = normalize_language(workspace.get("language", "en"))
+
+        if lang.startswith("pt"):
+            text = (
+                "✅ Pedido de revisão recebido\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia colocou esta revisão na fila de processamento em segundo plano.\n\n"
+                "A revisão será aplicada, limpa e validada internamente. "
+                "Quando estiver pronta, a Sofia enviará uma nova mensagem para revisão do examinador.\n\n"
+                "Nenhuma ação é necessária neste momento."
+            )
+
+        elif lang == "es":
+            text = (
+                "✅ Solicitud de revisión recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia ha puesto esta revisión en la cola de procesamiento en segundo plano.\n\n"
+                "La revisión será aplicada, limpiada y validada internamente. "
+                "Cuando esté lista, Sofia enviará un nuevo mensaje para revisión del examinador.\n\n"
+                "No se requiere ninguna acción en este momento."
+            )
+
+        elif lang == "fr":
+            text = (
+                "✅ Demande de révision reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia a placé cette révision dans la file de traitement en arrière-plan.\n\n"
+                "La révision sera appliquée, nettoyée et validée en interne. "
+                "Lorsqu’elle sera prête, Sofia enverra un nouveau message pour révision par l’examinateur.\n\n"
+                "Aucune action n’est nécessaire pour le moment."
+            )
+
+        else:
+            text = (
+                "✅ Revision request received\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Draft: {item_id}\n\n"
+                "Sofia has queued this revision for background processing.\n\n"
+                "The revision will be applied, cleaned, and validated internally. "
+                "When it is ready, Sofia will send a new message for examiner review.\n\n"
+                "No action is needed right now."
+            )
 
     elif ok and is_opportunity and decision == "APPROVE":
-        text = (
-            "✅ Opportunity approved\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Opportunity: {item_id}\n\n"
-            "Sofia has converted the approved opportunity into the next content workflow step."
-        )
+        output_lower = process_output.lower() if process_output else ""
+        workspace = get_workspace_by_id(workspace_id)
+        lang = normalize_language(workspace.get("language", "en"))
+
+        if (
+            "draft still has validation issues after repair" in output_lower
+            or "draft generation failed" in output_lower
+        ):
+            if lang.startswith("pt"):
+                text = (
+                    "✅ Pedido em preparação\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Oportunidade: {item_id}\n\n"
+                    "A Sofia já começou a preparar o rascunho.\n\n"
+                    "O conteúdo ainda está em preparação interna e será enviado para revisão assim que estiver pronto.\n\n"
+                    "Nenhuma ação é necessária neste momento."
+                )
+            elif lang == "es":
+                text = (
+                    "✅ Solicitud en preparación\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Oportunidad: {item_id}\n\n"
+                    "Sofia ya empezó a preparar el borrador.\n\n"
+                    "El contenido todavía está en preparación interna y será enviado para revisión cuando esté listo.\n\n"
+                    "No se requiere ninguna acción en este momento."
+                )
+            elif lang == "fr":
+                text = (
+                    "✅ Demande en préparation\n\n"
+                    f"Workspace : {workspace_id}\n"
+                    f"Opportunité : {item_id}\n\n"
+                    "Sofia a déjà commencé à préparer le brouillon.\n\n"
+                    "Le contenu est encore en préparation interne et sera envoyé pour révision lorsqu’il sera prêt.\n\n"
+                    "Aucune action n’est requise pour le moment."
+                )
+            else:
+                text = (
+                    "✅ Request in preparation\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunity: {item_id}\n\n"
+                    "Sofia has started preparing the draft.\n\n"
+                    "The content is still being prepared internally and will be sent for review when ready.\n\n"
+                    "No action is needed right now."
+                )
+        else:
+            if lang.startswith("pt"):
+                text = (
+                    "✅ Oportunidade aprovada\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Oportunidade: {item_id}\n\n"
+                    "A Sofia converteu esta oportunidade no próximo passo do fluxo de conteúdo."
+                )
+            elif lang == "es":
+                text = (
+                    "✅ Oportunidad aprobada\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Oportunidad: {item_id}\n\n"
+                    "Sofia convirtió esta oportunidad en el siguiente paso del flujo de contenido."
+                )
+            elif lang == "fr":
+                text = (
+                    "✅ Opportunité approuvée\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunité : {item_id}\n\n"
+                    "Sofia a converti cette opportunité vers l’étape suivante du flux de contenu."
+                )
+            else:
+                text = (
+                    "✅ Opportunity approved\n\n"
+                    f"Workspace: {workspace_id}\n"
+                    f"Opportunity: {item_id}\n\n"
+                    "Sofia has converted the approved opportunity into the next content workflow step."
+                )
 
     elif ok:
         text = (
@@ -826,6 +1324,301 @@ def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, 
         text,
         reply_to_message_id=reply_to_message_id,
     )
+
+
+def build_long_processing_message(workspace_id, item_id, decision):
+    workspace = get_workspace_by_id(workspace_id)
+    lang = normalize_language(workspace.get("language", "en"))
+
+    is_opportunity_approval = (
+        decision == "APPROVE"
+        and str(item_id).startswith("OPP-")
+    )
+
+    is_draft_revision = (
+        decision == "REVISE"
+        and str(item_id).startswith("DRAFT-")
+    )
+
+    is_draft_approval = (
+        decision == "APPROVE"
+        and str(item_id).startswith("DRAFT-")
+    )
+
+    is_draft_complete = (
+        decision == "COMPLETE"
+        and str(item_id).startswith("DRAFT-")
+    )
+
+    if lang.startswith("pt"):
+        if is_opportunity_approval:
+            return (
+                "✅ Pedido recebido\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Oportunidade: {item_id}\n\n"
+                "A Sofia vai preparar o primeiro rascunho para revisão.\n"
+                "Este processo pode demorar alguns minutos enquanto o conteúdo é gerado, limpo e validado."
+            )
+
+        if is_draft_revision:
+            return (
+                "✅ Pedido de revisão recebido\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia vai aplicar as instruções de revisão e validar novamente o conteúdo."
+            )
+
+        if is_draft_approval:
+            return (
+                "✅ Aprovação recebida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia vai preparar o rascunho para WordPress ou para os canais configurados."
+            )
+        
+        if is_draft_complete:
+            return (
+                "✅ Finalização recebida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia vai marcar este rascunho como finalizado para revisão/publicação manual."
+            )
+
+    if lang == "es":
+        if is_opportunity_approval:
+            return (
+                "✅ Solicitud recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Oportunidad: {item_id}\n\n"
+                "Sofia va a preparar el primer borrador para revisión.\n"
+                "Este proceso puede tardar unos minutos mientras el contenido se genera, limpia y valida."
+            )
+
+        if is_draft_revision:
+            return (
+                "✅ Solicitud de revisión recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia va a aplicar las instrucciones de revisión y validar nuevamente el contenido."
+            )
+
+        if is_draft_approval:
+            return (
+                "✅ Aprobación recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia va a preparar el borrador para WordPress o para los canales configurados."
+            )
+
+        if is_draft_complete:
+            return (
+                "✅ Finalización recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia marcará este borrador como finalizado para revisión/publicación manual."
+            )
+
+    if lang == "fr":
+        if is_opportunity_approval:
+            return (
+                "✅ Demande reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Opportunité : {item_id}\n\n"
+                "Sofia va préparer le premier brouillon pour révision.\n"
+                "Ce processus peut prendre quelques minutes pendant la génération, le nettoyage et la validation du contenu."
+            )
+
+        if is_draft_revision:
+            return (
+                "✅ Demande de révision reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia va appliquer les instructions de révision et valider à nouveau le contenu."
+            )
+
+        if is_draft_approval:
+            return (
+                "✅ Approbation reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia va préparer le brouillon pour WordPress ou les canaux configurés."
+            )
+        
+        if is_draft_complete:
+            return (
+                "✅ Finalisation reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia marquera ce brouillon comme terminé pour révision/publication manuelle."
+            )
+
+    if is_opportunity_approval:
+        return (
+            "✅ Request received\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Opportunity: {item_id}\n\n"
+            "Sofia will prepare the first draft for review.\n"
+            "This process may take a few minutes while the content is generated, cleaned, and validated."
+        )
+
+    if is_draft_revision:
+        return (
+            "✅ Revision request received\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Sofia will apply the revision instructions and validate the content again."
+        )
+
+    if is_draft_approval:
+        return (
+            "✅ Approval received\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Sofia will prepare the draft for WordPress or the configured channels."
+        )
+    
+    if is_draft_complete:
+        return (
+            "✅ Completion received\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Sofia will mark this draft as completed for manual review/publication."
+        )
+
+    return ""
+
+
+def build_long_processing_message(workspace_id, item_id, decision):
+    workspace = get_workspace_by_id(workspace_id)
+    lang = normalize_language(workspace.get("language", "en"))
+
+    is_opportunity_approval = (
+        decision == "APPROVE"
+        and str(item_id).startswith("OPP-")
+    )
+
+    is_draft_revision = (
+        decision == "REVISE"
+        and str(item_id).startswith("DRAFT-")
+    )
+
+    is_draft_approval = (
+        decision == "APPROVE"
+        and str(item_id).startswith("DRAFT-")
+    )
+
+    if lang.startswith("pt"):
+        if is_opportunity_approval:
+            return (
+                "✅ Oportunidade aprovada\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Oportunidade: {item_id}\n\n"
+                "A Sofia colocou este pedido na fila de processamento em segundo plano.\n\n"
+                "O rascunho será gerado, limpo e validado internamente. "
+                "Quando estiver pronto, a Sofia enviará uma nova mensagem para revisão do examinador.\n\n"
+                "Nenhuma ação é necessária neste momento."
+            )
+
+        if is_draft_revision:
+            return (
+                "✅ Pedido de revisão recebido\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia vai aplicar as instruções de revisão e validar novamente o conteúdo."
+            )
+
+        if is_draft_approval:
+            return (
+                "✅ Aprovação recebida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Rascunho: {item_id}\n\n"
+                "A Sofia vai preparar o rascunho para o WordPress ou para os canais configurados."
+            )
+
+    if lang == "es":
+        if is_opportunity_approval:
+            return (
+                "✅ Oportunidad aprobada\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Oportunidad: {item_id}\n\n"
+                "Sofia ha puesto este pedido en la cola de procesamiento en segundo plano.\n\n"
+                "El borrador será generado, limpiado y validado internamente. "
+                "Cuando esté listo, Sofia enviará un nuevo mensaje para la revisión del examinador.\n\n"
+                "No se requiere ninguna acción en este momento."
+            )
+
+        if is_draft_revision:
+            return (
+                "✅ Solicitud de revisión recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia va a aplicar las instrucciones de revisión y validar nuevamente el contenido."
+            )
+
+        if is_draft_approval:
+            return (
+                "✅ Aprobación recibida\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Borrador: {item_id}\n\n"
+                "Sofia va a preparar el borrador para WordPress o para los canales configurados."
+            )
+
+    if lang == "fr":
+        if is_opportunity_approval:
+            return (
+                "✅ Opportunité approuvée\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Opportunité : {item_id}\n\n"
+                "Sofia a placé cette demande dans la file de traitement en arrière-plan.\n\n"
+                "Le brouillon sera généré, nettoyé et validé en interne. "
+                "Lorsqu’il sera prêt, Sofia enverra un nouveau message pour révision par l’examinateur.\n\n"
+                "Aucune action n’est nécessaire pour le moment."
+            )
+
+        if is_draft_revision:
+            return (
+                "✅ Demande de révision reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia va appliquer les instructions de révision et valider à nouveau le contenu."
+            )
+
+        if is_draft_approval:
+            return (
+                "✅ Approbation reçue\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Brouillon : {item_id}\n\n"
+                "Sofia va préparer le brouillon pour WordPress ou les canaux configurés."
+            )
+
+    if is_opportunity_approval:
+        return (
+            "✅ Opportunity approved\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Opportunity: {item_id}\n\n"
+            "Sofia has queued this request for background processing.\n\n"
+            "The draft will be generated, cleaned, and validated internally. "
+            "When it is ready, Sofia will send a new message for examiner review.\n\n"
+            "No action is needed right now."
+        )
+
+    if is_draft_revision:
+        return (
+            "✅ Revision request received\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Sofia will apply the revision instructions and validate the content again."
+        )
+
+    if is_draft_approval:
+        return (
+            "✅ Approval received\n\n"
+            f"Workspace: {workspace_id}\n"
+            f"Draft: {item_id}\n\n"
+            "Sofia will prepare the draft for WordPress or the configured channels."
+        )
+
+    return ""
 
 
 def handle_callback(update, workspace_by_chat_id):
@@ -1062,6 +1855,7 @@ def handle_callback(update, workspace_by_chat_id):
                         f"Opportunity: {item_id}\n\n"
                         "Sofia should look for a better angle before suggesting this topic again."
                     )
+
         else:
             if lang.startswith("pt"):
                 text = (
@@ -1108,6 +1902,40 @@ def handle_callback(update, workspace_by_chat_id):
         f"from={from_user.get('first_name', '')} text={reply_text!r}"
     )
 
+    is_background_job = (
+    (
+        decision == "APPROVE"
+        and str(item_id).startswith("OPP-")
+    )
+    or
+    (
+        decision == "REVISE"
+        and str(item_id).startswith("DRAFT-")
+    )
+    or
+    (
+        decision == "APPROVE"
+        and str(item_id).startswith("DRAFT-")
+    )
+)
+
+    long_processing_message = ""
+
+    if not is_background_job:
+        long_processing_message = build_long_processing_message(
+            workspace_id,
+            item_id,
+            decision,
+        )
+
+    if long_processing_message:
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            long_processing_message,
+            reply_to_message_id=message_id,
+        )
+
     ok, process_output = process_decision(workspace_id, reply_text)
 
     send_processing_result(
@@ -1121,31 +1949,44 @@ def handle_callback(update, workspace_by_chat_id):
     )
 
     if ok:
-        send_next_pending_item(bot_token, chat_id, workspace_id)
+        is_background_job = (
+            (
+                decision == "APPROVE"
+                and str(item_id).startswith("OPP-")
+            )
+            or
+            (
+                decision == "REVISE"
+                and str(item_id).startswith("DRAFT-")
+            )
+            or
+            (
+                decision == "APPROVE"
+                and str(item_id).startswith("DRAFT-")
+            )
+        )
 
+        if is_background_job:
+            log(
+                "Decision queued as background job; "
+                f"not sending next pending item immediately workspace={workspace_id} item={item_id} decision={decision}"
+            )
+            return
 
-    reply_text = f"{decision} {item_id}"
+        output_lower = process_output.lower() if process_output else ""
 
-    log(
-        "CALLBACK Sofia decision "
-        f"workspace={workspace_id} chat_id={chat_id} "
-        f"from={from_user.get('first_name', '')} text={reply_text!r}"
-    )
+        draft_not_ready = (
+            "draft still has validation issues after repair" in output_lower
+            or "draft generation failed" in output_lower
+        )
 
-    ok, process_output = process_decision(workspace_id, reply_text)
-
-    send_processing_result(
-        chat_id=chat_id,
-        reply_to_message_id=message_id,
-        workspace_id=workspace_id,
-        item_id=item_id,
-        decision=decision,
-        ok=ok,
-        process_output=process_output,
-    )
-
-    if ok:
-        send_next_pending_item(bot_token, chat_id, workspace_id)
+        if draft_not_ready:
+            log(
+                "Draft not sent to examiner review because generated content is not ready "
+                f"workspace={workspace_id} item={item_id}"
+            )
+        else:
+            send_next_pending_item(bot_token, chat_id, workspace_id)
 
 
 def handle_update(update, workspace_by_chat_id):
@@ -1159,8 +2000,11 @@ def handle_update(update, workspace_by_chat_id):
 
     if not text:
         return
-    
+
     if handle_admin_command(msg):
+        return
+
+    if handle_internal_content_trigger(msg, workspace_by_chat_id):
         return
 
     if not is_valid_sofia_reply(text):
@@ -1227,6 +2071,30 @@ def handle_update(update, workspace_by_chat_id):
     )
 
     if ok:
+        is_background_job = (
+            (
+                decision == "APPROVE"
+                and str(item_id).startswith("OPP-")
+            )
+            or
+            (
+                decision == "REVISE"
+                and str(item_id).startswith("DRAFT-")
+            )
+            or
+            (
+                decision == "APPROVE"
+                and str(item_id).startswith("DRAFT-")
+            )
+        )
+
+        if is_background_job:
+            log(
+                "Decision queued as background job; "
+                f"not sending next pending item immediately workspace={workspace_id} item={item_id} decision={decision}"
+            )
+            return
+
         send_next_pending_item(
             get_bot_token(),
             chat_id,

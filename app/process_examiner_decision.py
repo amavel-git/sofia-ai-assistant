@@ -5,6 +5,12 @@ import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 
+from workspace_paths import (
+    get_workspace_draft_registry_path,
+    empty_draft_registry,
+)
+
+from job_queue import create_job
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACES_PATH = SOFIA_ROOT / "data" / "workspaces.json"
@@ -12,7 +18,7 @@ GLOBAL_DRAFT_REGISTRY = SOFIA_ROOT / "sites" / "draft_registry.json"
 
 
 OPPORTUNITY_DECISIONS = ["APPROVE", "MODIFY", "REJECT"]
-DRAFT_DECISIONS = ["APPROVE", "REVISE", "REJECT"]
+DRAFT_DECISIONS = ["APPROVE", "REVISE", "REJECT", "COMPLETE"]
 
 
 def load_json(path: Path):
@@ -41,18 +47,278 @@ def run_pipeline_command(args, label):
         capture_output=True
     )
 
+    combined_output = ""
+
     if result.stdout:
+        combined_output += result.stdout
         print(result.stdout.strip())
 
     if result.stderr:
+        combined_output += "\n" + result.stderr
         print(result.stderr.strip())
+
+    logical_failure_markers = [
+        "Traceback",
+        "Exception",
+        "WordPress pipeline failed",
+        "WordPress update/upload failed",
+        "Draft is not exportable",
+        "Draft status is not uploadable",
+        "Draft validation has not passed",
+    ]
 
     if result.returncode != 0:
         print(f"Auto step failed: {label}")
         return False
 
+    for marker in logical_failure_markers:
+        if marker in combined_output:
+            print(f"Auto step failed: {label}")
+            print(f"Detected logical failure marker: {marker}")
+            return False
+
     print(f"Auto step completed: {label}")
     return True
+
+def run_pipeline_command_capture(args, label):
+    print(f"\nAuto step: {label}")
+    result = subprocess.run(
+        args,
+        cwd=str(SOFIA_ROOT),
+        text=True,
+        capture_output=True
+    )
+
+    combined_output = ""
+
+    if result.stdout:
+        combined_output += result.stdout
+        print(result.stdout.strip())
+
+    if result.stderr:
+        combined_output += "\n" + result.stderr
+        print(result.stderr.strip())
+
+    if result.returncode != 0:
+        print(f"Auto step failed: {label}")
+        return False, combined_output
+
+    print(f"Auto step completed: {label}")
+    return True, combined_output
+
+
+def extract_created_draft_id(process_output):
+    if not process_output:
+        return ""
+
+    match = re.search(r"Draft created:\s*(DRAFT-\d+)", process_output)
+    if match:
+        return match.group(1)
+
+    return ""
+
+
+def add_internal_links_before_review(draft_id):
+    print("\nAuto step: Add internal links before examiner review")
+    print(f"Draft: {draft_id}")
+
+    inject_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/inject_internal_links.py",
+            draft_id
+        ],
+        "Inject base internal links"
+    )
+
+    if not inject_ok:
+        print("Base internal links were not injected.")
+        return False
+
+    optimize_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/optimize_internal_link_anchors.py",
+            draft_id
+        ],
+        "Optimize internal link anchors"
+    )
+
+    if not optimize_ok:
+        print("AI internal link anchor optimization did not complete.")
+        return True
+
+    apply_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/apply_ai_internal_links.py",
+            draft_id
+        ],
+        "Apply AI internal links"
+    )
+
+    if not apply_ok:
+        print("AI internal links were not applied.")
+        return True
+
+    return True
+
+
+def generate_and_validate_draft_before_review(workspace_id, draft_id):
+    print(f"\nAuto step: Generate and validate draft before examiner review")
+    print(f"Workspace: {workspace_id}")
+    print(f"Draft: {draft_id}")
+
+    generation_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/generate_website_draft.py",
+            workspace_id,
+            draft_id
+        ],
+        "Generate website draft content"
+    )
+
+    if not generation_ok:
+        print("Draft generation failed. Draft will remain in review queue, but content is not ready.")
+        return False
+
+    clean_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/clean_generated_html.py",
+            draft_id
+        ],
+        "Clean generated HTML"
+    )
+
+    if not clean_ok:
+        print("Cleaning generated HTML failed.")
+        return False
+
+    validation_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/validate_generated_content.py",
+            draft_id
+        ],
+        "Validate generated content"
+    )
+
+    if validation_ok:
+        link_ok = add_internal_links_before_review(draft_id)
+
+        if link_ok:
+            final_clean_ok = run_pipeline_command(
+                [
+                    "python3",
+                    "app/clean_generated_html.py",
+                    draft_id
+                ],
+                "Final clean after internal links"
+            )
+
+            if not final_clean_ok:
+                print("Final cleaning after internal links failed.")
+                return False
+
+            final_validation_ok = run_pipeline_command(
+                [
+                    "python3",
+                    "app/validate_generated_content.py",
+                    draft_id
+                ],
+                "Final validation after internal links"
+            )
+
+            if final_validation_ok:
+                print("Draft generated, internally linked, and validated successfully before examiner review.")
+                return True
+
+            print("Draft failed final validation after internal links.")
+            return False
+
+        print("Internal links were not applied, but draft validation passed.")
+        print("Draft will continue to examiner review without internal links.")
+        return True
+
+    print("\nValidation failed. Sofia will attempt automatic repair before examiner review.")
+
+    repair_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/repair_generated_content.py",
+            workspace.get("workspace_id"),
+            item_id
+        ],
+        "Repair generated content"
+    )
+
+    if not repair_ok:
+        print("Repair failed.")
+        return False
+
+    clean_after_repair_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/clean_generated_html.py",
+            draft_id
+        ],
+        "Clean repaired generated HTML"
+    )
+
+    if not clean_after_repair_ok:
+        print("Cleaning repaired HTML failed.")
+        return False
+
+    final_validation_ok = run_pipeline_command(
+        [
+            "python3",
+            "app/validate_generated_content.py",
+            draft_id
+        ],
+        "Validate repaired generated content"
+    )
+
+    if final_validation_ok:
+        link_ok = add_internal_links_before_review(draft_id)
+
+        if link_ok:
+            final_clean_ok = run_pipeline_command(
+                [
+                    "python3",
+                    "app/clean_generated_html.py",
+                    draft_id
+                ],
+                "Final clean after internal links"
+            )
+
+            if not final_clean_ok:
+                print("Final cleaning after internal links failed.")
+                return False
+
+            final_validation_after_links_ok = run_pipeline_command(
+                [
+                    "python3",
+                    "app/validate_generated_content.py",
+                    draft_id
+                ],
+                "Final validation after internal links"
+            )
+
+            if final_validation_after_links_ok:
+                print("Draft repaired, internally linked, and validated successfully before examiner review.")
+                return True
+
+            print("Draft failed final validation after internal links.")
+            return False
+
+        print("Internal links were not applied, but repaired draft validation passed.")
+        print("Draft will continue to examiner review without internal links.")
+        return True
+
+    print("Draft still has validation issues after repair.")
+    return False
 
 
 def find_workspace(workspaces, workspace_id):
@@ -66,7 +332,7 @@ def parse_reply(reply_text):
     reply_text = reply_text.strip()
 
     match = re.match(
-        r"^(APPROVE|MODIFY|REVISE|REJECT)\s+([A-Z]+-[A-Z0-9-]+|DRAFT-\d+)(?::\s*(.*))?$",
+        r"^(APPROVE|MODIFY|REVISE|REJECT|COMPLETE)\s+([A-Z]+-[A-Z0-9-]+|DRAFT-\d+)(?::\s*(.*))?$",
         reply_text,
         re.IGNORECASE
     )
@@ -159,15 +425,23 @@ def process_opportunity_decision(workspace, item_id, decision, comment):
     if decision == "APPROVE":
         workspace_id = workspace.get("workspace_id")
 
-        run_pipeline_command(
-            ["python3", "app/convert_opportunity_to_intake.py", workspace_id],
-            "Convert approved opportunity to intake"
+        job = create_job(
+            workspace_id=workspace_id,
+            job_type="approved_opportunity_to_review_draft",
+            item_id=item_id,
+            payload={
+                "opportunity_id": item_id,
+                "examiner_comment": comment,
+                "approved_at": timestamp
+            },
+            created_by="process_examiner_decision",
+            source="examiner_decision"
         )
 
-        run_pipeline_command(
-            ["python3", "app/process_next_intake.py"],
-            "Process next intake"
-        )
+        print("\nBackground job created for approved opportunity.")
+        print(f"Job ID: {job.get('job_id')}")
+        print(f"Job status: {job.get('status')}")
+        print("The long intake/draft generation pipeline will be handled by sofia_worker.py.")
 
     print("Opportunity decision processed successfully.")
     print(f"Workspace: {workspace.get('workspace_id')}")
@@ -175,7 +449,7 @@ def process_opportunity_decision(workspace, item_id, decision, comment):
     print(f"Decision: {decision}")
 
     if decision == "APPROVE":
-        print("\nOpportunity approved and automatic intake pipeline was triggered.")
+        print("\nOpportunity approved and queued for background processing.")
 
     elif decision == "MODIFY":
         print("\nOpportunity marked for modification. Review comments and update opportunity.")
@@ -215,14 +489,57 @@ def format_validation_issues(issues):
 
     return "\n".join([f"- {issue}" for issue in issues])
 
-def reload_draft_from_registry(draft_id):
-    if not GLOBAL_DRAFT_REGISTRY.exists():
-        return None
+def load_workspace_draft_data(workspace):
+    workspace_id = workspace.get("workspace_id")
+    draft_registry_path = get_workspace_draft_registry_path(workspace_id)
 
-    draft_data = load_json(GLOBAL_DRAFT_REGISTRY)
+    if draft_registry_path.exists():
+        return draft_registry_path, load_json(draft_registry_path)
+
+    return draft_registry_path, empty_draft_registry(workspace_id)
+
+
+def reload_draft_from_registry(workspace, draft_id):
+    draft_registry_path, draft_data = load_workspace_draft_data(workspace)
     drafts = draft_data.get("drafts", [])
 
     return find_draft(drafts, draft_id)
+
+
+def draft_has_wordpress_upload(draft):
+    upload = draft.get("wordpress_upload", {})
+    return upload.get("uploaded") is True and bool(upload.get("wordpress_id"))
+
+
+def update_existing_wordpress_draft_if_present(workspace, draft_id):
+    fresh_draft = reload_draft_from_registry(workspace, draft_id)
+
+    if not fresh_draft:
+        print("Could not reload draft before WordPress revision update.")
+        return False
+
+    if not draft_has_wordpress_upload(fresh_draft):
+        print("No existing WordPress draft found for this draft. Skipping WordPress update after revision.")
+        return True
+
+    validation_status, validation_issues = get_validation_status(fresh_draft)
+
+    if validation_status != "passed":
+        print("Revised draft has not passed validation. Skipping WordPress update after revision.")
+        print(f"Validation status: {validation_status or 'missing'}")
+        print("Validation issues:")
+        print(format_validation_issues(validation_issues))
+        return False
+
+    return run_pipeline_command(
+        [
+            "python3",
+            "app/run_publishing_pipeline.py",
+            draft_id,
+            "--after-approval"
+        ],
+        "Update existing WordPress draft after revision"
+    )
 
 
 def process_draft_decision(workspace, item_id, decision, comment):
@@ -231,23 +548,20 @@ def process_draft_decision(workspace, item_id, decision, comment):
         print(f"Valid draft decisions: {', '.join(DRAFT_DECISIONS)}")
         return False
 
-    if not GLOBAL_DRAFT_REGISTRY.exists():
-        print(f"Draft registry not found: {GLOBAL_DRAFT_REGISTRY}")
-        return False
-
     review_queue_path = SOFIA_ROOT / workspace["review_queue_path"]
 
     if not review_queue_path.exists():
         print(f"Review queue not found: {review_queue_path}")
         return False
 
-    draft_data = load_json(GLOBAL_DRAFT_REGISTRY)
+    draft_registry_path, draft_data = load_workspace_draft_data(workspace)
     drafts = draft_data.get("drafts", [])
 
     draft = find_draft(drafts, item_id)
 
     if not draft:
-        print(f"Draft not found in global draft registry: {item_id}")
+        print(f"Draft not found in workspace draft registry: {item_id}")
+        print(f"Registry: {draft_registry_path}")
         return False
 
     review_queue = load_json(review_queue_path)
@@ -274,6 +588,7 @@ def process_draft_decision(workspace, item_id, decision, comment):
             review_item["examiner_comment"] = comment
             review_item["decided_at"] = timestamp
             review_item["telegram_notified"] = True
+            review_item["updated_at"] = timestamp
 
     elif decision == "REVISE":
         draft["draft_status"] = "revision_requested"
@@ -290,6 +605,7 @@ def process_draft_decision(workspace, item_id, decision, comment):
             review_item["examiner_comment"] = comment
             review_item["decided_at"] = timestamp
             review_item["telegram_notified"] = True
+            review_item["updated_at"] = timestamp
 
     elif decision == "REJECT":
         draft["draft_status"] = "rejected"
@@ -306,140 +622,116 @@ def process_draft_decision(workspace, item_id, decision, comment):
             review_item["examiner_comment"] = comment
             review_item["decided_at"] = timestamp
             review_item["telegram_notified"] = True
+            review_item["updated_at"] = timestamp
 
-    save_json(GLOBAL_DRAFT_REGISTRY, draft_data)
+    elif decision == "COMPLETE":
+        draft["draft_status"] = "completed"
+        draft["completed_at"] = timestamp
+        draft["completion"] = {
+            "completed": True,
+            "completed_at": timestamp,
+            "completed_by": "examiner",
+            "notes": comment,
+            "publication_note": "WordPress draft completed for manual final review/publication. Live publication was not automatic."
+        }
+
+        draft["ready_for_publishing"] = True
+        draft["wordpress_status"] = "completed_for_manual_publication"
+
+        if review_item:
+            review_item["status"] = "completed"
+            review_item["examiner_decision"] = "COMPLETE"
+            review_item["examiner_comment"] = comment
+            review_item["decided_at"] = timestamp
+            review_item["telegram_notified"] = True
+            review_item["ready_for_publishing"] = True
+            review_item["updated_at"] = timestamp
+
+    draft_data["scope"] = "workspace"
+    draft_data["workspace_id"] = workspace.get("workspace_id")
+
+    save_json(draft_registry_path, draft_data)
     save_json(review_queue_path, review_queue)
+
+    if decision == "COMPLETE":
+        run_pipeline_command(
+            [
+                "python3",
+                "app/update_content_inventory.py",
+                workspace.get("workspace_id"),
+                item_id
+            ],
+            "Update completed content inventory"
+        )
 
     if decision == "APPROVE":
         validation_status, validation_issues = get_validation_status(draft)
 
         if validation_status != "passed":
             print("\nApproval received, but validation has not passed.")
-            print("Sofia will attempt automatic refinement before publication preparation.")
-            print(f"Current validation status: {validation_status or 'missing'}")
-            print("Validation issues:")
-            print(format_validation_issues(validation_issues))
-
-            repair_ok = run_pipeline_command(
-                [
-                    "python3",
-                    "app/repair_generated_content.py",
-                    item_id
-                ],
-                "Auto-refine approved draft content"
-            )
-
-            if repair_ok:
-                run_pipeline_command(
-                    [
-                        "python3",
-                        "app/clean_generated_html.py",
-                        item_id
-                    ],
-                    "Clean auto-refined approved draft"
-                )
-
-                run_pipeline_command(
-                    [
-                        "python3",
-                        "app/validate_generated_content.py",
-                        item_id
-                    ],
-                    "Validate auto-refined approved draft"
-                )
-
-            fresh_draft = reload_draft_from_registry(item_id)
-
-            if fresh_draft:
-                validation_status, validation_issues = get_validation_status(fresh_draft)
-
-        if validation_status == "passed":
-            run_pipeline_command(
-                [
-                    "python3",
-                    "app/run_publishing_pipeline.py",
-                    item_id,
-                    "--after-approval"
-                ],
-                "Prepare publication drafts after approval"
-            )
-        else:
-            print("\nApproval received, but publication preparation was blocked.")
             print(f"Validation status: {validation_status or 'missing'}")
             print("Validation issues:")
             print(format_validation_issues(validation_issues))
-            print("\nNo WordPress/platform draft was prepared.")
-            print("Sofia must continue internal SEO/quality refinement before publication preparation.")
+            print("\nNo WordPress/platform draft job was created.")
+            print("Sofia must repair and validate the draft before publication preparation.")
+        else:
+            workspace_id = workspace.get("workspace_id")
+
+            job = create_job(
+                workspace_id=workspace_id,
+                job_type="approved_draft_to_wordpress_review",
+                item_id=item_id,
+                payload={
+                    "draft_id": item_id,
+                    "approval_comment": comment,
+                    "approved_at": timestamp,
+                },
+                created_by="process_examiner_decision",
+                source="examiner_decision",
+            )
+
+            print("\nBackground job created for WordPress draft preparation.")
+            print(f"Job ID: {job.get('job_id')}")
+            print(f"Job status: {job.get('status')}")
+            print("The WordPress preparation pipeline will be handled by sofia_worker.py.")
 
     if decision == "REVISE":
         if comment:
-            revision_ok = run_pipeline_command(
-                [
-                    "python3",
-                    "app/apply_draft_revision.py",
-                    workspace.get("workspace_id"),
-                    item_id,
-                    comment
-                ],
-                "Apply AI draft revision"
+            workspace_id = workspace.get("workspace_id")
+
+            job = create_job(
+                workspace_id=workspace_id,
+                job_type="revise_draft",
+                item_id=item_id,
+                payload={
+                    "draft_id": item_id,
+                    "revision_comment": comment,
+                    "requested_at": timestamp,
+                },
+                created_by="process_examiner_decision",
+                source="examiner_decision",
             )
 
-            if revision_ok:
-                clean_ok = run_pipeline_command(
-                    [
-                        "python3",
-                        "app/clean_generated_html.py",
-                        item_id
-                    ],
-                    "Clean revised generated HTML"
-                )
-
-                validation_ok = run_pipeline_command(
-                    [
-                        "python3",
-                        "app/validate_generated_content.py",
-                        item_id
-                    ],
-                    "Validate revised generated content"
-                )
-
-                if not validation_ok:
-                    repair_ok = run_pipeline_command(
-                        [
-                            "python3",
-                            "app/repair_generated_content.py",
-                            item_id
-                        ],
-                        "Repair revised generated content"
-                    )
-
-                    if repair_ok:
-                        run_pipeline_command(
-                            [
-                                "python3",
-                                "app/clean_generated_html.py",
-                                item_id
-                            ],
-                            "Clean repaired generated HTML"
-                        )
-
-                        run_pipeline_command(
-                            [
-                                "python3",
-                                "app/validate_generated_content.py",
-                                item_id
-                            ],
-                            "Validate repaired generated content"
-                        )
+            print("\nBackground job created for draft revision.")
+            print(f"Job ID: {job.get('job_id')}")
+            print(f"Job status: {job.get('status')}")
+            print("The AI revision pipeline will be handled by sofia_worker.py.")
         else:
             print("\nRevision requested, but no comment was provided.")
-            print("No automatic revision loop was triggered.")
+            print("No background revision job was created.")
+
+    fresh_final_draft = reload_draft_from_registry(workspace, item_id)
+    final_status = (
+        fresh_final_draft.get("draft_status")
+        if fresh_final_draft
+        else draft.get("draft_status")
+    )
 
     print("Draft decision processed successfully.")
     print(f"Workspace: {workspace.get('workspace_id')}")
     print(f"Draft: {item_id}")
     print(f"Decision: {decision}")
-    print(f"New draft status: {draft.get('draft_status')}")
+    print(f"New draft status: {final_status}")
     if comment:
         print(f"Comment: {comment}")
 

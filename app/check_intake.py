@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+from cannibalization_checker import check_workspace_cannibalization
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -112,15 +114,32 @@ def main():
         print(f"ERROR: Could not read site_content_memory.json: {e}")
         return
 
-    overlap_found = keyword_exists_in_memory(memory_data, target_keyword)
+    cannibalization = check_workspace_cannibalization(
+        workspace=workspace,
+        topic=target_keyword,
+        extra_terms=[idea_title]
+    )
+
+    overlap_found = cannibalization.get("result") in [
+        "strong_overlap",
+        "possible_overlap"
+    ]
 
     print("Cannibalization Check Result:")
-    if overlap_found:
-        print("  Result: possible_overlap")
-        print("  Notes: Target keyword already exists in workspace memory.")
-    else:
-        print("  Result: clear")
-        print("  Notes: No matching keyword found in workspace memory.")
+    print(f"  Result: {cannibalization.get('result')}")
+    print(f"  Risk score: {cannibalization.get('risk_score')}")
+    print(f"  Notes: {cannibalization.get('notes')}")
+
+    matches = cannibalization.get("matches", [])
+    if matches:
+        print("\nTop matches:")
+        for match in matches[:5]:
+            print(
+                f"  - {match.get('risk')} | score={match.get('score')} | "
+                f"{match.get('source_file')} | {match.get('label')}"
+            )
+            if match.get("url"):
+                print(f"    URL: {match.get('url')}")
 
 
 if __name__ == "__main__":

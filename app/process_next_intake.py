@@ -2,12 +2,17 @@ import json
 from pathlib import Path
 from datetime import datetime
 
+from cannibalization_checker import check_workspace_cannibalization
+from workspace_paths import (
+    get_workspace_draft_registry_path,
+    empty_draft_registry,
+)
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 WORKSPACES_FILE = BASE_DIR / "data" / "workspaces.json"
 INTAKE_FILE = BASE_DIR / "sites" / "content_intake.json"
-DRAFT_REGISTRY_FILE = BASE_DIR / "sites" / "draft_registry.json"
 
 
 def load_json(file_path: Path):
@@ -128,7 +133,7 @@ def update_workspace_memory(memory_data, new_draft):
 def main():
     print("=== Sofia Phase 1: Process Next Intake ===\n")
 
-    for required_file in [WORKSPACES_FILE, INTAKE_FILE, DRAFT_REGISTRY_FILE]:
+    for required_file in [WORKSPACES_FILE, INTAKE_FILE]:
         if not required_file.exists():
             print(f"ERROR: Required file not found: {required_file}")
             return
@@ -136,13 +141,11 @@ def main():
     try:
         workspaces_data = load_json(WORKSPACES_FILE)
         intake_data = load_json(INTAKE_FILE)
-        draft_registry_data = load_json(DRAFT_REGISTRY_FILE)
     except Exception as e:
         print(f"ERROR: Could not read required files: {e}")
         return
 
     content_ideas = intake_data.get("content_ideas", [])
-    drafts = draft_registry_data.get("drafts", [])
 
     if not content_ideas:
         print("No content ideas found in content_intake.json")
@@ -170,6 +173,19 @@ def main():
         print(f"ERROR: Workspace '{workspace_id}' not found in workspaces.json")
         return
 
+    draft_registry_file = get_workspace_draft_registry_path(workspace_id)
+
+    if draft_registry_file.exists():
+        try:
+            draft_registry_data = load_json(draft_registry_file)
+        except Exception as e:
+            print(f"ERROR: Could not read workspace draft registry: {e}")
+            return
+    else:
+        draft_registry_data = empty_draft_registry(workspace_id)
+
+    drafts = draft_registry_data.get("drafts", [])
+
     folder_path = workspace.get("folder_path", "")
     review_mode = workspace.get("review_mode", "")
     domain = workspace.get("domain", "")
@@ -191,14 +207,26 @@ def main():
         print(f"ERROR: Could not read site_content_memory.json: {e}")
         return
 
-    overlap_found = keyword_exists_in_memory(memory_data, target_keyword)
+    cannibalization = check_workspace_cannibalization(
+        workspace=workspace,
+        topic=target_keyword,
+        extra_terms=[idea_title]
+    )
+
+    overlap_found = cannibalization.get("result") in [
+        "strong_overlap",
+        "possible_overlap"
+    ]
 
     if overlap_found:
         intake_item["status"] = "checked"
         intake_item["cannibalization_check"] = {
             "checked": True,
-            "result": "possible_overlap",
-            "notes": "Target keyword already exists in workspace memory."
+            "result": cannibalization.get("result", "possible_overlap"),
+            "notes": cannibalization.get("notes", ""),
+            "risk_score": cannibalization.get("risk_score", 0),
+            "matches": cannibalization.get("matches", []),
+            "checked_sources": cannibalization.get("checked_sources", {})
         }
 
         try:
@@ -216,8 +244,11 @@ def main():
     intake_item["status"] = "checked"
     intake_item["cannibalization_check"] = {
         "checked": True,
-        "result": "clear",
-        "notes": "No matching keyword found in workspace memory."
+        "result": cannibalization.get("result", "clear"),
+        "notes": cannibalization.get("notes", ""),
+        "risk_score": cannibalization.get("risk_score", 0),
+        "matches": cannibalization.get("matches", []),
+        "checked_sources": cannibalization.get("checked_sources", {})
     }
 
     duplicate_draft = duplicate_draft_exists(drafts, workspace_id, target_keyword)
@@ -328,19 +359,24 @@ def main():
     intake_item["review_routing"] = review_routing
 
     try:
+        draft_registry_data["scope"] = "workspace"
+        draft_registry_data["workspace_id"] = workspace_id
+
         save_json(INTAKE_FILE, intake_data)
-        save_json(DRAFT_REGISTRY_FILE, draft_registry_data)
+        save_json(draft_registry_file, draft_registry_data)
         save_json(queue_file, queue_data)
     except Exception as e:
         print(f"ERROR: Could not write updated files: {e}")
         return
 
     print("Cannibalization Check Result:")
-    print("  Result: clear")
-    print("  Notes: No matching keyword found in workspace memory.\n")
+    print(f"  Result: {cannibalization.get('result', 'clear')}")
+    print(f"  Risk score: {cannibalization.get('risk_score', 0)}")
+    print(f"  Notes: {cannibalization.get('notes', '')}\n")
 
     print(f"Draft created: {new_draft_id}")
     print(f"Draft routed to: {queue_file}")
+    print(f"Workspace draft registry updated: {draft_registry_file}")
     print(f"Workspace memory updated: {memory_file}")
     print("Process completed successfully.")
 

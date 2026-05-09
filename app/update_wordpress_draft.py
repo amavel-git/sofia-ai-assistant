@@ -5,9 +5,16 @@ import sys
 import urllib.request
 from pathlib import Path
 from datetime import datetime, timezone
+from dotenv import load_dotenv
+from seo_field_rules import normalize_seo_fields
 
+from workspace_paths import (
+    find_draft_any_workspace,
+    get_workspace_draft_registry_path,
+)
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(SOFIA_ROOT / ".env", override=True)
 
 DRAFT_REGISTRY_FILE = SOFIA_ROOT / "sites" / "draft_registry.json"
 INTAKE_FILE = SOFIA_ROOT / "sites" / "content_intake.json"
@@ -21,6 +28,35 @@ def load_json(path: Path):
 def save_json(path: Path, data):
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def load_draft_registry_for_draft(draft_id):
+    """
+    Load the workspace-level draft registry and return the draft object
+    from that loaded registry data.
+
+    Important:
+    find_draft_any_workspace() identifies the workspace, but we must then
+    re-find the draft inside registry_data so modifications are saved back
+    into the same object that will be written to disk.
+    """
+
+    workspace_id, found_draft = find_draft_any_workspace(draft_id)
+
+    if not workspace_id or not found_draft:
+        raise RuntimeError(f"Draft not found in any workspace registry: {draft_id}")
+
+    registry_path = get_workspace_draft_registry_path(workspace_id)
+    registry_data = load_json(registry_path)
+
+    for draft in registry_data.get("drafts", []):
+        if draft.get("draft_id") == draft_id:
+            return workspace_id, registry_path, registry_data, draft
+
+    raise RuntimeError(
+        f"Draft {draft_id} was found in workspace lookup, but not found again "
+        f"in loaded registry: {registry_path}"
+    )
 
 
 def now_utc():
@@ -61,18 +97,62 @@ def build_update_payload(draft, intake):
     seo = draft_input.get("seo", {})
     generated = draft.get("generated_content", {})
 
-    title = seo.get("page_title") or draft.get("working_title", "")
-    slug = seo.get("slug") or draft.get("suggested_slug", "")
+    title = (
+        seo.get("page_title")
+        or draft.get("title")
+        or draft.get("working_title", "")
+    )
+
+    slug = (
+        seo.get("slug")
+        or draft.get("slug")
+        or draft.get("suggested_slug", "")
+    )
+
+    seo_title = (
+        seo.get("seo_title")
+        or draft.get("seo_title")
+        or draft.get("title")
+        or title
+    )
+
+    meta_description = (
+        seo.get("meta_description")
+        or draft.get("meta_description")
+        or ""
+    )
+
+    focus_keyphrase = (
+        seo.get("focus_keyphrase")
+        or draft.get("focus_keyphrase")
+        or draft.get("target_keyword")
+        or ""
+    )
+
+    seo_fields = normalize_seo_fields(
+        title=title,
+        focus_keyphrase=focus_keyphrase,
+        slug=slug,
+        meta_description=meta_description,
+        seo_title=seo_title,
+        fallback_topic=draft.get("target_keyword") or title,
+        language=draft.get("language", "")
+    )
+
+    slug = seo_fields["slug"]
+    seo_title = seo_fields["seo_title"]
+    meta_description = seo_fields["meta_description"]
+    focus_keyphrase = seo_fields["focus_keyphrase"]
 
     return {
         "title": title,
         "slug": slug,
         "content": generated.get("content", ""),
-        "excerpt": seo.get("meta_description", ""),
+        "excerpt": meta_description,
         "meta": {
-            "_yoast_wpseo_title": seo.get("seo_title", ""),
-            "_yoast_wpseo_metadesc": seo.get("meta_description", ""),
-            "_yoast_wpseo_focuskw": seo.get("focus_keyphrase", "")
+            "_yoast_wpseo_title": seo_title,
+            "_yoast_wpseo_metadesc": meta_description,
+            "_yoast_wpseo_focuskw": focus_keyphrase
         }
     }
 
@@ -106,13 +186,14 @@ def main():
 
     draft_id = sys.argv[1]
 
-    draft_data = load_json(DRAFT_REGISTRY_FILE)
+    try:
+        workspace_id, draft_registry_file, draft_data, draft = load_draft_registry_for_draft(draft_id)
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return
+
     intake_data = load_json(INTAKE_FILE)
-
-    drafts = draft_data.get("drafts", [])
     content_ideas = intake_data.get("content_ideas", [])
-
-    draft = find_draft(drafts, draft_id)
 
     if not draft:
         print(f"ERROR: Draft not found: {draft_id}")
@@ -124,14 +205,24 @@ def main():
         print(f"Current validation status: {validation.get('status')}")
         return
 
-    upload_info = draft.get("wordpress_upload", {})
+    upload_info = draft.get("wordpress_upload", {}) or {}
+    update_info = draft.get("wordpress_update", {}) or {}
 
-    if not upload_info.get("uploaded"):
+    wordpress_id = (
+        update_info.get("wordpress_id")
+        or upload_info.get("wordpress_id")
+        or draft.get("wordpress_id")
+    )
+
+    post_type = (
+        update_info.get("post_type")
+        or upload_info.get("post_type")
+        or draft.get("wordpress_post_type")
+    )
+
+    if not wordpress_id or not post_type:
         print("ERROR: Draft has not been uploaded to WordPress yet.")
-        return
-
-    wordpress_id = upload_info.get("wordpress_id")
-    post_type = upload_info.get("post_type")
+        sys.exit(1)
 
     if not wordpress_id or not post_type:
         print("ERROR: Missing WordPress ID or post type in draft registry.")
@@ -186,13 +277,17 @@ def main():
     }
 
     draft["wordpress_status"] = "updated_as_draft"
+    draft["ready_for_publishing"] = False
 
-    save_json(DRAFT_REGISTRY_FILE, draft_data)
+    draft_data["scope"] = "workspace"
+    draft_data["workspace_id"] = workspace_id
+    save_json(draft_registry_file, draft_data)
 
     print("WordPress draft updated successfully.")
     print(f"Draft ID: {draft_id}")
     print(f"WordPress ID: {result.get('id')}")
     print(f"Link: {result.get('link')}")
+    print(f"Workspace registry: {draft_registry_file}")
 
 
 if __name__ == "__main__":

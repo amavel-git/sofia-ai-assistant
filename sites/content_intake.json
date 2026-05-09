@@ -1,235 +1,253 @@
 {
   "content_ideas": [
     {
-      "intake_id": "INTAKE-0007",
-      "created_at": "2026-04-24",
-      "created_by": "manual",
-      "workspace_type": "local_market",
-      "workspace_id": "local.ao",
-      "workspace_path": "sites/local_sites/ao",
-      "language": "pt",
-      "site_target": "https://poligrafoangola.com",
-      "content_type": "social_post",
-      "idea_title": "O polígrafo pode ser usado em conflitos de relacionamento?",
-      "idea_summary": "Short social media post explaining that polygraph tests may be used in private relationship disputes when handled professionally and ethically.",
-      "target_keyword": "poligrafo conflitos relacionamento",
-      "secondary_keywords": [
-        "poligrafo relacionamento",
-        "detector de mentiras casal"
-      ],
-      "search_intent": "social",
-      "suggested_slug": "",
-      "source": "manual",
-      "source_platform": "facebook",
-      "priority": "normal",
-      "status": "routed_to_social_review",
-      "cannibalization_check": {
-        "checked": false,
-        "result": "not_checked",
-        "notes": ""
-      },
-      "draft_conversion": {
-        "converted": false,
-        "draft_id": "",
-        "converted_at": ""
-      },
-      "review_routing": {
-        "target_queue": "ao_local_review_queue",
-        "routed": false,
-        "routed_at": ""
-      },
-      "notes": "",
-      "social_routing": {
-        "routed": true,
-        "social_id": "SOCIAL-0001",
-        "platform": "facebook",
-        "routed_at": "2026-04-24",
-        "queue_file": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/social_review_queue.json"
-      }
-    },
-    {
-      "intake_id": "INTAKE-0008",
-      "created_at": "2026-04-27",
+      "intake_id": "INTAKE-0001",
+      "created_at": "2026-05-06",
       "created_by": "sofia_external_intelligence",
       "workspace_type": "local_market",
       "workspace_id": "local.ao",
       "workspace_path": "sites/local_sites/ao",
       "language": "pt",
       "site_target": "https://poligrafoangola.com",
-      "content_type": "service_page",
-      "idea_title": "post-conviction sex offender polygraph testing",
-      "idea_summary": "This is a specialized forensic topic that may support professional positioning and future institutional or legal-sector demand.",
-      "target_keyword": "polígrafo para agressores sexuais",
-      "secondary_keywords": [
-        "teste de polígrafo pós-condenação",
-        "polígrafo forense Angola",
-        "avaliação poligráfica em casos sexuais"
-      ],
-      "search_intent": "informational_transactional",
+      "content_type": "landing_page",
+      "idea_title": "teste de polígrafo para furto interno em empresas em Luanda",
+      "idea_summary": "Created from an examiner-originated Telegram request inside the workspace group.",
+      "target_keyword": "teste de polígrafo para furto interno em empresas em Luanda",
+      "secondary_keywords": [],
+      "search_intent": "transactional",
       "suggested_slug": "",
       "source": "external_intelligence",
-      "source_platform": "examiner_request",
+      "source_platform": "telegram_group",
       "source_opportunity_id": "OPP-AO-001",
       "priority": "high",
       "status": "converted_to_draft",
       "cannibalization_check": {
         "checked": true,
         "result": "clear",
-        "notes": "No matching keyword found in workspace memory."
+        "notes": "No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json",
+        "risk_score": 0.0,
+        "matches": [],
+        "checked_sources": {
+          "site_structure.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_structure.json",
+            "items_loaded": 23
+          },
+          "site_content_memory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json",
+            "items_loaded": 0
+          },
+          "content_inventory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/content_inventory.json",
+            "items_loaded": 0
+          },
+          "market_intelligence.json": {
+            "exists": false,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/market_intelligence.json",
+            "items_loaded": 0
+          }
+        }
       },
       "draft_conversion": {
         "converted": true,
-        "draft_id": "DRAFT-0004",
-        "converted_at": "2026-04-27"
+        "draft_id": "DRAFT-0001",
+        "converted_at": "2026-05-06"
       },
       "review_routing": {
         "target_queue": "ao_local_review_queue",
         "routed": true,
-        "routed_at": "2026-04-27"
+        "routed_at": "2026-05-06"
       },
-      "notes": "Created automatically from approved Sofia external opportunity."
+      "notes": "Created automatically from approved Sofia external opportunity.",
+      "seo_brief": {
+        "focus_keyphrase": "teste de polígrafo para furto interno em empresas em Luanda",
+        "seo_title": "teste de polígrafo para furto interno em empresas em Luanda em Angola",
+        "slug": "teste-de-poligrafo-para-furto-interno-em-empresas-em-luanda",
+        "meta_description": "Informação profissional sobre teste de polígrafo para furto interno em empresas em Luanda, aplicações, limitações e como solicitar uma avaliação confidenci",
+        "suggested_headings": {
+          "h1": "teste de polígrafo para furto interno em empresas em Luanda",
+          "h2": [
+            "Quando este serviço pode ser útil",
+            "Como funciona o processo",
+            "Limitações e cuidados importantes",
+            "Como solicitar uma avaliação"
+          ]
+        },
+        "image_alt_text": "teste de polígrafo para furto interno em empresas em Luanda em Angola",
+        "image_filename": "teste-de-poligrafo-para-furto-interno-em-empresas-em-luanda-angola.jpg"
+      },
+      "content_strategy_brief": {
+        "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
+        "target_audience": "Potential clients looking for professional polygraph or forensic services.",
+        "recommended_angle": "Explain the service in practical terms without exaggerating what the polygraph can do.",
+        "required_sections": [
+          "What this service is",
+          "When this service may be useful",
+          "How the process works",
+          "Important limitations and ethical considerations",
+          "How to request an appointment"
+        ],
+        "warnings": [
+          "Avoid legal guarantees.",
+          "Avoid absolute accuracy claims.",
+          "Avoid unverified local law claims."
+        ],
+        "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
+        "internal_linking_notes": [
+          "Link to the main service page where relevant.",
+          "Link to related FAQ or educational content if available.",
+          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
+        ],
+        "source_topic": "teste de polígrafo para furto interno em empresas em Luanda"
+      },
+      "draft_input": {}
     },
     {
-      "intake_id": "INTAKE-0009",
-      "created_at": "2026-04-27",
+      "intake_id": "INTAKE-0002",
+      "created_at": "2026-05-09",
       "created_by": "sofia_external_intelligence",
       "workspace_type": "local_market",
       "workspace_id": "local.ao",
       "workspace_path": "sites/local_sites/ao",
       "language": "pt",
       "site_target": "https://poligrafoangola.com",
-      "content_type": "blog_post",
-      "idea_title": "polígrafo funciona",
-      "idea_summary": "Detected from real user search behavior (Google suggestions).",
-      "target_keyword": "detector de mentiras funciona",
-      "secondary_keywords": [
-        "teste de poligrafo funciona",
-        "polígrafo funciona"
-      ],
-      "search_intent": "informational",
+      "content_type": "landing_page",
+      "idea_title": "teste de polígrafo para infidelidade em Luanda",
+      "idea_summary": "Created from an examiner-originated Telegram request inside the workspace group.",
+      "target_keyword": "teste de polígrafo para infidelidade em Luanda",
+      "secondary_keywords": [],
+      "search_intent": "transactional",
       "suggested_slug": "",
       "source": "external_intelligence",
-      "source_platform": "web_search",
+      "source_platform": "telegram_group",
       "source_opportunity_id": "OPP-AO-002",
-      "priority": "medium",
+      "priority": "high",
       "status": "converted_to_draft",
       "cannibalization_check": {
         "checked": true,
         "result": "clear",
-        "notes": "No matching keyword found in workspace memory."
+        "notes": "No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json",
+        "risk_score": 0.425,
+        "matches": [
+          {
+            "score": 0.425,
+            "risk": "weak_signal",
+            "reason": "shared_tokens: infidelidade",
+            "matched_term": "poligrafo infidelidade fidelidade",
+            "source_file": "site_structure.json",
+            "source_type": "existing_site_page",
+            "label": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+            "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+            "metadata": {
+              "page_type": "service_page",
+              "section": "pericias"
+            }
+          },
+          {
+            "score": 0.425,
+            "risk": "weak_signal",
+            "reason": "shared_tokens: luanda",
+            "matched_term": "teste de polígrafo para furto interno em empresas em Luanda",
+            "source_file": "site_content_memory.json",
+            "source_type": "draft_memory",
+            "label": "teste de polígrafo para furto interno em empresas em Luanda",
+            "url": "",
+            "metadata": {
+              "draft_id": "DRAFT-0001",
+              "target_keyword": "teste de polígrafo para furto interno em empresas em Luanda"
+            }
+          },
+          {
+            "score": 0.425,
+            "risk": "weak_signal",
+            "reason": "shared_tokens: luanda",
+            "matched_term": "teste de polígrafo para furto interno em empresas em Luanda",
+            "source_file": "site_content_memory.json",
+            "source_type": "keyword_index",
+            "label": "teste de polígrafo para furto interno em empresas em Luanda",
+            "url": "",
+            "metadata": {}
+          }
+        ],
+        "checked_sources": {
+          "site_structure.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_structure.json",
+            "items_loaded": 23
+          },
+          "site_content_memory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json",
+            "items_loaded": 2
+          },
+          "content_inventory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/content_inventory.json",
+            "items_loaded": 0
+          },
+          "market_intelligence.json": {
+            "exists": false,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/market_intelligence.json",
+            "items_loaded": 0
+          }
+        }
       },
       "draft_conversion": {
         "converted": true,
-        "draft_id": "DRAFT-0005",
-        "converted_at": "2026-04-27"
+        "draft_id": "DRAFT-0002",
+        "converted_at": "2026-05-09"
       },
       "review_routing": {
         "target_queue": "ao_local_review_queue",
         "routed": true,
-        "routed_at": "2026-04-27"
+        "routed_at": "2026-05-09"
       },
       "notes": "Created automatically from approved Sofia external opportunity.",
       "seo_brief": {
-        "focus_keyphrase": "detector de mentiras funciona",
-        "seo_title": "Polígrafo funciona em Angola",
-        "slug": "poligrafo-funciona",
-        "meta_description": "Entenda polígrafo funciona: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
+        "focus_keyphrase": "teste de polígrafo para infidelidade em Luanda",
+        "seo_title": "teste de polígrafo para infidelidade em Luanda em Angola",
+        "slug": "teste-de-poligrafo-para-infidelidade-em-luanda",
+        "meta_description": "Informação profissional sobre teste de polígrafo para infidelidade em Luanda, aplicações, limitações e como solicitar uma avaliação confidencial.",
         "suggested_headings": {
-          "h1": "Polígrafo funciona",
+          "h1": "teste de polígrafo para infidelidade em Luanda",
           "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
+            "Quando este serviço pode ser útil",
+            "Como funciona o processo",
+            "Limitações e cuidados importantes",
+            "Como solicitar uma avaliação"
           ]
         },
-        "image_alt_text": "polígrafo funciona em Angola",
-        "image_filename": "poligrafo-funciona-angola.jpg"
+        "image_alt_text": "teste de polígrafo para infidelidade em Luanda em Angola",
+        "image_filename": "teste-de-poligrafo-para-infidelidade-em-luanda-angola.jpg"
       },
       "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
+        "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
+        "target_audience": "Potential clients looking for professional polygraph or forensic services.",
+        "recommended_angle": "Explain the service in practical terms without exaggerating what the polygraph can do.",
         "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
+          "What this service is",
+          "When this service may be useful",
+          "How the process works",
+          "Important limitations and ethical considerations",
+          "How to request an appointment"
         ],
-        "warnings": [],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
+        "warnings": [
+          "Avoid legal guarantees.",
+          "Avoid absolute accuracy claims.",
+          "Avoid unverified local law claims."
+        ],
+        "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
         "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
+          "Link to the main service page where relevant.",
           "Link to related FAQ or educational content if available.",
           "Avoid linking to pages with the same primary keyword to prevent cannibalization."
         ],
-        "source_topic": "polígrafo funciona"
+        "source_topic": "teste de polígrafo para infidelidade em Luanda"
       },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-002",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "polígrafo funciona",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "medium",
-        "detected_concepts": [
-          "does_polygraph_work_query"
-        ],
-        "cluster_concept": "does_polygraph_work_query",
-        "related_keywords": [
-          "detector de mentiras funciona",
-          "teste de poligrafo funciona",
-          "polígrafo funciona"
-        ],
-        "seo": {
-          "focus_keyphrase": "detector de mentiras funciona",
-          "page_title": "",
-          "seo_title": "Polígrafo funciona em Angola",
-          "slug": "poligrafo-funciona",
-          "meta_description": "Entenda polígrafo funciona: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Polígrafo funciona",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
-          },
-          "image_alt_text": "polígrafo funciona em Angola",
-          "image_filename": "poligrafo-funciona-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
+      "draft_input": {}
     }
-  ]
+  ],
+  "last_runtime_reset_at": "2026-05-06T10:16:01.360113+00:00"
 }

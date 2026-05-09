@@ -1,0 +1,1423 @@
+2026-05-02T09:44:20.487348+00:00 | Listener started.
+2026-05-02T09:44:20.491031+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T09:44:31.772505+00:00 | RECEIVED Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='REVISE DRAFT-0005: Mention that testing outside Luanda requires travel coordination.'
+2026-05-02T09:53:15.419191+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T09:53:15.424711+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.434305+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.443291+00:00 | PROCESS STDOUT | Auto step: Apply AI draft revision
+2026-05-02T09:53:15.455965+00:00 | PROCESS STDOUT | Applying AI revision. This may take some time...
+2026-05-02T09:53:15.465488+00:00 | PROCESS STDOUT | AI draft revision completed successfully.
+2026-05-02T09:53:15.473718+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T09:53:15.482830+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T09:53:15.491069+00:00 | PROCESS STDOUT | Draft status: content_revised
+2026-05-02T09:53:15.501129+00:00 | PROCESS STDOUT | Review status: pending_review
+2026-05-02T09:53:15.510908+00:00 | PROCESS STDOUT | Telegram notification reset: false
+2026-05-02T09:53:15.520777+00:00 | PROCESS STDOUT | Auto step completed: Apply AI draft revision
+2026-05-02T09:53:15.530313+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.540280+00:00 | PROCESS STDOUT | Auto step: Clean revised generated HTML
+2026-05-02T09:53:15.551072+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-02T09:53:15.559514+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.571107+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-02T09:53:15.581079+00:00 | PROCESS STDOUT | Auto step completed: Clean revised generated HTML
+2026-05-02T09:53:15.590658+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.601771+00:00 | PROCESS STDOUT | Auto step: Validate revised generated content
+2026-05-02T09:53:15.611795+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-02T09:53:15.621880+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.633137+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-02T09:53:15.643104+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.653223+00:00 | PROCESS STDOUT | Issues found:
+2026-05-02T09:53:15.662839+00:00 | PROCESS STDOUT | - Content too short: 747 words. Minimum required: 800
+2026-05-02T09:53:15.673153+00:00 | PROCESS STDOUT | Auto step failed: Validate revised generated content
+2026-05-02T09:53:15.684499+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.694991+00:00 | PROCESS STDOUT | Auto step: Repair revised generated content
+2026-05-02T09:53:15.706676+00:00 | PROCESS STDOUT | === Sofia: Repair Generated Content ===
+2026-05-02T09:53:15.718681+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.729517+00:00 | PROCESS STDOUT | Content repaired. Run validation again.
+2026-05-02T09:53:15.741030+00:00 | PROCESS STDOUT | Auto step completed: Repair revised generated content
+2026-05-02T09:53:15.751432+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.761827+00:00 | PROCESS STDOUT | Auto step: Clean repaired generated HTML
+2026-05-02T09:53:15.771134+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-02T09:53:15.781494+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.791238+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-02T09:53:15.802372+00:00 | PROCESS STDOUT | Auto step completed: Clean repaired generated HTML
+2026-05-02T09:53:15.813515+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.824831+00:00 | PROCESS STDOUT | Auto step: Validate repaired generated content
+2026-05-02T09:53:15.837177+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-02T09:53:15.848799+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.860105+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-02T09:53:15.870466+00:00 | PROCESS STDOUT | 
+2026-05-02T09:53:15.880828+00:00 | PROCESS STDOUT | Issues found:
+2026-05-02T09:53:15.892229+00:00 | PROCESS STDOUT | - Content too short: 683 words. Minimum required: 800
+2026-05-02T09:53:15.903454+00:00 | PROCESS STDOUT | Auto step failed: Validate repaired generated content
+2026-05-02T09:53:15.914023+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T09:53:15.925192+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T09:53:15.936159+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T09:53:15.947294+00:00 | PROCESS STDOUT | Decision: REVISE
+2026-05-02T09:53:15.958061+00:00 | PROCESS STDOUT | New draft status: revision_requested
+2026-05-02T09:53:15.969389+00:00 | PROCESS STDOUT | Comment: Mention that testing outside Luanda requires travel coordination.
+2026-05-02T09:53:15.980553+00:00 | PROCESSED update_id=694984594 workspace=local.ao
+2026-05-02T09:53:16.630019+00:00 | Sent next pending draft: DRAFT-0005 workspace=local.ao
+2026-05-02T10:09:35.113503+00:00 | Listener stopped by user.
+2026-05-02T12:11:12.881319+00:00 | Listener started.
+2026-05-02T12:11:12.894419+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T12:11:22.454242+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T12:11:22.823953+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T12:11:22.827606+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:22.839948+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:22.849918+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-02T12:11:22.860934+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-02T12:11:22.873476+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:22.885984+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-02T12:11:22.897146+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:22.907840+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T12:11:22.918965+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-02T12:11:22.930498+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T12:11:22.942307+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-02T12:11:22.954109+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:22.966452+00:00 | PROCESS STDOUT | ERROR: Draft is not exportable. Current status: approved
+2026-05-02T12:11:22.977923+00:00 | PROCESS STDOUT | Exportable statuses: content_generated, internal_links_added
+2026-05-02T12:11:22.991387+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:23.005119+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T12:11:23.017444+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-02T12:11:23.029791+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T12:11:23.043043+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-02T12:11:23.058042+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:23.072142+00:00 | PROCESS STDOUT | ERROR: Draft validation has not passed.
+2026-05-02T12:11:23.085303+00:00 | PROCESS STDOUT | Current validation status: failed
+2026-05-02T12:11:23.098834+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:23.111300+00:00 | PROCESS STDOUT | 
+2026-05-02T12:11:23.126142+00:00 | PROCESS STDOUT | === Pipeline completed: WordPress draft ready for examiner publishing ===
+2026-05-02T12:11:23.141543+00:00 | PROCESS STDOUT | Auto step completed: Prepare publication drafts after approval
+2026-05-02T12:11:23.156309+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T12:11:23.169813+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T12:11:23.184744+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T12:11:23.197666+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T12:11:23.211677+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T12:11:23.226977+00:00 | Detected logical failure: error
+2026-05-02T12:26:26.654823+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T12:26:26.763740+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T12:26:26.767265+00:00 | PROCESS STDOUT | 
+2026-05-02T12:26:26.781784+00:00 | PROCESS STDOUT | 
+2026-05-02T12:26:26.796146+00:00 | PROCESS STDOUT | Approval received, but publication preparation was blocked.
+2026-05-02T12:26:26.809420+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-02T12:26:26.824557+00:00 | PROCESS STDOUT | Validation issues:
+2026-05-02T12:26:26.838031+00:00 | PROCESS STDOUT | - Content too short: 683 words. Minimum required: 800
+2026-05-02T12:26:26.852373+00:00 | PROCESS STDOUT | 
+2026-05-02T12:26:26.866886+00:00 | PROCESS STDOUT | No WordPress/platform draft was prepared.
+2026-05-02T12:26:26.881964+00:00 | PROCESS STDOUT | Please revise, repair, or adjust validation before publishing preparation.
+2026-05-02T12:26:26.898272+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T12:26:26.914429+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T12:26:26.928220+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T12:26:26.941437+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T12:26:26.954827+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T12:26:27.230165+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T12:29:21.076142+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T12:29:21.181177+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T12:29:21.184915+00:00 | PROCESS STDOUT | 
+2026-05-02T12:29:21.197765+00:00 | PROCESS STDOUT | 
+2026-05-02T12:29:21.211504+00:00 | PROCESS STDOUT | Approval received, but publication preparation was blocked.
+2026-05-02T12:29:21.225170+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-02T12:29:21.238627+00:00 | PROCESS STDOUT | Validation issues:
+2026-05-02T12:29:21.251590+00:00 | PROCESS STDOUT | - Content too short: 683 words. Minimum required: 800
+2026-05-02T12:29:21.264314+00:00 | PROCESS STDOUT | 
+2026-05-02T12:29:21.276513+00:00 | PROCESS STDOUT | No WordPress/platform draft was prepared.
+2026-05-02T12:29:21.288704+00:00 | PROCESS STDOUT | Please revise, repair, or adjust validation before publishing preparation.
+2026-05-02T12:29:21.300882+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T12:29:21.314893+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T12:29:21.327879+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T12:29:21.339094+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T12:29:21.351753+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T12:29:21.664975+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T12:31:25.554617+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T12:31:25.660329+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T12:31:25.664162+00:00 | PROCESS STDOUT | 
+2026-05-02T12:31:25.676745+00:00 | PROCESS STDOUT | 
+2026-05-02T12:31:25.687091+00:00 | PROCESS STDOUT | Approval received, but publication preparation was blocked.
+2026-05-02T12:31:25.698805+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-02T12:31:25.712175+00:00 | PROCESS STDOUT | Validation issues:
+2026-05-02T12:31:25.725105+00:00 | PROCESS STDOUT | - Content too short: 683 words. Minimum required: 800
+2026-05-02T12:31:25.736417+00:00 | PROCESS STDOUT | 
+2026-05-02T12:31:25.748652+00:00 | PROCESS STDOUT | No WordPress/platform draft was prepared.
+2026-05-02T12:31:25.761927+00:00 | PROCESS STDOUT | Please revise, repair, or adjust validation before publishing preparation.
+2026-05-02T12:31:25.774790+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T12:31:25.785617+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T12:31:25.796724+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T12:31:25.809300+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T12:31:25.820407+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T12:31:26.069117+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T12:33:28.295122+00:00 | Listener started.
+2026-05-02T12:33:28.297858+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T12:33:40.413808+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T12:33:40.526698+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T12:33:40.530033+00:00 | PROCESS STDOUT | 
+2026-05-02T12:33:40.539386+00:00 | PROCESS STDOUT | 
+2026-05-02T12:33:40.549751+00:00 | PROCESS STDOUT | Approval received, but publication preparation was blocked.
+2026-05-02T12:33:40.561117+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-02T12:33:40.571448+00:00 | PROCESS STDOUT | Validation issues:
+2026-05-02T12:33:40.583346+00:00 | PROCESS STDOUT | - Content too short: 683 words. Minimum required: 800
+2026-05-02T12:33:40.596138+00:00 | PROCESS STDOUT | 
+2026-05-02T12:33:40.607043+00:00 | PROCESS STDOUT | No WordPress/platform draft was prepared.
+2026-05-02T12:33:40.617205+00:00 | PROCESS STDOUT | Please revise, repair, or adjust validation before publishing preparation.
+2026-05-02T12:33:40.629065+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T12:33:40.639620+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T12:33:40.650328+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T12:33:40.660722+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T12:33:40.671087+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T12:33:40.683279+00:00 | Detected logical failure: publication preparation was blocked
+2026-05-02T12:47:36.497341+00:00 | Listener stopped by user.
+2026-05-02T13:14:51.325769+00:00 | Listener started.
+2026-05-02T13:14:51.329582+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T13:15:29.102422+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T13:15:31.411969+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T13:15:31.415176+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.428634+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.442169+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-02T13:15:31.453674+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-02T13:15:31.466112+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.479465+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-02T13:15:31.492312+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.503980+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:15:31.515317+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-02T13:15:31.526555+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:15:31.538413+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-02T13:15:31.551355+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.564922+00:00 | PROCESS STDOUT | ERROR: Draft is not exportable. Current status: approved
+2026-05-02T13:15:31.579487+00:00 | PROCESS STDOUT | Exportable statuses: content_generated, internal_links_added
+2026-05-02T13:15:31.594064+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.607699+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:15:31.621760+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-02T13:15:31.634851+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:15:31.649543+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-02T13:15:31.664759+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.680267+00:00 | PROCESS STDOUT | WordPress draft updated successfully.
+2026-05-02T13:15:31.696442+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0005
+2026-05-02T13:15:31.712464+00:00 | PROCESS STDOUT | WordPress ID: 1133
+2026-05-02T13:15:31.726374+00:00 | PROCESS STDOUT | Link: https://poligrafoangola.com/?p=1133
+2026-05-02T13:15:31.739935+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.753991+00:00 | PROCESS STDOUT | 
+2026-05-02T13:15:31.769656+00:00 | PROCESS STDOUT | === Pipeline completed: WordPress draft ready for examiner publishing ===
+2026-05-02T13:15:31.785833+00:00 | PROCESS STDOUT | Auto step completed: Prepare publication drafts after approval
+2026-05-02T13:15:31.801331+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T13:15:31.817226+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T13:15:31.833403+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T13:15:31.849955+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T13:15:31.867211+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T13:15:31.883370+00:00 | Detected logical failure: error
+2026-05-02T13:18:23.289537+00:00 | Listener stopped by user.
+2026-05-02T13:20:26.387762+00:00 | Listener started.
+2026-05-02T13:20:26.391142+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T13:20:38.248705+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T13:20:39.341232+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T13:20:39.344429+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.360453+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.376702+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-02T13:20:39.393774+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-02T13:20:39.410547+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.427529+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-02T13:20:39.444298+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.460484+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:20:39.477399+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-02T13:20:39.493415+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:20:39.509556+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-02T13:20:39.526806+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.543859+00:00 | PROCESS STDOUT | ERROR: Draft is not exportable. Current status: approved
+2026-05-02T13:20:39.562167+00:00 | PROCESS STDOUT | Exportable statuses: content_generated, internal_links_added
+2026-05-02T13:20:39.580207+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.597442+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:20:39.615576+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-02T13:20:39.632035+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:20:39.647657+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-02T13:20:39.662054+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.678827+00:00 | PROCESS STDOUT | WordPress draft updated successfully.
+2026-05-02T13:20:39.694751+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0005
+2026-05-02T13:20:39.711700+00:00 | PROCESS STDOUT | WordPress ID: 1133
+2026-05-02T13:20:39.728495+00:00 | PROCESS STDOUT | Link: https://poligrafoangola.com/?p=1133
+2026-05-02T13:20:39.745157+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.763435+00:00 | PROCESS STDOUT | 
+2026-05-02T13:20:39.779353+00:00 | PROCESS STDOUT | === Pipeline completed: WordPress draft ready for examiner publishing ===
+2026-05-02T13:20:39.796669+00:00 | PROCESS STDOUT | Auto step completed: Prepare publication drafts after approval
+2026-05-02T13:20:39.814015+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T13:20:39.831933+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T13:20:39.848688+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T13:20:39.863673+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T13:20:39.880044+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T13:20:40.108548+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T13:32:25.075779+00:00 | Listener stopped by user.
+2026-05-02T13:32:28.970548+00:00 | Listener started.
+2026-05-02T13:32:28.974159+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T13:32:38.843183+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0005'
+2026-05-02T13:32:40.467580+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T13:32:40.471514+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.488534+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.505086+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-02T13:32:40.520728+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-02T13:32:40.534446+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.547866+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-02T13:32:40.560892+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.573896+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:32:40.588680+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-02T13:32:40.604353+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:32:40.620838+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-02T13:32:40.636968+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.652579+00:00 | PROCESS STDOUT | ERROR: Draft is not exportable. Current status: approved
+2026-05-02T13:32:40.669635+00:00 | PROCESS STDOUT | Exportable statuses: content_generated, internal_links_added
+2026-05-02T13:32:40.686969+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.701919+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:32:40.717317+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-02T13:32:40.731440+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-02T13:32:40.745074+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-02T13:32:40.761234+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.777333+00:00 | PROCESS STDOUT | WordPress draft updated successfully.
+2026-05-02T13:32:40.793667+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0005
+2026-05-02T13:32:40.809606+00:00 | PROCESS STDOUT | WordPress ID: 1133
+2026-05-02T13:32:40.826514+00:00 | PROCESS STDOUT | Link: https://poligrafoangola.com/?p=1133
+2026-05-02T13:32:40.842519+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.858971+00:00 | PROCESS STDOUT | 
+2026-05-02T13:32:40.875642+00:00 | PROCESS STDOUT | === Pipeline completed: WordPress draft ready for examiner publishing ===
+2026-05-02T13:32:40.891770+00:00 | PROCESS STDOUT | Auto step completed: Prepare publication drafts after approval
+2026-05-02T13:32:40.908263+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-02T13:32:40.925280+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T13:32:40.942610+00:00 | PROCESS STDOUT | Draft: DRAFT-0005
+2026-05-02T13:32:40.959932+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-02T13:32:40.976472+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-02T13:32:41.224022+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T14:09:24.453129+00:00 | Listener stopped by user.
+2026-05-02T14:09:29.010019+00:00 | Listener started.
+2026-05-02T14:09:29.012889+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T14:09:35.281011+00:00 | CALLBACK reject prompt workspace=local.ao chat_id=-1003981768831 item=OPP-AO-003
+2026-05-02T14:11:10.762547+00:00 | CALLBACK opportunity reject option workspace=local.ao chat_id=-1003981768831 item=OPP-AO-003 option=REJECT_SKIP
+2026-05-02T14:11:10.865745+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T14:11:10.870976+00:00 | PROCESS STDOUT | 
+2026-05-02T14:11:10.884523+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-02T14:11:10.899157+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T14:11:10.914021+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-003
+2026-05-02T14:11:10.929787+00:00 | PROCESS STDOUT | Decision: REJECT
+2026-05-02T14:11:10.945703+00:00 | PROCESS STDOUT | 
+2026-05-02T14:11:10.961459+00:00 | PROCESS STDOUT | Opportunity rejected. No further action required.
+2026-05-02T14:11:10.978464+00:00 | PROCESS STDOUT | Comment: skip_for_now
+2026-05-02T14:11:11.207348+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T14:19:21.615182+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='MODIFY_PROMPT OPP-AO-004'
+2026-05-02T14:19:21.705723+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T14:19:21.709068+00:00 | PROCESS STDOUT | 
+2026-05-02T14:19:21.723834+00:00 | PROCESS STDOUT | Could not parse examiner reply.
+2026-05-02T14:19:21.736347+00:00 | PROCESS STDOUT | Expected examples:
+2026-05-02T14:19:21.749819+00:00 | PROCESS STDOUT | APPROVE OPP-AO-001
+2026-05-02T14:19:21.765128+00:00 | PROCESS STDOUT | MODIFY OPP-AO-001: change angle
+2026-05-02T14:19:21.779603+00:00 | PROCESS STDOUT | APPROVE DRAFT-0005
+2026-05-02T14:19:21.793757+00:00 | PROCESS STDOUT | REVISE DRAFT-0005: change terminology
+2026-05-02T14:19:21.808473+00:00 | Detected logical failure: could not parse
+2026-05-02T14:19:42.561824+00:00 | Listener stopped by user.
+2026-05-02T14:19:46.209326+00:00 | Listener started.
+2026-05-02T14:19:46.212965+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T14:19:49.327527+00:00 | CALLBACK modify prompt workspace=local.ao chat_id=-1003981768831 item=OPP-AO-004
+2026-05-02T14:24:20.149980+00:00 | RECEIVED Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='MODIFY OPP-AO-004: focus this opportunity on corporate fraud instead of personal relationship cases.'
+2026-05-02T14:24:20.252059+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T14:24:20.258228+00:00 | PROCESS STDOUT | 
+2026-05-02T14:24:20.270766+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-02T14:24:20.283549+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T14:24:20.296055+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-004
+2026-05-02T14:24:20.309494+00:00 | PROCESS STDOUT | Decision: MODIFY
+2026-05-02T14:24:20.322212+00:00 | PROCESS STDOUT | 
+2026-05-02T14:24:20.332450+00:00 | PROCESS STDOUT | Opportunity marked for modification. Review comments and update opportunity.
+2026-05-02T14:24:20.345762+00:00 | PROCESSED update_id=694984607 workspace=local.ao
+2026-05-02T14:24:20.611117+00:00 | No pending next item found for workspace=local.ao
+2026-05-02T14:37:00.831458+00:00 | Listener stopped by user.
+2026-05-02T14:37:04.032500+00:00 | Listener started.
+2026-05-02T14:37:04.035041+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-02T14:37:11.614294+00:00 | CALLBACK modify prompt workspace=local.ao chat_id=-1003981768831 item=OPP-AO-004
+2026-05-02T14:37:27.086031+00:00 | RECEIVED Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='MODIFY OPP-AO-004: focus this opportunity on corporate fraud instead of personal relationship cases.'
+2026-05-02T14:37:27.286243+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-02T14:37:27.289575+00:00 | PROCESS STDOUT | 
+2026-05-02T14:37:27.299071+00:00 | PROCESS STDOUT | 
+2026-05-02T14:37:27.311168+00:00 | PROCESS STDOUT | Auto step: Apply opportunity modification
+2026-05-02T14:37:27.324438+00:00 | PROCESS STDOUT | Opportunity modification loop completed successfully.
+2026-05-02T14:37:27.336804+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T14:37:27.347809+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-004
+2026-05-02T14:37:27.360100+00:00 | PROCESS STDOUT | New topic: teste de polígrafo para investigação de fraude corporativa
+2026-05-02T14:37:27.373537+00:00 | PROCESS STDOUT | Cannibalization: clear
+2026-05-02T14:37:27.383242+00:00 | PROCESS STDOUT | Local topic status: allowed
+2026-05-02T14:37:27.394663+00:00 | PROCESS STDOUT | Review status: pending_examiner_review
+2026-05-02T14:37:27.406712+00:00 | PROCESS STDOUT | Telegram notification reset: false
+2026-05-02T14:37:27.416931+00:00 | PROCESS STDOUT | Auto step completed: Apply opportunity modification
+2026-05-02T14:37:27.428230+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-02T14:37:27.441700+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-02T14:37:27.452486+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-004
+2026-05-02T14:37:27.463157+00:00 | PROCESS STDOUT | Decision: MODIFY
+2026-05-02T14:37:27.476054+00:00 | PROCESS STDOUT | 
+2026-05-02T14:37:27.486426+00:00 | PROCESS STDOUT | Opportunity marked for modification. Review comments and update opportunity.
+2026-05-02T14:37:27.496633+00:00 | PROCESSED update_id=694984609 workspace=local.ao
+2026-05-02T14:37:27.931839+00:00 | Sent next pending opportunity: OPP-AO-004 workspace=local.ao
+2026-05-03T08:58:42.128872+00:00 | Listener started.
+2026-05-03T08:58:42.141131+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T09:41:25.558424+00:00 | Listener stopped by user.
+2026-05-03T09:42:00.390312+00:00 | Listener started.
+2026-05-03T09:42:00.393501+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T09:44:34.468925+00:00 | Listener stopped by user.
+2026-05-03T09:44:38.736391+00:00 | Listener started.
+2026-05-03T09:44:38.739406+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T09:51:51.629841+00:00 | Listener stopped by user.
+2026-05-03T09:52:12.127460+00:00 | Listener started.
+2026-05-03T09:52:12.130329+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T17:44:31.774065+00:00 | Listener started.
+2026-05-03T17:44:31.790347+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T17:44:32.229962+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-017
+2026-05-03T17:54:46.932698+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-017'
+2026-05-03T17:54:47.326756+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-03T17:54:47.330477+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.344519+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.354862+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-03T17:54:47.365539+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-03T17:54:47.378707+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.391356+00:00 | PROCESS STDOUT | Skipped OPP-AO-001: already exists in content_intake.json
+2026-05-03T17:54:47.402705+00:00 | PROCESS STDOUT | Created INTAKE-0010 from OPP-AO-017
+2026-05-03T17:54:47.415638+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.428970+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-03T17:54:47.441163+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-03T17:54:47.453454+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-03T17:54:47.467477+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.480045+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-03T17:54:47.492095+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-03T17:54:47.505053+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.517389+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0010
+2026-05-03T17:54:47.530185+00:00 | PROCESS STDOUT | Idea title: corporate theft polygraph testing
+2026-05-03T17:54:47.543693+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-03T17:54:47.556126+00:00 | PROCESS STDOUT | Target keyword: corporate theft polygraph testing
+2026-05-03T17:54:47.570932+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.582907+00:00 | PROCESS STDOUT | Resolved Workspace:
+2026-05-03T17:54:47.594828+00:00 | PROCESS STDOUT |   Domain: https://poligrafoangola.com
+2026-05-03T17:54:47.607388+00:00 | PROCESS STDOUT |   Folder Path: sites/local_sites/ao
+2026-05-03T17:54:47.621755+00:00 | PROCESS STDOUT |   Review Mode: local_market_review
+2026-05-03T17:54:47.632981+00:00 | PROCESS STDOUT |   Memory File: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-03T17:54:47.646543+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.660350+00:00 | PROCESS STDOUT | Cannibalization Check Result:
+2026-05-03T17:54:47.675831+00:00 | PROCESS STDOUT |   Result: clear
+2026-05-03T17:54:47.689572+00:00 | PROCESS STDOUT |   Notes: No matching keyword found in workspace memory.
+2026-05-03T17:54:47.703405+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.717832+00:00 | PROCESS STDOUT | Draft created: DRAFT-0006
+2026-05-03T17:54:47.733161+00:00 | PROCESS STDOUT | Draft routed to: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/local_review_queue.json
+2026-05-03T17:54:47.749889+00:00 | PROCESS STDOUT | Workspace memory updated: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-03T17:54:47.765720+00:00 | PROCESS STDOUT | Process completed successfully.
+2026-05-03T17:54:47.780366+00:00 | PROCESS STDOUT | Auto step completed: Process next intake
+2026-05-03T17:54:47.794319+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-03T17:54:47.808186+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T17:54:47.823266+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-017
+2026-05-03T17:54:47.837849+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-03T17:54:47.854084+00:00 | PROCESS STDOUT | 
+2026-05-03T17:54:47.869727+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-03T17:54:48.394827+00:00 | Sent next pending draft: DRAFT-0006 workspace=local.ao
+2026-05-03T18:33:57.265230+00:00 | Listener stopped by user.
+2026-05-03T18:34:01.196235+00:00 | Listener started.
+2026-05-03T18:34:01.200301+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T18:35:06.203495+00:00 | Listener stopped by user.
+2026-05-03T18:35:14.461487+00:00 | Listener started.
+2026-05-03T18:35:14.464548+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T18:35:27.774205+00:00 | Listener stopped by user.
+2026-05-03T18:36:40.212973+00:00 | Listener started.
+2026-05-03T18:36:40.216447+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T18:39:49.090430+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-018
+2026-05-03T18:45:34.556655+00:00 | Listener stopped by user.
+2026-05-03T18:45:38.113840+00:00 | Listener started.
+2026-05-03T18:45:38.116555+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T18:46:09.916889+00:00 | Listener stopped by user.
+2026-05-03T18:46:13.535634+00:00 | Listener started.
+2026-05-03T18:46:13.538899+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T18:46:26.529987+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-019
+2026-05-03T18:47:45.160964+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-019'
+2026-05-03T18:57:17.789528+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-03T18:57:17.795189+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:17.806707+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:17.819942+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-03T18:57:17.833835+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-03T18:57:17.846297+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:17.859879+00:00 | PROCESS STDOUT | Skipped OPP-AO-001: already exists in content_intake.json
+2026-05-03T18:57:17.873481+00:00 | PROCESS STDOUT | Created INTAKE-0011 from OPP-AO-019
+2026-05-03T18:57:17.887456+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:17.901526+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-03T18:57:17.914855+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-03T18:57:17.928617+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-03T18:57:17.942348+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:17.954963+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-03T18:57:17.967542+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-03T18:57:17.980723+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:17.993138+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0011
+2026-05-03T18:57:18.006042+00:00 | PROCESS STDOUT | Idea title: furto de empregado e o teste do polígrafo
+2026-05-03T18:57:18.018673+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-03T18:57:18.032473+00:00 | PROCESS STDOUT | Target keyword: furto de empregado e o teste do polígrafo
+2026-05-03T18:57:18.045448+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.058516+00:00 | PROCESS STDOUT | Resolved Workspace:
+2026-05-03T18:57:18.071230+00:00 | PROCESS STDOUT |   Domain: https://poligrafoangola.com
+2026-05-03T18:57:18.083968+00:00 | PROCESS STDOUT |   Folder Path: sites/local_sites/ao
+2026-05-03T18:57:18.097094+00:00 | PROCESS STDOUT |   Review Mode: local_market_review
+2026-05-03T18:57:18.109310+00:00 | PROCESS STDOUT |   Memory File: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-03T18:57:18.124329+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.138174+00:00 | PROCESS STDOUT | Cannibalization Check Result:
+2026-05-03T18:57:18.150910+00:00 | PROCESS STDOUT |   Result: clear
+2026-05-03T18:57:18.163489+00:00 | PROCESS STDOUT |   Notes: No matching keyword found in workspace memory.
+2026-05-03T18:57:18.177372+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.190082+00:00 | PROCESS STDOUT | Draft created: DRAFT-0007
+2026-05-03T18:57:18.204160+00:00 | PROCESS STDOUT | Draft routed to: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/local_review_queue.json
+2026-05-03T18:57:18.217681+00:00 | PROCESS STDOUT | Workspace memory updated: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-03T18:57:18.232816+00:00 | PROCESS STDOUT | Process completed successfully.
+2026-05-03T18:57:18.246320+00:00 | PROCESS STDOUT | Auto step completed: Process next intake
+2026-05-03T18:57:18.261804+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.276156+00:00 | PROCESS STDOUT | Auto step: Generate and validate draft before examiner review
+2026-05-03T18:57:18.291281+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T18:57:18.305638+00:00 | PROCESS STDOUT | Draft: DRAFT-0007
+2026-05-03T18:57:18.320879+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.335809+00:00 | PROCESS STDOUT | Auto step: Generate website draft content
+2026-05-03T18:57:18.350659+00:00 | PROCESS STDOUT | === Sofia: Generate Website Draft ===
+2026-05-03T18:57:18.364571+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.377999+00:00 | PROCESS STDOUT | Processing draft: DRAFT-0007
+2026-05-03T18:57:18.391675+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T18:57:18.406061+00:00 | PROCESS STDOUT | Title: furto de empregado e o teste do polígrafo
+2026-05-03T18:57:18.422972+00:00 | PROCESS STDOUT | Focus keyphrase: furto de empregado e o teste do polígrafo
+2026-05-03T18:57:18.438548+00:00 | PROCESS STDOUT | Locale: pt-PT
+2026-05-03T18:57:18.452112+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.465203+00:00 | PROCESS STDOUT | Website draft generated successfully.
+2026-05-03T18:57:18.478460+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0007
+2026-05-03T18:57:18.492714+00:00 | PROCESS STDOUT | Saved fields: html_content, generated_content.content, slug, meta_description
+2026-05-03T18:57:18.507804+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.522305+00:00 | PROCESS STDOUT | Generated content preview:
+2026-05-03T18:57:18.535934+00:00 | PROCESS STDOUT | ### Title:
+2026-05-03T18:57:18.550069+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.563911+00:00 | PROCESS STDOUT | Teste de Polígrafo para Furto de Empregado em Angola
+2026-05-03T18:57:18.578595+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.592007+00:00 | PROCESS STDOUT | ### Meta Title:
+2026-05-03T18:57:18.604690+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.617552+00:00 | PROCESS STDOUT | Detecção de Furto de Empregados com Teste de Polígrafo | Profissional e Confiável
+2026-05-03T18:57:18.630612+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.644672+00:00 | PROCESS STDOUT | ### Meta Description:
+2026-05-03T18:57:18.658328+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.674276+00:00 | PROCESS STDOUT | Profissionais especializados em testes de polígrafo para detetar furto de empregados. Serviços confidenciais e precisos.
+2026-05-03T18:57:18.689034+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.703549+00:00 | PROCESS STDOUT | ### Slug:
+2026-05-03T18:57:18.716647+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.729303+00:00 | PROCESS STDOUT | furto-de-empregado-e-o-teste-do-poligrafo
+2026-05-03T18:57:18.743263+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.756507+00:00 | PROCESS STDOUT | ### Focus Keyphrase:
+2026-05-03T18:57:18.770384+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.785051+00:00 | PROCESS STDOUT | teste polígrafo furto
+2026-05-03T18:57:18.798329+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.812295+00:00 | PROCESS STDOUT | ### H1:
+2026-05-03T18:57:18.825453+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.837884+00:00 | PROCESS STDOUT | Teste de Polígrafo para Furto de Empregados em Angola
+2026-05-03T18:57:18.850163+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.862013+00:00 | PROCESS STDOUT | ### Body Content (HTML format):
+2026-05-03T18:57:18.875179+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.886436+00:00 | PROCESS STDOUT | <h2>O que é o Teste de Polígrafo?</h2>
+2026-05-03T18:57:18.900522+00:00 | PROCESS STDOUT | <p>Um teste de polígrafo é um método utilizado para detectar a verdade ou falsidade das afirmações feitas por uma pessoa. É frequentemente usado em casos onde há suspeita de furto no local de trabalho.</p>
+2026-05-03T18:57:18.915008+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.928207+00:00 | PROCESS STDOUT | <h2>Como Funciona o Teste de Polígrafo?</h2>
+2026-05-03T18:57:18.940259+00:00 | PROCESS STDOUT | <p>O teste de polígrafo envolve a monitorização do ritmo cardíaco, da pressão sanguínea e da respiração durante uma série de perguntas. A interpretação dos resultados é feita por um profissional treinado.</p>
+2026-05-03T18:57:18.954237+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:18.968141+00:00 | PROCESS STDOUT | <h3>Etapas do Teste:</h3>
+2026-05-03T18:57:18.982482+00:00 | PROCESS STDOUT | <ul>
+2026-05-03T18:57:18.996147+00:00 | PROCESS STDOUT | <li><strong>Preenchimento de formulários:</strong> O candidato preenche alguns documentos necessários antes do teste.</li>
+2026-05-03T18:57:19.009557+00:00 | PROCESS STDOUT | <li><strong>Ajustes e calibração:</str
+2026-05-03T18:57:19.023758+00:00 | PROCESS STDOUT | Auto step completed: Generate website draft content
+2026-05-03T18:57:19.036731+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.051190+00:00 | PROCESS STDOUT | Auto step: Clean generated HTML
+2026-05-03T18:57:19.063864+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-03T18:57:19.078977+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.092707+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-03T18:57:19.105528+00:00 | PROCESS STDOUT | Auto step completed: Clean generated HTML
+2026-05-03T18:57:19.118253+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.133256+00:00 | PROCESS STDOUT | Auto step: Validate generated content
+2026-05-03T18:57:19.147525+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-03T18:57:19.161405+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.176585+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-03T18:57:19.189613+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.203234+00:00 | PROCESS STDOUT | Issues found:
+2026-05-03T18:57:19.217222+00:00 | PROCESS STDOUT | - Invalid H1 count: 0
+2026-05-03T18:57:19.230467+00:00 | PROCESS STDOUT | - Missing FAQ <h2> section
+2026-05-03T18:57:19.242317+00:00 | PROCESS STDOUT | - FAQ has fewer than 4 questions
+2026-05-03T18:57:19.256148+00:00 | PROCESS STDOUT | - Content too short: 484 words. Minimum required: 800
+2026-05-03T18:57:19.272188+00:00 | PROCESS STDOUT | Auto step failed: Validate generated content
+2026-05-03T18:57:19.286497+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.300052+00:00 | PROCESS STDOUT | Validation failed. Sofia will attempt automatic repair before examiner review.
+2026-05-03T18:57:19.312764+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.326976+00:00 | PROCESS STDOUT | Auto step: Repair generated content
+2026-05-03T18:57:19.341362+00:00 | PROCESS STDOUT | === Sofia: Repair Generated Content ===
+2026-05-03T18:57:19.354557+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.368419+00:00 | PROCESS STDOUT | Content repaired. Run validation again.
+2026-05-03T18:57:19.383654+00:00 | PROCESS STDOUT | Auto step completed: Repair generated content
+2026-05-03T18:57:19.398684+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.413794+00:00 | PROCESS STDOUT | Auto step: Clean repaired generated HTML
+2026-05-03T18:57:19.427584+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-03T18:57:19.439237+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.452480+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-03T18:57:19.465998+00:00 | PROCESS STDOUT | Auto step completed: Clean repaired generated HTML
+2026-05-03T18:57:19.479037+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.492654+00:00 | PROCESS STDOUT | Auto step: Validate repaired generated content
+2026-05-03T18:57:19.505086+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-03T18:57:19.516477+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.529334+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-03T18:57:19.541826+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.554234+00:00 | PROCESS STDOUT | Issues found:
+2026-05-03T18:57:19.566534+00:00 | PROCESS STDOUT | - Invalid H1 count: 0
+2026-05-03T18:57:19.580004+00:00 | PROCESS STDOUT | - Missing FAQ <h2> section
+2026-05-03T18:57:19.593187+00:00 | PROCESS STDOUT | - FAQ has fewer than 4 questions
+2026-05-03T18:57:19.606175+00:00 | PROCESS STDOUT | - Content too short: 484 words. Minimum required: 800
+2026-05-03T18:57:19.619697+00:00 | PROCESS STDOUT | Auto step failed: Validate repaired generated content
+2026-05-03T18:57:19.633220+00:00 | PROCESS STDOUT | Draft still has validation issues after repair.
+2026-05-03T18:57:19.647537+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-03T18:57:19.662552+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T18:57:19.676315+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-019
+2026-05-03T18:57:19.689412+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-03T18:57:19.701902+00:00 | PROCESS STDOUT | 
+2026-05-03T18:57:19.715465+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-03T18:57:19.728690+00:00 | Detected logical failure: invalid
+2026-05-03T19:23:57.271047+00:00 | Listener stopped by user.
+2026-05-03T19:24:00.877702+00:00 | Listener started.
+2026-05-03T19:24:00.880470+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-03T19:24:17.178500+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-020
+2026-05-03T19:24:33.924162+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-020'
+2026-05-03T19:32:15.520276+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-03T19:32:15.525222+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.537928+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.550211+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-03T19:32:15.562853+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-03T19:32:15.576279+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.589448+00:00 | PROCESS STDOUT | Skipped OPP-AO-001: already exists in content_intake.json
+2026-05-03T19:32:15.601589+00:00 | PROCESS STDOUT | Created INTAKE-0012 from OPP-AO-020
+2026-05-03T19:32:15.614178+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.627574+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-03T19:32:15.640919+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-03T19:32:15.653626+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-03T19:32:15.666337+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.679725+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-03T19:32:15.691863+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-03T19:32:15.704629+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.717812+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0012
+2026-05-03T19:32:15.730866+00:00 | PROCESS STDOUT | Idea title: furto interno de empregados e teste de polígrafo
+2026-05-03T19:32:15.743732+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-03T19:32:15.755984+00:00 | PROCESS STDOUT | Target keyword: furto interno de empregados e teste de polígrafo
+2026-05-03T19:32:15.768282+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.780840+00:00 | PROCESS STDOUT | Resolved Workspace:
+2026-05-03T19:32:15.793517+00:00 | PROCESS STDOUT |   Domain: https://poligrafoangola.com
+2026-05-03T19:32:15.805257+00:00 | PROCESS STDOUT |   Folder Path: sites/local_sites/ao
+2026-05-03T19:32:15.819030+00:00 | PROCESS STDOUT |   Review Mode: local_market_review
+2026-05-03T19:32:15.833134+00:00 | PROCESS STDOUT |   Memory File: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-03T19:32:15.847204+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.860245+00:00 | PROCESS STDOUT | Cannibalization Check Result:
+2026-05-03T19:32:15.874046+00:00 | PROCESS STDOUT |   Result: clear
+2026-05-03T19:32:15.888217+00:00 | PROCESS STDOUT |   Notes: No matching keyword found in workspace memory.
+2026-05-03T19:32:15.901820+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:15.916193+00:00 | PROCESS STDOUT | Draft created: DRAFT-0008
+2026-05-03T19:32:15.930554+00:00 | PROCESS STDOUT | Draft routed to: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/local_review_queue.json
+2026-05-03T19:32:15.945235+00:00 | PROCESS STDOUT | Workspace memory updated: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-03T19:32:15.957901+00:00 | PROCESS STDOUT | Process completed successfully.
+2026-05-03T19:32:15.972085+00:00 | PROCESS STDOUT | Auto step completed: Process next intake
+2026-05-03T19:32:15.987047+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.001736+00:00 | PROCESS STDOUT | Auto step: Generate and validate draft before examiner review
+2026-05-03T19:32:16.017002+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T19:32:16.031344+00:00 | PROCESS STDOUT | Draft: DRAFT-0008
+2026-05-03T19:32:16.045218+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.058536+00:00 | PROCESS STDOUT | Auto step: Generate website draft content
+2026-05-03T19:32:16.071802+00:00 | PROCESS STDOUT | === Sofia: Generate Website Draft ===
+2026-05-03T19:32:16.085325+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.098380+00:00 | PROCESS STDOUT | Processing draft: DRAFT-0008
+2026-05-03T19:32:16.112570+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T19:32:16.126108+00:00 | PROCESS STDOUT | Title: furto interno de empregados e teste de polígrafo
+2026-05-03T19:32:16.139828+00:00 | PROCESS STDOUT | Focus keyphrase: furto interno de empregados e teste de polígrafo
+2026-05-03T19:32:16.152734+00:00 | PROCESS STDOUT | Locale: pt-PT
+2026-05-03T19:32:16.165673+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.178703+00:00 | PROCESS STDOUT | Website draft generated successfully.
+2026-05-03T19:32:16.193913+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0008
+2026-05-03T19:32:16.208229+00:00 | PROCESS STDOUT | Saved fields: html_content, generated_content.content, slug, meta_description
+2026-05-03T19:32:16.221429+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.234869+00:00 | PROCESS STDOUT | Generated content preview:
+2026-05-03T19:32:16.248256+00:00 | PROCESS STDOUT | ### Title:
+2026-05-03T19:32:16.263601+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.277672+00:00 | PROCESS STDOUT | Teste de Polígrafo para Furto Interno de Empregados em Angola
+2026-05-03T19:32:16.290684+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.304332+00:00 | PROCESS STDOUT | ### Meta Title:
+2026-05-03T19:32:16.316849+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.329739+00:00 | PROCESS STDOUT | Furto Interno de Empregados e Teste de Polígrafo | Profissionalismo e Confiança
+2026-05-03T19:32:16.343163+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.355783+00:00 | PROCESS STDOUT | ### Meta Description:
+2026-05-03T19:32:16.370949+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.384158+00:00 | PROCESS STDOUT | Profissionais do teste de polígrafo para detecção de furto interno em empregados. Serviços confidenciais, precisos e seguros.
+2026-05-03T19:32:16.397630+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.409637+00:00 | PROCESS STDOUT | ### Slug:
+2026-05-03T19:32:16.424115+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.438678+00:00 | PROCESS STDOUT | furto-interno-de-empregados-e-teste-de-poligrafo
+2026-05-03T19:32:16.451040+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.464653+00:00 | PROCESS STDOUT | ### Focus Keyphrase:
+2026-05-03T19:32:16.477141+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.491119+00:00 | PROCESS STDOUT | Teste de Polígrafo Furto Interno
+2026-05-03T19:32:16.504140+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.516366+00:00 | PROCESS STDOUT | ### H1:
+2026-05-03T19:32:16.527654+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.540525+00:00 | PROCESS STDOUT | Furto Interno de Empregados: Como o Teste de Polígrafo Pode Ajudar
+2026-05-03T19:32:16.554304+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.568473+00:00 | PROCESS STDOUT | ### Body Content (HTML format):
+2026-05-03T19:32:16.581333+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.593083+00:00 | PROCESS STDOUT | <h2>O que é o teste de polígrafo?</h2>
+2026-05-03T19:32:16.606613+00:00 | PROCESS STDOUT | <p>Um teste de polígrafo, também conhecido como detector de mentiras, é um método utilizado para avaliar a honestidade e confiabilidade das respostas dadas por uma pessoa durante uma entrevista. Em Angola, este serviço pode ser crucial para empresas que suspeitam de furto interno.</p>
+2026-05-03T19:32:16.621236+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.635977+00:00 | PROCESS STDOUT | <h2>Como funciona o teste de polígrafo?</h2>
+2026-05-03T19:32:16.650346+00:00 | PROCESS STDOUT | <ul>
+2026-05-03T19:32:16.663883+00:00 | PROCESS STDOUT | <li>Avaliação inicial: O profissional do polígrafo faz perguntas iniciais sobre a história pessoal e profissional da pessoa.</li>
+2026-05-03T19:32:16.678259+00:00 | PROCESS STDOUT | <li>Conexões físicas: A pessoa é conectada ao equipamento de polígrafo, que monitora as reações fisiológicas durante o questionário.</li>
+2026-05-03T19:32:16.690630+00:00 | PROCESS STDOUT | <li>Pe
+2026-05-03T19:32:16.703926+00:00 | PROCESS STDOUT | Auto step completed: Generate website draft content
+2026-05-03T19:32:16.716660+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.731039+00:00 | PROCESS STDOUT | Auto step: Clean generated HTML
+2026-05-03T19:32:16.744493+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-03T19:32:16.756885+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.769980+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-03T19:32:16.783653+00:00 | PROCESS STDOUT | Auto step completed: Clean generated HTML
+2026-05-03T19:32:16.796522+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.809254+00:00 | PROCESS STDOUT | Auto step: Validate generated content
+2026-05-03T19:32:16.821260+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-03T19:32:16.834869+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.848848+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-03T19:32:16.861717+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.874438+00:00 | PROCESS STDOUT | Issues found:
+2026-05-03T19:32:16.886566+00:00 | PROCESS STDOUT | - Invalid H1 count: 0
+2026-05-03T19:32:16.900517+00:00 | PROCESS STDOUT | - FAQ has fewer than 4 questions
+2026-05-03T19:32:16.913758+00:00 | PROCESS STDOUT | - Risky claim detected: 100%
+2026-05-03T19:32:16.925616+00:00 | PROCESS STDOUT | - Risky claim detected: 100%
+2026-05-03T19:32:16.936947+00:00 | PROCESS STDOUT | - Content too short: 533 words. Minimum required: 800
+2026-05-03T19:32:16.949498+00:00 | PROCESS STDOUT | Auto step failed: Validate generated content
+2026-05-03T19:32:16.962890+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.975874+00:00 | PROCESS STDOUT | Validation failed. Sofia will attempt automatic repair before examiner review.
+2026-05-03T19:32:16.987636+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:16.999352+00:00 | PROCESS STDOUT | Auto step: Repair generated content
+2026-05-03T19:32:17.012636+00:00 | PROCESS STDOUT | === Sofia: Repair Generated Content ===
+2026-05-03T19:32:17.025610+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.038421+00:00 | PROCESS STDOUT | Content repaired. Run validation again.
+2026-05-03T19:32:17.049678+00:00 | PROCESS STDOUT | Auto step completed: Repair generated content
+2026-05-03T19:32:17.061457+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.075072+00:00 | PROCESS STDOUT | Auto step: Clean repaired generated HTML
+2026-05-03T19:32:17.088162+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-03T19:32:17.101013+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.112499+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-03T19:32:17.125530+00:00 | PROCESS STDOUT | Auto step completed: Clean repaired generated HTML
+2026-05-03T19:32:17.137084+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.149201+00:00 | PROCESS STDOUT | Auto step: Validate repaired generated content
+2026-05-03T19:32:17.161588+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-03T19:32:17.173915+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.186067+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-03T19:32:17.197748+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.210132+00:00 | PROCESS STDOUT | Issues found:
+2026-05-03T19:32:17.222814+00:00 | PROCESS STDOUT | - Invalid H1 count: 0
+2026-05-03T19:32:17.235232+00:00 | PROCESS STDOUT | - FAQ has fewer than 4 questions
+2026-05-03T19:32:17.247661+00:00 | PROCESS STDOUT | - Risky claim detected: 100%
+2026-05-03T19:32:17.260642+00:00 | PROCESS STDOUT | - Risky claim detected: 100%
+2026-05-03T19:32:17.272872+00:00 | PROCESS STDOUT | - Content too short: 533 words. Minimum required: 800
+2026-05-03T19:32:17.285275+00:00 | PROCESS STDOUT | Auto step failed: Validate repaired generated content
+2026-05-03T19:32:17.296588+00:00 | PROCESS STDOUT | Draft still has validation issues after repair.
+2026-05-03T19:32:17.309257+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-03T19:32:17.321883+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-03T19:32:17.335329+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-020
+2026-05-03T19:32:17.346723+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-03T19:32:17.358256+00:00 | PROCESS STDOUT | 
+2026-05-03T19:32:17.370196+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-03T19:32:17.633564+00:00 | Draft not sent to examiner review because generated content is not ready workspace=local.ao item=OPP-AO-020
+2026-05-04T09:58:50.126734+00:00 | Listener started.
+2026-05-04T09:58:50.159430+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T10:34:15.977423+00:00 | Listener stopped by user.
+2026-05-04T11:06:24.352114+00:00 | Listener started.
+2026-05-04T11:06:24.356389+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T11:06:24.887706+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-021
+2026-05-04T11:07:00.148708+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-021'
+2026-05-04T11:16:32.213079+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-04T11:16:32.216744+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.230318+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.243216+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-04T11:16:32.255048+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-04T11:16:32.267834+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.280219+00:00 | PROCESS STDOUT | Skipped OPP-AO-001: already exists in content_intake.json
+2026-05-04T11:16:32.292457+00:00 | PROCESS STDOUT | Created INTAKE-0013 from OPP-AO-021
+2026-05-04T11:16:32.304567+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.316762+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-04T11:16:32.328959+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-04T11:16:32.342481+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-04T11:16:32.356068+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.371599+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-04T11:16:32.385734+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-04T11:16:32.399871+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.412101+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0013
+2026-05-04T11:16:32.425563+00:00 | PROCESS STDOUT | Idea title: fraude interna em empresas e teste de polígrafo
+2026-05-04T11:16:32.439039+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-04T11:16:32.453512+00:00 | PROCESS STDOUT | Target keyword: fraude interna em empresas e teste de polígrafo
+2026-05-04T11:16:32.466348+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.479681+00:00 | PROCESS STDOUT | Resolved Workspace:
+2026-05-04T11:16:32.493464+00:00 | PROCESS STDOUT |   Domain: https://poligrafoangola.com
+2026-05-04T11:16:32.506350+00:00 | PROCESS STDOUT |   Folder Path: sites/local_sites/ao
+2026-05-04T11:16:32.520178+00:00 | PROCESS STDOUT |   Review Mode: local_market_review
+2026-05-04T11:16:32.534999+00:00 | PROCESS STDOUT |   Memory File: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-04T11:16:32.549777+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.565495+00:00 | PROCESS STDOUT | Cannibalization Check Result:
+2026-05-04T11:16:32.577623+00:00 | PROCESS STDOUT |   Result: clear
+2026-05-04T11:16:32.590168+00:00 | PROCESS STDOUT |   Notes: No matching keyword found in workspace memory.
+2026-05-04T11:16:32.604955+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.619365+00:00 | PROCESS STDOUT | Draft created: DRAFT-0009
+2026-05-04T11:16:32.631068+00:00 | PROCESS STDOUT | Draft routed to: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/local_review_queue.json
+2026-05-04T11:16:32.644480+00:00 | PROCESS STDOUT | Workspace memory updated: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-04T11:16:32.660424+00:00 | PROCESS STDOUT | Process completed successfully.
+2026-05-04T11:16:32.675900+00:00 | PROCESS STDOUT | Auto step completed: Process next intake
+2026-05-04T11:16:32.689861+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.703309+00:00 | PROCESS STDOUT | Auto step: Generate and validate draft before examiner review
+2026-05-04T11:16:32.717108+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-04T11:16:32.729257+00:00 | PROCESS STDOUT | Draft: DRAFT-0009
+2026-05-04T11:16:32.742447+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.754048+00:00 | PROCESS STDOUT | Auto step: Generate website draft content
+2026-05-04T11:16:32.766972+00:00 | PROCESS STDOUT | === Sofia: Generate Website Draft ===
+2026-05-04T11:16:32.780406+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.793776+00:00 | PROCESS STDOUT | Processing draft: DRAFT-0009
+2026-05-04T11:16:32.806044+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-04T11:16:32.819629+00:00 | PROCESS STDOUT | Title: fraude interna em empresas e teste de polígrafo
+2026-05-04T11:16:32.833293+00:00 | PROCESS STDOUT | Focus keyphrase: fraude interna em empresas e teste de polígrafo
+2026-05-04T11:16:32.845837+00:00 | PROCESS STDOUT | Locale: pt-PT
+2026-05-04T11:16:32.857595+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.870803+00:00 | PROCESS STDOUT | Website draft generated successfully.
+2026-05-04T11:16:32.883718+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0009
+2026-05-04T11:16:32.895100+00:00 | PROCESS STDOUT | Saved fields: html_content, generated_content.content, slug, meta_description
+2026-05-04T11:16:32.908472+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.922281+00:00 | PROCESS STDOUT | Generated content preview:
+2026-05-04T11:16:32.936026+00:00 | PROCESS STDOUT | ### Title:
+2026-05-04T11:16:32.951136+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.966134+00:00 | PROCESS STDOUT | Teste de Polígrafo para Detectar Fraudes Internas em Empresas
+2026-05-04T11:16:32.981829+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:32.996624+00:00 | PROCESS STDOUT | ### Meta Title:
+2026-05-04T11:16:33.012380+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.028300+00:00 | PROCESS STDOUT | Detectar Fraudes Internas: Teste de Polígrafo Profissional | Poligrafo Angola
+2026-05-04T11:16:33.045659+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.061062+00:00 | PROCESS STDOUT | ### Meta Description:
+2026-05-04T11:16:33.075373+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.088897+00:00 | PROCESS STDOUT | Profissionais do polígrafo em Angola oferecem testes confidenciais e precisos para detectar fraudes internas nas empresas. Solicite um teste agora!
+2026-05-04T11:16:33.104116+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.119577+00:00 | PROCESS STDOUT | ### Slug:
+2026-05-04T11:16:33.134112+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.146623+00:00 | PROCESS STDOUT | fraude-interna-em-empresas-e-teste-de-poligrafo
+2026-05-04T11:16:33.161065+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.174784+00:00 | PROCESS STDOUT | ### Focus Keyphrase:
+2026-05-04T11:16:33.190338+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.205401+00:00 | PROCESS STDOUT | teste de polígrafo fraude interna
+2026-05-04T11:16:33.217713+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.230599+00:00 | PROCESS STDOUT | ### H1:
+2026-05-04T11:16:33.242387+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.255403+00:00 | PROCESS STDOUT | Teste de Polígrafo Profissional para Detectar Fraudes Internas em Empresas
+2026-05-04T11:16:33.267511+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.279378+00:00 | PROCESS STDOUT | ### Body Content (HTML format):
+2026-05-04T11:16:33.292189+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.303930+00:00 | PROCESS STDOUT | <h2>O que é um teste de polígrafo?</h2>
+2026-05-04T11:16:33.318521+00:00 | PROCESS STDOUT | <p>Um teste de polígrafo, também conhecido como detector de mentiras, é uma ferramenta profissional usada para avaliar a honestidade e confiabilidade das respostas dadas por indivíduos em situações suspeitas de fraude interna.</p>
+2026-05-04T11:16:33.332563+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.346026+00:00 | PROCESS STDOUT | <h2>Como funciona o teste de polígrafo?</h2>
+2026-05-04T11:16:33.358447+00:00 | PROCESS STDOUT | <p>O processo envolve o monitoramento de sinais vitais como frequência cardíaca, respiração e pressão sanguínea enquanto o indivíduo responde a perguntas específicas. Esses dados são analisados para identificar padrões que possam indicar mentiras ou evasivas.</p>
+2026-05-04T11:16:33.371853+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.385571+00:00 | PROCESS STDOUT | <h2>Quando é usado um teste de polígrafo
+2026-05-04T11:16:33.398393+00:00 | PROCESS STDOUT | Auto step completed: Generate website draft content
+2026-05-04T11:16:33.412999+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.426491+00:00 | PROCESS STDOUT | Auto step: Clean generated HTML
+2026-05-04T11:16:33.439632+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-04T11:16:33.451516+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.464950+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-04T11:16:33.478499+00:00 | PROCESS STDOUT | Auto step completed: Clean generated HTML
+2026-05-04T11:16:33.491844+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.504875+00:00 | PROCESS STDOUT | Auto step: Validate generated content
+2026-05-04T11:16:33.518635+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-04T11:16:33.531643+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.545291+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-04T11:16:33.558890+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.571787+00:00 | PROCESS STDOUT | Issues found:
+2026-05-04T11:16:33.586313+00:00 | PROCESS STDOUT | - Content too short: 538 words. Minimum required: 800
+2026-05-04T11:16:33.598711+00:00 | PROCESS STDOUT | Auto step failed: Validate generated content
+2026-05-04T11:16:33.612851+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.626204+00:00 | PROCESS STDOUT | Validation failed. Sofia will attempt automatic repair before examiner review.
+2026-05-04T11:16:33.638950+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.650176+00:00 | PROCESS STDOUT | Auto step: Repair generated content
+2026-05-04T11:16:33.661963+00:00 | PROCESS STDOUT | === Sofia: Repair Generated Content ===
+2026-05-04T11:16:33.673430+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.685626+00:00 | PROCESS STDOUT | Content repaired. Run validation again.
+2026-05-04T11:16:33.698166+00:00 | PROCESS STDOUT | Auto step completed: Repair generated content
+2026-05-04T11:16:33.710414+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.722389+00:00 | PROCESS STDOUT | Auto step: Clean repaired generated HTML
+2026-05-04T11:16:33.734363+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-04T11:16:33.745788+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.758891+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-04T11:16:33.770677+00:00 | PROCESS STDOUT | Auto step completed: Clean repaired generated HTML
+2026-05-04T11:16:33.783613+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.796294+00:00 | PROCESS STDOUT | Auto step: Validate repaired generated content
+2026-05-04T11:16:33.808841+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-04T11:16:33.820773+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.832214+00:00 | PROCESS STDOUT | Validation status: passed
+2026-05-04T11:16:33.844579+00:00 | PROCESS STDOUT | Auto step completed: Validate repaired generated content
+2026-05-04T11:16:33.856634+00:00 | PROCESS STDOUT | Draft repaired and validated successfully before examiner review.
+2026-05-04T11:16:33.870347+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-04T11:16:33.882905+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-04T11:16:33.895145+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-021
+2026-05-04T11:16:33.907649+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-04T11:16:33.920727+00:00 | PROCESS STDOUT | 
+2026-05-04T11:16:33.932804+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-04T11:16:34.206499+00:00 | Draft not sent to examiner review because generated content is not ready workspace=local.ao item=OPP-AO-021
+2026-05-04T12:58:49.776072+00:00 | Listener stopped by user.
+2026-05-04T12:58:54.085820+00:00 | Listener started.
+2026-05-04T12:58:54.089986+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T12:59:18.382029+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0009'
+2026-05-04T12:59:19.060173+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-04T12:59:19.063789+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.080858+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.096258+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-04T12:59:19.110093+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-04T12:59:19.126531+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.142697+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-04T12:59:19.159073+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.175927+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-04T12:59:19.191191+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-04T12:59:19.206312+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-04T12:59:19.221888+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-04T12:59:19.239161+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.256173+00:00 | PROCESS STDOUT | ERROR: Draft is not exportable. Current status: approved
+2026-05-04T12:59:19.273564+00:00 | PROCESS STDOUT | Exportable statuses: content_generated, internal_links_added
+2026-05-04T12:59:19.291356+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.308603+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-04T12:59:19.326288+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-04T12:59:19.343421+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-04T12:59:19.361504+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-04T12:59:19.379269+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.396122+00:00 | PROCESS STDOUT | ERROR: Draft has not been uploaded to WordPress yet.
+2026-05-04T12:59:19.411999+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.427499+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:19.442098+00:00 | PROCESS STDOUT | === Pipeline completed: WordPress draft ready for examiner publishing ===
+2026-05-04T12:59:19.462668+00:00 | PROCESS STDOUT | Auto step completed: Prepare publication drafts after approval
+2026-05-04T12:59:19.479816+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-04T12:59:19.497506+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-04T12:59:19.516243+00:00 | PROCESS STDOUT | Draft: DRAFT-0009
+2026-05-04T12:59:19.533215+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-04T12:59:19.551720+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-04T12:59:20.008156+00:00 | Sent next pending opportunity: OPP-AO-016 workspace=local.ao
+2026-05-04T12:59:57.282707+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-016'
+2026-05-04T12:59:57.852612+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-04T12:59:57.857212+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:57.873435+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:57.890031+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-04T12:59:57.907386+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-04T12:59:57.923299+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:57.940452+00:00 | PROCESS STDOUT | Skipped OPP-AO-001: already exists in content_intake.json
+2026-05-04T12:59:57.958231+00:00 | PROCESS STDOUT | Created INTAKE-0014 from OPP-AO-016
+2026-05-04T12:59:57.975200+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:57.992812+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-04T12:59:58.009579+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-04T12:59:58.027833+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-04T12:59:58.045989+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:58.064129+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-04T12:59:58.079107+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-04T12:59:58.093960+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:58.109509+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0014
+2026-05-04T12:59:58.126623+00:00 | PROCESS STDOUT | Idea title: corporate theft polygraph testing
+2026-05-04T12:59:58.144160+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-04T12:59:58.162065+00:00 | PROCESS STDOUT | Target keyword: corporate theft polygraph testing
+2026-05-04T12:59:58.180413+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:58.198758+00:00 | PROCESS STDOUT | Resolved Workspace:
+2026-05-04T12:59:58.214804+00:00 | PROCESS STDOUT |   Domain: https://poligrafoangola.com
+2026-05-04T12:59:58.231833+00:00 | PROCESS STDOUT |   Folder Path: sites/local_sites/ao
+2026-05-04T12:59:58.250370+00:00 | PROCESS STDOUT |   Review Mode: local_market_review
+2026-05-04T12:59:58.268605+00:00 | PROCESS STDOUT |   Memory File: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-04T12:59:58.286441+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:58.304114+00:00 | PROCESS STDOUT | Cannibalization Check Result:
+2026-05-04T12:59:58.320605+00:00 | PROCESS STDOUT |   Result: possible_overlap
+2026-05-04T12:59:58.338524+00:00 | PROCESS STDOUT |   Notes: Target keyword already exists in workspace memory.
+2026-05-04T12:59:58.356442+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:58.375779+00:00 | PROCESS STDOUT | Draft creation stopped.
+2026-05-04T12:59:58.393407+00:00 | PROCESS STDOUT | Auto step completed: Process next intake
+2026-05-04T12:59:58.410157+00:00 | PROCESS STDOUT | No newly created draft ID found in process_next_intake output.
+2026-05-04T12:59:58.426007+00:00 | PROCESS STDOUT | Draft generation before review was skipped.
+2026-05-04T12:59:58.439719+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-04T12:59:58.457073+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-04T12:59:58.470706+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-016
+2026-05-04T12:59:58.488192+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-04T12:59:58.504652+00:00 | PROCESS STDOUT | 
+2026-05-04T12:59:58.518456+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-04T12:59:58.775507+00:00 | No pending next item found for workspace=local.ao
+2026-05-04T13:05:03.639364+00:00 | Listener stopped by user.
+2026-05-04T13:05:09.129132+00:00 | Listener started.
+2026-05-04T13:05:09.132034+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T13:11:16.027338+00:00 | Listener stopped by user.
+2026-05-04T13:11:19.265856+00:00 | Listener started.
+2026-05-04T13:11:19.268648+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T14:59:51.868078+00:00 | Listener stopped by user.
+2026-05-04T14:59:54.838168+00:00 | Listener started.
+2026-05-04T14:59:54.841505+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T16:15:47.742622+00:00 | Listener started.
+2026-05-04T16:15:47.759581+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-04T16:15:48.094038+00:00 | WARNING answerCallbackQuery failed: {'ok': False, 'error_code': 400, 'description': 'Bad Request: query is too old and response timeout expired or query ID is invalid'}
+2026-05-04T16:15:48.101843+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='COMPLETE DRAFT-0009'
+2026-05-04T16:15:48.213691+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-04T16:15:48.218299+00:00 | PROCESS STDOUT | 
+2026-05-04T16:15:48.230373+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-04T16:15:48.243191+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-04T16:15:48.255407+00:00 | PROCESS STDOUT | Draft: DRAFT-0009
+2026-05-04T16:15:48.268837+00:00 | PROCESS STDOUT | Decision: COMPLETE
+2026-05-04T16:15:48.281540+00:00 | PROCESS STDOUT | New draft status: content_revised
+2026-05-04T16:15:48.541384+00:00 | No pending next item found for workspace=local.ao
+2026-05-05T09:12:34.201791+00:00 | Listener started.
+2026-05-05T09:12:34.217783+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-05T13:16:36.500931+00:00 | Listener stopped by user.
+2026-05-05T13:16:40.542277+00:00 | Listener started.
+2026-05-05T13:16:40.545018+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-05T13:17:00.920545+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-025
+2026-05-05T13:18:31.090917+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-025'
+2026-05-05T13:18:31.624440+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-05T13:18:31.628277+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:31.641712+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:31.655517+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-05T13:18:31.668989+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-05T13:18:31.680702+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:31.695101+00:00 | PROCESS STDOUT | Skipped OPP-AO-001: already exists in content_intake.json
+2026-05-05T13:18:31.707334+00:00 | PROCESS STDOUT | Created INTAKE-0015 from OPP-AO-025
+2026-05-05T13:18:31.721215+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:31.734182+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-05T13:18:31.747646+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-05T13:18:31.761174+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-05T13:18:31.776494+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:31.791661+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-05T13:18:31.805465+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-05T13:18:31.818574+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:31.831350+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0015
+2026-05-05T13:18:31.845249+00:00 | PROCESS STDOUT | Idea title: teste sobre avaliação poligráfica em disputas familiares
+2026-05-05T13:18:31.860194+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-05T13:18:31.876252+00:00 | PROCESS STDOUT | Target keyword: teste sobre avaliação poligráfica em disputas familiares
+2026-05-05T13:18:31.890562+00:00 | PROCESS STDOUT | Traceback (most recent call last):
+2026-05-05T13:18:31.904554+00:00 | PROCESS STDOUT |   File "/mnt/c/AI/assistants/sofia/app/process_next_intake.py", line 385, in <module>
+2026-05-05T13:18:31.917774+00:00 | PROCESS STDOUT |     main()
+2026-05-05T13:18:31.932008+00:00 | PROCESS STDOUT |   File "/mnt/c/AI/assistants/sofia/app/process_next_intake.py", line 178, in main
+2026-05-05T13:18:31.946295+00:00 | PROCESS STDOUT |     if draft_registry_file.exists():
+2026-05-05T13:18:31.960895+00:00 | PROCESS STDOUT |        ^^^^^^^^^^^^^^^^^^^
+2026-05-05T13:18:31.975006+00:00 | PROCESS STDOUT | UnboundLocalError: cannot access local variable 'draft_registry_file' where it is not associated with a value
+2026-05-05T13:18:31.988314+00:00 | PROCESS STDOUT | Auto step failed: Process next intake
+2026-05-05T13:18:32.002033+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-05T13:18:32.016593+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T13:18:32.031044+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-025
+2026-05-05T13:18:32.045504+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-05T13:18:32.058904+00:00 | PROCESS STDOUT | 
+2026-05-05T13:18:32.072304+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-05T13:18:32.664362+00:00 | Sent next pending draft: DRAFT-0009 workspace=local.ao
+2026-05-05T13:19:14.537155+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='COMPLETE DRAFT-0009'
+2026-05-05T13:19:14.794832+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-05T13:19:14.798823+00:00 | PROCESS STDOUT | 
+2026-05-05T13:19:14.812855+00:00 | PROCESS STDOUT | 
+2026-05-05T13:19:14.828598+00:00 | PROCESS STDOUT | Auto step: Update completed content inventory
+2026-05-05T13:19:14.843790+00:00 | PROCESS STDOUT | === Sofia: Update Content Inventory ===
+2026-05-05T13:19:14.857275+00:00 | PROCESS STDOUT | 
+2026-05-05T13:19:14.869183+00:00 | PROCESS STDOUT | Content inventory updated successfully.
+2026-05-05T13:19:14.884084+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T13:19:14.898463+00:00 | PROCESS STDOUT | Draft: DRAFT-0009
+2026-05-05T13:19:14.912208+00:00 | PROCESS STDOUT | Content ID: CONTENT-AO-0009
+2026-05-05T13:19:14.926116+00:00 | PROCESS STDOUT | Inventory file: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/content_inventory.json
+2026-05-05T13:19:14.939666+00:00 | PROCESS STDOUT | Site content memory file: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-05T13:19:14.951781+00:00 | PROCESS STDOUT | Action: updated existing item
+2026-05-05T13:19:14.966071+00:00 | PROCESS STDOUT | Auto step completed: Update completed content inventory
+2026-05-05T13:19:14.980611+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-05T13:19:14.993279+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T13:19:15.006292+00:00 | PROCESS STDOUT | Draft: DRAFT-0009
+2026-05-05T13:19:15.020358+00:00 | PROCESS STDOUT | Decision: COMPLETE
+2026-05-05T13:19:15.033879+00:00 | PROCESS STDOUT | New draft status: completed
+2026-05-05T13:19:15.448297+00:00 | Sent next pending opportunity: OPP-AO-022 workspace=local.ao
+2026-05-05T13:37:10.797205+00:00 | Listener stopped by user.
+2026-05-05T13:37:14.199387+00:00 | Listener started.
+2026-05-05T13:37:14.202459+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-05T13:37:22.691993+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-001
+2026-05-05T13:37:59.269858+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-001'
+2026-05-05T13:43:42.263387+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-05T13:43:42.266734+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.281052+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.295928+00:00 | PROCESS STDOUT | Auto step: Convert approved opportunity to intake
+2026-05-05T13:43:42.309473+00:00 | PROCESS STDOUT | === Sofia: Convert Approved Opportunities to Intake ===
+2026-05-05T13:43:42.323064+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.335713+00:00 | PROCESS STDOUT | Created INTAKE-0001 from OPP-AO-001
+2026-05-05T13:43:42.350083+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.364249+00:00 | PROCESS STDOUT | Conversion completed.
+2026-05-05T13:43:42.378688+00:00 | PROCESS STDOUT | New intake entries created: 1
+2026-05-05T13:43:42.392414+00:00 | PROCESS STDOUT | Auto step completed: Convert approved opportunity to intake
+2026-05-05T13:43:42.405735+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.419118+00:00 | PROCESS STDOUT | Auto step: Process next intake
+2026-05-05T13:43:42.433186+00:00 | PROCESS STDOUT | === Sofia Phase 1: Process Next Intake ===
+2026-05-05T13:43:42.447298+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.459675+00:00 | PROCESS STDOUT | Processing intake: INTAKE-0001
+2026-05-05T13:43:42.470978+00:00 | PROCESS STDOUT | Idea title: teste sobre avaliação poligráfica para verificação de declarações em contratos de parceria comercial
+2026-05-05T13:43:42.484724+00:00 | PROCESS STDOUT | Workspace ID: local.ao
+2026-05-05T13:43:42.500260+00:00 | PROCESS STDOUT | Target keyword: teste sobre avaliação poligráfica para verificação de declarações em contratos de parceria comercial
+2026-05-05T13:43:42.514465+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.527850+00:00 | PROCESS STDOUT | Resolved Workspace:
+2026-05-05T13:43:42.540646+00:00 | PROCESS STDOUT |   Domain: https://poligrafoangola.com
+2026-05-05T13:43:42.554447+00:00 | PROCESS STDOUT |   Folder Path: sites/local_sites/ao
+2026-05-05T13:43:42.569546+00:00 | PROCESS STDOUT |   Review Mode: local_market_review
+2026-05-05T13:43:42.585000+00:00 | PROCESS STDOUT |   Memory File: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-05T13:43:42.599366+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.612667+00:00 | PROCESS STDOUT | Cannibalization Check Result:
+2026-05-05T13:43:42.626314+00:00 | PROCESS STDOUT |   Result: clear
+2026-05-05T13:43:42.639999+00:00 | PROCESS STDOUT |   Risk score: 0.0
+2026-05-05T13:43:42.655264+00:00 | PROCESS STDOUT |   Notes: No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json
+2026-05-05T13:43:42.670250+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.685315+00:00 | PROCESS STDOUT | Draft created: DRAFT-0001
+2026-05-05T13:43:42.700638+00:00 | PROCESS STDOUT | Draft routed to: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/local_review_queue.json
+2026-05-05T13:43:42.714192+00:00 | PROCESS STDOUT | Workspace draft registry updated: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/draft_registry.json
+2026-05-05T13:43:42.727151+00:00 | PROCESS STDOUT | Workspace memory updated: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-05T13:43:42.739181+00:00 | PROCESS STDOUT | Process completed successfully.
+2026-05-05T13:43:42.754465+00:00 | PROCESS STDOUT | Auto step completed: Process next intake
+2026-05-05T13:43:42.767903+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.781575+00:00 | PROCESS STDOUT | Auto step: Generate and validate draft before examiner review
+2026-05-05T13:43:42.794772+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T13:43:42.809258+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-05T13:43:42.824934+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.841158+00:00 | PROCESS STDOUT | Auto step: Generate website draft content
+2026-05-05T13:43:42.855830+00:00 | PROCESS STDOUT | === Sofia: Generate Website Draft ===
+2026-05-05T13:43:42.869484+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.883006+00:00 | PROCESS STDOUT | Processing draft: DRAFT-0001
+2026-05-05T13:43:42.897980+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T13:43:42.912828+00:00 | PROCESS STDOUT | Title: teste sobre avaliação poligráfica para verificação de declarações em contratos de parceria comercial
+2026-05-05T13:43:42.927953+00:00 | PROCESS STDOUT | Focus keyphrase: teste sobre avaliação poligráfica para verificação de declarações em contratos de parceria comercial
+2026-05-05T13:43:42.942701+00:00 | PROCESS STDOUT | Locale: pt-PT
+2026-05-05T13:43:42.955950+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:42.969189+00:00 | PROCESS STDOUT | Website draft generated successfully.
+2026-05-05T13:43:42.981752+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0001
+2026-05-05T13:43:42.995856+00:00 | PROCESS STDOUT | Saved fields: html_content, generated_content.content, slug, meta_description
+2026-05-05T13:43:43.010980+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.024742+00:00 | PROCESS STDOUT | Generated content preview:
+2026-05-05T13:43:43.038322+00:00 | PROCESS STDOUT | ### Title:
+2026-05-05T13:43:43.050959+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.065183+00:00 | PROCESS STDOUT | Teste sobre Avaliação Poligráfica para Verificação de Declarações em Contratos de Parceria Comercial
+2026-05-05T13:43:43.080241+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.094927+00:00 | PROCESS STDOUT | ### Meta Title:
+2026-05-05T13:43:43.108510+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.123050+00:00 | PROCESS STDOUT | Avaliação Poligráfica Profissional | Teste sobre Verificação de Declarações em Contratos
+2026-05-05T13:43:43.136486+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.150347+00:00 | PROCESS STDOUT | ### Meta Description:
+2026-05-05T13:43:43.165314+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.179641+00:00 | PROCESS STDOUT | Profissional teste poligráfico para contratos de parceria comercial. Preciso, confidencial e serviços de alta precisão.
+2026-05-05T13:43:43.192822+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.205274+00:00 | PROCESS STDOUT | ### Slug:
+2026-05-05T13:43:43.218504+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.233099+00:00 | PROCESS STDOUT | teste-sobre-avaliacao-poligrafica-para-verificacao-de-declaracoes-em-contratos-de-parceria-comercial
+2026-05-05T13:43:43.247367+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.261261+00:00 | PROCESS STDOUT | ### Focus Keyphrase:
+2026-05-05T13:43:43.272871+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.285795+00:00 | PROCESS STDOUT | Teste Poligráfico Comercial
+2026-05-05T13:43:43.300656+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.314930+00:00 | PROCESS STDOUT | ### H1:
+2026-05-05T13:43:43.328338+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.341404+00:00 | PROCESS STDOUT | Teste sobre Avaliação Poligráfica para Verificação de Declarações em Contratos de Parceria Comercial
+2026-05-05T13:43:43.355222+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.368405+00:00 | PROCESS STDOUT | ### Body Content (HTML format):
+2026-05-05T13:43:43.380130+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.393653+00:00 | PROCESS STDOUT | <h2>O que é um teste poligráfico?</h2>
+2026-05-05T13:43:43.405666+00:00 | PROCESS STDOUT | <p>Um teste poligráfico, também conhecido como eletrocardiograma da verdade, é uma técnica utilizada para avaliar a veracidade das declarações feitas por indivíduos. Este método profissional é amplamente utilizado em contextos comerciais para verificar contratos de parceria.</p>
+2026-05-05T13:43:43.420923+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.437203+00:00 | PROCESS STDOUT | <h2>Como funciona o teste poligráfico?</h2>
+2026-05-05T13:43:43.453021+00:00 | PROCESS STDOUT | <p>O processo envolve o monitoramento de várias funções fisiológicas do corpo, como a frequência cardíaca e a respiração, enquanto o indivíduo responde a perguntas
+2026-05-05T13:43:43.466928+00:00 | PROCESS STDOUT | Auto step completed: Generate website draft content
+2026-05-05T13:43:43.482578+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.497782+00:00 | PROCESS STDOUT | Auto step: Clean generated HTML
+2026-05-05T13:43:43.511021+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-05T13:43:43.524834+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.540746+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-05T13:43:43.556503+00:00 | PROCESS STDOUT | Auto step completed: Clean generated HTML
+2026-05-05T13:43:43.572460+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.587487+00:00 | PROCESS STDOUT | Auto step: Validate generated content
+2026-05-05T13:43:43.601438+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-05T13:43:43.615546+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.630195+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-05T13:43:43.644332+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.658962+00:00 | PROCESS STDOUT | Issues found:
+2026-05-05T13:43:43.672085+00:00 | PROCESS STDOUT | - Invalid H1 count: 0
+2026-05-05T13:43:43.684838+00:00 | PROCESS STDOUT | - Missing FAQ <h2> section
+2026-05-05T13:43:43.699256+00:00 | PROCESS STDOUT | - FAQ has fewer than 4 questions
+2026-05-05T13:43:43.712929+00:00 | PROCESS STDOUT | - Risky claim detected: infalível
+2026-05-05T13:43:43.727397+00:00 | PROCESS STDOUT | - Content too short: 389 words. Minimum required: 800
+2026-05-05T13:43:43.741445+00:00 | PROCESS STDOUT | Auto step failed: Validate generated content
+2026-05-05T13:43:43.756104+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.770194+00:00 | PROCESS STDOUT | Validation failed. Sofia will attempt automatic repair before examiner review.
+2026-05-05T13:43:43.782915+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.797682+00:00 | PROCESS STDOUT | Auto step: Repair generated content
+2026-05-05T13:43:43.813030+00:00 | PROCESS STDOUT | === Sofia: Repair Generated Content ===
+2026-05-05T13:43:43.828578+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.842232+00:00 | PROCESS STDOUT | Draft does not require repair.
+2026-05-05T13:43:43.856342+00:00 | PROCESS STDOUT | Auto step completed: Repair generated content
+2026-05-05T13:43:43.870358+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.884469+00:00 | PROCESS STDOUT | Auto step: Clean repaired generated HTML
+2026-05-05T13:43:43.898309+00:00 | PROCESS STDOUT | === Sofia: Clean Generated HTML ===
+2026-05-05T13:43:43.913555+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.927644+00:00 | PROCESS STDOUT | Content cleaned successfully.
+2026-05-05T13:43:43.940864+00:00 | PROCESS STDOUT | Auto step completed: Clean repaired generated HTML
+2026-05-05T13:43:43.954643+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:43.969243+00:00 | PROCESS STDOUT | Auto step: Validate repaired generated content
+2026-05-05T13:43:43.984467+00:00 | PROCESS STDOUT | === Sofia: Validate Generated Content ===
+2026-05-05T13:43:43.999495+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:44.014287+00:00 | PROCESS STDOUT | Validation status: failed
+2026-05-05T13:43:44.027200+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:44.040582+00:00 | PROCESS STDOUT | Issues found:
+2026-05-05T13:43:44.054647+00:00 | PROCESS STDOUT | - Invalid H1 count: 0
+2026-05-05T13:43:44.068725+00:00 | PROCESS STDOUT | - Missing FAQ <h2> section
+2026-05-05T13:43:44.082900+00:00 | PROCESS STDOUT | - FAQ has fewer than 4 questions
+2026-05-05T13:43:44.098901+00:00 | PROCESS STDOUT | - Risky claim detected: infalível
+2026-05-05T13:43:44.113981+00:00 | PROCESS STDOUT | - Content too short: 389 words. Minimum required: 800
+2026-05-05T13:43:44.128376+00:00 | PROCESS STDOUT | Auto step failed: Validate repaired generated content
+2026-05-05T13:43:44.141962+00:00 | PROCESS STDOUT | Draft still has validation issues after repair.
+2026-05-05T13:43:44.157100+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-05T13:43:44.172332+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T13:43:44.187041+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-001
+2026-05-05T13:43:44.202368+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-05T13:43:44.217387+00:00 | PROCESS STDOUT | 
+2026-05-05T13:43:44.232230+00:00 | PROCESS STDOUT | Opportunity approved and automatic intake pipeline was triggered.
+2026-05-05T13:43:44.458313+00:00 | Draft not sent to examiner review because generated content is not ready workspace=local.ao item=OPP-AO-001
+2026-05-05T16:19:33.436002+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0001'
+2026-05-05T16:19:34.579055+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-05T16:19:34.583845+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.595509+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.608037+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-05T16:19:34.618993+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-05T16:19:34.632760+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.645054+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-05T16:19:34.656052+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.666125+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-05T16:19:34.677902+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-05T16:19:34.689324+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-05T16:19:34.700747+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-05T16:19:34.712358+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.723453+00:00 | PROCESS STDOUT | WordPress package created.
+2026-05-05T16:19:34.735081+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0001
+2026-05-05T16:19:34.747422+00:00 | PROCESS STDOUT | Export file: /mnt/c/AI/assistants/sofia/drafts/wordpress_ready/draft-0001-wordpress-package.json
+2026-05-05T16:19:34.759645+00:00 | PROCESS STDOUT | Workspace registry: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/draft_registry.json
+2026-05-05T16:19:34.772777+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.785394+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-05T16:19:34.797644+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-05T16:19:34.809563+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-05T16:19:34.821668+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-05T16:19:34.833247+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.845678+00:00 | PROCESS STDOUT | ERROR: Draft has not been uploaded to WordPress yet.
+2026-05-05T16:19:34.856708+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.868654+00:00 | PROCESS STDOUT | Update failed. Trying first upload fallback...
+2026-05-05T16:19:34.880454+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.892991+00:00 | PROCESS STDOUT | === Sofia: Upload WordPress Draft ===
+2026-05-05T16:19:34.905683+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.918787+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:34.931059+00:00 | PROCESS STDOUT | Traceback (most recent call last):
+2026-05-05T16:19:34.943087+00:00 | PROCESS STDOUT |   File "/mnt/c/AI/assistants/sofia/app/upload_wordpress_draft.py", line 282, in <module>
+2026-05-05T16:19:34.955815+00:00 | PROCESS STDOUT |     main()
+2026-05-05T16:19:34.968264+00:00 | PROCESS STDOUT |   File "/mnt/c/AI/assistants/sofia/app/upload_wordpress_draft.py", line 220, in main
+2026-05-05T16:19:34.980988+00:00 | PROCESS STDOUT |     intake = find_intake_by_id(content_ideas, intake_id)
+2026-05-05T16:19:34.992257+00:00 | PROCESS STDOUT |              ^^^^^^^^^^^^^^^^^
+2026-05-05T16:19:35.003997+00:00 | PROCESS STDOUT | NameError: name 'find_intake_by_id' is not defined
+2026-05-05T16:19:35.016998+00:00 | PROCESS STDOUT | 
+2026-05-05T16:19:35.029719+00:00 | PROCESS STDOUT | ERROR: WordPress update/upload failed.
+2026-05-05T16:19:35.041677+00:00 | PROCESS STDOUT | ERROR: WordPress pipeline failed.
+2026-05-05T16:19:35.055435+00:00 | PROCESS STDOUT | Auto step failed: Prepare publication drafts after approval
+2026-05-05T16:19:35.068771+00:00 | PROCESS STDOUT | Detected logical failure marker: ERROR:
+2026-05-05T16:19:35.081361+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-05T16:19:35.094294+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T16:19:35.106745+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-05T16:19:35.119752+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-05T16:19:35.132877+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-05T16:19:35.144215+00:00 | Detected logical failure: pipeline failed
+2026-05-05T16:37:35.217223+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='COMPLETE DRAFT-0001'
+2026-05-05T16:37:35.480604+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-05T16:37:35.487339+00:00 | PROCESS STDOUT | 
+2026-05-05T16:37:35.503959+00:00 | PROCESS STDOUT | 
+2026-05-05T16:37:35.519469+00:00 | PROCESS STDOUT | Auto step: Update completed content inventory
+2026-05-05T16:37:35.534516+00:00 | PROCESS STDOUT | === Sofia: Update Content Inventory ===
+2026-05-05T16:37:35.550309+00:00 | PROCESS STDOUT | 
+2026-05-05T16:37:35.563767+00:00 | PROCESS STDOUT | Content inventory updated successfully.
+2026-05-05T16:37:35.578828+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T16:37:35.593891+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-05T16:37:35.609826+00:00 | PROCESS STDOUT | Content ID: CONTENT-AO-0001
+2026-05-05T16:37:35.622601+00:00 | PROCESS STDOUT | Inventory file: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/content_inventory.json
+2026-05-05T16:37:35.634547+00:00 | PROCESS STDOUT | Site content memory file: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json
+2026-05-05T16:37:35.646946+00:00 | PROCESS STDOUT | Action: created new item
+2026-05-05T16:37:35.658988+00:00 | PROCESS STDOUT | Auto step completed: Update completed content inventory
+2026-05-05T16:37:35.670167+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-05T16:37:35.682481+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-05T16:37:35.693095+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-05T16:37:35.704935+00:00 | PROCESS STDOUT | Decision: COMPLETE
+2026-05-05T16:37:35.717691+00:00 | PROCESS STDOUT | New draft status: completed
+2026-05-05T16:37:35.938178+00:00 | No pending next item found for workspace=local.ao
+2026-05-06T10:17:42.033836+00:00 | Listener started.
+2026-05-06T10:17:42.047420+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-06T10:18:05.417501+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-001
+2026-05-06T10:18:32.444149+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-001'
+2026-05-06T10:18:32.785243+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-06T10:18:32.788799+00:00 | PROCESS STDOUT | 
+2026-05-06T10:18:32.803127+00:00 | PROCESS STDOUT | 
+2026-05-06T10:18:32.816666+00:00 | PROCESS STDOUT | Background job created for approved opportunity.
+2026-05-06T10:18:32.830169+00:00 | PROCESS STDOUT | Job ID: JOB-OPP2DRAFT-20260506-09299F
+2026-05-06T10:18:32.840537+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-06T10:18:32.853572+00:00 | PROCESS STDOUT | The long intake/draft generation pipeline will be handled by sofia_worker.py.
+2026-05-06T10:18:32.865761+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-06T10:18:32.878019+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-06T10:18:32.889902+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-001
+2026-05-06T10:18:32.902616+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-06T10:18:32.915900+00:00 | PROCESS STDOUT | 
+2026-05-06T10:18:32.926230+00:00 | PROCESS STDOUT | Opportunity approved and queued for background processing.
+2026-05-06T10:18:33.140792+00:00 | Opportunity approval queued as background job; not sending next pending item immediately workspace=local.ao item=OPP-AO-001
+2026-05-06T10:59:38.818287+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0001'
+2026-05-06T10:59:43.322815+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-06T10:59:43.326348+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.340518+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.353185+00:00 | PROCESS STDOUT | Auto step: Prepare publication drafts after approval
+2026-05-06T10:59:43.366427+00:00 | PROCESS STDOUT | === Sofia: Run Publishing Pipeline ===
+2026-05-06T10:59:43.379381+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.391145+00:00 | PROCESS STDOUT | MODE: Continue after examiner approval and create/update WordPress draft
+2026-05-06T10:59:43.403931+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.416779+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-06T10:59:43.429862+00:00 | PROCESS STDOUT | STEP: Export WordPress package
+2026-05-06T10:59:43.442531+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-06T10:59:43.453326+00:00 | PROCESS STDOUT | === Sofia: Export WordPress Package ===
+2026-05-06T10:59:43.466186+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.479758+00:00 | PROCESS STDOUT | WordPress package created.
+2026-05-06T10:59:43.493365+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0001
+2026-05-06T10:59:43.506399+00:00 | PROCESS STDOUT | Export file: /mnt/c/AI/assistants/sofia/drafts/wordpress_ready/draft-0001-wordpress-package.json
+2026-05-06T10:59:43.519182+00:00 | PROCESS STDOUT | Workspace registry: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/draft_registry.json
+2026-05-06T10:59:43.532789+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.546537+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-06T10:59:43.560843+00:00 | PROCESS STDOUT | STEP: Upload or update WordPress draft
+2026-05-06T10:59:43.573371+00:00 | PROCESS STDOUT | ======================================================================
+2026-05-06T10:59:43.587918+00:00 | PROCESS STDOUT | === Sofia: Update WordPress Draft ===
+2026-05-06T10:59:43.600756+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.615606+00:00 | PROCESS STDOUT | ERROR: Draft has not been uploaded to WordPress yet.
+2026-05-06T10:59:43.630368+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.645821+00:00 | PROCESS STDOUT | Update failed. Trying first upload fallback...
+2026-05-06T10:59:43.660412+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.674717+00:00 | PROCESS STDOUT | === Sofia: Upload WordPress Draft ===
+2026-05-06T10:59:43.690821+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.707340+00:00 | PROCESS STDOUT | WordPress draft uploaded successfully.
+2026-05-06T10:59:43.722555+00:00 | PROCESS STDOUT | Draft ID: DRAFT-0001
+2026-05-06T10:59:43.738305+00:00 | PROCESS STDOUT | WordPress ID: 1146
+2026-05-06T10:59:43.753684+00:00 | PROCESS STDOUT | Link: https://poligrafoangola.com/?page_id=1146
+2026-05-06T10:59:43.768111+00:00 | PROCESS STDOUT | Workspace registry: /mnt/c/AI/assistants/sofia/sites/local_sites/ao/draft_registry.json
+2026-05-06T10:59:43.784273+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.799885+00:00 | PROCESS STDOUT | 
+2026-05-06T10:59:43.814161+00:00 | PROCESS STDOUT | === Pipeline completed: WordPress draft ready for examiner publishing ===
+2026-05-06T10:59:43.830146+00:00 | PROCESS STDOUT | Auto step failed: Prepare publication drafts after approval
+2026-05-06T10:59:43.845598+00:00 | PROCESS STDOUT | Detected logical failure marker: ERROR:
+2026-05-06T10:59:43.862106+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-06T10:59:43.877887+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-06T10:59:43.893496+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-06T10:59:43.909135+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-06T10:59:43.925090+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-06T10:59:44.166469+00:00 | No pending next item found for workspace=local.ao
+2026-05-06T14:35:41.810063+00:00 | Listener started.
+2026-05-06T14:35:41.829157+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-06T15:09:44.984549+00:00 | CALLBACK revise prompt workspace=local.ao chat_id=-1003981768831 item=DRAFT-0001
+2026-05-06T15:10:10.454327+00:00 | RECEIVED Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='REVISE DRAFT-0001: Melhorar a fluidez, reforçar consentimento e manter linguagem profissional. Evitar termos em inglês e evitar afirmações legais específicas sobre Angola.'
+2026-05-06T15:10:10.661701+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-06T15:10:10.665004+00:00 | PROCESS STDOUT | 
+2026-05-06T15:10:10.680936+00:00 | PROCESS STDOUT | 
+2026-05-06T15:10:10.697392+00:00 | PROCESS STDOUT | Background job created for draft revision.
+2026-05-06T15:10:10.712946+00:00 | PROCESS STDOUT | Job ID: JOB-REVISE-20260506-3D8A73
+2026-05-06T15:10:10.729042+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-06T15:10:10.745965+00:00 | PROCESS STDOUT | The AI revision pipeline will be handled by sofia_worker.py.
+2026-05-06T15:10:10.761818+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-06T15:10:10.778434+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-06T15:10:10.795327+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-06T15:10:10.812469+00:00 | PROCESS STDOUT | Decision: REVISE
+2026-05-06T15:10:10.827767+00:00 | PROCESS STDOUT | New draft status: revision_requested
+2026-05-06T15:10:10.842744+00:00 | PROCESS STDOUT | Comment: Melhorar a fluidez, reforçar consentimento e manter linguagem profissional. Evitar termos em inglês e evitar afirmações legais específicas sobre Angola.
+2026-05-06T15:10:10.858604+00:00 | PROCESSED update_id=694984651 workspace=local.ao
+2026-05-06T15:10:11.096999+00:00 | No pending next item found for workspace=local.ao
+2026-05-06T17:37:00.062408+00:00 | Listener stopped by user.
+2026-05-06T17:37:03.723689+00:00 | Listener started.
+2026-05-06T17:37:03.726772+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-06T17:37:19.155710+00:00 | CALLBACK revise prompt workspace=local.ao chat_id=-1003981768831 item=DRAFT-0001
+2026-05-06T17:37:26.518863+00:00 | RECEIVED Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='REVISE DRAFT-0001: Melhorar a fluidez e manter linguagem profissional.'
+2026-05-06T17:37:26.703973+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-06T17:37:26.707217+00:00 | PROCESS STDOUT | 
+2026-05-06T17:37:26.720360+00:00 | PROCESS STDOUT | 
+2026-05-06T17:37:26.735287+00:00 | PROCESS STDOUT | Background job created for draft revision.
+2026-05-06T17:37:26.750664+00:00 | PROCESS STDOUT | Job ID: JOB-REVISE-20260506-A9B07F
+2026-05-06T17:37:26.764694+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-06T17:37:26.778383+00:00 | PROCESS STDOUT | The AI revision pipeline will be handled by sofia_worker.py.
+2026-05-06T17:37:26.793216+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-06T17:37:26.806903+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-06T17:37:26.819837+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-06T17:37:26.834193+00:00 | PROCESS STDOUT | Decision: REVISE
+2026-05-06T17:37:26.848112+00:00 | PROCESS STDOUT | New draft status: revision_requested
+2026-05-06T17:37:26.860120+00:00 | PROCESS STDOUT | Comment: Melhorar a fluidez e manter linguagem profissional.
+2026-05-06T17:37:26.872935+00:00 | PROCESSED update_id=694984656 workspace=local.ao
+2026-05-06T17:37:27.084800+00:00 | Decision queued as background job; not sending next pending item immediately workspace=local.ao item=DRAFT-0001 decision=REVISE
+2026-05-06T18:33:41.574318+00:00 | Listener stopped by user.
+2026-05-06T18:33:44.937929+00:00 | Listener started.
+2026-05-06T18:33:44.941012+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-06T18:33:50.233229+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0001'
+2026-05-06T18:33:50.630392+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-06T18:33:50.633191+00:00 | PROCESS STDOUT | 
+2026-05-06T18:33:50.646343+00:00 | PROCESS STDOUT | 
+2026-05-06T18:33:50.660111+00:00 | PROCESS STDOUT | Background job created for WordPress draft preparation.
+2026-05-06T18:33:50.671438+00:00 | PROCESS STDOUT | Job ID: JOB-WP-DRAFT-20260506-C1FED5
+2026-05-06T18:33:50.681974+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-06T18:33:50.695359+00:00 | PROCESS STDOUT | The WordPress preparation pipeline will be handled by sofia_worker.py.
+2026-05-06T18:33:50.707274+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-06T18:33:50.720749+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-06T18:33:50.733377+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-06T18:33:50.744797+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-06T18:33:50.758304+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-06T18:33:50.970467+00:00 | No pending next item found for workspace=local.ao
+2026-05-07T10:05:27.597598+00:00 | Listener started.
+2026-05-07T10:05:27.613338+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-07T10:06:21.065387+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0001'
+2026-05-07T10:06:21.603012+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-07T10:06:21.606611+00:00 | PROCESS STDOUT | 
+2026-05-07T10:06:21.621119+00:00 | PROCESS STDOUT | 
+2026-05-07T10:06:21.635597+00:00 | PROCESS STDOUT | Background job created for WordPress draft preparation.
+2026-05-07T10:06:21.650171+00:00 | PROCESS STDOUT | Job ID: JOB-WP-DRAFT-20260507-4709C0
+2026-05-07T10:06:21.662691+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-07T10:06:21.676054+00:00 | PROCESS STDOUT | The WordPress preparation pipeline will be handled by sofia_worker.py.
+2026-05-07T10:06:21.689731+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-07T10:06:21.708391+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-07T10:06:21.722065+00:00 | PROCESS STDOUT | Draft: DRAFT-0001
+2026-05-07T10:06:21.734965+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-07T10:06:21.752070+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-07T10:06:22.036186+00:00 | Decision queued as background job; not sending next pending item immediately workspace=local.ao item=DRAFT-0001 decision=APPROVE
+2026-05-07T10:16:38.514723+00:00 | Listener stopped by user.
+2026-05-07T10:16:42.828600+00:00 | Listener started.
+2026-05-07T10:16:42.831485+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-07T10:16:51.869768+00:00 | Listener stopped by user.
+2026-05-09T12:59:32.367043+00:00 | Listener started.
+2026-05-09T12:59:32.380866+00:00 | State file: /mnt/c/AI/assistants/sofia/logs/telegram_listener_state.json
+2026-05-09T13:00:15.867382+00:00 | CREATED internal opportunity workspace=local.ao chat_id=-1003981768831 opportunity=OPP-AO-002
+2026-05-09T13:00:30.399967+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE OPP-AO-002'
+2026-05-09T13:00:30.611199+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-09T13:00:30.615945+00:00 | PROCESS STDOUT | 
+2026-05-09T13:00:30.629182+00:00 | PROCESS STDOUT | 
+2026-05-09T13:00:30.641175+00:00 | PROCESS STDOUT | Background job created for approved opportunity.
+2026-05-09T13:00:30.654850+00:00 | PROCESS STDOUT | Job ID: JOB-OPP2DRAFT-20260509-D86037
+2026-05-09T13:00:30.668035+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-09T13:00:30.683157+00:00 | PROCESS STDOUT | The long intake/draft generation pipeline will be handled by sofia_worker.py.
+2026-05-09T13:00:30.696151+00:00 | PROCESS STDOUT | Opportunity decision processed successfully.
+2026-05-09T13:00:30.708787+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-09T13:00:30.723146+00:00 | PROCESS STDOUT | Opportunity: OPP-AO-002
+2026-05-09T13:00:30.738695+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-09T13:00:30.754183+00:00 | PROCESS STDOUT | 
+2026-05-09T13:00:30.768080+00:00 | PROCESS STDOUT | Opportunity approved and queued for background processing.
+2026-05-09T13:00:31.005536+00:00 | Decision queued as background job; not sending next pending item immediately workspace=local.ao item=OPP-AO-002 decision=APPROVE
+2026-05-09T14:31:13.781325+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0002'
+2026-05-09T14:31:13.988629+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-09T14:31:13.992407+00:00 | PROCESS STDOUT | 
+2026-05-09T14:31:14.007052+00:00 | PROCESS STDOUT | 
+2026-05-09T14:31:14.021670+00:00 | PROCESS STDOUT | Background job created for WordPress draft preparation.
+2026-05-09T14:31:14.034765+00:00 | PROCESS STDOUT | Job ID: JOB-WP-DRAFT-20260509-15E70C
+2026-05-09T14:31:14.049203+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-09T14:31:14.062936+00:00 | PROCESS STDOUT | The WordPress preparation pipeline will be handled by sofia_worker.py.
+2026-05-09T14:31:14.077456+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-09T14:31:14.091741+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-09T14:31:14.106383+00:00 | PROCESS STDOUT | Draft: DRAFT-0002
+2026-05-09T14:31:14.120615+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-09T14:31:14.134594+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-09T14:31:14.386089+00:00 | Decision queued as background job; not sending next pending item immediately workspace=local.ao item=DRAFT-0002 decision=APPROVE
+2026-05-09T14:32:16.970254+00:00 | CALLBACK Sofia decision workspace=local.ao chat_id=-1003981768831 from=Amável text='APPROVE DRAFT-0002'
+2026-05-09T14:32:17.175425+00:00 | PROCESS STDOUT | === Sofia: Process Examiner Decision ===
+2026-05-09T14:32:17.179988+00:00 | PROCESS STDOUT | 
+2026-05-09T14:32:17.193404+00:00 | PROCESS STDOUT | 
+2026-05-09T14:32:17.208254+00:00 | PROCESS STDOUT | Background job created for WordPress draft preparation.
+2026-05-09T14:32:17.222288+00:00 | PROCESS STDOUT | Job ID: JOB-WP-DRAFT-20260509-7E1A9A
+2026-05-09T14:32:17.236829+00:00 | PROCESS STDOUT | Job status: queued
+2026-05-09T14:32:17.250149+00:00 | PROCESS STDOUT | The WordPress preparation pipeline will be handled by sofia_worker.py.
+2026-05-09T14:32:17.263865+00:00 | PROCESS STDOUT | Draft decision processed successfully.
+2026-05-09T14:32:17.278487+00:00 | PROCESS STDOUT | Workspace: local.ao
+2026-05-09T14:32:17.292085+00:00 | PROCESS STDOUT | Draft: DRAFT-0002
+2026-05-09T14:32:17.303001+00:00 | PROCESS STDOUT | Decision: APPROVE
+2026-05-09T14:32:17.316198+00:00 | PROCESS STDOUT | New draft status: approved
+2026-05-09T14:32:17.521086+00:00 | Decision queued as background job; not sending next pending item immediately workspace=local.ao item=DRAFT-0002 decision=APPROVE

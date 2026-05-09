@@ -1,1155 +1,311 @@
 {
   "version": "1.0",
-  "workspace_id": "local.ao",
+  "last_reset_at": "2026-05-06T10:16:01.274979+00:00",
   "opportunities": [
     {
       "id": "OPP-AO-001",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
+      "created_at": "2026-05-06",
+      "updated_at": "2026-05-06T10:18:05.403933+00:00",
       "country": "AO",
       "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-003",
-      "topic": "polígrafo significado",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "blog_post",
-      "intent_type": "informational",
-      "priority": "medium",
-      "confidence": 0.7,
-      "status": "validated",
-      "related_keywords": [
-        "polígrafo significado"
-      ],
-      "detected_concepts": [
-        "polygraph_meaning_query"
-      ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
-      "recommended_action": "send_to_examiner_for_validation",
-      "cannibalization_status": "clear",
-      "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "seo_brief": {
-        "focus_keyphrase": "polígrafo significado",
-        "seo_title": "Polígrafo significado em Angola",
-        "slug": "poligrafo-significado",
-        "meta_description": "Entenda polígrafo significado: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-        "suggested_headings": {
-          "h1": "Polígrafo significado",
-          "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
-          ]
-        },
-        "image_alt_text": "polígrafo significado em Angola",
-        "image_filename": "poligrafo-significado-angola.jpg"
-      },
-      "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-        "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
-        ],
-        "warnings": [],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-        "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
-          "Link to related FAQ or educational content if available.",
-          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-        ],
-        "source_topic": "polígrafo significado"
-      },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-001",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "polígrafo significado",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "medium",
-        "detected_concepts": [
-          "polygraph_meaning_query"
-        ],
-        "cluster_concept": "",
-        "related_keywords": [
-          "polígrafo significado"
-        ],
-        "seo": {
-          "focus_keyphrase": "polígrafo significado",
-          "page_title": "",
-          "seo_title": "Polígrafo significado em Angola",
-          "slug": "poligrafo-significado",
-          "meta_description": "Entenda polígrafo significado: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Polígrafo significado",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
-          },
-          "image_alt_text": "polígrafo significado em Angola",
-          "image_filename": "poligrafo-significado-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
-    },
-    {
-      "id": "OPP-AO-002",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
-      "country": "AO",
-      "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-004",
-      "topic": "polígrafo funciona",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "blog_post",
-      "intent_type": "informational",
-      "priority": "medium",
-      "confidence": 0.7,
+      "source": "telegram_group",
+      "source_type": "internal_trigger",
+      "source_signal_id": "",
+      "topic": "teste de polígrafo para furto interno em empresas em Luanda",
+      "raw_request": "Sofia, cria uma landing page sobre teste de polígrafo para furto interno em empresas em Luanda",
+      "requested_by": "Amável",
+      "telegram_chat_id": "-1003981768831",
+      "telegram_message_id": "137",
+      "opportunity_type": "examiner_requested_topic",
+      "recommended_content_type": "landing_page",
+      "intent_type": "transactional",
+      "priority": "high",
+      "confidence": 0.95,
       "status": "converted_to_intake",
       "related_keywords": [
-        "detector de mentiras funciona",
-        "teste de poligrafo funciona",
-        "polígrafo funciona"
+        "teste de polígrafo para furto interno em empresas em Luanda"
       ],
       "detected_concepts": [
-        "does_polygraph_work_query"
+        "examiner_originated_content_request"
       ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
+      "business_reason": "Created from an examiner-originated Telegram request inside the workspace group.",
+      "risk_notes": [
+        "Manual examiner review required before draft generation.",
+        "Confirm local legal and ethical considerations before publication."
+      ],
       "recommended_action": "send_to_examiner_for_validation",
       "cannibalization_status": "clear",
       "local_topic_status": "allowed",
       "review_status": "intake_created",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "clustered": true,
-      "cluster_size": 3,
-      "cluster_concept": "does_polygraph_work_query",
-      "strategy": {
-        "content_type": "blog_post",
-        "page_type": "informational",
-        "seo_goal": "educational_authority"
-      },
-      "seo_brief": {
-        "focus_keyphrase": "detector de mentiras funciona",
-        "seo_title": "Polígrafo funciona em Angola",
-        "slug": "poligrafo-funciona",
-        "meta_description": "Entenda polígrafo funciona: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-        "suggested_headings": {
-          "h1": "Polígrafo funciona",
-          "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
-          ]
-        },
-        "image_alt_text": "polígrafo funciona em Angola",
-        "image_filename": "poligrafo-funciona-angola.jpg"
-      },
-      "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-        "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
-        ],
-        "warnings": [],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-        "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
-          "Link to related FAQ or educational content if available.",
-          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-        ],
-        "source_topic": "polígrafo funciona"
-      },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-002",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "polígrafo funciona",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "medium",
-        "detected_concepts": [
-          "does_polygraph_work_query"
-        ],
-        "cluster_concept": "does_polygraph_work_query",
-        "related_keywords": [
-          "detector de mentiras funciona",
-          "teste de poligrafo funciona",
-          "polígrafo funciona"
-        ],
-        "seo": {
-          "focus_keyphrase": "detector de mentiras funciona",
-          "page_title": "",
-          "seo_title": "Polígrafo funciona em Angola",
-          "slug": "poligrafo-funciona",
-          "meta_description": "Entenda polígrafo funciona: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Polígrafo funciona",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
+      "cannibalization_notes": "No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json",
+      "cannibalization_details": {
+        "checked": true,
+        "result": "clear",
+        "status": "clear",
+        "notes": "No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json",
+        "risk_score": 0.0,
+        "matches": [],
+        "checked_sources": {
+          "site_structure.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_structure.json",
+            "items_loaded": 23
           },
-          "image_alt_text": "polígrafo funciona em Angola",
-          "image_filename": "poligrafo-funciona-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
+          "site_content_memory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json",
+            "items_loaded": 0
+          },
+          "content_inventory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/content_inventory.json",
+            "items_loaded": 0
+          },
+          "market_intelligence.json": {
+            "exists": false,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/market_intelligence.json",
+            "items_loaded": 0
+          }
         }
       },
-      "approved_at": "2026-04-27 16:51:23",
-      "intake_id": "INTAKE-0009",
-      "converted_to_intake_at": "2026-04-27 16:51:47"
-    },
-    {
-      "id": "OPP-AO-003",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
-      "country": "AO",
-      "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-006",
-      "topic": "polígrafo é confiável",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "blog_post",
-      "intent_type": "informational",
-      "priority": "medium",
-      "confidence": 0.7,
-      "status": "validated",
-      "related_keywords": [
-        "teste de poligrafo é confiável",
-        "polígrafo é confiável"
-      ],
-      "detected_concepts": [
-        "polygraph_reliability_query"
-      ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
-      "recommended_action": "send_to_examiner_for_validation",
-      "cannibalization_status": "clear",
-      "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
+      "local_topic_notes": "Internal examiner request. No local restriction detected by the basic trigger parser.",
       "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "clustered": true,
-      "cluster_size": 2,
-      "cluster_concept": "polygraph_reliability_query",
-      "strategy": {
-        "content_type": "blog_post",
-        "page_type": "informational",
-        "seo_goal": "trust_building"
-      },
+      "language_notes": "Language taken from workspace configuration.",
+      "geo_relevance": "workspace_specific",
+      "geo_notes": "Created inside a mapped Telegram workspace group.",
+      "validated_at": "2026-05-06T10:18:05.204928+00:00",
       "seo_brief": {
-        "focus_keyphrase": "teste de poligrafo é confiável",
-        "seo_title": "Polígrafo é confiável em Angola",
-        "slug": "poligrafo-e-confiavel",
-        "meta_description": "Entenda polígrafo é confiável: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
+        "focus_keyphrase": "teste de polígrafo para furto interno em empresas em Luanda",
+        "seo_title": "teste de polígrafo para furto interno em empresas em Luanda em Angola",
+        "slug": "teste-de-poligrafo-para-furto-interno-em-empresas-em-luanda",
+        "meta_description": "Informação profissional sobre teste de polígrafo para furto interno em empresas em Luanda, aplicações, limitações e como solicitar uma avaliação confidenci",
         "suggested_headings": {
-          "h1": "Polígrafo é confiável",
+          "h1": "teste de polígrafo para furto interno em empresas em Luanda",
           "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
+            "Quando este serviço pode ser útil",
+            "Como funciona o processo",
+            "Limitações e cuidados importantes",
+            "Como solicitar uma avaliação"
           ]
         },
-        "image_alt_text": "polígrafo é confiável em Angola",
-        "image_filename": "poligrafo-e-confiavel-angola.jpg"
+        "image_alt_text": "teste de polígrafo para furto interno em empresas em Luanda em Angola",
+        "image_filename": "teste-de-poligrafo-para-furto-interno-em-empresas-em-luanda-angola.jpg"
       },
       "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain reliability in balanced terms, including professional procedure and limitations.",
+        "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
+        "target_audience": "Potential clients looking for professional polygraph or forensic services.",
+        "recommended_angle": "Explain the service in practical terms without exaggerating what the polygraph can do.",
         "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
+          "What this service is",
+          "When this service may be useful",
+          "How the process works",
+          "Important limitations and ethical considerations",
+          "How to request an appointment"
         ],
         "warnings": [
-          "Avoid absolute claims such as 100% accurate or guaranteed result."
+          "Avoid legal guarantees.",
+          "Avoid absolute accuracy claims.",
+          "Avoid unverified local law claims."
         ],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
+        "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
         "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
+          "Link to the main service page where relevant.",
           "Link to related FAQ or educational content if available.",
           "Avoid linking to pages with the same primary keyword to prevent cannibalization."
         ],
-        "source_topic": "polígrafo é confiável"
+        "source_topic": "teste de polígrafo para furto interno em empresas em Luanda"
       },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-003",
+      "telegram_notified": true,
+      "internal_trigger": {
+        "created_from": "telegram_group_message",
         "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "polígrafo é confiável",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "medium",
-        "detected_concepts": [
-          "polygraph_reliability_query"
-        ],
-        "cluster_concept": "polygraph_reliability_query",
-        "related_keywords": [
-          "teste de poligrafo é confiável",
-          "polígrafo é confiável"
-        ],
-        "seo": {
-          "focus_keyphrase": "teste de poligrafo é confiável",
-          "page_title": "",
-          "seo_title": "Polígrafo é confiável em Angola",
-          "slug": "poligrafo-e-confiavel",
-          "meta_description": "Entenda polígrafo é confiável: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Polígrafo é confiável",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
-          },
-          "image_alt_text": "polígrafo é confiável em Angola",
-          "image_filename": "poligrafo-e-confiavel-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain reliability in balanced terms, including professional procedure and limitations.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [
-            "Avoid absolute claims such as 100% accurate or guaranteed result."
-          ],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
+        "raw_request": "Sofia, cria uma landing page sobre teste de polígrafo para furto interno em empresas em Luanda",
+        "requested_by": "Amável",
+        "telegram_chat_id": "-1003981768831",
+        "telegram_message_id": "137",
+        "created_at": "2026-05-06T10:18:05.204931+00:00"
+      },
+      "telegram_notified_at": "2026-05-06T10:18:05.403900+00:00",
+      "approved_at": "2026-05-06T10:18:32.741909+00:00",
+      "ready_for_intake": true,
+      "examiner_decision": "APPROVE",
+      "examiner_comment": "",
+      "examiner_decision_at": "2026-05-06T10:18:32.741909+00:00",
+      "intake_id": "INTAKE-0001",
+      "converted_to_intake_at": "2026-05-06 10:19:54"
     },
     {
-      "id": "OPP-AO-004",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
+      "id": "OPP-AO-002",
+      "created_at": "2026-05-09",
+      "updated_at": "2026-05-09T13:00:15.851212+00:00",
       "country": "AO",
       "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-007",
-      "topic": "polígrafo teste",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "blog_post",
-      "intent_type": "informational",
-      "priority": "medium",
-      "confidence": 0.7,
-      "status": "validated",
-      "related_keywords": [
-        "teste de poligrafo brasil",
-        "teste de polígrafo",
-        "polígrafo teste",
-        "teste de poligrafo em fortaleza"
-      ],
-      "detected_concepts": [
-        "polygraph_test_process_query"
-      ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
-      "recommended_action": "send_to_examiner_for_validation",
-      "cannibalization_status": "clear",
-      "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "clustered": true,
-      "cluster_size": 4,
-      "cluster_concept": "polygraph_test_process_query",
-      "strategy": {
-        "content_type": "blog_post",
-        "page_type": "informational",
-        "seo_goal": "explain_service"
-      },
-      "seo_brief": {
-        "focus_keyphrase": "teste de poligrafo brasil",
-        "seo_title": "Polígrafo teste em Angola",
-        "slug": "poligrafo-teste",
-        "meta_description": "Entenda polígrafo teste: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-        "suggested_headings": {
-          "h1": "Polígrafo teste",
-          "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
-          ]
-        },
-        "image_alt_text": "polígrafo teste em Angola",
-        "image_filename": "poligrafo-teste-angola.jpg"
-      },
-      "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-        "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
-        ],
-        "warnings": [],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-        "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
-          "Link to related FAQ or educational content if available.",
-          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-        ],
-        "source_topic": "polígrafo teste"
-      },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-004",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "polígrafo teste",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "medium",
-        "detected_concepts": [
-          "polygraph_test_process_query"
-        ],
-        "cluster_concept": "polygraph_test_process_query",
-        "related_keywords": [
-          "teste de poligrafo brasil",
-          "teste de polígrafo",
-          "polígrafo teste",
-          "teste de poligrafo em fortaleza"
-        ],
-        "seo": {
-          "focus_keyphrase": "teste de poligrafo brasil",
-          "page_title": "",
-          "seo_title": "Polígrafo teste em Angola",
-          "slug": "poligrafo-teste",
-          "meta_description": "Entenda polígrafo teste: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Polígrafo teste",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
-          },
-          "image_alt_text": "polígrafo teste em Angola",
-          "image_filename": "poligrafo-teste-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
-    },
-    {
-      "id": "OPP-AO-005",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
-      "country": "AO",
-      "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-009",
-      "topic": "polígrafo preço",
-      "opportunity_type": "blog_topic",
+      "source": "telegram_group",
+      "source_type": "internal_trigger",
+      "source_signal_id": "",
+      "topic": "teste de polígrafo para infidelidade em Luanda",
+      "raw_request": "Sofia, create a landing page for teste de polígrafo para infidelidade em Luanda",
+      "requested_by": "Amável",
+      "telegram_chat_id": "-1003981768831",
+      "telegram_message_id": "161",
+      "opportunity_type": "examiner_requested_topic",
       "recommended_content_type": "landing_page",
-      "intent_type": "informational",
+      "intent_type": "transactional",
       "priority": "high",
-      "confidence": 0.7,
-      "status": "validated",
+      "confidence": 0.95,
+      "status": "converted_to_intake",
       "related_keywords": [
-        "polígrafo preço",
-        "teste de poligrafo valor"
+        "teste de polígrafo para infidelidade em Luanda"
       ],
       "detected_concepts": [
-        "price_or_cost_query"
+        "examiner_originated_content_request"
       ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
+      "business_reason": "Created from an examiner-originated Telegram request inside the workspace group.",
+      "risk_notes": [
+        "Manual examiner review required before draft generation.",
+        "Confirm local legal and ethical considerations before publication."
+      ],
       "recommended_action": "send_to_examiner_for_validation",
       "cannibalization_status": "clear",
       "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "clustered": true,
-      "cluster_size": 2,
-      "cluster_concept": "price_or_cost_query",
-      "strategy": {
-        "content_type": "landing_page",
-        "page_type": "transactional",
-        "seo_goal": "conversion"
+      "review_status": "intake_created",
+      "cannibalization_notes": "No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json Top match: https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/ (site_structure.json, score=0.425).",
+      "cannibalization_details": {
+        "checked": true,
+        "result": "clear",
+        "status": "clear",
+        "notes": "No significant overlap found across: site_structure.json, site_content_memory.json, content_inventory.json",
+        "risk_score": 0.425,
+        "matches": [
+          {
+            "score": 0.425,
+            "risk": "weak_signal",
+            "reason": "shared_tokens: infidelidade",
+            "matched_term": "poligrafo infidelidade fidelidade",
+            "source_file": "site_structure.json",
+            "source_type": "existing_site_page",
+            "label": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+            "url": "https://poligrafoangola.com/pericias-poligrafo/poligrafo-infidelidade-fidelidade/",
+            "metadata": {
+              "page_type": "service_page",
+              "section": "pericias"
+            }
+          },
+          {
+            "score": 0.425,
+            "risk": "weak_signal",
+            "reason": "shared_tokens: luanda",
+            "matched_term": "teste de polígrafo para furto interno em empresas em Luanda",
+            "source_file": "site_content_memory.json",
+            "source_type": "draft_memory",
+            "label": "teste de polígrafo para furto interno em empresas em Luanda",
+            "url": "",
+            "metadata": {
+              "draft_id": "DRAFT-0001",
+              "target_keyword": "teste de polígrafo para furto interno em empresas em Luanda"
+            }
+          },
+          {
+            "score": 0.425,
+            "risk": "weak_signal",
+            "reason": "shared_tokens: luanda",
+            "matched_term": "teste de polígrafo para furto interno em empresas em Luanda",
+            "source_file": "site_content_memory.json",
+            "source_type": "keyword_index",
+            "label": "teste de polígrafo para furto interno em empresas em Luanda",
+            "url": "",
+            "metadata": {}
+          }
+        ],
+        "checked_sources": {
+          "site_structure.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_structure.json",
+            "items_loaded": 23
+          },
+          "site_content_memory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/site_content_memory.json",
+            "items_loaded": 2
+          },
+          "content_inventory.json": {
+            "exists": true,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/content_inventory.json",
+            "items_loaded": 0
+          },
+          "market_intelligence.json": {
+            "exists": false,
+            "path": "/mnt/c/AI/assistants/sofia/sites/local_sites/ao/market_intelligence.json",
+            "items_loaded": 0
+          }
+        }
       },
+      "local_topic_notes": "Internal examiner request. No local restriction detected by the basic trigger parser.",
+      "language_mismatch": false,
+      "language_notes": "Language taken from workspace configuration.",
+      "geo_relevance": "workspace_specific",
+      "geo_notes": "Created inside a mapped Telegram workspace group.",
+      "validated_at": "2026-05-09T13:00:15.569560+00:00",
       "seo_brief": {
-        "focus_keyphrase": "polígrafo preço",
-        "seo_title": "Polígrafo preço em Angola",
-        "slug": "poligrafo-preco",
-        "meta_description": "Saiba mais sobre polígrafo preço em Angola. Informação profissional sobre testes de polígrafo, aplicações e contacto para avaliação.",
+        "focus_keyphrase": "teste de polígrafo para infidelidade em Luanda",
+        "seo_title": "teste de polígrafo para infidelidade em Luanda em Angola",
+        "slug": "teste-de-poligrafo-para-infidelidade-em-luanda",
+        "meta_description": "Informação profissional sobre teste de polígrafo para infidelidade em Luanda, aplicações, limitações e como solicitar uma avaliação confidencial.",
         "suggested_headings": {
-          "h1": "Polígrafo preço",
+          "h1": "teste de polígrafo para infidelidade em Luanda",
           "h2": [
-            "Quando este serviço pode ser útil?",
-            "Como funciona o processo?",
+            "Quando este serviço pode ser útil",
+            "Como funciona o processo",
             "Limitações e cuidados importantes",
             "Como solicitar uma avaliação"
           ]
         },
-        "image_alt_text": "polígrafo preço em Angola",
-        "image_filename": "poligrafo-preco-angola.jpg"
+        "image_alt_text": "teste de polígrafo para infidelidade em Luanda em Angola",
+        "image_filename": "teste-de-poligrafo-para-infidelidade-em-luanda-angola.jpg"
       },
       "content_strategy_brief": {
         "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
-        "target_audience": "Potential clients looking for professional polygraph services.",
-        "recommended_angle": "Explain what affects the price and invite the visitor to request a case-specific quote.",
+        "target_audience": "Potential clients looking for professional polygraph or forensic services.",
+        "recommended_angle": "Explain the service in practical terms without exaggerating what the polygraph can do.",
         "required_sections": [
           "What this service is",
           "When this service may be useful",
-          "How the polygraph process works",
+          "How the process works",
           "Important limitations and ethical considerations",
           "How to request an appointment"
         ],
         "warnings": [
-          "Avoid publishing fixed prices unless the local pricing policy allows it."
+          "Avoid legal guarantees.",
+          "Avoid absolute accuracy claims.",
+          "Avoid unverified local law claims."
         ],
         "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
         "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
+          "Link to the main service page where relevant.",
           "Link to related FAQ or educational content if available.",
           "Avoid linking to pages with the same primary keyword to prevent cannibalization."
         ],
-        "source_topic": "polígrafo preço"
+        "source_topic": "teste de polígrafo para infidelidade em Luanda"
       },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-005",
+      "telegram_notified": true,
+      "internal_trigger": {
+        "created_from": "telegram_group_message",
         "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "polígrafo preço",
-        "content_type": "landing_page",
-        "intent_type": "informational",
-        "priority": "high",
-        "detected_concepts": [
-          "price_or_cost_query"
-        ],
-        "cluster_concept": "price_or_cost_query",
-        "related_keywords": [
-          "polígrafo preço",
-          "teste de poligrafo valor"
-        ],
-        "seo": {
-          "focus_keyphrase": "polígrafo preço",
-          "page_title": "",
-          "seo_title": "Polígrafo preço em Angola",
-          "slug": "poligrafo-preco",
-          "meta_description": "Saiba mais sobre polígrafo preço em Angola. Informação profissional sobre testes de polígrafo, aplicações e contacto para avaliação.",
-          "suggested_headings": {
-            "h1": "Polígrafo preço",
-            "h2": [
-              "Quando este serviço pode ser útil?",
-              "Como funciona o processo?",
-              "Limitações e cuidados importantes",
-              "Como solicitar uma avaliação"
-            ]
-          },
-          "image_alt_text": "polígrafo preço em Angola",
-          "image_filename": "poligrafo-preco-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
-          "target_audience": "Potential clients looking for professional polygraph services.",
-          "recommended_angle": "Explain what affects the price and invite the visitor to request a case-specific quote.",
-          "required_sections": [
-            "What this service is",
-            "When this service may be useful",
-            "How the polygraph process works",
-            "Important limitations and ethical considerations",
-            "How to request an appointment"
-          ],
-          "warnings": [
-            "Avoid publishing fixed prices unless the local pricing policy allows it."
-          ],
-          "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
-    },
-    {
-      "id": "OPP-AO-007",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
-      "country": "AO",
-      "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-013",
-      "topic": "teste de polígrafo para que serve",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "blog_post",
-      "intent_type": "informational",
-      "priority": "medium",
-      "confidence": 0.7,
-      "status": "validated",
-      "related_keywords": [
-        "teste de polígrafo para que serve"
-      ],
-      "detected_concepts": [
-        "what_is_polygraph_used_for_query",
-        "polygraph_test_process_query"
-      ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
-      "recommended_action": "send_to_examiner_for_validation",
-      "cannibalization_status": "clear",
-      "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "seo_brief": {
-        "focus_keyphrase": "teste de polígrafo para que serve",
-        "seo_title": "Teste de polígrafo para que serve em Angola",
-        "slug": "teste-de-poligrafo-para-que-serve",
-        "meta_description": "Entenda teste de polígrafo para que serve: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-        "suggested_headings": {
-          "h1": "Teste de polígrafo para que serve",
-          "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
-          ]
-        },
-        "image_alt_text": "teste de polígrafo para que serve em Angola",
-        "image_filename": "teste-de-poligrafo-para-que-serve-angola.jpg"
+        "raw_request": "Sofia, create a landing page for teste de polígrafo para infidelidade em Luanda",
+        "requested_by": "Amável",
+        "telegram_chat_id": "-1003981768831",
+        "telegram_message_id": "161",
+        "created_at": "2026-05-09T13:00:15.569562+00:00"
       },
-      "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-        "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
-        ],
-        "warnings": [],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-        "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
-          "Link to related FAQ or educational content if available.",
-          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-        ],
-        "source_topic": "teste de polígrafo para que serve"
-      },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-007",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "teste de polígrafo para que serve",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "medium",
-        "detected_concepts": [
-          "what_is_polygraph_used_for_query",
-          "polygraph_test_process_query"
-        ],
-        "cluster_concept": "",
-        "related_keywords": [
-          "teste de polígrafo para que serve"
-        ],
-        "seo": {
-          "focus_keyphrase": "teste de polígrafo para que serve",
-          "page_title": "",
-          "seo_title": "Teste de polígrafo para que serve em Angola",
-          "slug": "teste-de-poligrafo-para-que-serve",
-          "meta_description": "Entenda teste de polígrafo para que serve: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Teste de polígrafo para que serve",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
-          },
-          "image_alt_text": "teste de polígrafo para que serve em Angola",
-          "image_filename": "teste-de-poligrafo-para-que-serve-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
-    },
-    {
-      "id": "OPP-AO-009",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
-      "country": "AO",
-      "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-015",
-      "topic": "teste de poligrafo onde fazer",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "blog_post",
-      "intent_type": "informational",
-      "priority": "high",
-      "confidence": 0.7,
-      "status": "validated",
-      "related_keywords": [
-        "teste de poligrafo onde fazer"
-      ],
-      "detected_concepts": [
-        "where_to_do_test_query",
-        "polygraph_test_process_query"
-      ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
-      "recommended_action": "send_to_examiner_for_validation",
-      "cannibalization_status": "clear",
-      "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "seo_brief": {
-        "focus_keyphrase": "teste de poligrafo onde fazer",
-        "seo_title": "Teste de poligrafo onde fazer em Angola",
-        "slug": "teste-de-poligrafo-onde-fazer",
-        "meta_description": "Entenda teste de poligrafo onde fazer: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-        "suggested_headings": {
-          "h1": "Teste de poligrafo onde fazer",
-          "h2": [
-            "O que significa esta pergunta?",
-            "Como funciona um teste de polígrafo?",
-            "O polígrafo é confiável?",
-            "Quando procurar um examinador profissional?"
-          ]
-        },
-        "image_alt_text": "teste de poligrafo onde fazer em Angola",
-        "image_filename": "teste-de-poligrafo-onde-fazer-angola.jpg"
-      },
-      "content_strategy_brief": {
-        "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-        "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-        "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-        "required_sections": [
-          "Short answer to the main question",
-          "Explanation of the concept",
-          "Practical examples",
-          "Limitations of the polygraph",
-          "When to contact a professional examiner"
-        ],
-        "warnings": [],
-        "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-        "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
-          "Link to related FAQ or educational content if available.",
-          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-        ],
-        "source_topic": "teste de poligrafo onde fazer"
-      },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-009",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "teste de poligrafo onde fazer",
-        "content_type": "blog_post",
-        "intent_type": "informational",
-        "priority": "high",
-        "detected_concepts": [
-          "where_to_do_test_query",
-          "polygraph_test_process_query"
-        ],
-        "cluster_concept": "",
-        "related_keywords": [
-          "teste de poligrafo onde fazer"
-        ],
-        "seo": {
-          "focus_keyphrase": "teste de poligrafo onde fazer",
-          "page_title": "",
-          "seo_title": "Teste de poligrafo onde fazer em Angola",
-          "slug": "teste-de-poligrafo-onde-fazer",
-          "meta_description": "Entenda teste de poligrafo onde fazer: explicação clara sobre o polígrafo, o seu funcionamento, limitações e aplicações profissionais.",
-          "suggested_headings": {
-            "h1": "Teste de poligrafo onde fazer",
-            "h2": [
-              "O que significa esta pergunta?",
-              "Como funciona um teste de polígrafo?",
-              "O polígrafo é confiável?",
-              "Quando procurar um examinador profissional?"
-            ]
-          },
-          "image_alt_text": "teste de poligrafo onde fazer em Angola",
-          "image_filename": "teste-de-poligrafo-onde-fazer-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Build trust and answer a common user question before the visitor contacts the service.",
-          "target_audience": "People researching polygraph tests, reliability, process, or possible uses.",
-          "recommended_angle": "Explain the topic in simple, accurate language without exaggerating what the polygraph can do.",
-          "required_sections": [
-            "Short answer to the main question",
-            "Explanation of the concept",
-            "Practical examples",
-            "Limitations of the polygraph",
-            "When to contact a professional examiner"
-          ],
-          "warnings": [],
-          "conversion_goal": "Move the reader from general information to contacting a professional examiner.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
-    },
-    {
-      "id": "OPP-AO-015",
-      "created_at": "2026-04-27",
-      "updated_at": "2026-04-27",
-      "country": "AO",
-      "language": "pt",
-      "source": "web_search",
-      "source_signal_id": "SIG-AO-031",
-      "topic": "poligrafo empresa",
-      "opportunity_type": "blog_topic",
-      "recommended_content_type": "service_page",
-      "intent_type": "informational",
-      "priority": "high",
-      "confidence": 0.7,
-      "status": "validated",
-      "related_keywords": [
-        "poligrafo para empresas",
-        "poligrafo empresa",
-        "prueba del poligrafo empresas"
-      ],
-      "detected_concepts": [
-        "company_or_corporate_testing_query"
-      ],
-      "business_reason": "Detected from real user search behavior (Google suggestions).",
-      "risk_notes": [],
-      "recommended_action": "send_to_examiner_for_validation",
-      "cannibalization_status": "clear",
-      "local_topic_status": "allowed",
-      "review_status": "pending_examiner",
-      "cannibalization_notes": "No conflict detected.",
-      "local_topic_notes": "No local restriction detected.",
-      "language_mismatch": false,
-      "language_notes": "Language matches workspace.",
-      "geo_relevance": "neutral",
-      "geo_notes": "No geographic signal detected.",
-      "validated_at": "2026-04-27 16:26:32",
-      "clustered": true,
-      "cluster_size": 3,
-      "cluster_concept": "company_or_corporate_testing_query",
-      "strategy": {
-        "content_type": "service_page",
-        "page_type": "transactional",
-        "seo_goal": "lead_generation"
-      },
-      "seo_brief": {
-        "focus_keyphrase": "poligrafo para empresas",
-        "seo_title": "Poligrafo empresa em Angola",
-        "slug": "poligrafo-empresa",
-        "meta_description": "Saiba mais sobre poligrafo empresa em Angola. Informação profissional sobre testes de polígrafo, aplicações e contacto para avaliação.",
-        "suggested_headings": {
-          "h1": "Poligrafo empresa",
-          "h2": [
-            "Quando este serviço pode ser útil?",
-            "Como funciona o processo?",
-            "Limitações e cuidados importantes",
-            "Como solicitar uma avaliação"
-          ]
-        },
-        "image_alt_text": "poligrafo empresa em Angola",
-        "image_filename": "poligrafo-empresa-angola.jpg"
-      },
-      "content_strategy_brief": {
-        "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
-        "target_audience": "Potential clients looking for professional polygraph services.",
-        "recommended_angle": "Frame corporate testing as a professional service that must respect local law and consent.",
-        "required_sections": [
-          "What this service is",
-          "When this service may be useful",
-          "How the polygraph process works",
-          "Important limitations and ethical considerations",
-          "How to request an appointment"
-        ],
-        "warnings": [
-          "Avoid claiming that polygraph testing is mandatory or universally legal for employment."
-        ],
-        "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
-        "internal_linking_notes": [
-          "Link to the main polygraph service page where relevant.",
-          "Link to related FAQ or educational content if available.",
-          "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-        ],
-        "source_topic": "poligrafo empresa"
-      },
-      "draft_input": {
-        "generated_at": "2026-04-27 16:45:56",
-        "source": "sofia_external_intelligence",
-        "opportunity_id": "OPP-AO-015",
-        "workspace_id": "local.ao",
-        "language": "pt",
-        "country": "AO",
-        "topic": "poligrafo empresa",
-        "content_type": "service_page",
-        "intent_type": "informational",
-        "priority": "high",
-        "detected_concepts": [
-          "company_or_corporate_testing_query"
-        ],
-        "cluster_concept": "company_or_corporate_testing_query",
-        "related_keywords": [
-          "poligrafo para empresas",
-          "poligrafo empresa",
-          "prueba del poligrafo empresas"
-        ],
-        "seo": {
-          "focus_keyphrase": "poligrafo para empresas",
-          "page_title": "",
-          "seo_title": "Poligrafo empresa em Angola",
-          "slug": "poligrafo-empresa",
-          "meta_description": "Saiba mais sobre poligrafo empresa em Angola. Informação profissional sobre testes de polígrafo, aplicações e contacto para avaliação.",
-          "suggested_headings": {
-            "h1": "Poligrafo empresa",
-            "h2": [
-              "Quando este serviço pode ser útil?",
-              "Como funciona o processo?",
-              "Limitações e cuidados importantes",
-              "Como solicitar uma avaliação"
-            ]
-          },
-          "image_alt_text": "poligrafo empresa em Angola",
-          "image_filename": "poligrafo-empresa-angola.jpg"
-        },
-        "strategy": {
-          "content_goal": "Generate qualified leads by explaining the service clearly and professionally.",
-          "target_audience": "Potential clients looking for professional polygraph services.",
-          "recommended_angle": "Frame corporate testing as a professional service that must respect local law and consent.",
-          "required_sections": [
-            "What this service is",
-            "When this service may be useful",
-            "How the polygraph process works",
-            "Important limitations and ethical considerations",
-            "How to request an appointment"
-          ],
-          "warnings": [
-            "Avoid claiming that polygraph testing is mandatory or universally legal for employment."
-          ],
-          "conversion_goal": "Encourage the visitor to contact the examiner for a confidential consultation.",
-          "internal_linking_notes": [
-            "Link to the main polygraph service page where relevant.",
-            "Link to related FAQ or educational content if available.",
-            "Avoid linking to pages with the same primary keyword to prevent cannibalization."
-          ]
-        },
-        "quality_controls": {
-          "avoid_legal_guarantees": true,
-          "avoid_absolute_accuracy_claims": true,
-          "avoid_unverified_local_law_claims": true,
-          "requires_examiner_review_before_publication": true
-        }
-      }
+      "telegram_notified_at": "2026-05-09T13:00:15.851197+00:00",
+      "approved_at": "2026-05-09T13:00:30.551397+00:00",
+      "ready_for_intake": true,
+      "examiner_decision": "APPROVE",
+      "examiner_comment": "",
+      "examiner_decision_at": "2026-05-09T13:00:30.551397+00:00",
+      "intake_id": "INTAKE-0002",
+      "converted_to_intake_at": "2026-05-09 13:05:28"
     }
-  ]
+  ],
+  "workspace_id": "local.ao"
 }

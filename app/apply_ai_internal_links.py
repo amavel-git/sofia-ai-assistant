@@ -3,6 +3,11 @@ import re
 import sys
 from pathlib import Path
 
+from workspace_paths import (
+    find_draft_any_workspace,
+    get_workspace_draft_registry_path,
+)
+
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
 DRAFT_REGISTRY_FILE = SOFIA_ROOT / "sites" / "draft_registry.json"
@@ -49,6 +54,18 @@ def insert_anchor_once(content: str, anchor_text: str, target_url: str):
     return content, False, "anchor_not_found"
 
 
+def load_draft_registry_for_draft(draft_id):
+    workspace_id, draft = find_draft_any_workspace(draft_id)
+
+    if not workspace_id or not draft:
+        raise RuntimeError(f"Draft not found in any workspace registry: {draft_id}")
+
+    registry_path = get_workspace_draft_registry_path(workspace_id)
+    registry_data = load_json(registry_path)
+
+    return workspace_id, registry_path, registry_data, draft
+
+
 def main():
     print("=== Sofia: Apply AI Internal Links ===\n")
 
@@ -59,16 +76,17 @@ def main():
 
     draft_id = sys.argv[1]
 
-    draft_data = load_json(DRAFT_REGISTRY_FILE)
-    drafts = draft_data.get("drafts", [])
-
-    draft = find_draft(drafts, draft_id)
+    try:
+        workspace_id, draft_registry_file, draft_data, draft = load_draft_registry_for_draft(draft_id)
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return
 
     if not draft:
         print(f"Draft not found: {draft_id}")
         return
 
-    if draft.get("draft_status") not in ["content_generated", "internal_links_added"]:
+    if draft.get("draft_status") not in ["content_generated", "internal_links_added", "ai_internal_links_added"]:
         print(f"Draft is not ready for AI link application. Current status: {draft.get('draft_status')}")
         return
 
@@ -105,7 +123,11 @@ def main():
         else:
             skipped.append(result)
 
+    if "generated_content" not in draft or not isinstance(draft["generated_content"], dict):
+        draft["generated_content"] = {}
+
     draft["generated_content"]["content"] = content
+    draft["html_content"] = content
     draft["ai_internal_links_applied"] = {
         "applied_count": len(applied),
         "skipped_count": len(skipped),
@@ -116,11 +138,14 @@ def main():
     if applied:
         draft["draft_status"] = "ai_internal_links_added"
 
-    save_json(DRAFT_REGISTRY_FILE, draft_data)
+    draft_data["scope"] = "workspace"
+    draft_data["workspace_id"] = workspace_id
+    save_json(draft_registry_file, draft_data)
 
     print(f"AI internal links applied for {draft_id}")
     print(f"Applied: {len(applied)}")
     print(f"Skipped: {len(skipped)}")
+    print(f"Workspace registry: {draft_registry_file}")
 
 
 if __name__ == "__main__":

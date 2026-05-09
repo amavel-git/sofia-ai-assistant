@@ -1,38 +1,24 @@
 {
-  "workspace_info": {
-    "workspace_id": "local.ao",
-    "brand": "local_sites",
-    "workspace_type": "local_market",
-    "language": "pt",
-    "market_code": "ao",
-    "domain": "https://poligrafoangola.com",
-    "base_path": "/"
-  },
-  "published_content": [],
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "last_reset_at": "2026-05-06T10:16:01.349781+00:00",
+  "keyword_index": [
+    "teste de polígrafo para furto interno em empresas em Luanda",
+    "teste de polígrafo para infidelidade em Luanda"
+  ],
   "draft_content": [
     {
-      "draft_id": "DRAFT-0003",
-      "title": "Preço do Polígrafo em Angola",
-      "target_keyword": "preco do poligrafo em angola"
+      "draft_id": "DRAFT-0001",
+      "title": "teste de polígrafo para furto interno em empresas em Luanda",
+      "target_keyword": "teste de polígrafo para furto interno em empresas em Luanda"
     },
     {
-      "draft_id": "DRAFT-0004",
-      "title": "post-conviction sex offender polygraph testing",
-      "target_keyword": "polígrafo para agressores sexuais"
-    },
-    {
-      "draft_id": "DRAFT-0005",
-      "title": "polígrafo funciona",
-      "target_keyword": "detector de mentiras funciona"
+      "draft_id": "DRAFT-0002",
+      "title": "teste de polígrafo para infidelidade em Luanda",
+      "target_keyword": "teste de polígrafo para infidelidade em Luanda"
     }
   ],
-  "content_topics": [],
-  "keyword_index": [
-    "preco do poligrafo em angola",
-    "polígrafo para agressores sexuais",
-    "detector de mentiras funciona"
-  ],
-  "protected_topics": [],
-  "cannibalization_notes": [],
-  "content_opportunities": []
+  "published_content": [],
+  "notes": "",
+  "manual_topics_to_preserve": []
 }

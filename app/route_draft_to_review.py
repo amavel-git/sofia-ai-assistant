@@ -1,4 +1,5 @@
 import json
+import sys
 from pathlib import Path
 from datetime import datetime
 
@@ -39,8 +40,22 @@ def find_intake_by_id(content_ideas, intake_id: str):
     return None
 
 
+def find_draft_by_id(drafts, draft_id):
+    for draft in drafts:
+        if draft.get("draft_id") == draft_id:
+            return draft
+    return None
+
+
 def main():
     print("=== Sofia Phase 1: Route Draft To Review ===\n")
+
+    if len(sys.argv) != 2:
+        print("Usage:")
+        print("python app/route_draft_to_review.py DRAFT-0005")
+        return
+
+    target_draft_id = sys.argv[1]
 
     if not INTAKE_FILE.exists():
         print(f"ERROR: content_intake.json not found: {INTAKE_FILE}")
@@ -64,7 +79,11 @@ def main():
         print("No drafts found in draft_registry.json")
         return
 
-    draft = drafts[0]
+    draft = find_draft_by_id(drafts, target_draft_id)
+
+    if not draft:
+        print(f"ERROR: Draft not found: {target_draft_id}")
+        return
 
     draft_id = draft.get("draft_id", "")
     intake_id = draft.get("created_from_intake_id", "")
@@ -80,8 +99,15 @@ def main():
     print(f"Workspace path: {workspace_path}")
     print(f"Current draft status: {draft_status}\n")
 
-    if draft_status != "draft_created":
-        print("Routing skipped: draft is not in 'draft_created' status.")
+    reviewable_statuses = [
+    "draft_created",
+    "content_generated",
+    "internal_links_added"
+]
+
+    if draft_status not in reviewable_statuses:
+        print(f"Routing skipped: draft status is not reviewable: {draft_status}")
+        print(f"Reviewable statuses: {', '.join(reviewable_statuses)}")
         return
 
     if workspace_type == "local_market":

@@ -1,0 +1,75 @@
+{
+  "version": "0.1",
+  "workspace_id": "pt.institute",
+  "brand": "institute",
+  "workspace_type": "training",
+  "country": "Global",
+  "language": "Portuguese",
+  "language_code": "pt-PT",
+  "domain": "https://institute.bearforensics.com/pt",
+  "base_path": "/pt",
+  "source": "user_provided_workspace_profile_corrected",
+  "status": "seed_needs_examiner_review",
+  "localization_rules": {
+    "preferred_terms": [
+      "formação básica em polígrafo",
+      "curso básico em polígrafo",
+      "formação avançada em polígrafo",
+      "curso avançado em polígrafo"
+    ],
+    "terms_to_avoid": [
+      "detetor de mentiras, unless explaining popular terminology"
+    ],
+    "tone": {
+      "style": "professional, clear, prudent",
+      "avoid": [
+        "absolute guarantees",
+        "sensational claims",
+        "automatic legal-validity claims",
+        "100% accuracy claims"
+      ]
+    }
+  },
+  "service_availability": {
+    "available_services": [
+      "formação básica em polígrafo",
+      "curso básico em polígrafo",
+      "formação avançada em polígrafo",
+      "curso avançado em polígrafo"
+    ],
+    "services_requiring_manual_confirmation": []
+  },
+  "coverage": {
+    "main_locations": [],
+    "other_cities_by_coordination": false
+  },
+  "conversion": {
+    "preferred_cta": "Faça uma marcação com um instrutor.",
+    "lead_information_needed": [
+      "city",
+      "type of test",
+      "number of people to test",
+      "urgency",
+      "contact details"
+    ]
+  },
+  "pricing_rules": {
+    "show_exact_prices_only_if_configured": true,
+    "price_depends_on": [
+      "test type",
+      "city",
+      "number of tests",
+      "travel requirements"
+    ],
+    "required_disclaimer": "The final price must always be confirmed by the examiner."
+  },
+  "legal_caution": {
+    "avoid_local_law_claims": true,
+    "do_not_claim_automatic_legal_validity": true,
+    "requires_manual_review_for_legal_or_judicial_cases": true
+  },
+  "knowledge_sources": {
+    "global_approved_blocks": "data/approved_content_blocks.json",
+    "live_site_content_status": "pending_live_extraction_and_examiner_review"
+  }
+}

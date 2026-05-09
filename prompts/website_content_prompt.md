@@ -227,7 +227,7 @@ Provide the following fields clearly:
   (maximum ~60 characters, include main keyword naturally)
 
 - Slug:
-  (short, clean, keyword-based, use hyphens)
+  (maximum 4 words, short, clean, keyword-based, lowercase, use hyphens, no accents)
 
 - Meta Description:
   (maximum 156 characters, clear and compelling, include keyword naturally)

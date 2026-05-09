@@ -3,6 +3,12 @@ import re
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
+from seo_field_rules import normalize_seo_fields
+
+from workspace_paths import (
+    find_draft_any_workspace,
+    get_workspace_draft_registry_path,
+)
 
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
@@ -14,7 +20,11 @@ EXPORT_DIR = SOFIA_ROOT / "drafts" / "wordpress_ready"
 
 EXPORTABLE_STATUSES = [
     "content_generated",
-    "internal_links_added"
+    "content_revised",
+    "internal_links_added",
+    "ai_internal_links_added",
+    "approved",
+    "completed"
 ]
 
 
@@ -27,6 +37,17 @@ def save_json(path: Path, data):
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+
+def load_draft_registry_for_draft(draft_id):
+    workspace_id, draft = find_draft_any_workspace(draft_id)
+
+    if not workspace_id or not draft:
+        raise RuntimeError(f"Draft not found in any workspace registry: {draft_id}")
+
+    registry_path = get_workspace_draft_registry_path(workspace_id)
+    registry_data = load_json(registry_path)
+
+    return workspace_id, registry_path, registry_data, draft
 
 def now_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
@@ -72,8 +93,30 @@ def build_wordpress_package(draft, intake):
     seo = draft_input.get("seo", {})
     generated = draft.get("generated_content", {})
 
-    title = seo.get("page_title") or draft.get("working_title", "")
-    slug = seo.get("slug") or draft.get("suggested_slug") or slugify(title)
+    title = (
+        seo.get("page_title")
+        or draft.get("title")
+        or draft.get("working_title", "")
+    )
+
+    raw_slug = (
+        seo.get("slug")
+        or draft.get("slug")
+        or draft.get("suggested_slug")
+        or slugify(title)
+    )
+
+    seo_fields = normalize_seo_fields(
+        title=title,
+        focus_keyphrase=seo.get("focus_keyphrase") or draft.get("focus_keyphrase") or draft.get("target_keyword"),
+        slug=raw_slug,
+        meta_description=seo.get("meta_description") or draft.get("meta_description"),
+        seo_title=seo.get("seo_title") or draft.get("seo_title") or title,
+        fallback_topic=draft.get("target_keyword") or title,
+        language=draft.get("language", "")
+    )
+
+    slug = seo_fields["slug"]
 
     return {
         "exported_at": now_utc(),
@@ -92,9 +135,9 @@ def build_wordpress_package(draft, intake):
             "content_html": generated.get("content", "")
         },
         "yoast_seo": {
-            "focus_keyphrase": seo.get("focus_keyphrase", draft.get("target_keyword", "")),
-            "seo_title": seo.get("seo_title", title),
-            "meta_description": seo.get("meta_description", "")
+            "focus_keyphrase": seo_fields["focus_keyphrase"],
+            "seo_title": seo_fields["seo_title"],
+            "meta_description": seo_fields["meta_description"]
         },
         "image": {
             "alt_text": seo.get("image_alt_text", ""),
@@ -119,13 +162,14 @@ def main():
 
     EXPORT_DIR.mkdir(parents=True, exist_ok=True)
 
-    draft_data = load_json(DRAFT_REGISTRY_FILE)
+    try:
+        workspace_id, draft_registry_file, draft_registry_data, draft = load_draft_registry_for_draft(draft_id)
+    except Exception as e:
+        print(f"ERROR: {e}")
+        return
+
     intake_data = load_json(INTAKE_FILE)
-
-    drafts = draft_data.get("drafts", [])
     content_ideas = intake_data.get("content_ideas", [])
-
-    draft = find_draft_by_id(drafts, draft_id)
 
     if not draft:
         print(f"ERROR: Draft not found: {draft_id}")
@@ -161,13 +205,17 @@ def main():
         "status": "package_created"
     }
 
+    draft["wordpress_export_file"] = str(export_file)
     draft["wordpress_status"] = "package_created"
 
-    save_json(DRAFT_REGISTRY_FILE, draft_data)
+    draft_registry_data["scope"] = "workspace"
+    draft_registry_data["workspace_id"] = workspace_id
+    save_json(draft_registry_file, draft_registry_data)
 
     print("WordPress package created.")
     print(f"Draft ID: {draft_id}")
     print(f"Export file: {export_file}")
+    print(f"Workspace registry: {draft_registry_file}")
 
 
 if __name__ == "__main__":

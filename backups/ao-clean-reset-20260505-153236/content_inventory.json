@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "domain": "https://poligrafoangola.com",
+  "last_updated": "2026-05-05T13:19:14.752572+00:00",
+  "content_items": [
+    {
+      "content_id": "CONTENT-AO-0009",
+      "draft_id": "DRAFT-0009",
+      "intake_id": "INTAKE-0013",
+      "workspace_id": "local.ao",
+      "title": "fraude interna em empresas e teste de polígrafo",
+      "seo_title": "Teste de polígrafo para fraude interna em empresas",
+      "focus_keyphrase": "polígrafo fraude empresas interna",
+      "slug": "fraude-empresas-interna-teste",
+      "meta_description": "Serviço profissional de teste de polígrafo para situações de fraude interna em empresas, com avaliação confidencial, ética e conduzida por examinador",
+      "wordpress_id": 1140,
+      "wordpress_link": "https://poligrafoangola.com/?page_id=1140",
+      "canonical_url": "",
+      "post_type": "pages",
+      "wordpress_status": "draft",
+      "language": "pt-PT",
+      "country": "Angola",
+      "content_type": "landing_page",
+      "status": "completed_for_manual_publication",
+      "published_live": false,
+      "primary_topic": "fraude interna em empresas e teste de polígrafo",
+      "related_topics": [
+        "fraude empresas interna teste",
+        "fraude interna em empresas e teste de polígrafo",
+        "polígrafo fraude empresas interna"
+      ],
+      "cannibalization_terms": [
+        "polígrafo fraude empresas interna",
+        "fraude interna em empresas e teste de polígrafo",
+        "fraude empresas interna teste"
+      ],
+      "created_from": "sofia_content_workflow",
+      "completed_at": "2026-05-05T13:19:14.650406+00:00",
+      "updated_at": "2026-05-05T13:19:14.752568+00:00"
+    }
+  ]
+}

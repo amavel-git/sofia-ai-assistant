@@ -1,0 +1,83 @@
+{
+  "workspace_info": {
+    "workspace_id": "local.ao",
+    "brand": "local_sites",
+    "workspace_type": "local_market",
+    "language": "pt",
+    "market_code": "ao",
+    "domain": "https://poligrafoangola.com",
+    "base_path": "/"
+  },
+  "published_content": [
+    {
+      "draft_id": "DRAFT-0009",
+      "content_id": "CONTENT-AO-0009",
+      "title": "fraude interna em empresas e teste de polígrafo",
+      "target_keyword": "fraude interna em empresas e teste de polígrafo",
+      "focus_keyphrase": "polígrafo fraude empresas interna",
+      "slug": "fraude-empresas-interna-teste",
+      "url": "https://poligrafoangola.com/?page_id=1140",
+      "status": "completed_for_manual_publication",
+      "published_live": false,
+      "completed_at": "2026-05-05T13:19:14.650406+00:00"
+    }
+  ],
+  "draft_content": [
+    {
+      "draft_id": "DRAFT-0003",
+      "title": "Preço do Polígrafo em Angola",
+      "target_keyword": "preco do poligrafo em angola"
+    },
+    {
+      "draft_id": "DRAFT-0004",
+      "title": "post-conviction sex offender polygraph testing",
+      "target_keyword": "polígrafo para agressores sexuais"
+    },
+    {
+      "draft_id": "DRAFT-0005",
+      "title": "polígrafo funciona",
+      "target_keyword": "detector de mentiras funciona"
+    },
+    {
+      "draft_id": "DRAFT-0006",
+      "title": "corporate theft polygraph testing",
+      "target_keyword": "corporate theft polygraph testing"
+    },
+    {
+      "draft_id": "DRAFT-0007",
+      "title": "furto de empregado e o teste do polígrafo",
+      "target_keyword": "furto de empregado e o teste do polígrafo"
+    },
+    {
+      "draft_id": "DRAFT-0008",
+      "title": "furto interno de empregados e teste de polígrafo",
+      "target_keyword": "furto interno de empregados e teste de polígrafo"
+    },
+    {
+      "draft_id": "DRAFT-0010",
+      "title": "teste sobre avaliação poligráfica em disputas familiares",
+      "target_keyword": "teste sobre avaliação poligráfica em disputas familiares"
+    }
+  ],
+  "content_topics": [
+    "fraude empresas interna teste",
+    "fraude interna em empresas e teste de polígrafo",
+    "polígrafo fraude empresas interna"
+  ],
+  "keyword_index": [
+    "preco do poligrafo em angola",
+    "polígrafo para agressores sexuais",
+    "detector de mentiras funciona",
+    "corporate theft polygraph testing",
+    "furto de empregado e o teste do polígrafo",
+    "furto interno de empregados e teste de polígrafo",
+    "fraude interna em empresas e teste de polígrafo",
+    "polígrafo fraude empresas interna",
+    "fraude empresas interna teste",
+    "teste sobre avaliação poligráfica em disputas familiares"
+  ],
+  "protected_topics": [],
+  "cannibalization_notes": [],
+  "content_opportunities": [],
+  "last_updated": "2026-05-05T13:19:14.764089+00:00"
+}

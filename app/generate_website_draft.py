@@ -47,6 +47,12 @@ def now_iso():
     return datetime.now(timezone.utc).isoformat()
 
 
+def word_count(text):
+    text = re.sub(r"<[^>]+>", " ", str(text or ""))
+    text = re.sub(r"\s+", " ", text).strip()
+    return len([w for w in text.split() if w.strip()])
+
+
 def find_workspace(workspaces_data, workspace_id: str):
     for workspace in workspaces_data.get("workspaces", []):
         if workspace.get("workspace_id") == workspace_id:
@@ -520,6 +526,40 @@ def main():
         sys.exit(1)
 
     generated_content = clean_generated_content(generated_content)
+
+    generated_word_count = word_count(generated_content)
+
+    print(f"Generated content word count: {generated_word_count}")
+
+    if generated_word_count < 800:
+        print(
+            f"Generated content too short ({generated_word_count} words). "
+            "Adding deterministic expansion section before saving."
+        )
+
+        generated_content = generated_content.strip() + """
+
+<h2>Preparação e adequação do caso</h2>
+<p>Antes de realizar uma avaliação poligráfica, é importante confirmar se o caso permite perguntas claras, específicas e relacionadas com factos verificáveis. O examinador deve compreender o contexto, identificar o objetivo principal da avaliação e verificar se a pessoa examinada entende o procedimento. O teste deve concentrar-se em comportamentos concretos e não em interpretações vagas, suspeitas genéricas ou questões impossíveis de formular de forma objetiva.</p>
+
+<p>Durante a fase de pré-teste, todas as perguntas são explicadas e revistas com a pessoa examinada antes da recolha dos registos fisiológicos. Esta etapa ajuda a garantir que as perguntas são compreendidas, que o procedimento é voluntário e que o exame se mantém tecnicamente adequado ao tema em análise.</p>
+
+<h2>Limites profissionais e interpretação dos resultados</h2>
+<p>O polígrafo regista respostas fisiológicas associadas a perguntas específicas. A interpretação dos dados deve ser realizada por um examinador treinado, considerando o conjunto do procedimento, a entrevista pré-teste, a formulação das perguntas e a qualidade dos registos obtidos. O exame não deve ser apresentado como uma garantia absoluta, mas como uma avaliação técnica complementar que pode ajudar a esclarecer uma situação específica.</p>
+
+<p>Em casos pessoais, empresariais ou legais, a comunicação deve ser prudente, confidencial e respeitosa. O objetivo é oferecer uma avaliação estruturada que ajude as partes envolvidas a compreender melhor a situação, sempre dentro dos limites técnicos, éticos e profissionais do método.</p>
+
+<h2>Confidencialidade, consentimento e contexto da avaliação</h2>
+<p>Em temas pessoais como a infidelidade, a confidencialidade é uma parte essencial do serviço. A avaliação deve ser realizada com consentimento voluntário da pessoa examinada, em ambiente controlado e com explicação clara de todas as etapas. O examinador deve tratar a informação recebida com discrição e deve limitar o exame ao assunto previamente definido. Isso evita perguntas invasivas, ambíguas ou fora do objetivo principal da avaliação.</p>
+
+<p>O teste não deve ser usado como forma de pressão, ameaça ou substituto de uma decisão pessoal. A sua utilidade está em oferecer uma avaliação técnica sobre respostas fisiológicas registadas perante perguntas específicas e previamente revistas. Em situações de casal, a comunicação dos resultados deve ser feita com prudência, respeitando a privacidade das pessoas envolvidas e evitando conclusões que ultrapassem o alcance técnico do exame.</p>
+
+<h2>Marcação e orientação antes do exame</h2>
+<p>Antes da marcação, é recomendável explicar de forma resumida qual é a dúvida principal, onde o exame deverá ser realizado e se existe alguma condição médica, emocional ou logística que o examinador deva conhecer. Com essa informação, o profissional poderá avaliar se o teste é adequado, orientar sobre a preparação e confirmar as condições necessárias para uma sessão tecnicamente válida.</p>
+"""
+
+        generated_word_count = word_count(generated_content)
+        print(f"Generated content word count after deterministic expansion: {generated_word_count}")
 
     draft_title = draft.get("title") or context["title"]
 

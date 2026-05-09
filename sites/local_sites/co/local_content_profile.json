@@ -1,0 +1,90 @@
+{
+  "version": "0.1",
+  "workspace_id": "local.co",
+  "brand": "local_sites",
+  "workspace_type": "local_market",
+  "country": "Colombia",
+  "language": "Spanish",
+  "language_code": "es",
+  "domain": "https://poligrafocolombia.com",
+  "base_path": "/",
+  "source": "user_provided_workspace_profile_corrected",
+  "status": "seed_needs_examiner_review",
+  "localization_rules": {
+    "preferred_terms": [
+      "prueba de polígrafo",
+      "detector de mentiras",
+      "máquina de la verdad",
+      "examen poligráfico",
+      "examinador poligrafista",
+      "examen de polígrafo"
+    ],
+    "terms_to_avoid": [
+      "detector de mentiras, unless explaining popular terminology",
+      "prueba 100% fiable",
+      "validez legal garantizada"
+    ],
+    "tone": {
+      "style": "professional, clear, prudent",
+      "avoid": [
+        "absolute guarantees",
+        "sensational claims",
+        "automatic legal-validity claims",
+        "100% accuracy claims"
+      ]
+    }
+  },
+  "service_availability": {
+    "available_services": [
+      "infidelidad",
+      "robos internos",
+      "asuntos familiares",
+      "asuntos legales",
+      "defensa o aclaración de acusaciones",
+      "empresas",
+      "recursos humanos",
+      "prueba de pre-empleo",
+      "prueba de rutina"
+    ],
+    "services_requiring_manual_confirmation": [
+      "asuntos judiciales",
+      "menores",
+      "casos médicos/psicológicos"
+    ]
+  },
+  "coverage": {
+    "main_locations": [
+      "Medellín"
+    ],
+    "other_cities_by_coordination": true
+  },
+  "conversion": {
+    "preferred_cta": "Solicite una evaluación confidencial con el examinador.",
+    "lead_information_needed": [
+      "city",
+      "type of test",
+      "number of people to test",
+      "urgency",
+      "contact details"
+    ]
+  },
+  "pricing_rules": {
+    "show_exact_prices_only_if_configured": true,
+    "price_depends_on": [
+      "test type",
+      "city",
+      "number of tests",
+      "travel requirements"
+    ],
+    "required_disclaimer": "The final price must always be confirmed by the examiner."
+  },
+  "legal_caution": {
+    "avoid_local_law_claims": true,
+    "do_not_claim_automatic_legal_validity": true,
+    "requires_manual_review_for_legal_or_judicial_cases": true
+  },
+  "knowledge_sources": {
+    "global_approved_blocks": "data/approved_content_blocks.json",
+    "live_site_content_status": "pending_live_extraction_and_examiner_review"
+  }
+}
