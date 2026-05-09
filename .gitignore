@@ -35,3 +35,55 @@ data/live_site_extraction_manifest.json
 sites/*/job_registry.json
 sites/local_sites/*/job_registry.json
 sites/draft_registry.backup-before-workspace-migration-*.json
+
+# Local Python environment
+venv/
+__pycache__/
+*.pyc
+
+# Runtime logs/state
+logs/
+*.log
+
+# Runtime backups
+backups/
+data/backups/
+
+# Runtime/generated WordPress packages
+drafts/wordpress_ready/
+
+# Temporary source extraction/candidates
+data/source_sites/
+data/source_knowledge/
+data/live_site_extraction_manifest.json
+
+# Runtime draft/intake/job state
+sites/*/job_registry.json
+sites/local_sites/*/job_registry.json
+sites/draft_registry.backup-before-workspace-migration-*.json
+
+# Local Python environment
+venv/
+__pycache__/
+*.pyc
+
+# Runtime logs/state
+logs/
+*.log
+
+# Runtime backups
+backups/
+data/backups/
+
+# Runtime/generated WordPress packages
+drafts/wordpress_ready/
+
+# Temporary source extraction/candidates
+data/source_sites/
+data/source_knowledge/
+data/live_site_extraction_manifest.json
+
+# Runtime draft/intake/job state
+sites/*/job_registry.json
+sites/local_sites/*/job_registry.json
+sites/draft_registry.backup-before-workspace-migration-*.json
