@@ -1,0 +1,66 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.ao",
+  "domain": "https://poligrafoangola.com",
+  "last_updated": "2026-05-12T13:21:28+00:00",
+  "schema_notes": {
+    "purpose": "External market, competitor, terminology, and opportunity intelligence only. Not approved drafting content.",
+    "drafting_rule": "Do not use competitor or market intelligence as direct drafting source material unless separately approved into controlled knowledge blocks."
+  },
+  "competitors": [],
+  "market_topics": [
+    {
+      "topic_id": "employee_theft",
+      "topic": "Employee Theft Polygraph Testing",
+      "intent": "commercial_investigation",
+      "priority": "high",
+      "local_relevance": "high",
+      "related_keywords": [
+        "teste de polígrafo roubo",
+        "furto interno",
+        "polígrafo empresa"
+      ],
+      "competitor_coverage": {
+        "status": "unknown",
+        "competitors": []
+      },
+      "our_coverage": {
+        "status": "unknown",
+        "existing_pages": []
+      },
+      "market_saturation": "unknown",
+      "cannibalization_risk": "unknown",
+      "recommended_action": "create_service_page",
+      "notes": [],
+      "last_reviewed": null,
+      "added_at": "2026-05-12T13:16:34+00:00"
+    }
+  ],
+  "local_language_notes": {
+    "primary_language": "pt-PT",
+    "secondary_languages": [],
+    "formal_terms": [],
+    "common_terms": [],
+    "high_conversion_terms": [],
+    "terms_to_avoid": [],
+    "regional_variations": [],
+    "notes": []
+  },
+  "opportunity_rules": {
+    "preferred_content_types": [
+      "service_page",
+      "faq_page",
+      "city_page"
+    ],
+    "avoid_topics": [
+      "guaranteed_accuracy"
+    ],
+    "sensitive_topics": [
+      "criminal_investigations",
+      "legal_claims",
+      "government_screening"
+    ],
+    "requires_manual_review": true
+  },
+  "source_notes": []
+}
