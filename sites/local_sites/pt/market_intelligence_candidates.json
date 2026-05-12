@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.pt",
+  "domain": "https://poligrafoportugal.com",
+  "last_updated": null,
+  "purpose": "Reviewable candidate intelligence only. Nothing in this file is trusted until promoted into market_intelligence.json.",
+  "candidate_competitors": [],
+  "candidate_market_topics": [],
+  "candidate_language_notes": [],
+  "candidate_opportunity_rules": [],
+  "candidate_positioning_observations": [],
+  "review_log": []
+}

@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.pt",
+  "domain": "https://poligrafoportugal.com",
+  "last_updated": null,
+  "schema_notes": {
+    "purpose": "External market, competitor, terminology, and opportunity intelligence only. Not approved drafting content.",
+    "drafting_rule": "Do not use competitor or market intelligence as direct drafting source material unless separately approved into controlled knowledge blocks."
+  },
+  "competitors": [],
+  "market_topics": [],
+  "local_language_notes": {
+    "primary_language": "pt-PT",
+    "secondary_languages": [],
+    "formal_terms": [],
+    "common_terms": [],
+    "high_conversion_terms": [],
+    "terms_to_avoid": [],
+    "regional_variations": [],
+    "notes": []
+  },
+  "opportunity_rules": {
+    "preferred_content_types": [],
+    "avoid_topics": [],
+    "sensitive_topics": [],
+    "requires_manual_review": true
+  },
+  "source_notes": []
+}
