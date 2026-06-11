@@ -1,17 +1,12 @@
 import json
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
-
-WORKSPACE_ID = "local.ao"
-WORKSPACE_TYPE = "local_market"
-WORKSPACE_PATH = "sites/local_sites/ao"
-
-LOCAL_SITE_PATH = SOFIA_ROOT / WORKSPACE_PATH
-OPPORTUNITIES_FILE = LOCAL_SITE_PATH / "external_opportunities.json"
-INTAKE_FILE = SOFIA_ROOT / "sites" / "content_intake.json"
+SITES_ROOT = SOFIA_ROOT / "sites"
+INTAKE_FILE = SITES_ROOT / "content_intake.json"
 
 
 def load_json(path: Path) -> dict:
@@ -19,7 +14,12 @@ def load_json(path: Path) -> dict:
         raise FileNotFoundError(f"Missing file: {path}")
 
     with path.open("r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+
+    if isinstance(data, list):
+        return {"opportunities": data}
+
+    return data
 
 
 def save_json(path: Path, data: dict):
@@ -33,6 +33,137 @@ def today() -> str:
 
 def now_utc() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+
+
+def resolve_workspace(workspace_id: str) -> dict:
+    """
+    Workspace-aware resolver.
+
+    Expected local workspace format:
+      local.es -> sites/local_sites/es
+      local.ao -> sites/local_sites/ao
+      local.pt -> sites/local_sites/pt
+    """
+
+    if not workspace_id:
+        raise ValueError("Missing workspace_id")
+
+    if workspace_id.startswith("local."):
+        country_code = workspace_id.split(".", 1)[1]
+        workspace_path = Path("sites") / "local_sites" / country_code
+        local_site_path = SOFIA_ROOT / workspace_path
+
+        if not local_site_path.exists():
+            raise FileNotFoundError(f"Workspace path not found: {local_site_path}")
+
+        workspace_settings = load_workspace_settings(local_site_path)
+
+        domain = (
+            workspace_settings.get("domain")
+            or workspace_settings.get("site_target")
+            or workspace_settings.get("website")
+            or ""
+        )
+
+        language = (
+            workspace_settings.get("language")
+            or workspace_settings.get("default_language")
+            or infer_language_from_country(country_code)
+        )
+
+        review_queue_name = f"{country_code}_local_review_queue"
+
+        return {
+            "workspace_id": workspace_id,
+            "workspace_type": "local_market",
+            "workspace_path": str(workspace_path).replace("\\", "/"),
+            "local_site_path": local_site_path,
+            "opportunities_file": local_site_path / "external_opportunities.json",
+            "site_target": domain,
+            "language": language,
+            "review_queue": review_queue_name,
+            "country_code": country_code,
+        }
+
+    raise ValueError(f"Unsupported workspace_id format: {workspace_id}")
+
+
+def load_workspace_settings(local_site_path: Path) -> dict:
+    """
+    Best-effort loader. Sofia workspaces may not all use the same settings file yet.
+    This keeps the converter operational while the workspace schema is being stabilized.
+    """
+
+    candidate_files = [
+        "workspace_settings.json",
+        "site_settings.json",
+        "site_profile.json",
+        "local_content_profile.json",
+        "market_intelligence.json",
+    ]
+
+    merged = {}
+
+    for filename in candidate_files:
+        path = local_site_path / filename
+        if not path.exists():
+            continue
+
+        try:
+            data = load_json(path)
+        except Exception:
+            continue
+
+        if isinstance(data, dict):
+            merged.update(flatten_known_settings(data))
+
+    return merged
+
+
+def flatten_known_settings(data: dict) -> dict:
+    """
+    Extract common workspace values from different Sofia JSON structures.
+    """
+
+    output = {}
+
+    for key in [
+        "domain",
+        "site_target",
+        "website",
+        "language",
+        "default_language",
+        "workspace_id",
+    ]:
+        if data.get(key):
+            output[key] = data.get(key)
+
+    # market_intelligence.json often stores domain at the root.
+    if data.get("domain"):
+        output["domain"] = data["domain"]
+
+    # Some profile files may store nested site data.
+    site = data.get("site") or data.get("website_profile") or {}
+    if isinstance(site, dict):
+        for key in ["domain", "site_target", "website", "language", "default_language"]:
+            if site.get(key):
+                output[key] = site.get(key)
+
+    return output
+
+
+def infer_language_from_country(country_code: str) -> str:
+    defaults = {
+        "ao": "pt",
+        "pt": "pt",
+        "br": "pt-BR",
+        "es": "es",
+        "fr": "fr",
+        "be": "fr",
+        "tr": "tr",
+        "in": "en",
+    }
+    return defaults.get(country_code, "en")
 
 
 def get_next_intake_id(content_ideas: list) -> str:
@@ -50,6 +181,16 @@ def get_next_intake_id(content_ideas: list) -> str:
     return f"INTAKE-{max_num + 1:04d}"
 
 
+def get_opportunity_id(opportunity: dict) -> str:
+    return (
+        opportunity.get("opportunity_id")
+        or opportunity.get("id")
+        or opportunity.get("candidate_id")
+        or opportunity.get("source_candidate_id")
+        or ""
+    )
+
+
 def already_converted(content_ideas: list, opportunity_id: str) -> bool:
     for item in content_ideas:
         if item.get("source_opportunity_id") == opportunity_id:
@@ -57,29 +198,54 @@ def already_converted(content_ideas: list, opportunity_id: str) -> bool:
     return False
 
 
-def build_intake_from_opportunity(opportunity: dict, intake_id: str) -> dict:
+def build_intake_from_opportunity(opportunity: dict, intake_id: str, workspace: dict) -> dict:
     related_keywords = opportunity.get("related_keywords", [])
-    target_keyword = related_keywords[0] if related_keywords else opportunity.get("topic", "")
+
+    visible_topic = (
+        opportunity.get("workspace_language_topic")
+        or opportunity.get("raw_signal")
+        or opportunity.get("localized_topic")
+        or opportunity.get("topic")
+        or opportunity.get("title")
+        or ""
+    )
+
+    target_keyword = (
+        opportunity.get("target_keyword")
+        or opportunity.get("primary_keyword")
+        or visible_topic
+    )
+
+    opportunity_id = get_opportunity_id(opportunity)
 
     return {
         "intake_id": intake_id,
         "created_at": today(),
         "created_by": "sofia_external_intelligence",
-        "workspace_type": WORKSPACE_TYPE,
-        "workspace_id": WORKSPACE_ID,
-        "workspace_path": WORKSPACE_PATH,
-        "language": opportunity.get("language", "pt"),
-        "site_target": "https://poligrafoangola.com",
-        "content_type": opportunity.get("recommended_content_type", "service_page"),
-        "idea_title": opportunity.get("topic", ""),
-        "idea_summary": opportunity.get("business_reason", ""),
+        "workspace_type": workspace["workspace_type"],
+        "workspace_id": workspace["workspace_id"],
+        "workspace_path": workspace["workspace_path"],
+        "language": opportunity.get("language", workspace["language"]),
+        "site_target": workspace["site_target"],
+        "content_type": (
+            opportunity.get("recommended_content_type")
+            or opportunity.get("content_type")
+            or "service_page"
+        ),
+        "idea_title": visible_topic,
+        "idea_summary": (
+            opportunity.get("business_reason")
+            or opportunity.get("rationale")
+            or opportunity.get("notes")
+            or ""
+        ),
         "target_keyword": target_keyword,
-        "secondary_keywords": related_keywords[1:],
-        "search_intent": opportunity.get("intent_type", "informational_transactional"),
-        "suggested_slug": "",
+        "secondary_keywords": related_keywords[1:] if isinstance(related_keywords, list) else [],
+        "search_intent": opportunity.get("intent_type") or opportunity.get("intent") or "informational_transactional",
+        "suggested_slug": opportunity.get("suggested_slug", ""),
         "source": "external_intelligence",
         "source_platform": opportunity.get("source", ""),
-        "source_opportunity_id": opportunity.get("id", ""),
+        "source_opportunity_id": opportunity_id,
         "priority": opportunity.get("priority", "normal"),
         "status": "new",
         "cannibalization_check": {
@@ -93,12 +259,11 @@ def build_intake_from_opportunity(opportunity: dict, intake_id: str) -> dict:
             "converted_at": ""
         },
         "review_routing": {
-            "target_queue": "ao_local_review_queue",
+            "target_queue": workspace["review_queue"],
             "routed": False,
             "routed_at": ""
         },
         "notes": "Created automatically from approved Sofia external opportunity.",
-
         "seo_brief": opportunity.get("seo_brief", {}),
         "content_strategy_brief": opportunity.get("content_strategy_brief", {}),
         "draft_input": opportunity.get("draft_input", {})
@@ -108,7 +273,19 @@ def build_intake_from_opportunity(opportunity: dict, intake_id: str) -> dict:
 def main():
     print("=== Sofia: Convert Approved Opportunities to Intake ===\n")
 
-    opportunities_data = load_json(OPPORTUNITIES_FILE)
+    if len(sys.argv) < 2:
+        raise SystemExit("Usage: python app/convert_opportunity_to_intake.py <workspace_id>")
+
+    workspace_id = sys.argv[1]
+    workspace = resolve_workspace(workspace_id)
+
+    print(f"Workspace: {workspace['workspace_id']}")
+    print(f"Workspace path: {workspace['workspace_path']}")
+    print(f"Opportunities file: {workspace['opportunities_file']}")
+    print(f"Site target: {workspace['site_target'] or '(missing)'}")
+    print(f"Language: {workspace['language']}\n")
+
+    opportunities_data = load_json(workspace["opportunities_file"])
     intake_data = load_json(INTAKE_FILE)
 
     opportunities = opportunities_data.get("opportunities", [])
@@ -127,14 +304,18 @@ def main():
     created_count = 0
 
     for opp in approved:
-        opportunity_id = opp.get("id", "")
+        opportunity_id = get_opportunity_id(opp)
+
+        if not opportunity_id:
+            print("Skipped opportunity with missing opportunity_id/id/candidate_id.")
+            continue
 
         if already_converted(content_ideas, opportunity_id):
             print(f"Skipped {opportunity_id}: already exists in content_intake.json")
             continue
 
         intake_id = get_next_intake_id(content_ideas)
-        intake_entry = build_intake_from_opportunity(opp, intake_id)
+        intake_entry = build_intake_from_opportunity(opp, intake_id, workspace)
 
         content_ideas.append(intake_entry)
 
@@ -147,12 +328,13 @@ def main():
         created_count += 1
 
     intake_data["content_ideas"] = content_ideas
+    opportunities_data["workspace_id"] = workspace["workspace_id"]
     opportunities_data["opportunities"] = opportunities
 
     save_json(INTAKE_FILE, intake_data)
-    save_json(OPPORTUNITIES_FILE, opportunities_data)
+    save_json(workspace["opportunities_file"], opportunities_data)
 
-    print(f"\nConversion completed.")
+    print("\nConversion completed.")
     print(f"New intake entries created: {created_count}")
 
 
