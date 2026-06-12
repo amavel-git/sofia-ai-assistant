@@ -25,13 +25,23 @@ def save_json(path: Path, data):
 
 
 def load_draft_registry_for_draft(draft_id):
-    workspace_id, draft = find_draft_any_workspace(draft_id)
+    workspace_id, _ = find_draft_any_workspace(draft_id)
 
-    if not workspace_id or not draft:
+    if not workspace_id:
         raise RuntimeError(f"Draft not found in any workspace registry: {draft_id}")
 
     registry_path = get_workspace_draft_registry_path(workspace_id)
     registry_data = load_json(registry_path)
+
+    draft = None
+
+    for item in registry_data.get("drafts", []):
+        if item.get("draft_id") == draft_id:
+            draft = item
+            break
+
+    if not draft:
+        raise RuntimeError(f"Draft not found in workspace registry: {draft_id}")
 
     return workspace_id, registry_path, registry_data, draft
 
@@ -76,18 +86,40 @@ def find_relevant_links(suggestions):
 def insert_link_once(content: str, keyword: str, url: str):
     """
     Replace first occurrence of keyword with anchor link.
-    Returns:
-    - updated content
-    - boolean (whether insertion happened)
+    Avoid inserting links inside existing anchor tags.
     """
     pattern = re.compile(rf"\b({re.escape(keyword)})\b", re.IGNORECASE)
 
-    def replacer(match):
-        return f'<a href="{url}">{match.group(1)}</a>'
+    parts = re.split(r"(<a\b[^>]*>.*?</a>)", content, flags=re.IGNORECASE | re.DOTALL)
 
-    new_content, count = pattern.subn(replacer, content, count=1)
+    for index, part in enumerate(parts):
+        if part.lower().startswith("<a "):
+            continue
 
-    return new_content, count > 0
+        new_part, count = pattern.subn(
+            f'<a href="{url}">\\1</a>',
+            part,
+            count=1,
+        )
+
+        if count > 0:
+            parts[index] = new_part
+            return "".join(parts), True
+
+    return content, False
+
+
+def remove_existing_internal_links(content: str):
+    """
+    Remove previously injected internal links while keeping their visible text.
+    This prevents duplicate and nested anchors when the script is re-run.
+    """
+    return re.sub(
+        r'<a\s+href="https?://[^"]+">(.*?)</a>',
+        r"\1",
+        content,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
 
 
 def inject_links_into_html(content: str, links):
@@ -109,76 +141,190 @@ def inject_links_into_html(content: str, links):
         content, inserted = insert_link_once(content, keyword, url)
 
         if not inserted:
-            content = inject_fallback_link(content, keyword, url)
+            content = inject_fallback_link(content, keyword, url, language)
 
     return content
 
 
 def derive_keyword_from_url(url: str):
     slug = url.strip("/").split("/")[-1]
-
-    slug = slug.replace("-", " ")
-    slug = slug.replace("_", " ")
+    keyword = slug.replace("-", " ").replace("_", " ").lower()
 
     replacements = {
+        "perguntas": "secção de perguntas frequentes",
+        "respostas": "secção de perguntas frequentes",
+        "faq": "secção de perguntas frequentes",
+        "contacto": "entre em contacto connosco",
+        "contato": language_aware_contact_anchor(language),
+        "contact": "contact us",
+        "sobre": "sobre a nossa equipa",
+        "about": "about our team",
         "poligrafo": "teste de polígrafo",
         "polygraph": "polygraph test",
-        "infidelidade": "teste de polígrafo para infidelidade",
-        "furto": "teste de polígrafo para furto",
-        "roubo": "teste de polígrafo para roubo",
+        "infidelidade": "testes de polígrafo para infidelidade",
+        "furto": "testes de polígrafo para roubo ou furto",
+        "roubo": "testes de polígrafo para roubo ou furto",
         "empresas": "testes de polígrafo para empresas",
-        "pre emprego": "teste de polígrafo pré-emprego",
-        "sexual": "teste de polígrafo para assédio sexual",
-        "legal": "teste de polígrafo para questões legais",
+        "pre emprego": "testes de polígrafo pré-emprego",
+        "sexual": "testes de polígrafo para assédio sexual",
+        "legal": "testes de polígrafo para questões legais",
     }
-
-    keyword = slug.lower()
 
     for source, replacement in replacements.items():
         if source in keyword:
             return replacement
 
-    return slug
-    slug = url.strip("/").split("/")[-1]
-    slug = slug.replace("-", " ")
-    return slug
+    return keyword
 
 
-def inject_fallback_link(content: str, keyword: str, url: str):
-    paragraphs = re.split(r"(</p>)", content)
+def inject_fallback_link(content: str, keyword: str, url: str, language: str = "pt"):
+    url_lower = url.lower()
+    language = (language or "pt").lower()
 
-    inserted = False
+    if language.startswith("es"):
 
-    for i in range(0, len(paragraphs), 2):
-        paragraph = paragraphs[i]
+        if "faq" in url_lower or "preguntas" in url_lower:
+            sentence = (
+                f' También puede consultar nuestra '
+                f'<a href="{url}">sección de preguntas frecuentes</a> '
+                f'para resolver dudas generales sobre el proceso.'
+            )
 
-        if "<p>" not in paragraph:
-            continue
+        elif "contacto" in url_lower or "contact" in url_lower:
+            sentence = (
+                f' Si desea comentar un caso concreto, '
+                f'<a href="{url}">puede contactar con nosotros</a> '
+                f'para recibir orientación inicial.'
+            )
 
-        # Avoid injecting into FAQ answers repeatedly.
-        if "faq" in paragraph.lower():
-            continue
+        else:
+            sentence = (
+                f' Para información relacionada, consulte también '
+                f'<a href="{url}">{keyword}</a>.'
+            )
 
-        # Avoid injecting into already linked paragraphs.
-        if "<a " in paragraph.lower():
-            continue
+    elif language.startswith("fr"):
 
-        paragraphs[i] = paragraph.replace(
-            "</p>",
-            f' Para mais informações, consulte também <a href="{url}">{keyword}</a>.</p>',
-            1
-        )
+        if "faq" in url_lower:
+            sentence = (
+                f' Vous pouvez également consulter notre '
+                f'<a href="{url}">foire aux questions</a> '
+                f'pour obtenir des informations générales sur le processus.'
+            )
 
-        inserted = True
-        break
+        elif "contact" in url_lower:
+            sentence = (
+                f' Si vous souhaitez discuter d’un cas particulier, '
+                f'<a href="{url}">vous pouvez nous contacter</a> '
+                f'pour recevoir une première orientation.'
+            )
 
-    if not inserted:
-        content += f'\n<p>Para mais informações, consulte também <a href="{url}">{keyword}</a>.</p>'
+        else:
+            sentence = (
+                f' Pour des informations complémentaires, consultez également '
+                f'<a href="{url}">{keyword}</a>.'
+            )
 
-        return content
+    elif language.startswith("en"):
 
-    return "".join(paragraphs)
+        if "faq" in url_lower:
+            sentence = (
+                f' You may also consult our '
+                f'<a href="{url}">frequently asked questions</a> '
+                f'for general information about the process.'
+            )
 
+        elif "contact" in url_lower:
+            sentence = (
+                f' If you would like to discuss a specific case, '
+                f'<a href="{url}">you can contact us</a> '
+                f'for initial guidance.'
+            )
+
+        else:
+            sentence = (
+                f' For related information, see also '
+                f'<a href="{url}">{keyword}</a>.'
+            )
+
+    else:
+
+        if "perguntas" in url_lower or "respostas" in url_lower or "faq" in url_lower:
+            sentence = (
+                f' Também pode consultar a nossa '
+                f'<a href="{url}">secção de perguntas frequentes</a> '
+                f'para esclarecer dúvidas gerais sobre o processo.'
+            )
+
+        elif "contacto" in url_lower or "contato" in url_lower or "contact" in url_lower:
+            sentence = (
+                f' Se deseja discutir um caso específico, '
+                f'<a href="{url}">entre em contacto connosco</a> '
+                f'para receber orientação inicial.'
+            )
+
+        else:
+            sentence = (
+                f' Para informações relacionadas, consulte também '
+                f'<a href="{url}">{keyword}</a>.'
+            )
+
+    matches = list(re.finditer(r"</p>", content, flags=re.IGNORECASE))
+
+    if matches:
+        insert_index = min(len(matches) - 1, 2)
+        position = matches[insert_index].start()
+        return content[:position] + sentence + content[position:]
+
+    return content + f"\n<p>{sentence.strip()}</p>"
+
+
+
+def language_aware_contact_anchor(language: str) -> str:
+    language = (language or "").lower()
+
+    if language.startswith("es"):
+        return "contactar con nosotros"
+    if language.startswith("fr"):
+        return "nous contacter"
+    if language.startswith("en"):
+        return "contact us"
+    if language.startswith("pt"):
+        return "entre em contacto connosco"
+
+    return "contact us"
+
+
+def language_aware_faq_anchor(language: str) -> str:
+    language = (language or "").lower()
+
+    if language.startswith("es"):
+        return "preguntas frecuentes sobre el polígrafo"
+    if language.startswith("fr"):
+        return "questions fréquentes sur le polygraphe"
+    if language.startswith("en"):
+        return "polygraph frequently asked questions"
+    if language.startswith("pt"):
+        return "perguntas frequentes sobre o polígrafo"
+
+    return "frequently asked questions"
+
+
+def is_forbidden_workspace_link(url: str, workspace_id: str) -> bool:
+    url = (url or "").lower()
+    workspace_id = (workspace_id or "").lower()
+
+    if workspace_id == "local.es":
+        forbidden = [
+            "/poligrafo-ao/",
+            "/perguntas-respostas/",
+            "/contato/",
+            "poligrafoangola.com",
+            "poligrafoportugal.com"
+        ]
+        return any(item in url for item in forbidden)
+
+    return False
 
 def main():
     print("=== Sofia: Inject Internal Links ===\n")
@@ -205,6 +351,7 @@ def main():
         "internal_links_added",
         "ai_internal_links_added",
         "approved",
+        "wordpress_review",
     ]
 
     if draft.get("draft_status") not in allowed_statuses:
@@ -214,6 +361,7 @@ def main():
 
     content_block = draft.get("generated_content", {})
     content = content_block.get("content", "")
+    content = remove_existing_internal_links(content)
 
     if not content:
         print("No content to process.")

@@ -1,0 +1,1220 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.es",
+  "domain": "https://poligrafoespana.com",
+  "last_updated": "2026-06-12T08:55:33.638232+00:00",
+  "schema_notes": {
+    "purpose": "External market, competitor, terminology, and opportunity intelligence only. Not approved drafting content.",
+    "drafting_rule": "Do not use competitor or market intelligence as direct drafting source material unless separately approved into controlled knowledge blocks."
+  },
+  "competitors": [
+    {
+      "name": "Poligrafo.es",
+      "domain": "https://poligrafo.es/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "direct_polygraph_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    },
+    {
+      "name": "Poligrafía Profesional",
+      "domain": "https://poligrafiaprofesional.com/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "direct_polygraph_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    },
+    {
+      "name": "Poligrafo.info",
+      "domain": "https://poligrafo.info/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "direct_polygraph_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    },
+    {
+      "name": "Poligrafo.com",
+      "domain": "https://poligrafo.com/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "direct_polygraph_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    },
+    {
+      "name": "Cuzco Detectives",
+      "domain": "https://cuzcodetectives.com/poligrafo-detectives-privados/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "detective_agency",
+      "source": "manual_seed",
+      "priority": "medium"
+    },
+    {
+      "name": "Interpolys",
+      "domain": "https://interpolys.com/es",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "international_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    },
+    {
+      "name": "B.E.A.R. FORENSICS Spain",
+      "domain": "https://es.bearforensics.com/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "internal_benchmark",
+      "source": "manual_seed",
+      "priority": "internal"
+    },
+    {
+      "name": "Poligrafo.eu",
+      "domain": "https://poligrafo.eu/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "international_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    },
+    {
+      "name": "Ochoa Detectives",
+      "domain": "https://www.ochoadetectives.com/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "detective_agency",
+      "source": "manual_seed",
+      "priority": "medium"
+    },
+    {
+      "name": "Polygraph Test España",
+      "domain": "https://polygraphtest.es/",
+      "country": "Spain",
+      "language": "es",
+      "status": "active",
+      "competitor_type": "direct_polygraph_provider",
+      "source": "manual_seed",
+      "priority": "high"
+    }
+  ],
+  "market_topics": [
+    {
+      "topic": "methodology",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 59,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 4
+        },
+        {
+          "name": "Poligrafo.eu",
+          "domain": "https://poligrafo.eu/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 52
+        }
+      ],
+      "recommended_action": "high_priority_gap"
+    },
+    {
+      "topic": "city_madrid",
+      "our_coverage_pages": 4,
+      "competitor_coverage_count": 9,
+      "competitor_total_pages": 48,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 8
+        },
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 15
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.eu",
+          "domain": "https://poligrafo.eu/",
+          "pages": 19
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "appointment_booking",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 8,
+      "competitor_total_pages": 62,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 1
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.eu",
+          "domain": "https://poligrafo.eu/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 53
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "training",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 7,
+      "competitor_total_pages": 93,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 5
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 80
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 4
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "handled_by_other_workspace"
+    },
+    {
+      "topic": "internal_theft",
+      "our_coverage_pages": 8,
+      "competitor_coverage_count": 7,
+      "competitor_total_pages": 21,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 11
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 2
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "legal_defense",
+      "our_coverage_pages": 14,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 17,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 9
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.eu",
+          "domain": "https://poligrafo.eu/",
+          "pages": 2
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "city_barcelona",
+      "our_coverage_pages": 2,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 13,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 8
+        },
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "human_resources",
+      "our_coverage_pages": 4,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 11,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 4
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 3
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.eu",
+          "domain": "https://poligrafo.eu/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "infidelity",
+      "our_coverage_pages": 9,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 10,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 3
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "city_valencia",
+      "our_coverage_pages": 1,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 8,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 3
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "city_cordoba",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_granada",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_sevilla",
+      "our_coverage_pages": 1,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "city_toledo",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_zaragoza",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 6,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_alicante",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 2
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_cadiz",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_las_palmas",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_malaga",
+      "our_coverage_pages": 1,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "city_tenerife",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "city_valladolid",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 5,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "Interpolys",
+          "domain": "https://interpolys.com/es",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        },
+        {
+          "name": "Polygraph Test España",
+          "domain": "https://polygraphtest.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "science_reliability",
+      "our_coverage_pages": 8,
+      "competitor_coverage_count": 3,
+      "competitor_total_pages": 10,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.com",
+          "domain": "https://poligrafo.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 8
+        },
+        {
+          "name": "Poligrafo.info",
+          "domain": "https://poligrafo.info/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "security_services",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 3,
+      "competitor_total_pages": 6,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 2
+        },
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 3
+        }
+      ],
+      "recommended_action": "manual_review_required"
+    },
+    {
+      "topic": "history",
+      "our_coverage_pages": 2,
+      "competitor_coverage_count": 3,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 2
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "media",
+      "our_coverage_pages": 10,
+      "competitor_coverage_count": 3,
+      "competitor_total_pages": 5,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafía Profesional",
+          "domain": "https://poligrafiaprofesional.com/",
+          "pages": 3
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered_monitor"
+    },
+    {
+      "topic": "question_formulation",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 2,
+      "competitor_total_pages": 3,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "technology",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 2,
+      "competitor_total_pages": 2,
+      "competitors_covering": [
+        {
+          "name": "Ochoa Detectives",
+          "domain": "https://www.ochoadetectives.com/",
+          "pages": 1
+        },
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "consider_content"
+    },
+    {
+      "topic": "procedure",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 3,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 3
+        }
+      ],
+      "recommended_action": "monitor"
+    },
+    {
+      "topic": "anxiety_medication",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 2,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        }
+      ],
+      "recommended_action": "low_priority_monitor"
+    },
+    {
+      "topic": "countermeasures",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 2,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        }
+      ],
+      "recommended_action": "low_priority_monitor"
+    },
+    {
+      "topic": "false_positives",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 2,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 2
+        }
+      ],
+      "recommended_action": "low_priority_monitor"
+    },
+    {
+      "topic": "inconclusive_results",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 1,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "low_priority_monitor"
+    },
+    {
+      "topic": "pre_test_evaluation",
+      "our_coverage_pages": 0,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 1,
+      "competitors_covering": [
+        {
+          "name": "Poligrafo.es",
+          "domain": "https://poligrafo.es/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "low_priority_monitor"
+    },
+    {
+      "topic": "sexual_offense",
+      "our_coverage_pages": 1,
+      "competitor_coverage_count": 1,
+      "competitor_total_pages": 1,
+      "competitors_covering": [
+        {
+          "name": "B.E.A.R. FORENSICS Spain",
+          "domain": "https://es.bearforensics.com/",
+          "pages": 1
+        }
+      ],
+      "recommended_action": "already_covered"
+    },
+    {
+      "topic": "city_bilbao",
+      "our_coverage_pages": 1,
+      "competitor_coverage_count": 0,
+      "competitor_total_pages": 0,
+      "competitors_covering": [],
+      "recommended_action": "already_covered"
+    }
+  ],
+  "local_language_notes": {
+    "primary_language": "es-ES",
+    "secondary_languages": [],
+    "formal_terms": [],
+    "common_terms": [],
+    "high_conversion_terms": [],
+    "terms_to_avoid": [],
+    "regional_variations": [],
+    "notes": []
+  },
+  "opportunity_rules": {
+    "preferred_content_types": [
+      "service_page",
+      "faq_page",
+      "city_page"
+    ],
+    "avoid_topics": [
+      "guaranteed_accuracy"
+    ],
+    "sensitive_topics": [
+      "criminal_investigations",
+      "legal_claims",
+      "government_screening",
+      "security_services"
+    ],
+    "requires_manual_review": true,
+    "out_of_scope_topics": [
+      "training"
+    ],
+    "handled_by_other_workspace": {
+      "training": {
+        "workspace_id": "institute.bearforensics.com",
+        "reason": "Polygraph training is handled by the training/institute website, not Polígrafo España."
+      }
+    }
+  },
+  "source_notes": [],
+  "market_topic_summary": {
+    "high_priority_gap": 1,
+    "already_covered_monitor": 12,
+    "consider_content": 12,
+    "handled_by_other_workspace": 1,
+    "manual_review_required": 1,
+    "monitor": 1,
+    "low_priority_monitor": 5,
+    "already_covered": 2
+  }
+}

@@ -130,6 +130,63 @@ def update_workspace_memory(memory_data, new_draft):
     return memory_data
 
 
+
+def is_blocking_cannibalization(cannibalization: dict) -> bool:
+    """
+    Cannibalization should be advisory by default.
+
+    Block only when the overlap is with a real content page, service page,
+    landing page, post, or draft. Generic tag/category/archive matches should
+    not block draft creation by themselves.
+    """
+    result = cannibalization.get("result")
+
+    if result not in ["strong_overlap", "possible_overlap"]:
+        return False
+
+    matches = cannibalization.get("matches", [])
+
+    if not matches:
+        return False
+
+    for match in matches:
+        metadata = match.get("metadata", {}) or {}
+        section = str(metadata.get("section", "")).lower()
+        page_type = str(metadata.get("page_type", "")).lower()
+        source_type = str(match.get("source_type", "")).lower()
+        url = str(match.get("url", "")).lower()
+
+        # Generic archive pages should warn, not block.
+        if section in ["tag", "category", "archive", "author"]:
+            continue
+
+        if "/tag/" in url or "/category/" in url:
+            continue
+
+        # Real drafts can block.
+        if source_type in ["draft", "existing_draft"]:
+            return True
+
+        # Real content pages can block.
+        if page_type in [
+            "service_page",
+            "landing_page",
+            "post",
+            "page",
+            "pillar_page",
+            "content_page"
+        ]:
+            return True
+
+        if source_type in [
+            "content_memory",
+            "existing_site_page",
+            "content_inventory"
+        ] and page_type not in ["tag", "category", "archive"]:
+            return True
+
+    return False
+
 def main():
     print("=== Sofia Phase 1: Process Next Intake ===\n")
 
@@ -213,12 +270,35 @@ def main():
         extra_terms=[idea_title]
     )
 
-    overlap_found = cannibalization.get("result") in [
+    existing_cannibalization = intake_item.get("cannibalization_check", {})
+    examiner_override = existing_cannibalization.get("examiner_override") is True
+
+    raw_overlap_found = cannibalization.get("result") in [
         "strong_overlap",
         "possible_overlap"
     ]
+    overlap_found = is_blocking_cannibalization(cannibalization)
+    advisory_only = raw_overlap_found and not overlap_found
 
-    if overlap_found:
+    if advisory_only:
+        intake_item["status"] = "checked"
+        intake_item["cannibalization_check"] = {
+            "checked": True,
+            "result": "advisory_overlap",
+            "notes": cannibalization.get("notes", ""),
+            "risk_score": cannibalization.get("risk_score", 0),
+            "matches": cannibalization.get("matches", []),
+            "checked_sources": cannibalization.get("checked_sources", {}),
+            "advisory_only": True
+        }
+
+        print("Cannibalization Check Result:")
+        print(f"  Result: {cannibalization.get('result', 'possible_overlap')}")
+        print("  Advisory only: true")
+        print(f"  Notes: {cannibalization.get('notes', '')}")
+        print("\nContinuing draft creation because no real blocking page/draft was found.\n")
+
+    elif overlap_found and not examiner_override:
         intake_item["status"] = "checked"
         intake_item["cannibalization_check"] = {
             "checked": True,
@@ -236,20 +316,49 @@ def main():
             return
 
         print("Cannibalization Check Result:")
-        print("  Result: possible_overlap")
-        print("  Notes: Target keyword already exists in workspace memory.")
+        print(f"  Result: {cannibalization.get('result', 'possible_overlap')}")
+        print(f"  Notes: {cannibalization.get('notes', '')}")
         print("\nDraft creation stopped.")
         return
 
-    intake_item["status"] = "checked"
-    intake_item["cannibalization_check"] = {
-        "checked": True,
-        "result": cannibalization.get("result", "clear"),
-        "notes": cannibalization.get("notes", ""),
-        "risk_score": cannibalization.get("risk_score", 0),
-        "matches": cannibalization.get("matches", []),
-        "checked_sources": cannibalization.get("checked_sources", {})
-    }
+    if overlap_found and examiner_override:
+        override_reason = existing_cannibalization.get(
+            "override_reason",
+            "Examiner approved continuing despite possible overlap."
+        )
+
+        intake_item["status"] = "checked"
+        intake_item["cannibalization_check"] = {
+            "checked": True,
+            "result": "approved_override",
+            "notes": existing_cannibalization.get(
+                "notes",
+                "Examiner approved continuing despite possible overlap."
+            ),
+            "examiner_override": True,
+            "override_reason": override_reason,
+            "original_result": cannibalization.get("result", "possible_overlap"),
+            "risk_score": cannibalization.get("risk_score", 0),
+            "matches": cannibalization.get("matches", []),
+            "checked_sources": cannibalization.get("checked_sources", {})
+        }
+
+        print("Cannibalization Check Result:")
+        print(f"  Result: {cannibalization.get('result', 'possible_overlap')}")
+        print("  Examiner override: true")
+        print(f"  Override reason: {override_reason}")
+        print("\nContinuing draft creation due to examiner override.\n")
+
+    else:
+        intake_item["status"] = "checked"
+        intake_item["cannibalization_check"] = {
+            "checked": True,
+            "result": cannibalization.get("result", "clear"),
+            "notes": cannibalization.get("notes", ""),
+            "risk_score": cannibalization.get("risk_score", 0),
+            "matches": cannibalization.get("matches", []),
+            "checked_sources": cannibalization.get("checked_sources", {})
+        }
 
     duplicate_draft = duplicate_draft_exists(drafts, workspace_id, target_keyword)
 
@@ -285,6 +394,9 @@ def main():
         "workspace_type": workspace_type,
         "workspace_id": workspace_id,
         "workspace_path": workspace_path,
+        "seo_brief": intake_item.get("seo_brief", {}),
+        "content_strategy_brief": intake_item.get("content_strategy_brief", {}),
+        "draft_input": intake_item.get("draft_input", {}),
         "language": intake_item.get("language", ""),
         "site_target": intake_item.get("site_target", ""),
         "content_type": intake_item.get("content_type", ""),

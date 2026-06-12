@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from datetime import datetime
+import sys
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -344,7 +345,11 @@ def merge_suggestions(*suggestion_lists):
 def main():
     print("=== Sofia: Generate Internal Link Suggestions Global ===\n")
 
-    workspace_id = "local.ao"
+    if len(sys.argv) < 2:
+        print("Usage: python app/generate_internal_links.py <workspace_id>")
+        return
+
+    workspace_id = sys.argv[1]
 
     for required_file in [WORKSPACES_FILE, INTERNAL_LINK_RULES_FILE]:
         if not required_file.exists():
@@ -378,6 +383,13 @@ def main():
     try:
         site_structure = load_json(site_structure_file)
         content_opportunities = load_json(content_opportunities_file)
+
+        if isinstance(content_opportunities, list):
+            content_opportunities = {
+                "covered_topics": [],
+                "content_gaps": content_opportunities,
+                "opportunities": content_opportunities
+            }
     except Exception as e:
         print(f"ERROR: Could not read input files: {e}")
         return
