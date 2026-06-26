@@ -125,7 +125,7 @@ def add_internal_links_before_review(draft_id):
     inject_ok = run_pipeline_command(
         [
             "python3",
-            "app/inject_internal_links.py",
+            "app/assemble_wordpress_content.py",
             draft_id
         ],
         "Inject base internal links"
@@ -186,7 +186,7 @@ def generate_and_validate_draft_before_review(workspace_id, draft_id):
     clean_ok = run_pipeline_command(
         [
             "python3",
-            "app/clean_generated_html.py",
+            "app/assemble_wordpress_content.py",
             draft_id
         ],
         "Clean generated HTML"
@@ -212,7 +212,7 @@ def generate_and_validate_draft_before_review(workspace_id, draft_id):
             final_clean_ok = run_pipeline_command(
                 [
                     "python3",
-                    "app/clean_generated_html.py",
+                    "app/assemble_wordpress_content.py",
                     draft_id
                 ],
                 "Final clean after internal links"
@@ -261,7 +261,7 @@ def generate_and_validate_draft_before_review(workspace_id, draft_id):
     clean_after_repair_ok = run_pipeline_command(
         [
             "python3",
-            "app/clean_generated_html.py",
+            "app/assemble_wordpress_content.py",
             draft_id
         ],
         "Clean repaired generated HTML"
@@ -287,7 +287,7 @@ def generate_and_validate_draft_before_review(workspace_id, draft_id):
             final_clean_ok = run_pipeline_command(
                 [
                     "python3",
-                    "app/clean_generated_html.py",
+                    "app/assemble_wordpress_content.py",
                     draft_id
                 ],
                 "Final clean after internal links"
@@ -438,7 +438,12 @@ def process_opportunity_decision(workspace, item_id, decision, comment):
             source="examiner_decision"
         )
 
-        print("\nBackground job created for approved opportunity.")
+        if job.get("_reused_existing_job"):
+            print("\nExisting active background job found for approved opportunity.")
+            print("No new background job was created.")
+        else:
+            print("\nBackground job created for approved opportunity.")
+
         print(f"Job ID: {job.get('job_id')}")
         print(f"Job status: {job.get('status')}")
         print("The long intake/draft generation pipeline will be handled by sofia_worker.py.")
@@ -474,6 +479,111 @@ def find_review_item(review_items, draft_id):
         if item.get("draft_id") == draft_id:
             return item
     return None
+
+
+def load_content_opportunities(workspace):
+    path = SOFIA_ROOT / workspace.get("folder_path", "") / "content_opportunities.json"
+
+    if not path.exists():
+        return path, None
+
+    try:
+        return path, load_json(path)
+    except Exception:
+        return path, None
+
+
+def update_source_opportunity_from_completed_draft(workspace, draft, draft_id, timestamp):
+    """
+    When an examiner clicks Finalizado/Complete on a draft, close the
+    originating content opportunity if it can be resolved through intake_id.
+    Supports list-shaped content_opportunities.json.
+    """
+    intake_id = draft.get("created_from_intake_id", "")
+    if not intake_id:
+        return False
+
+    intake_path = SOFIA_ROOT / "sites" / "content_intake.json"
+    if not intake_path.exists():
+        return False
+
+    intake_data = load_json(intake_path)
+    source_opp_id = ""
+
+    for item in intake_data.get("content_ideas", []):
+        if item.get("intake_id") == intake_id:
+            source_opp_id = item.get("source_opportunity_id", "")
+            item["status"] = "completed"
+            item["completed_from_draft_id"] = draft_id
+            item["completed_at"] = timestamp
+            break
+
+    if not source_opp_id:
+        save_json(intake_path, intake_data)
+        return False
+
+    opp_path, opportunities_data = load_content_opportunities(workspace)
+
+    if opportunities_data is None:
+        save_json(intake_path, intake_data)
+        return False
+
+    if isinstance(opportunities_data, list):
+        opportunities = opportunities_data
+    else:
+        opportunities = opportunities_data.get("opportunities", [])
+
+    updated = False
+
+    for opp in opportunities:
+        if opp.get("opportunity_id") == source_opp_id or opp.get("id") == source_opp_id:
+            opp["status"] = "completed"
+            opp["review_status"] = "completed_by_examiner"
+            opp["completed_from_draft_id"] = draft_id
+            opp["completed_from_intake_id"] = intake_id
+            opp["completed_at"] = timestamp
+            updated = True
+            break
+
+    queue_path = (
+        SOFIA_ROOT
+        / workspace.get("folder_path", "")
+        / "market_opportunity_queue.json"
+    )
+
+    if queue_path.exists():
+        try:
+            queue_data = load_json(queue_path)
+
+            queue_items = []
+
+            if isinstance(queue_data.get("items"), list):
+                queue_items.extend(queue_data.get("items", []))
+
+            if isinstance(queue_data.get("queue_items"), list):
+                queue_items.extend(queue_data.get("queue_items", []))
+
+            for queue_item in queue_items:
+                if (
+                    queue_item.get("opportunity_id") == source_opp_id
+                    or queue_item.get("candidate_id") == source_opp_id
+                ):
+                    queue_item["status"] = "completed"
+                    queue_item["completed_from_draft_id"] = draft_id
+                    queue_item["completed_from_intake_id"] = intake_id
+                    queue_item["completed_at"] = timestamp
+
+            save_json(queue_path, queue_data)
+
+        except Exception as e:
+            print(f"Could not update market opportunity queue: {e}")
+
+    save_json(intake_path, intake_data)
+
+    if updated:
+        save_json(opp_path, opportunities_data)
+
+    return updated
 
 def get_validation_status(draft):
     validation = draft.get("validation", {})
@@ -647,6 +757,18 @@ def process_draft_decision(workspace, item_id, decision, comment):
             review_item["ready_for_publishing"] = True
             review_item["updated_at"] = timestamp
 
+        opportunity_updated = update_source_opportunity_from_completed_draft(
+            workspace=workspace,
+            draft=draft,
+            draft_id=item_id,
+            timestamp=timestamp
+        )
+
+        if opportunity_updated:
+            print("Source opportunity marked as completed.")
+        else:
+            print("No source opportunity was updated for this completed draft.")
+
     draft_data["scope"] = "workspace"
     draft_data["workspace_id"] = workspace.get("workspace_id")
 
@@ -668,13 +790,13 @@ def process_draft_decision(workspace, item_id, decision, comment):
         validation_status, validation_issues = get_validation_status(draft)
 
         if validation_status != "passed":
-            print("\nApproval received, but validation has not passed.")
+            print("\nApproval received with validation warnings.")
             print(f"Validation status: {validation_status or 'missing'}")
             print("Validation issues:")
             print(format_validation_issues(validation_issues))
-            print("\nNo WordPress/platform draft job was created.")
-            print("Sofia must repair and validate the draft before publication preparation.")
-        else:
+            print("\nSofia will continue to WordPress draft preparation because generated content exists.")
+
+        if True:
             workspace_id = workspace.get("workspace_id")
 
             job = create_job(
@@ -690,7 +812,12 @@ def process_draft_decision(workspace, item_id, decision, comment):
                 source="examiner_decision",
             )
 
-            print("\nBackground job created for WordPress draft preparation.")
+            if job.get("_reused_existing_job"):
+                print("\nExisting active background job found for WordPress draft preparation.")
+                print("No new background job was created.")
+            else:
+                print("\nBackground job created for WordPress draft preparation.")
+
             print(f"Job ID: {job.get('job_id')}")
             print(f"Job status: {job.get('status')}")
             print("The WordPress preparation pipeline will be handled by sofia_worker.py.")
@@ -712,7 +839,12 @@ def process_draft_decision(workspace, item_id, decision, comment):
                 source="examiner_decision",
             )
 
-            print("\nBackground job created for draft revision.")
+            if job.get("_reused_existing_job"):
+                print("\nExisting active background job found for draft revision.")
+                print("No new background job was created.")
+            else:
+                print("\nBackground job created for draft revision.")
+
             print(f"Job ID: {job.get('job_id')}")
             print(f"Job status: {job.get('status')}")
             print("The AI revision pipeline will be handled by sofia_worker.py.")

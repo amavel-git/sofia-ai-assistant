@@ -1,0 +1,75 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.es",
+  "purpose": "Spain-specific image planning preferences for Sofia-generated content. This file helps Sofia recommend featured images, inline image topics, filenames, alt text, captions, and future WordPress media matching. It does not generate images.",
+  "rules": {
+    "image_planning_only": true,
+    "do_not_generate_actual_images": true,
+    "do_not_use_image_ids_here": true,
+    "no_misleading_visual_claims": true,
+    "no_interrogation_or_police_intimidation_imagery": true
+  },
+  "default_image_strategy": {
+    "prefer_existing_wordpress_media": true,
+    "allow_future_ai_generation": true,
+    "allow_stock_image_matching": true,
+    "featured_image_required": true,
+    "inline_images_optional": true
+  },
+  "visual_style": {
+    "preferred_style": "realistic professional documentary-style",
+    "preferred_mood": "calm, confidential, professional, respectful",
+    "preferred_settings": [
+      "modern office",
+      "consultation room",
+      "professional meeting",
+      "corporate investigation setting",
+      "documents and case review",
+      "neutral Spanish or European business environment"
+    ],
+    "avoid": [
+      "police interrogation rooms",
+      "criminal suspect imagery",
+      "handcuffs",
+      "fear-based visuals",
+      "dramatic lie detector stereotypes",
+      "guarantee or truth-machine symbolism"
+    ]
+  },
+  "image_recommendation_schema": {
+    "featured_image": {
+      "topic": null,
+      "filename": null,
+      "alt_text": null,
+      "caption": null,
+      "placement": "featured_image"
+    },
+    "inline_images": [
+      {
+        "topic": null,
+        "filename": null,
+        "alt_text": null,
+        "caption": null,
+        "placement": null
+      }
+    ]
+  },
+  "seo_alt_text_rules": {
+    "include_topic_when_natural": true,
+    "include_location_only_when_relevant": true,
+    "avoid_keyword_stuffing": true,
+    "describe_the_image_truthfully": true,
+    "max_alt_text_length": 140
+  },
+  "future_wordpress_media_matching": {
+    "enabled": false,
+    "match_by": [
+      "topic",
+      "filename_keywords",
+      "alt_text_keywords",
+      "media_category",
+      "language",
+      "country"
+    ]
+  }
+}

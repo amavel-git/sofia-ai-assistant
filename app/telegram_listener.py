@@ -3,6 +3,7 @@ import os
 import re
 import subprocess
 import time
+import unicodedata
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -12,6 +13,9 @@ from dotenv import load_dotenv
 import notify_examiner_review
 import notify_opportunity_review
 import create_internal_opportunity
+
+from parse_examiner_request import parse_examiner_request
+from telegram_handlers.coordinator_router import route_examiner_request
 
 from workspace_paths import (
     find_draft_any_workspace,
@@ -23,6 +27,9 @@ SOFIA_ROOT = Path(__file__).resolve().parents[1]
 ENV_PATH = SOFIA_ROOT / ".env"
 WORKSPACES_PATH = SOFIA_ROOT / "data" / "workspaces.json"
 STATE_PATH = SOFIA_ROOT / "logs" / "telegram_listener_state.json"
+PENDING_CONTEXT_PATH = SOFIA_ROOT / "logs" / "telegram_pending_contexts.json"
+BUTTON_ACTIONS_PATH = SOFIA_ROOT / "logs" / "telegram_button_actions.json"
+PENDING_REVISION_TTL_SECONDS = 60 * 60
 LOG_PATH = SOFIA_ROOT / "logs" / "telegram_listener.log"
 ACTIVATION_PATH = SOFIA_ROOT / "data" / "workspace_activation.json"
 # Deprecated: draft registries are now workspace-level.
@@ -52,6 +59,22 @@ INTERNAL_TRIGGER_RE = re.compile(
     re.IGNORECASE,
 )
 
+JOB_STATUS_TRIGGER_RE = re.compile(
+    r"^\s*sofia\s*[,:\-]?\s+.*("
+    r"job|jobs|task|tasks|pending|queued|running|working|failed|failure|error|retry|status|"
+    r"tarefa|tarefas|pendente|pendentes|fila|processamento|falhou|falharam|erro|erros|estado|"
+    r"trabajo|trabajos|tarea|tareas|pendiente|pendientes|falló|fallaron|estado|"
+    r"travail|travaux|tâche|tâches|attente|échec|erreur|statut"
+    r")",
+    re.IGNORECASE,
+)
+
+def normalize_trigger_text(text):
+    text = str(text or "")
+    text = unicodedata.normalize("NFKD", text)
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return text
+
 
 def now_iso():
     return datetime.now(timezone.utc).isoformat()
@@ -69,6 +92,105 @@ def save_json(path, data):
     with path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+
+def load_pending_contexts():
+    return load_json(PENDING_CONTEXT_PATH, {"revision": {}})
+
+
+def save_pending_contexts(data):
+    save_json(PENDING_CONTEXT_PATH, data)
+
+
+def make_pending_revision_key(chat_id, user_id, workspace_id):
+    return f"{chat_id}|{user_id}|{workspace_id}"
+
+
+def cleanup_expired_pending_contexts():
+    data = load_pending_contexts()
+    now_ts = time.time()
+    changed = False
+
+    revision_contexts = data.setdefault("revision", {})
+
+    for key, context in list(revision_contexts.items()):
+        expires_at = context.get("expires_at_ts", 0)
+        if expires_at and expires_at < now_ts:
+            revision_contexts.pop(key, None)
+            changed = True
+
+    if changed:
+        save_pending_contexts(data)
+
+    return data
+
+
+def set_pending_revision_context(chat_id, user_id, workspace_id, draft_id):
+    data = cleanup_expired_pending_contexts()
+    key = make_pending_revision_key(chat_id, user_id, workspace_id)
+    now_ts = time.time()
+
+    data.setdefault("revision", {})[key] = {
+        "workspace_id": workspace_id,
+        "draft_id": draft_id,
+        "chat_id": str(chat_id),
+        "user_id": str(user_id),
+        "created_at": now_iso(),
+        "created_at_ts": now_ts,
+        "expires_at_ts": now_ts + PENDING_REVISION_TTL_SECONDS,
+        "status": "waiting_for_instruction",
+    }
+
+    save_pending_contexts(data)
+
+
+def get_pending_revision_context(chat_id, user_id, workspace_id):
+    data = cleanup_expired_pending_contexts()
+    key = make_pending_revision_key(chat_id, user_id, workspace_id)
+    return data.get("revision", {}).get(key)
+
+
+def clear_pending_revision_context(chat_id, user_id, workspace_id):
+    data = load_pending_contexts()
+    key = make_pending_revision_key(chat_id, user_id, workspace_id)
+
+    if key in data.get("revision", {}):
+        data["revision"].pop(key, None)
+        save_pending_contexts(data)
+
+
+def load_button_actions():
+    return load_json(BUTTON_ACTIONS_PATH, {"actions": {}})
+
+
+def save_button_actions(data):
+    save_json(BUTTON_ACTIONS_PATH, data)
+
+
+def make_button_action_key(chat_id, message_id, workspace_id, item_id, decision):
+    return f"{chat_id}|{message_id}|{workspace_id}|{item_id}|{decision}"
+
+
+def get_button_action(chat_id, message_id, workspace_id, item_id, decision):
+    data = load_button_actions()
+    key = make_button_action_key(chat_id, message_id, workspace_id, item_id, decision)
+    return data.get("actions", {}).get(key)
+
+
+def mark_button_action_processed(chat_id, message_id, workspace_id, item_id, decision, user_id=""):
+    data = load_button_actions()
+    key = make_button_action_key(chat_id, message_id, workspace_id, item_id, decision)
+
+    data.setdefault("actions", {})[key] = {
+        "chat_id": str(chat_id),
+        "message_id": str(message_id),
+        "workspace_id": workspace_id,
+        "item_id": item_id,
+        "decision": decision,
+        "processed_at": now_iso(),
+        "processed_by_user_id": str(user_id or ""),
+    }
+
+    save_button_actions(data)
 
 def get_admin_user_ids():
     raw = os.getenv("SOFIA_TELEGRAM_ADMIN_USER_IDS", "")
@@ -388,6 +510,54 @@ def get_ui_text(workspace_id):
     return texts.get(lang, texts["en"])
 
 
+def build_button_already_processed_message(workspace_id, item_id):
+    workspace = get_workspace_by_id(workspace_id)
+    lang = normalize_language(workspace.get("language", "en"))
+
+    if str(item_id).startswith("DRAFT-"):
+        item_label_pt = "Rascunho"
+        item_label_es = "Borrador"
+        item_label_fr = "Brouillon"
+        item_label_en = "Draft"
+    elif str(item_id).startswith("OPP-"):
+        item_label_pt = "Oportunidade"
+        item_label_es = "Oportunidad"
+        item_label_fr = "Opportunité"
+        item_label_en = "Opportunity"
+    else:
+        item_label_pt = "Item"
+        item_label_es = "Item"
+        item_label_fr = "Élément"
+        item_label_en = "Item"
+
+    if lang.startswith("pt"):
+        return (
+            "⚠️ Esta ação já foi processada anteriormente.\n\n"
+            f"{item_label_pt}: {item_id}\n\n"
+            "Nenhuma nova tarefa foi criada."
+        )
+
+    if lang == "es":
+        return (
+            "⚠️ Esta acción ya fue procesada anteriormente.\n\n"
+            f"{item_label_es}: {item_id}\n\n"
+            "No se creó ninguna tarea nueva."
+        )
+
+    if lang == "fr":
+        return (
+            "⚠️ Cette action a déjà été traitée précédemment.\n\n"
+            f"{item_label_fr} : {item_id}\n\n"
+            "Aucune nouvelle tâche n’a été créée."
+        )
+
+    return (
+        "⚠️ This action has already been processed.\n\n"
+        f"{item_label_en}: {item_id}\n\n"
+        "No new task was created."
+    )
+
+
 def get_bot_token():
     token = os.getenv("SOFIA_TELEGRAM_BOT_TOKEN")
     if not token:
@@ -612,7 +782,8 @@ def resolve_workspace_from_reply(chat_id, text, workspace_by_chat_id):
 
 
 def is_internal_content_trigger(text):
-    return bool(INTERNAL_TRIGGER_RE.match(str(text or "").strip()))
+    normalized = normalize_trigger_text(text)
+    return bool(INTERNAL_TRIGGER_RE.match(normalized.strip()))
 
 
 def resolve_workspace_from_group_for_internal_trigger(chat_id, workspace_by_chat_id):
@@ -625,6 +796,296 @@ def resolve_workspace_from_group_for_internal_trigger(chat_id, workspace_by_chat
         return workspaces[0], None
 
     return None, "workspace_required"
+
+
+def is_job_status_trigger(text):
+    normalized = normalize_trigger_text(text)
+    return bool(JOB_STATUS_TRIGGER_RE.match(normalized.strip()))
+
+
+def resolve_workspace_from_group_for_job_status(chat_id, workspace_by_chat_id):
+    workspaces = workspace_by_chat_id.get(str(chat_id), [])
+
+    if not workspaces:
+        return None, "unmapped_chat"
+
+    if len(workspaces) == 1:
+        return workspaces[0], None
+
+    return None, "workspace_required"
+
+
+def get_workspace_path_from_id(workspace_id):
+    workspace = get_workspace_by_id(workspace_id)
+
+    folder_path = workspace.get("folder_path") or workspace.get("workspace_path")
+    if folder_path:
+        return SOFIA_ROOT / folder_path
+
+    if workspace_id.startswith("local."):
+        country_code = workspace_id.split(".", 1)[1]
+        return SOFIA_ROOT / "sites" / "local_sites" / country_code
+
+    return None
+
+
+def load_job_registry_for_workspace(workspace_id):
+    workspace_path = get_workspace_path_from_id(workspace_id)
+    if not workspace_path:
+        return {"jobs": []}
+
+    path = workspace_path / "job_registry.json"
+    return load_json(path, {"jobs": []})
+
+
+def detect_job_status_filter(text):
+    text_lower = str(text or "").lower()
+
+    if any(word in text_lower for word in ["failed", "failure", "error", "falhou", "falharam", "erro", "falló", "fallaron", "échec", "erreur"]):
+        return "failed"
+
+    if any(word in text_lower for word in ["retry", "delayed", "retry_pending", "voltar a tentar", "reintentar", "réessayer"]):
+        return "retry_pending"
+
+    if any(word in text_lower for word in ["running", "working", "processing", "processamento", "procesando", "traitement"]):
+        return "running"
+
+    if any(word in text_lower for word in ["pending", "queued", "fila", "pendente", "pendentes", "pendiente", "pendientes", "attente"]):
+        return "queued"
+
+    return "summary"
+
+
+def build_job_status_message(workspace_id, jobs, status_filter="summary"):
+    workspace = get_workspace_by_id(workspace_id)
+    lang = normalize_language(workspace.get("language", "en"))
+
+    counts = {
+        "queued": 0,
+        "running": 0,
+        "retry_pending": 0,
+        "failed": 0,
+        "failed_after_retries": 0,
+        "completed": 0,
+    }
+
+    for job in jobs:
+        status = job.get("status", "unknown")
+        if status in counts:
+            counts[status] += 1
+
+    if status_filter == "summary":
+        selected = [
+            job for job in jobs
+            if job.get("status") in ["queued", "running", "retry_pending", "failed", "failed_after_retries"]
+        ]
+    elif status_filter == "failed":
+        selected = [
+            job for job in jobs
+            if job.get("status") in ["failed", "failed_after_retries"]
+        ]
+    else:
+        selected = [
+            job for job in jobs
+            if job.get("status") == status_filter
+        ]
+
+    selected = sorted(
+        selected,
+        key=lambda job: job.get("updated_at") or job.get("created_at") or "",
+        reverse=True,
+    )[:8]
+
+    lines = []
+    for job in selected:
+        lines.append(
+            f"- {job.get('job_id')} | {job.get('job_type')} | {job.get('item_id')} | {job.get('status')}"
+        )
+
+    recent_text = "\n".join(lines) if lines else "No matching jobs."
+
+    if lang.startswith("pt"):
+        return (
+            f"📋 Estado das tarefas da Sofia\n\n"
+            f"Workspace: {workspace_id}\n\n"
+            f"Em fila: {counts['queued']}\n"
+            f"Em processamento: {counts['running']}\n"
+            f"A aguardar nova tentativa: {counts['retry_pending']}\n"
+            f"Falhadas: {counts['failed'] + counts['failed_after_retries']}\n"
+            f"Concluídas: {counts['completed']}\n\n"
+            f"Tarefas relevantes:\n{recent_text}"
+        )
+
+    if lang == "es":
+        return (
+            f"📋 Estado de las tareas de Sofia\n\n"
+            f"Workspace: {workspace_id}\n\n"
+            f"En cola: {counts['queued']}\n"
+            f"En procesamiento: {counts['running']}\n"
+            f"Pendientes de reintento: {counts['retry_pending']}\n"
+            f"Fallidas: {counts['failed'] + counts['failed_after_retries']}\n"
+            f"Completadas: {counts['completed']}\n\n"
+            f"Tareas relevantes:\n{recent_text}"
+        )
+
+    if lang == "fr":
+        return (
+            f"📋 État des tâches de Sofia\n\n"
+            f"Workspace : {workspace_id}\n\n"
+            f"En file : {counts['queued']}\n"
+            f"En traitement : {counts['running']}\n"
+            f"En attente de nouvel essai : {counts['retry_pending']}\n"
+            f"Échouées : {counts['failed'] + counts['failed_after_retries']}\n"
+            f"Terminées : {counts['completed']}\n\n"
+            f"Tâches pertinentes :\n{recent_text}"
+        )
+
+    return (
+        f"📋 Sofia job status\n\n"
+        f"Workspace: {workspace_id}\n\n"
+        f"Queued: {counts['queued']}\n"
+        f"Running: {counts['running']}\n"
+        f"Retry pending: {counts['retry_pending']}\n"
+        f"Failed: {counts['failed'] + counts['failed_after_retries']}\n"
+        f"Completed: {counts['completed']}\n\n"
+        f"Relevant jobs:\n{recent_text}"
+    )
+
+
+def handle_job_status_request(msg, workspace_by_chat_id):
+    text = msg.get("text", "").strip()
+
+    if not is_job_status_trigger(text):
+        return False
+
+    bot_token = get_bot_token()
+    chat_id = msg["chat_id"]
+
+    workspace_id, error = resolve_workspace_from_group_for_job_status(
+        chat_id,
+        workspace_by_chat_id,
+    )
+
+    if error == "unmapped_chat":
+        workspaces_data = load_json(WORKSPACES_PATH, {"workspaces": []})
+        status_filter = detect_job_status_filter(text)
+
+        summary_lines = []
+        total_counts = {
+            "queued": 0,
+            "running": 0,
+            "retry_pending": 0,
+            "failed": 0,
+            "failed_after_retries": 0,
+            "completed": 0,
+        }
+
+        for workspace in workspaces_data.get("workspaces", []):
+            workspace_id = workspace.get("workspace_id")
+            if not workspace_id:
+                continue
+
+            registry = load_job_registry_for_workspace(workspace_id)
+            jobs = registry.get("jobs", [])
+
+            counts = {
+                "queued": 0,
+                "running": 0,
+                "retry_pending": 0,
+                "failed": 0,
+                "failed_after_retries": 0,
+                "completed": 0,
+            }
+
+            for job in jobs:
+                status = job.get("status", "unknown")
+                if status in counts:
+                    counts[status] += 1
+                    total_counts[status] += 1
+
+            active_count = (
+                counts["queued"]
+                + counts["running"]
+                + counts["retry_pending"]
+                + counts["failed"]
+                + counts["failed_after_retries"]
+            )
+
+            if active_count > 0:
+                summary_lines.append(
+                    f"- {workspace_id}: "
+                    f"queued {counts['queued']}, "
+                    f"running {counts['running']}, "
+                    f"retry {counts['retry_pending']}, "
+                    f"failed {counts['failed'] + counts['failed_after_retries']}"
+                )
+
+        if not summary_lines:
+            summary_lines.append("- No active or failed Sofia jobs found.")
+
+        response = (
+            "📋 Sofia global job status\n\n"
+            f"Queued: {total_counts['queued']}\n"
+            f"Running: {total_counts['running']}\n"
+            f"Retry pending: {total_counts['retry_pending']}\n"
+            f"Failed: {total_counts['failed'] + total_counts['failed_after_retries']}\n"
+            f"Completed: {total_counts['completed']}\n\n"
+            "Workspaces with active/issues:\n"
+            + "\n".join(summary_lines[:20])
+        )
+
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            response,
+            reply_to_message_id=msg.get("message_id"),
+        )
+
+        log(
+            "SENT global job status response "
+            f"chat_id={chat_id} filter={status_filter}"
+        )
+
+        return True
+
+    if error == "workspace_required":
+        available = workspace_by_chat_id.get(str(chat_id), [])
+        send_telegram_message(
+            bot_token,
+            chat_id,
+            (
+                "⚠️ This Telegram group manages multiple Sofia workspaces.\n\n"
+                "Please mention the workspace you want to check.\n\n"
+                "Available workspaces:\n"
+                + "\n".join(f"- {w}" for w in available)
+            ),
+            reply_to_message_id=msg.get("message_id"),
+        )
+        return True
+
+    registry = load_job_registry_for_workspace(workspace_id)
+    jobs = registry.get("jobs", [])
+    status_filter = detect_job_status_filter(text)
+
+    response = build_job_status_message(
+        workspace_id=workspace_id,
+        jobs=jobs,
+        status_filter=status_filter,
+    )
+
+    send_telegram_message(
+        bot_token,
+        chat_id,
+        response,
+        reply_to_message_id=msg.get("message_id"),
+    )
+
+    log(
+        "SENT job status response "
+        f"workspace={workspace_id} chat_id={chat_id} filter={status_filter}"
+    )
+
+    return True
 
 
 def handle_internal_content_trigger(msg, workspace_by_chat_id):
@@ -678,60 +1139,30 @@ def handle_internal_content_trigger(msg, workspace_by_chat_id):
 
     requested_by = msg.get("from_name") or msg.get("from_username") or msg.get("from_id") or ""
 
-    try:
-        opportunity, opportunities_path = create_internal_opportunity.create_internal_opportunity(
-            workspace_id=workspace_id,
-            raw_request=text,
-            requested_by=requested_by,
-            telegram_chat_id=chat_id,
-            telegram_message_id=msg.get("message_id"),
-        )
+    parsed_request = parse_examiner_request(
+        workspace_id=workspace_id,
+        raw_text=text,
+    )
 
-        opportunity_id = opportunity.get("id") or opportunity.get("opportunity_id")
-        message = notify_opportunity_review.build_message(opportunity, workspace)
-        keyboard = build_decision_keyboard(opportunity_id, workspace_id)
-
-        send_telegram_message(
+    return route_examiner_request(
+        parsed_request=parsed_request,
+        workspace_id=workspace_id,
+        workspace=workspace,
+        raw_request=text,
+        requested_by=requested_by,
+        chat_id=chat_id,
+        message_id=msg.get("message_id"),
+        send_message=lambda *args, **kwargs: send_telegram_message(
             bot_token,
-            chat_id,
-            message,
-            reply_to_message_id=msg.get("message_id"),
-            reply_markup=keyboard,
-        )
-
-        opportunity["telegram_notified"] = True
-        opportunity["telegram_notified_at"] = now_iso()
-        opportunity["updated_at"] = now_iso()
-
-        data = load_json(opportunities_path, {"opportunities": []})
-        for stored in data.get("opportunities", []):
-            stored_id = stored.get("id") or stored.get("opportunity_id")
-            if stored_id == opportunity_id:
-                stored.update(opportunity)
-                break
-
-        save_json(opportunities_path, data)
-
-        log(
-            "CREATED internal opportunity "
-            f"workspace={workspace_id} chat_id={chat_id} opportunity={opportunity_id}"
-        )
-
-        return True
-
-    except Exception as e:
-        log(f"ERROR creating internal opportunity: {type(e).__name__}: {e}")
-        send_telegram_message(
-            bot_token,
-            chat_id,
-            (
-                "⚠️ Sofia could not create the internal content opportunity.\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Error: {type(e).__name__}"
-            ),
-            reply_to_message_id=msg.get("message_id"),
-        )
-        return True
+            *args,
+            **kwargs,
+        ),
+        build_keyboard=build_decision_keyboard,
+        load_json=load_json,
+        save_json=save_json,
+        now_iso=now_iso,
+        log=log,
+    )
 
 
 def process_decision(workspace_id, reply_text):
@@ -972,6 +1403,53 @@ def extract_wordpress_result(process_output):
 def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, decision, ok, process_output=""):
     is_draft = str(item_id).startswith("DRAFT-")
     is_opportunity = str(item_id).startswith("OPP-")
+
+    output_lower = process_output.lower() if process_output else ""
+    reused_active_job = (
+        "existing active background job found" in output_lower
+        or "no new background job was created" in output_lower
+    )
+
+    if ok and reused_active_job:
+        workspace = get_workspace_by_id(workspace_id)
+        lang = normalize_language(workspace.get("language", "en"))
+
+        if lang.startswith("pt"):
+            text = (
+                "⚠️ Esta tarefa já está a ser processada pela Sofia.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Item: {item_id}\n\n"
+                "Nenhuma nova tarefa foi criada."
+            )
+        elif lang == "es":
+            text = (
+                "⚠️ Esta tarea ya está siendo procesada por Sofia.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Item: {item_id}\n\n"
+                "No se ha creado ninguna nueva tarea."
+            )
+        elif lang == "fr":
+            text = (
+                "⚠️ Cette tâche est déjà en cours de traitement par Sofia.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Élément : {item_id}\n\n"
+                "Aucune nouvelle tâche n’a été créée."
+            )
+        else:
+            text = (
+                "⚠️ Sofia is already processing this task.\n\n"
+                f"Workspace: {workspace_id}\n"
+                f"Item: {item_id}\n\n"
+                "No new task was created."
+            )
+
+        send_telegram_message(
+            get_bot_token(),
+            chat_id,
+            text,
+            reply_to_message_id=reply_to_message_id,
+        )
+        return
 
     wp_result = extract_wordpress_result(process_output)
 
@@ -1216,79 +1694,33 @@ def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, 
             )
 
     elif ok and is_opportunity and decision == "APPROVE":
-        output_lower = process_output.lower() if process_output else ""
         workspace = get_workspace_by_id(workspace_id)
         lang = normalize_language(workspace.get("language", "en"))
 
-        if (
-            "draft still has validation issues after repair" in output_lower
-            or "draft generation failed" in output_lower
-        ):
-            if lang.startswith("pt"):
-                text = (
-                    "✅ Pedido em preparação\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Oportunidade: {item_id}\n\n"
-                    "A Sofia já começou a preparar o rascunho.\n\n"
-                    "O conteúdo ainda está em preparação interna e será enviado para revisão assim que estiver pronto.\n\n"
-                    "Nenhuma ação é necessária neste momento."
-                )
-            elif lang == "es":
-                text = (
-                    "✅ Solicitud en preparación\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Oportunidad: {item_id}\n\n"
-                    "Sofia ya empezó a preparar el borrador.\n\n"
-                    "El contenido todavía está en preparación interna y será enviado para revisión cuando esté listo.\n\n"
-                    "No se requiere ninguna acción en este momento."
-                )
-            elif lang == "fr":
-                text = (
-                    "✅ Demande en préparation\n\n"
-                    f"Workspace : {workspace_id}\n"
-                    f"Opportunité : {item_id}\n\n"
-                    "Sofia a déjà commencé à préparer le brouillon.\n\n"
-                    "Le contenu est encore en préparation interne et sera envoyé pour révision lorsqu’il sera prêt.\n\n"
-                    "Aucune action n’est requise pour le moment."
-                )
-            else:
-                text = (
-                    "✅ Request in preparation\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Opportunity: {item_id}\n\n"
-                    "Sofia has started preparing the draft.\n\n"
-                    "The content is still being prepared internally and will be sent for review when ready.\n\n"
-                    "No action is needed right now."
-                )
+        if lang.startswith("pt"):
+            text = (
+                "✅ Pedido recebido\n\n"
+                "A Sofia está a preparar o conteúdo.\n"
+                "Será enviada uma ligação para revisão quando o rascunho estiver pronto."
+            )
+        elif lang == "es":
+            text = (
+                "✅ Solicitud recibida\n\n"
+                "Sofia está preparando el contenido.\n"
+                "Se enviará un enlace para revisión cuando el borrador esté listo."
+            )
+        elif lang == "fr":
+            text = (
+                "✅ Demande reçue\n\n"
+                "Sofia prépare le contenu.\n"
+                "Un lien de révision sera envoyé lorsque le brouillon sera prêt."
+            )
         else:
-            if lang.startswith("pt"):
-                text = (
-                    "✅ Oportunidade aprovada\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Oportunidade: {item_id}\n\n"
-                    "A Sofia converteu esta oportunidade no próximo passo do fluxo de conteúdo."
-                )
-            elif lang == "es":
-                text = (
-                    "✅ Oportunidad aprobada\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Oportunidad: {item_id}\n\n"
-                    "Sofia convirtió esta oportunidad en el siguiente paso del flujo de contenido."
-                )
-            elif lang == "fr":
-                text = (
-                    "✅ Opportunité approuvée\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Opportunité : {item_id}\n\n"
-                    "Sofia a converti cette opportunité vers l’étape suivante du flux de contenu."
-                )
-            else:
-                text = (
-                    "✅ Opportunity approved\n\n"
-                    f"Workspace: {workspace_id}\n"
-                    f"Opportunity: {item_id}\n\n"
-                    "Sofia has converted the approved opportunity into the next content workflow step."
-                )
+            text = (
+                "✅ Request received\n\n"
+                "Sofia is preparing the content.\n"
+                "A review link will be sent when the draft is ready."
+            )
 
     elif ok:
         text = (
@@ -1324,168 +1756,6 @@ def send_processing_result(chat_id, reply_to_message_id, workspace_id, item_id, 
         text,
         reply_to_message_id=reply_to_message_id,
     )
-
-
-def build_long_processing_message(workspace_id, item_id, decision):
-    workspace = get_workspace_by_id(workspace_id)
-    lang = normalize_language(workspace.get("language", "en"))
-
-    is_opportunity_approval = (
-        decision == "APPROVE"
-        and str(item_id).startswith("OPP-")
-    )
-
-    is_draft_revision = (
-        decision == "REVISE"
-        and str(item_id).startswith("DRAFT-")
-    )
-
-    is_draft_approval = (
-        decision == "APPROVE"
-        and str(item_id).startswith("DRAFT-")
-    )
-
-    is_draft_complete = (
-        decision == "COMPLETE"
-        and str(item_id).startswith("DRAFT-")
-    )
-
-    if lang.startswith("pt"):
-        if is_opportunity_approval:
-            return (
-                "✅ Pedido recebido\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Oportunidade: {item_id}\n\n"
-                "A Sofia vai preparar o primeiro rascunho para revisão.\n"
-                "Este processo pode demorar alguns minutos enquanto o conteúdo é gerado, limpo e validado."
-            )
-
-        if is_draft_revision:
-            return (
-                "✅ Pedido de revisão recebido\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Rascunho: {item_id}\n\n"
-                "A Sofia vai aplicar as instruções de revisão e validar novamente o conteúdo."
-            )
-
-        if is_draft_approval:
-            return (
-                "✅ Aprovação recebida\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Rascunho: {item_id}\n\n"
-                "A Sofia vai preparar o rascunho para WordPress ou para os canais configurados."
-            )
-        
-        if is_draft_complete:
-            return (
-                "✅ Finalização recebida\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Rascunho: {item_id}\n\n"
-                "A Sofia vai marcar este rascunho como finalizado para revisão/publicação manual."
-            )
-
-    if lang == "es":
-        if is_opportunity_approval:
-            return (
-                "✅ Solicitud recibida\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Oportunidad: {item_id}\n\n"
-                "Sofia va a preparar el primer borrador para revisión.\n"
-                "Este proceso puede tardar unos minutos mientras el contenido se genera, limpia y valida."
-            )
-
-        if is_draft_revision:
-            return (
-                "✅ Solicitud de revisión recibida\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Borrador: {item_id}\n\n"
-                "Sofia va a aplicar las instrucciones de revisión y validar nuevamente el contenido."
-            )
-
-        if is_draft_approval:
-            return (
-                "✅ Aprobación recibida\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Borrador: {item_id}\n\n"
-                "Sofia va a preparar el borrador para WordPress o para los canales configurados."
-            )
-
-        if is_draft_complete:
-            return (
-                "✅ Finalización recibida\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Borrador: {item_id}\n\n"
-                "Sofia marcará este borrador como finalizado para revisión/publicación manual."
-            )
-
-    if lang == "fr":
-        if is_opportunity_approval:
-            return (
-                "✅ Demande reçue\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Opportunité : {item_id}\n\n"
-                "Sofia va préparer le premier brouillon pour révision.\n"
-                "Ce processus peut prendre quelques minutes pendant la génération, le nettoyage et la validation du contenu."
-            )
-
-        if is_draft_revision:
-            return (
-                "✅ Demande de révision reçue\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Brouillon : {item_id}\n\n"
-                "Sofia va appliquer les instructions de révision et valider à nouveau le contenu."
-            )
-
-        if is_draft_approval:
-            return (
-                "✅ Approbation reçue\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Brouillon : {item_id}\n\n"
-                "Sofia va préparer le brouillon pour WordPress ou les canaux configurés."
-            )
-        
-        if is_draft_complete:
-            return (
-                "✅ Finalisation reçue\n\n"
-                f"Workspace: {workspace_id}\n"
-                f"Brouillon : {item_id}\n\n"
-                "Sofia marquera ce brouillon comme terminé pour révision/publication manuelle."
-            )
-
-    if is_opportunity_approval:
-        return (
-            "✅ Request received\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Opportunity: {item_id}\n\n"
-            "Sofia will prepare the first draft for review.\n"
-            "This process may take a few minutes while the content is generated, cleaned, and validated."
-        )
-
-    if is_draft_revision:
-        return (
-            "✅ Revision request received\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Draft: {item_id}\n\n"
-            "Sofia will apply the revision instructions and validate the content again."
-        )
-
-    if is_draft_approval:
-        return (
-            "✅ Approval received\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Draft: {item_id}\n\n"
-            "Sofia will prepare the draft for WordPress or the configured channels."
-        )
-    
-    if is_draft_complete:
-        return (
-            "✅ Completion received\n\n"
-            f"Workspace: {workspace_id}\n"
-            f"Draft: {item_id}\n\n"
-            "Sofia will mark this draft as completed for manual review/publication."
-        )
-
-    return ""
 
 
 def build_long_processing_message(workspace_id, item_id, decision):
@@ -1663,13 +1933,90 @@ def handle_callback(update, workspace_by_chat_id):
     item_id = item_id.upper()
     t = get_ui_text(workspace_id)
 
-    if decision == "REVISE_PROMPT":
-        log(
-            "CALLBACK revise prompt "
-            f"workspace={workspace_id} chat_id={chat_id} item={item_id}"
+
+    duplicate_safe_decisions = {
+        "APPROVE",
+        "COMPLETE",
+        "REJECT_NEVER",
+        "REJECT_SKIP",
+        "REJECT_ANGLE",
+    }
+
+    if decision in duplicate_safe_decisions:
+        previous_action = get_button_action(
+            chat_id=chat_id,
+            message_id=message_id,
+            workspace_id=workspace_id,
+            item_id=item_id,
+            decision=decision,
         )
 
-        instruction = t["revise_prompt"].format(item_id=item_id)
+        if previous_action:
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                build_button_already_processed_message(workspace_id, item_id),
+                reply_to_message_id=message_id,
+            )
+            return
+
+    if decision in ["REVISE_PROMPT", "REVISE"]:
+        log(
+            "CALLBACK revise prompt "
+            f"workspace={workspace_id} chat_id={chat_id} item={item_id} decision={decision}"
+        )
+
+        user_id = str(from_user.get("id", ""))
+
+        if not user_id:
+            send_telegram_message(
+                bot_token,
+                chat_id,
+                (
+                    "⚠️ Sofia could not start the revision flow because the examiner "
+                    "user could not be identified."
+                ),
+                reply_to_message_id=message_id,
+            )
+            return
+
+        set_pending_revision_context(
+            chat_id=chat_id,
+            user_id=user_id,
+            workspace_id=workspace_id,
+            draft_id=item_id,
+        )
+
+        lang = normalize_language(get_workspace_by_id(workspace_id).get("language", "en"))
+
+        if lang.startswith("pt"):
+            instruction = (
+                "✏️ A Sofia está pronta para rever este rascunho.\n\n"
+                f"Rascunho: {item_id}\n\n"
+                "Por favor, envie as instruções de revisão na próxima mensagem. "
+                "Não precisa usar nenhum formato de comando."
+            )
+        elif lang == "es":
+            instruction = (
+                "✏️ Sofia está lista para revisar este borrador.\n\n"
+                f"Borrador: {item_id}\n\n"
+                "Por favor, envíe las instrucciones de revisión en su próximo mensaje. "
+                "No necesita usar ningún formato de comando."
+            )
+        elif lang == "fr":
+            instruction = (
+                "✏️ Sofia est prête à réviser ce brouillon.\n\n"
+                f"Brouillon : {item_id}\n\n"
+                "Veuillez envoyer les instructions de révision dans votre prochain message. "
+                "Aucun format de commande n’est nécessaire."
+            )
+        else:
+            instruction = (
+                "✏️ Sofia is ready to revise this draft.\n\n"
+                f"Draft: {item_id}\n\n"
+                "Please send the revision instructions in your next message. "
+                "You do not need to use any command format."
+            )
 
         send_telegram_message(
             bot_token,
@@ -1795,7 +2142,6 @@ def handle_callback(update, workspace_by_chat_id):
                         f"Opportunity: {item_id}\n\n"
                         "Sofia will try not to suggest this same topic again."
                     )
-
             elif decision == "REJECT_SKIP":
                 if lang.startswith("pt"):
                     text = (
@@ -1825,7 +2171,6 @@ def handle_callback(update, workspace_by_chat_id):
                         f"Opportunity: {item_id}\n\n"
                         "Sofia may suggest similar content later if it becomes relevant."
                     )
-
             else:
                 if lang.startswith("pt"):
                     text = (
@@ -1855,7 +2200,6 @@ def handle_callback(update, workspace_by_chat_id):
                         f"Opportunity: {item_id}\n\n"
                         "Sofia should look for a better angle before suggesting this topic again."
                     )
-
         else:
             if lang.startswith("pt"):
                 text = (
@@ -1903,21 +2247,21 @@ def handle_callback(update, workspace_by_chat_id):
     )
 
     is_background_job = (
-    (
-        decision == "APPROVE"
-        and str(item_id).startswith("OPP-")
+        (
+            decision == "APPROVE"
+            and str(item_id).startswith("OPP-")
+        )
+        or
+        (
+            decision == "REVISE"
+            and str(item_id).startswith("DRAFT-")
+        )
+        or
+        (
+            decision == "APPROVE"
+            and str(item_id).startswith("DRAFT-")
+        )
     )
-    or
-    (
-        decision == "REVISE"
-        and str(item_id).startswith("DRAFT-")
-    )
-    or
-    (
-        decision == "APPROVE"
-        and str(item_id).startswith("DRAFT-")
-    )
-)
 
     long_processing_message = ""
 
@@ -1947,6 +2291,16 @@ def handle_callback(update, workspace_by_chat_id):
         ok=ok,
         process_output=process_output,
     )
+
+    if ok and decision in duplicate_safe_decisions:
+        mark_button_action_processed(
+            chat_id=chat_id,
+            message_id=message_id,
+            workspace_id=workspace_id,
+            item_id=item_id,
+            decision=decision,
+            user_id=from_user.get("id", ""),
+        )
 
     if ok:
         is_background_job = (
@@ -1989,6 +2343,22 @@ def handle_callback(update, workspace_by_chat_id):
             send_next_pending_item(bot_token, chat_id, workspace_id)
 
 
+
+def normalize_revision_instruction(text):
+    text = str(text or "").strip()
+    text = text.replace("\r", "\n")
+
+    lines = []
+    for line in text.split("\n"):
+        line = line.strip()
+        if not line:
+            continue
+
+        line = line.lstrip("-*• ").strip()
+        lines.append(line)
+
+    return "; ".join(lines)
+
 def handle_update(update, workspace_by_chat_id):
     msg = extract_message(update)
     if not msg:
@@ -2003,6 +2373,96 @@ def handle_update(update, workspace_by_chat_id):
 
     if handle_admin_command(msg):
         return
+    
+    if handle_job_status_request(msg, workspace_by_chat_id):
+        return
+
+    user_id = msg.get("from_id")
+    possible_workspaces = workspace_by_chat_id.get(str(chat_id), [])
+
+    if len(possible_workspaces) == 1 and user_id:
+        pending_workspace_id = possible_workspaces[0]
+
+        pending = get_pending_revision_context(
+            chat_id=chat_id,
+            user_id=user_id,
+            workspace_id=pending_workspace_id,
+        )
+
+        if pending:
+            draft_id = pending["draft_id"]
+            revision_instruction = normalize_revision_instruction(text)
+
+            if revision_instruction:
+                clean_text = f"REVISE {draft_id}: {revision_instruction}"
+
+                lang = normalize_language(
+                    get_workspace_by_id(pending_workspace_id).get("language", "en")
+                )
+
+                if lang.startswith("pt"):
+                    ack_text = (
+                        "✅ Instruções de revisão recebidas.\n\n"
+                        "A Sofia começou a processar a versão revista. "
+                        "Receberá o rascunho atualizado quando estiver pronto."
+                    )
+                elif lang == "es":
+                    ack_text = (
+                        "✅ Instrucciones de revisión recibidas.\n\n"
+                        "Sofia ha empezado a procesar la versión revisada. "
+                        "Recibirá el borrador actualizado cuando esté listo."
+                    )
+                elif lang == "fr":
+                    ack_text = (
+                        "✅ Instructions de révision reçues.\n\n"
+                        "Sofia a commencé à traiter la version révisée. "
+                        "Vous recevrez le brouillon mis à jour lorsqu’il sera prêt."
+                    )
+                else:
+                    ack_text = (
+                        "✅ Revision instructions received.\n\n"
+                        "Sofia has started processing the revised draft. "
+                        "You will receive the updated draft when it is ready."
+                    )
+
+                send_telegram_message(
+                    get_bot_token(),
+                    chat_id,
+                    ack_text,
+                    reply_to_message_id=msg.get("message_id"),
+                )
+
+                clear_pending_revision_context(
+                    chat_id=chat_id,
+                    user_id=user_id,
+                    workspace_id=pending_workspace_id,
+                )
+
+                log(
+                    "PENDING revision instruction received "
+                    f"workspace={pending_workspace_id} "
+                    f"chat_id={chat_id} "
+                    f"draft={draft_id} "
+                    f"text={revision_instruction!r}"
+                )
+
+                ok, process_output = process_decision(
+                    pending_workspace_id,
+                    clean_text,
+                )
+
+                if not ok:
+                    send_processing_result(
+                        chat_id=chat_id,
+                        reply_to_message_id=msg.get("message_id"),
+                        workspace_id=pending_workspace_id,
+                        item_id=draft_id,
+                        decision="REVISE",
+                        ok=ok,
+                        process_output=process_output,
+                    )
+
+                return
 
     if handle_internal_content_trigger(msg, workspace_by_chat_id):
         return
@@ -2024,7 +2484,7 @@ def handle_update(update, workspace_by_chat_id):
         return
 
     if error == "workspace_required":
-        available = workspace_by_chat_id.get(chat_id, [])
+        available = workspace_by_chat_id.get(str(chat_id), [])
         guidance = (
             "⚠️ This Telegram group manages multiple Sofia workspaces.\n\n"
             "Please include the workspace ID in your reply.\n\n"

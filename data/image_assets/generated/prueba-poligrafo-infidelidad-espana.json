@@ -1,0 +1,40 @@
+{
+  "source_path": "data/image_assets/originals/Interview.jpg",
+  "recommended_filename": "prueba-poligrafo-infidelidad-espana.webp",
+  "profile": "featured_image",
+  "variants": [
+    {
+      "file": "/mnt/c/AI/assistants/sofia/data/image_assets/generated/prueba-poligrafo-infidelidad-espana-1600.webp",
+      "filename": "prueba-poligrafo-infidelidad-espana-1600.webp",
+      "format": "webp",
+      "size_kb": 38,
+      "quality": 86,
+      "label": "desktop",
+      "width": 1600,
+      "height": 900,
+      "max_size_kb": 250
+    },
+    {
+      "file": "/mnt/c/AI/assistants/sofia/data/image_assets/generated/prueba-poligrafo-infidelidad-espana-1200.webp",
+      "filename": "prueba-poligrafo-infidelidad-espana-1200.webp",
+      "format": "webp",
+      "size_kb": 27,
+      "quality": 86,
+      "label": "tablet",
+      "width": 1200,
+      "height": 675,
+      "max_size_kb": 180
+    },
+    {
+      "file": "/mnt/c/AI/assistants/sofia/data/image_assets/generated/prueba-poligrafo-infidelidad-espana-800.webp",
+      "filename": "prueba-poligrafo-infidelidad-espana-800.webp",
+      "format": "webp",
+      "size_kb": 16,
+      "quality": 86,
+      "label": "mobile",
+      "width": 800,
+      "height": 450,
+      "max_size_kb": 100
+    }
+  ]
+}

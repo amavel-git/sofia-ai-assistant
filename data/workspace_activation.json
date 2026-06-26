@@ -1,8 +1,8 @@
 {
   "workspaces": {
     "local.es": {
-      "external_opportunities_active": false,
-      "updated_at": "2026-05-03T08:59:27.099700+00:00",
+      "external_opportunities_active": true,
+      "updated_at": "2026-06-13T11:58:10.014220+00:00",
       "updated_by_telegram_user_id": "179799897",
       "updated_by_name": "Amável"
     },
@@ -11,7 +11,13 @@
       "updated_at": "2026-05-03T09:55:16.205622+00:00",
       "updated_by_telegram_user_id": "179799897",
       "updated_by_name": "Amável"
+    },
+    "local.br": {
+      "external_opportunities_active": false,
+      "updated_at": "2026-06-01T22:55:52.687848+00:00",
+      "updated_by_telegram_user_id": "179799897",
+      "updated_by_name": "Amável"
     }
   },
-  "updated_at": "2026-05-03T09:55:16.205622+00:00"
+  "updated_at": "2026-06-13T11:58:10.014220+00:00"
 }

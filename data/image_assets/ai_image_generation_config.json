@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "default_provider": "local_flux",
+  "default_model": "Flux2Klein",
+  "master_output": {
+    "format": "png",
+    "minimum_width": 2048,
+    "minimum_height": 1152,
+    "quality_policy": "high_quality_master_before_optimization"
+  },
+  "paths": {
+    "master_generated_dir": "assets/images/generated/master",
+    "optimized_dir": "assets/images/optimized",
+    "social_dir": "assets/images/social"
+  },
+  "approval_policy": {
+    "requires_examiner_approval": true,
+    "do_not_upload_unapproved_ai_images": true
+  },
+  "ai_generation_rules": {
+    "text_policy": {
+      "default": "no_visible_text",
+      "allow_text_only_if_explicit": true,
+      "prompt_suffix_no_text": " No visible text. No readable words. No typography. No signs. No labels. No logos. No watermarks. Documents may appear but must be blank or unreadable.",
+      "negative_prompt_terms": [
+        "text",
+        "letters",
+        "words",
+        "captions",
+        "typography",
+        "signs",
+        "labels",
+        "watermark",
+        "logo",
+        "readable documents",
+        "printed text",
+        "UI text",
+        "distorted text"
+      ]
+    }
+  }
+}

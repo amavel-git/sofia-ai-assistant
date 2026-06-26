@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from datetime import datetime
+import sys
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -367,7 +368,11 @@ def build_opportunity(topic, workspace, coverage):
 def main():
     print("=== Sofia: Find Content Gaps with Local Overrides ===\n")
 
-    workspace_id = "local.ao"
+    if len(sys.argv) < 2:
+        print("Usage: python app/find_content_gaps.py <workspace_id>")
+        return
+
+    workspace_id = sys.argv[1]
 
     for required_file in [WORKSPACES_FILE, CORE_TOPIC_MAP_FILE, TOPIC_LOCALIZATION_FILE]:
         if not required_file.exists():

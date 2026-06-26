@@ -1,0 +1,62 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.es",
+  "purpose": "Spain-specific distribution preferences for Sofia-generated content. This file prepares future website and social media derivatives without generating social content yet.",
+  "rules": {
+    "distribution_planning_only": true,
+    "no_social_copy_generation_yet": true,
+    "no_auto_publishing": true,
+    "human_approval_required": true
+  },
+  "enabled_channels": {
+    "website": true,
+    "facebook": false,
+    "instagram": false,
+    "linkedin": false,
+    "google_business_profile": false,
+    "tiktok": false
+  },
+  "future_supported_channels": [
+    "website",
+    "facebook",
+    "instagram",
+    "linkedin",
+    "google_business_profile",
+    "tiktok"
+  ],
+  "website": {
+    "platform": "wordpress",
+    "default_status": "draft",
+    "requires_examiner_review": true
+  },
+  "social_derivatives": {
+    "enabled": false,
+    "future_content_types": {
+      "facebook": [
+        "short educational post",
+        "service awareness post",
+        "case-type explainer"
+      ],
+      "instagram": [
+        "caption",
+        "carousel outline",
+        "reel concept"
+      ],
+      "linkedin": [
+        "authority-building post",
+        "professional article summary",
+        "corporate investigation insight"
+      ],
+      "google_business_profile": [
+        "local update",
+        "service post",
+        "FAQ-style post"
+      ],
+      "tiktok": [
+        "short educational script",
+        "myth vs fact script",
+        "case awareness script"
+      ]
+    }
+  }
+}

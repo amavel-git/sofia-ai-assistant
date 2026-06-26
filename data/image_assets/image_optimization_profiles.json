@@ -1,0 +1,24 @@
+{
+  "featured_image": {
+    "desktop": {
+      "width": 1600,
+      "height": 900,
+      "max_size_kb": 250
+    },
+    "tablet": {
+      "width": 1200,
+      "height": 675,
+      "max_size_kb": 180
+    },
+    "mobile": {
+      "width": 800,
+      "height": 450,
+      "max_size_kb": 100
+    }
+  },
+  "inline_image": {
+    "width": 1200,
+    "height": 675,
+    "max_size_kb": 150
+  }
+}

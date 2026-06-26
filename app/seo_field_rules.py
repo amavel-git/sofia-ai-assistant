@@ -4,8 +4,8 @@ import unicodedata
 
 MAX_FOCUS_WORDS = 4
 MAX_SLUG_WORDS = 4
-MAX_META_DESCRIPTION_CHARS = 156
-MAX_SEO_TITLE_CHARS = 60
+MAX_META_DESCRIPTION_CHARS = 220
+MAX_SEO_TITLE_CHARS = 65
 
 
 STOPWORDS = {
@@ -33,18 +33,40 @@ PREFERRED_TERMS = {
 }
 
 
+
 def normalize_language(language):
-    language = str(language or "en").lower()
+    language = str(language or "en").lower().strip()
+
+    aliases = {
+        "spanish": "es",
+        "español": "es",
+        "espanol": "es",
+        "castellano": "es",
+
+        "portuguese": "pt",
+        "português": "pt",
+        "portugues": "pt",
+
+        "french": "fr",
+        "français": "fr",
+        "francais": "fr",
+
+        "english": "en",
+    }
+
+    if language in aliases:
+        return aliases[language]
 
     if language.startswith("pt"):
         return "pt"
+
     if language.startswith("es"):
         return "es"
+
     if language.startswith("fr"):
         return "fr"
 
     return "en"
-
 
 def strip_accents(text):
     text = str(text or "")
@@ -141,6 +163,20 @@ def enforce_seo_title(value, fallback="", language="en"):
     if not text:
         text = enforce_focus_keyphrase(fallback, language=language).title()
 
+    lang = normalize_language(language)
+
+    brand_by_language = {
+        "es": "Polígrafo España",
+        "pt": "Polígrafo Portugal",
+        "fr": "Polygraphe France",
+        "en": "Bear Forensics",
+    }
+
+    brand = brand_by_language.get(lang)
+
+    if brand and brand.lower() not in text.lower():
+        text = f"{text} | {brand}"
+
     return truncate_chars(text, MAX_SEO_TITLE_CHARS)
 
 
@@ -153,7 +189,11 @@ def enforce_meta_description(value, fallback="", focus_keyphrase="", language="e
         if normalize_language(language) == "pt":
             text = f"{focus}: avaliação profissional, confidencial e conduzida por examinador qualificado."
         elif normalize_language(language) == "es":
-            text = f"{focus}: evaluación profesional, confidencial y realizada por un examinador cualificado."
+            text = (
+                f"Información profesional sobre {focus}. "
+                f"Proceso, aplicaciones, limitaciones y preguntas frecuentes "
+                f"sobre las evaluaciones poligráficas en España."
+            )
         elif normalize_language(language) == "fr":
             text = f"{focus}: évaluation professionnelle, confidentielle et menée par un examinateur qualifié."
         else:
@@ -193,8 +233,26 @@ def normalize_seo_fields(
         language=language
     )
 
+    meta_source = meta_description
+
+    # Replace weak auto-generated metadata such as:
+    # "metodología del polígrafo. Información profesional sobre metodología del polígrafo."
+    if language == "es":
+        meta_lower = clean_text(meta_source).lower()
+        focus_lower = clean_focus.lower()
+        if (
+            not meta_source
+            or len(meta_lower) < 90
+            or "información profesional sobre" in meta_lower
+        ):
+            meta_source = (
+                f"Información profesional sobre {clean_focus}. "
+                f"Proceso, aplicaciones, limitaciones y preguntas frecuentes "
+                f"sobre las evaluaciones poligráficas en España."
+            )
+
     clean_meta = enforce_meta_description(
-        meta_description,
+        meta_source,
         fallback=source,
         focus_keyphrase=clean_focus,
         language=language

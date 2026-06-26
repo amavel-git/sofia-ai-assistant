@@ -9,30 +9,30 @@ CONTENT_STEPS = [
     },
     {
         "name": "Clean generated HTML",
-        "command_template": ["python", "app/clean_generated_html.py", "{draft_id}"]
+        "command_template": ["python", "app/assemble_wordpress_content.py", "{workspace_id}", "{draft_id}"]
     },
     {
         "name": "Validate generated content",
-        "command_template": ["python", "app/validate_generated_content.py", "{draft_id}"]
+        "command_template": ["python", "app/validate_generated_content.py", "{workspace_id}", "{draft_id}"]
     },
     {
         "name": "Repair generated content if needed",
-        "command_template": ["python", "app/repair_generated_content.py", "{draft_id}"],
+        "command_template": ["python", "app/repair_generated_content.py", "{workspace_id}", "{draft_id}"],
         "optional": True
     },
     {
         "name": "Clean repaired HTML",
-        "command_template": ["python", "app/clean_generated_html.py", "{draft_id}"],
+        "command_template": ["python", "app/assemble_wordpress_content.py", "{workspace_id}", "{draft_id}"],
         "optional": True
     },
     {
         "name": "Validate repaired content",
-        "command_template": ["python", "app/validate_generated_content.py", "{draft_id}"],
+        "command_template": ["python", "app/validate_generated_content.py", "{workspace_id}", "{draft_id}"],
         "optional": True
     },
     {
         "name": "Inject base internal links",
-        "command_template": ["python", "app/inject_internal_links.py", "{draft_id}"]
+        "command_template": ["python", "app/assemble_wordpress_content.py", "{workspace_id}", "{draft_id}"]
     },
     {
         "name": "Optimize internal link anchors",
@@ -44,11 +44,11 @@ CONTENT_STEPS = [
     },
     {
         "name": "Final clean HTML",
-        "command_template": ["python", "app/clean_generated_html.py", "{draft_id}"]
+        "command_template": ["python", "app/assemble_wordpress_content.py", "{workspace_id}", "{draft_id}"]
     },
     {
         "name": "Final validation",
-        "command_template": ["python", "app/validate_generated_content.py", "{draft_id}"]
+        "command_template": ["python", "app/validate_generated_content.py", "{workspace_id}", "{draft_id}"]
     }
 ]
 
@@ -64,17 +64,17 @@ EXAMINER_REVIEW_STEPS = [
 WORDPRESS_STEPS = [
     {
         "name": "Export WordPress package",
-        "command_template": ["python", "app/export_wordpress_package.py", "{draft_id}"]
+        "command_template": ["python", "app/export_wordpress_package.py", "{workspace_id}", "{draft_id}"]
     },
     {
         "name": "Upload or update WordPress draft",
-        "command_template": ["python", "app/update_wordpress_draft.py", "{draft_id}"],
-        "fallback_command_template": ["python", "app/upload_wordpress_draft.py", "{draft_id}"]
+        "command_template": ["python", "app/update_wordpress_draft.py", "{workspace_id}", "{draft_id}"],
+        "fallback_command_template": ["python", "app/upload_wordpress_draft.py", "{workspace_id}", "{draft_id}"]
     }
 ]
 
 
-def build_command(step, draft_id, key="command_template"):
+def build_command(step, workspace_id, draft_id, key="command_template"):
     if "command" in step and key == "command_template":
         return step["command"]
 
@@ -82,7 +82,10 @@ def build_command(step, draft_id, key="command_template"):
     if not template:
         return None
 
-    return [part.replace("{draft_id}", draft_id) for part in template]
+    return [
+        part.replace("{workspace_id}", workspace_id).replace("{draft_id}", draft_id)
+        for part in template
+    ]
 
 
 def run_command(command):
@@ -119,13 +122,13 @@ def run_command(command):
     return code, combined_output
 
 
-def run_steps(steps, draft_id):
+def run_steps(steps, workspace_id, draft_id):
     for step in steps:
         print("=" * 70)
         print(f"STEP: {step['name']}")
         print("=" * 70)
 
-        command = build_command(step, draft_id)
+        command = build_command(step, workspace_id, draft_id)
 
         if not command:
             print("ERROR: Step has no command.")
@@ -143,7 +146,7 @@ def run_steps(steps, draft_id):
 
         if step["name"] == "Upload or update WordPress draft" and code != 0:
             print("Update failed. Trying first upload fallback...\n")
-            fallback = build_command(step, draft_id, key="fallback_command_template")
+            fallback = build_command(step, workspace_id, draft_id, key="fallback_command_template")
             fallback_code, _ = run_command(fallback)
 
             if fallback_code != 0:
@@ -162,14 +165,15 @@ def run_steps(steps, draft_id):
 def main():
     print("=== Sofia: Run Publishing Pipeline ===\n")
 
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print("Usage:")
-        print("python app/run_publishing_pipeline.py DRAFT-0005 --to-review")
-        print("python app/run_publishing_pipeline.py DRAFT-0005 --after-approval")
+        print("python app/run_publishing_pipeline.py local.es DRAFT-0005 --to-review")
+        print("python app/run_publishing_pipeline.py local.es DRAFT-0005 --after-approval")
         return
 
-    draft_id = sys.argv[1]
-    mode = sys.argv[2]
+    workspace_id = sys.argv[1]
+    draft_id = sys.argv[2]
+    mode = sys.argv[3]
 
     if mode not in ["--to-review", "--after-approval"]:
         print("Invalid mode.")
@@ -179,13 +183,13 @@ def main():
     if mode == "--to-review":
         print("MODE: Generate content and route to examiner review\n")
 
-        ok = run_steps(CONTENT_STEPS, draft_id)
+        ok = run_steps(CONTENT_STEPS, workspace_id, draft_id)
 
         if not ok:
             print("ERROR: Content pipeline failed before examiner review.")
             return
 
-        ok = run_steps(EXAMINER_REVIEW_STEPS, draft_id)
+        ok = run_steps(EXAMINER_REVIEW_STEPS, workspace_id, draft_id)
 
         if not ok:
             print("ERROR: Could not route draft to examiner review.")
@@ -197,7 +201,7 @@ def main():
     if mode == "--after-approval":
         print("MODE: Continue after examiner approval and create/update WordPress draft\n")
 
-        ok = run_steps(WORDPRESS_STEPS, draft_id)
+        ok = run_steps(WORDPRESS_STEPS, workspace_id, draft_id)
 
         if not ok:
             print("ERROR: WordPress pipeline failed.")

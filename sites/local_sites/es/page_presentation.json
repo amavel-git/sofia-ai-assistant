@@ -1,0 +1,443 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.es",
+  "purpose": "Spain-specific presentation preferences for Sofia-generated WordPress content. This file controls local CTA strategy, reusable Gutenberg blocks, FAQ format, trust blocks, and presentation choices. It must not define page structure or drafting content.",
+  "rules": {
+    "presentation_only": true,
+    "no_page_structure": true,
+    "no_finished_article_copy": true,
+    "no_competitor_content": true
+  },
+  "wordpress": {
+    "cms": "wordpress",
+    "editor": "gutenberg",
+    "language": "es",
+    "country": "Spain",
+    "domain": "https://poligrafoespana.com"
+  },
+  "faq": {
+    "enabled": true,
+    "mode": "yoast_faq_block",
+    "match_headings": [
+      "Preguntas Frecuentes",
+      "Preguntas frecuentes"
+    ]
+  },
+  "cta_strategy": {
+    "enabled": true,
+    "default_tone": "confidential, professional, calm",
+    "avoid": [
+      "pressure",
+      "guarantees",
+      "urgent manipulation",
+      "absolute claims"
+    ],
+    "primary_cta_type": "whatsapp",
+    "future_reusable_block_key": null
+  },
+  "gutenberg_reusable_blocks": {
+    "enabled": false,
+    "notes": "Block references will be added later after Spain-specific WordPress reusable blocks are created.",
+    "blocks": {
+      "primary_cta": null,
+      "secondary_cta": null,
+      "faq": null,
+      "trust": null,
+      "related_services": null,
+      "strategic_links": null,
+      "contact": null
+    }
+  },
+  "trust_blocks": {
+    "enabled": true,
+    "preferred_themes": [
+      "confidentiality",
+      "professional process",
+      "voluntary participation",
+      "ethical limits",
+      "international experience"
+    ]
+  },
+  "strategic_links": {
+    "enabled": true,
+    "max_links_per_section": 5,
+    "avoid_repeating_same_anchor": true
+  },
+  "layout_preferences": {
+    "use_h1_once": true,
+    "prefer_h2_for_main_sections": true,
+    "prefer_h3_for_faq_questions": true,
+    "avoid_excessive_short_sections": true
+  },
+  "image_strategy": {
+    "enabled": true,
+    "featured_image_required_by_default": true,
+    "hero_image_required_by_default": true,
+    "inline_images_enabled": true,
+    "preferred_style": "realistic professional consultation",
+    "preferred_subjects": [
+      "professional consultation",
+      "pre-test interview",
+      "examiner speaking calmly with client",
+      "modern Spanish office",
+      "confidential professional meeting"
+    ],
+    "avoid": [
+      "interrogation imagery",
+      "police custody",
+      "fear-based visuals",
+      "aggressive suspect imagery",
+      "unrealistic polygraph equipment",
+      "medical diagnosis imagery"
+    ],
+    "future_generator": "flux",
+    "wordpress_insertion": {
+      "featured_image": true,
+      "hero_inline": true,
+      "inline_images": true
+    }
+  },
+  "rendering": {
+    "faq_format": "standard_html",
+    "future_preferred_faq_format": "yoast_faq_block",
+    "cta_rendering": "inline_html_now_reusable_block_later",
+    "trust_rendering": "inline_html_now_reusable_block_later",
+    "related_links_rendering": "inline_html_now_reusable_block_later",
+    "image_rendering": "wordpress_media_or_generated_asset_later",
+    "gutenberg_blocks_enabled": false
+  },
+  "validation_preferences": {
+    "respect_blueprint_validation_requirements": true,
+    "fail_on_missing_required_sections": true,
+    "fail_on_missing_cta_when_required": true,
+    "fail_on_missing_faq_when_required": true,
+    "warn_on_missing_image_assets": true,
+    "warn_on_missing_reusable_blocks": true
+  },
+  "gutenberg_blocks": {
+    "contact_cta": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1690,
+      "pattern_name": "SOFIA – Contact CTA – Spain",
+      "match_headings": [
+        "Solicite Información",
+        "Solicite información"
+      ],
+      "legacy": true,
+      "replaced_by": "whatsapp_cta"
+    },
+    "trust": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1699,
+      "pattern_name": "SOFIA – Trust Block – Spain",
+      "match_headings": [
+        "Información Profesional",
+        "Información profesional"
+      ]
+    },
+    "examiner_experience": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1713,
+      "pattern_name": "SOFIA – Examiner Experience – Spain"
+    },
+    "examiner_directory": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1702,
+      "pattern_name": "SOFIA – About Examiner – Spain"
+    },
+    "polygraph_process": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1718,
+      "pattern_name": "SOFIA – Polygraph Process – Spain"
+    },
+    "city_services": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1722,
+      "pattern_name": "SOFIA – City Services – Spain",
+      "legacy_replaced_by": "city_services_grid"
+    },
+    "city_services_grid": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1813,
+      "pattern_name": "SOFIA – City Services Grid – Spain",
+      "description": "Grid with links to main Spanish city service pages."
+    },
+    "whatsapp_cta": {
+      "enabled": true,
+      "mode": "reusable_block",
+      "block_id": 1876,
+      "pattern_name": "SOFIA – WhatsApp CTA – Spain",
+      "description": "Preferred WhatsApp contact CTA for Polígrafo España."
+    }
+  },
+  "page_types": {
+    "educational_page": {
+      "blocks": {
+        "before_faq": [
+          "examiner_experience",
+          "trust"
+        ],
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "service_page": {
+      "blocks": {
+        "before_faq": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory"
+        ],
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "city_page": {
+      "blocks": {
+        "before_faq": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory"
+        ],
+        "after_faq": [
+          "city_services_grid",
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "price_page": {
+      "blocks": {
+        "before_faq": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory"
+        ],
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "about_page": {
+      "blocks": {
+        "after_intro": [
+          "examiner_experience"
+        ],
+        "after_main_content": [
+          "examiner_directory",
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "landing_page": {
+      "blocks": {
+        "before_faq": [
+          "polygraph_process",
+          "trust",
+          "examiner_experience"
+        ],
+        "after_faq": [
+          "city_services_grid",
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "authority_page": {
+      "blocks": {
+        "after_h2_1": [
+          "trust"
+        ],
+        "before_faq": [
+          "polygraph_process"
+        ],
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "blog_post": {
+      "blocks": {
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "pricing_page": {
+      "blocks": {
+        "before_faq": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory"
+        ],
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    },
+    "pillar_page": {
+      "blocks": {
+        "after_h2_2": [
+          "trust"
+        ],
+        "before_faq": [
+          "polygraph_process"
+        ],
+        "after_faq": [
+          "whatsapp_cta"
+        ]
+      }
+    }
+  },
+  "page_type_blocks_deprecated": {
+    "educational_page": [
+      "examiner_experience",
+      "trust",
+      "contact_cta"
+    ],
+    "service_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_directory",
+      "contact_cta"
+    ],
+    "city_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_directory",
+      "city_services_grid",
+      "contact_cta"
+    ],
+    "price_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_directory",
+      "contact_cta"
+    ],
+    "about_page": [
+      "examiner_experience",
+      "contact_cta"
+    ],
+    "landing_page": [
+      "city_services_grid"
+    ]
+  },
+  "page_type_blocks_deprecated_note": "Deprecated. Sofia should use page_types[page_type].blocks for Gutenberg placement.",
+  "block_priority": {
+    "purpose": "Controls which reusable Gutenberg blocks Sofia should prefer by page type and conversion priority.",
+    "default_preferred_cta": "whatsapp_cta",
+    "fallback_cta": "contact_cta",
+    "rules": {
+      "educational_page": {
+        "priority": [
+          "examiner_experience",
+          "trust",
+          "whatsapp_cta"
+        ],
+        "avoid_unless_needed": [
+          "polygraph_process",
+          "city_services_grid",
+          "examiner_directory"
+        ]
+      },
+      "service_page": {
+        "priority": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory",
+          "whatsapp_cta"
+        ],
+        "avoid_unless_needed": [
+          "city_services_grid"
+        ]
+      },
+      "city_page": {
+        "priority": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory",
+          "city_services_grid",
+          "whatsapp_cta"
+        ],
+        "avoid_unless_needed": []
+      },
+      "landing_page": {
+        "priority": [
+          "polygraph_process",
+          "trust",
+          "examiner_experience",
+          "city_services_grid",
+          "whatsapp_cta"
+        ],
+        "avoid_unless_needed": []
+      },
+      "price_page": {
+        "priority": [
+          "polygraph_process",
+          "trust",
+          "examiner_directory",
+          "whatsapp_cta"
+        ],
+        "avoid_unless_needed": [
+          "city_services_grid"
+        ]
+      },
+      "about_page": {
+        "priority": [
+          "examiner_experience",
+          "examiner_directory",
+          "whatsapp_cta"
+        ],
+        "avoid_unless_needed": [
+          "polygraph_process",
+          "city_services_grid"
+        ]
+      }
+    }
+  },
+  "page_type_blocks": {
+    "educational_page": [
+      "examiner_experience",
+      "trust",
+      "whatsapp_cta"
+    ],
+    "service_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_directory",
+      "whatsapp_cta"
+    ],
+    "city_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_directory",
+      "city_services_grid",
+      "whatsapp_cta"
+    ],
+    "price_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_directory",
+      "whatsapp_cta"
+    ],
+    "about_page": [
+      "examiner_experience",
+      "examiner_directory",
+      "whatsapp_cta"
+    ],
+    "landing_page": [
+      "polygraph_process",
+      "trust",
+      "examiner_experience",
+      "city_services_grid",
+      "whatsapp_cta"
+    ]
+  }
+}

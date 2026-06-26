@@ -1,0 +1,250 @@
+{
+  "workspace_id": "local.es",
+  "version": "1.1",
+  "featured_image": {
+    "preferred_style": "professional_realistic",
+    "aspect_ratio": "16:9"
+  },
+  "general_rules": [
+    "Use realistic professional environments.",
+    "Use natural lighting when possible.",
+    "Prefer documentary-style photography.",
+    "Represent adults in professional settings.",
+    "Avoid exaggerated emotional expressions."
+  ],
+  "preferred_elements": [
+    "corporate investigations",
+    "business meetings",
+    "professional consultations",
+    "transportation companies",
+    "fleet management",
+    "logistics operations",
+    "document review",
+    "interview situations",
+    "office environments",
+    "industrial environments"
+  ],
+  "avoid_elements": [
+    "handcuffs",
+    "police raids",
+    "aggressive interrogation rooms",
+    "weapons",
+    "crime scene tape",
+    "prison cells",
+    "guilt implication",
+    "forced confessions",
+    "physical intimidation",
+    "sensational imagery"
+  ],
+  "polygraph_rules": [
+    "Polygraph equipment may appear but should not dominate the image.",
+    "Human interaction should remain central.",
+    "Avoid unrealistic lie detector screens.",
+    "Do not imply guaranteed truth detection.",
+    "Do not imply legal authority."
+  ],
+  "industry_specific": {
+    "transportation": [
+      "commercial vehicles",
+      "fuel management",
+      "fleet supervision",
+      "logistics operations"
+    ],
+    "corporate_investigations": [
+      "auditing",
+      "document analysis",
+      "professional interviews",
+      "compliance reviews"
+    ],
+    "human_resources": [
+      "professional interviews",
+      "candidate screening",
+      "office consultations"
+    ]
+  },
+  "topic_mapping": {
+    "fuel_fraud_transport": {
+      "match_terms": [
+        "fraude de combustible",
+        "robo de combustible",
+        "empresas de transporte",
+        "flota",
+        "camiones",
+        "gasóleo",
+        "tarjetas de combustible",
+        "abastecimiento"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "fuel tanker truck or transport fleet depot with signs of suspicious fuel transfer into unmarked containers",
+          "commercial truck parked in a transport depot with a discreet fuel siphoning situation",
+          "fleet yard at night suggesting possible unauthorized fuel diversion without showing readable text"
+        ],
+        "investigation_scene": [
+          "transport company managers reviewing fuel consumption records and route reports",
+          "fleet supervisor reviewing refueling records, mileage data, and fuel card usage",
+          "internal investigation meeting about fuel discrepancies in a transport company"
+        ],
+        "analysis_scene": [
+          "fuel consumption records, route analysis, and preparation of specific investigation questions",
+          "fuel card reports, mileage records, and route documents reviewed on a desk",
+          "professional analysis of transport fuel discrepancies and operational records"
+        ]
+      },
+      "preferred_elements": [
+        "commercial trucks",
+        "transport depot",
+        "fuel records",
+        "route reports",
+        "fuel cards",
+        "fleet management",
+        "logistics office"
+      ],
+      "avoid_elements": [
+        "explosions",
+        "police raid",
+        "criminal mugshot",
+        "visible brand logos",
+        "readable license plates"
+      ]
+    },
+    "inventory_manipulation": {
+      "match_terms": [
+        "manipulación de inventario",
+        "almacenes logísticos",
+        "stock",
+        "mercancía",
+        "control de inventario",
+        "pérdidas de inventario"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "warehouse or logistics storage area showing missing inventory, open boxes, and stock discrepancies",
+          "employee discreetly removing products from a warehouse without aggressive or criminalized imagery",
+          "logistics warehouse scene suggesting inventory discrepancy and internal control concerns"
+        ],
+        "investigation_scene": [
+          "manager reviewing warehouse records and stock movement reports",
+          "internal audit of warehouse inventory records in a logistics office",
+          "professional review of stock access and inventory control documents"
+        ],
+        "analysis_scene": [
+          "inventory reports, access logs, and stock movement analysis",
+          "warehouse audit documentation and preparation of investigation questions",
+          "analysis of inventory discrepancy records in a professional setting"
+        ]
+      },
+      "preferred_elements": [
+        "warehouse",
+        "inventory records",
+        "stock shelves",
+        "logistics storage",
+        "access logs",
+        "audit documentation"
+      ]
+    },
+    "financial_fraud": {
+      "match_terms": [
+        "fraude económico",
+        "entidades financieras",
+        "fraude financiero",
+        "desviación de fondos",
+        "manipulación de cuentas"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "professional financial office with evidence of account discrepancies and confidential internal review",
+          "banking or financial services environment suggesting internal fraud investigation",
+          "financial records and audit materials reviewed in a confidential corporate setting"
+        ],
+        "investigation_scene": [
+          "compliance managers reviewing financial discrepancy reports",
+          "internal audit meeting in a financial institution",
+          "professional review of access permissions and financial transaction records"
+        ],
+        "analysis_scene": [
+          "financial documents, transaction reports, and preparation of investigation questions",
+          "audit reports and account discrepancy analysis in a professional office",
+          "confidential review of financial records and internal controls"
+        ]
+      },
+      "preferred_elements": [
+        "financial records",
+        "audit documents",
+        "compliance review",
+        "internal controls",
+        "professional office"
+      ]
+    },
+    "workplace_drug_use": {
+      "match_terms": [
+        "consumo de drogas",
+        "empleados",
+        "entidades financieras",
+        "entorno laboral",
+        "sospechas de consumo"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "confidential workplace integrity concern in a financial services office without showing drug use",
+          "professional office environment suggesting sensitive employee conduct review",
+          "manager reviewing confidential workplace conduct concerns in a private office"
+        ],
+        "investigation_scene": [
+          "professional confidential meeting about workplace integrity concerns",
+          "HR and compliance review of employee conduct concerns",
+          "private discussion of workplace policy and employee suitability concerns"
+        ],
+        "analysis_scene": [
+          "confidential notes, workplace policy documents, and preparation of specific questions",
+          "professional review of workplace incident documentation",
+          "analysis of employee conduct records in a confidential setting"
+        ]
+      },
+      "avoid_elements": [
+        "visible drugs",
+        "needles",
+        "intoxicated people",
+        "sensational imagery",
+        "humiliating employee depiction"
+      ]
+    },
+    "general_polygraph_service": {
+      "match_terms": [
+        "polígrafo",
+        "prueba de polígrafo",
+        "evaluación poligráfica"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "professional consultation before a polygraph evaluation in a modern office"
+        ],
+        "investigation_scene": [
+          "examiner and client reviewing clear written questions before a polygraph evaluation"
+        ],
+        "analysis_scene": [
+          "professional review of case notes and preparation of polygraph questions"
+        ]
+      }
+    }
+  },
+  "visual_roles": {
+    "problem_scene": {
+      "purpose": "Represent the concrete business problem or investigated situation.",
+      "priority": "featured_image",
+      "avoid": [
+        "generic consultation office",
+        "polygraph equipment as main subject",
+        "documents-only scene unless the issue is documentary fraud"
+      ]
+    },
+    "investigation_scene": {
+      "purpose": "Represent professional internal review, interviews, or case assessment.",
+      "priority": "in_article_1"
+    },
+    "analysis_scene": {
+      "purpose": "Represent document review, records analysis, route analysis, access logs, or question preparation.",
+      "priority": "in_article_2"
+    }
+  }
+}

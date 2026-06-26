@@ -1,0 +1,413 @@
+{
+  "version": "1.0",
+  "description": "Language-aware examiner request parsing hints for Sofia.",
+  "sensitivity_terms": {
+    "en": [
+      "violence",
+      "domestic violence",
+      "sexual",
+      "assault",
+      "rape",
+      "minor",
+      "child",
+      "offender",
+      "convicted",
+      "conviction",
+      "probation",
+      "parole",
+      "reintegration",
+      "court",
+      "judicial",
+      "therapy",
+      "treatment"
+    ],
+    "es": [
+      "violencia",
+      "violencia doméstica",
+      "sexual",
+      "agresión",
+      "violación",
+      "menor",
+      "condenado",
+      "condena",
+      "ex condenado",
+      "ex-condenado",
+      "libertad condicional",
+      "reinserción",
+      "delito",
+      "tribunal",
+      "judicial",
+      "terapia",
+      "tratamiento"
+    ],
+    "pt": [
+      "violência",
+      "violência doméstica",
+      "sexual",
+      "agressão",
+      "violação",
+      "menor",
+      "condenado",
+      "condenação",
+      "liberdade condicional",
+      "reinserção",
+      "crime",
+      "tribunal",
+      "judicial",
+      "terapia",
+      "tratamento"
+    ],
+    "fr": [
+      "violence",
+      "violence domestique",
+      "sexuel",
+      "sexuelle",
+      "agression",
+      "viol",
+      "mineur",
+      "condamné",
+      "condamnation",
+      "libération conditionnelle",
+      "réinsertion",
+      "infraction",
+      "tribunal",
+      "judiciaire",
+      "thérapie",
+      "traitement"
+    ]
+  },
+  "page_type_terms": {
+    "authority_page": {
+      "en": [
+        "legal",
+        "court",
+        "probation",
+        "parole",
+        "offender",
+        "treatment",
+        "therapy",
+        "public safety"
+      ],
+      "es": [
+        "legal",
+        "judicial",
+        "tribunal",
+        "libertad condicional",
+        "reinserción",
+        "condenado",
+        "tratamiento",
+        "terapia"
+      ],
+      "pt": [
+        "legal",
+        "judicial",
+        "tribunal",
+        "liberdade condicional",
+        "reinserção",
+        "condenado",
+        "tratamento",
+        "terapia"
+      ],
+      "fr": [
+        "juridique",
+        "judiciaire",
+        "tribunal",
+        "libération conditionnelle",
+        "réinsertion",
+        "condamné",
+        "traitement",
+        "thérapie"
+      ]
+    },
+    "educational_page": {
+      "en": [
+        "what is",
+        "how does",
+        "methodology",
+        "reliability",
+        "history",
+        "myths"
+      ],
+      "es": [
+        "qué es",
+        "como funciona",
+        "cómo funciona",
+        "metodología",
+        "fiabilidad",
+        "historia",
+        "mitos"
+      ],
+      "pt": [
+        "o que é",
+        "como funciona",
+        "metodologia",
+        "fiabilidade",
+        "história",
+        "mitos"
+      ],
+      "fr": [
+        "qu'est-ce",
+        "comment fonctionne",
+        "méthodologie",
+        "fiabilité",
+        "histoire",
+        "mythes"
+      ]
+    },
+    "pricing_page": {
+      "en": [
+        "price",
+        "prices",
+        "cost",
+        "pricing",
+        "fees"
+      ],
+      "es": [
+        "precio",
+        "precios",
+        "coste",
+        "costo",
+        "tarifa",
+        "tarifas"
+      ],
+      "pt": [
+        "preço",
+        "preços",
+        "custo",
+        "tarifa",
+        "tarifas"
+      ],
+      "fr": [
+        "prix",
+        "tarif",
+        "tarifs",
+        "coût",
+        "cout"
+      ]
+    }
+  },
+  "city_terms": {
+    "es": [
+      "madrid",
+      "barcelona",
+      "valencia",
+      "sevilla",
+      "málaga",
+      "malaga",
+      "bilbao",
+      "córdoba",
+      "cordoba",
+      "granada",
+      "toledo",
+      "zaragoza",
+      "alicante",
+      "cádiz",
+      "cadiz",
+      "tenerife",
+      "las palmas"
+    ],
+    "pt": [
+      "lisboa",
+      "porto",
+      "braga",
+      "coimbra",
+      "faro"
+    ],
+    "fr": [
+      "paris",
+      "lyon",
+      "marseille",
+      "bordeaux",
+      "lille",
+      "nice",
+      "montpellier",
+      "annecy",
+      "valence"
+    ],
+    "en": [
+      "london",
+      "manchester",
+      "birmingham",
+      "dubai",
+      "abu dhabi",
+      "bangalore",
+      "kolkata",
+      "hyderabad"
+    ]
+  },
+  "command_aliases": {
+    "create_content": {
+      "es": [
+        "crea",
+        "crear",
+        "haz",
+        "hazme",
+        "prepara",
+        "genera",
+        "escribe",
+        "redacta",
+        "página",
+        "pagina",
+        "artículo",
+        "articulo"
+      ],
+      "pt": [
+        "cria",
+        "criar",
+        "faz",
+        "prepara",
+        "gera",
+        "escreve",
+        "redige",
+        "página",
+        "pagina",
+        "artigo"
+      ],
+      "fr": [
+        "crée",
+        "creer",
+        "créer",
+        "fais",
+        "prépare",
+        "prepare",
+        "génère",
+        "genere",
+        "rédige",
+        "page",
+        "article"
+      ],
+      "en": [
+        "create",
+        "make",
+        "write",
+        "prepare",
+        "generate",
+        "draft",
+        "page",
+        "article"
+      ]
+    },
+    "show_failed_jobs": {
+      "es": [
+        "trabajos fallidos",
+        "fallos",
+        "errores",
+        "jobs fallidos"
+      ],
+      "pt": [
+        "trabalhos falhados",
+        "falhas",
+        "erros",
+        "jobs falhados"
+      ],
+      "fr": [
+        "tâches échouées",
+        "erreurs",
+        "échecs",
+        "jobs échoués"
+      ],
+      "en": [
+        "failed jobs",
+        "failures",
+        "errors"
+      ]
+    },
+    "show_jobs": {
+      "es": [
+        "estado",
+        "status",
+        "trabajos",
+        "jobs",
+        "cola"
+      ],
+      "pt": [
+        "estado",
+        "status",
+        "trabalhos",
+        "jobs",
+        "fila"
+      ],
+      "fr": [
+        "statut",
+        "status",
+        "tâches",
+        "jobs",
+        "file"
+      ],
+      "en": [
+        "status",
+        "jobs",
+        "queue"
+      ]
+    },
+    "show_active_workspaces": {
+      "es": [
+        "países activos",
+        "workspaces activos",
+        "sitios activos"
+      ],
+      "pt": [
+        "países ativos",
+        "workspaces ativos",
+        "sites ativos"
+      ],
+      "fr": [
+        "pays actifs",
+        "workspaces actifs",
+        "sites actifs"
+      ],
+      "en": [
+        "active countries",
+        "active workspaces",
+        "active sites"
+      ]
+    },
+    "add_competitor": {
+      "es": [
+        "añade competidor",
+        "agrega competidor",
+        "competencia",
+        "competidor"
+      ],
+      "pt": [
+        "adiciona concorrente",
+        "acrescenta concorrente",
+        "concorrente",
+        "concorrência"
+      ],
+      "fr": [
+        "ajoute concurrent",
+        "concurrent",
+        "concurrence"
+      ],
+      "en": [
+        "add competitor",
+        "competitor",
+        "competition"
+      ]
+    },
+    "diagnose_workspace": {
+      "es": [
+        "diagnostica",
+        "diagnóstico",
+        "por qué falla",
+        "por que falla"
+      ],
+      "pt": [
+        "diagnostica",
+        "diagnóstico",
+        "porque falha"
+      ],
+      "fr": [
+        "diagnostique",
+        "diagnostic",
+        "pourquoi échoue"
+      ],
+      "en": [
+        "diagnose",
+        "diagnostic",
+        "why is failing"
+      ]
+    }
+  }
+}

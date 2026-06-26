@@ -1,0 +1,102 @@
+{
+  "version": "1.0",
+  "purpose": "Configurable content safety and wording policy for Sofia. This file defines risky wording, preferred alternatives, validation severity, and language-specific style rules without hardcoding terms inside Python files.",
+  "rules": {
+    "do_not_hardcode_language_rules_in_python": true,
+    "warnings_do_not_block_by_default": true,
+    "block_only_high_risk_claims": true,
+    "examiner_review_for_sensitive_wording": true
+  },
+  "global_polygraph_policy": {
+    "blocked_claims": [
+      "100% accurate",
+      "guaranteed result",
+      "infallible",
+      "proves guilt",
+      "proves innocence",
+      "detects lies",
+      "legal proof"
+    ],
+    "warning_claims": [
+      "identifies responsible persons",
+      "reveals illegal activity",
+      "determines whether statements are true or false",
+      "powerful tool",
+      "highly effective tool",
+      "valuable tool"
+    ],
+    "preferred_concepts": [
+      "may help clarify specific statements",
+      "may support a broader investigation",
+      "records physiological responses associated with specific questions",
+      "should be interpreted within the full case context",
+      "should not replace other evidence or professional investigation"
+    ]
+  },
+  "language_profiles": {
+    "pt-PT": {
+      "avoid_terms": [
+        "equipe",
+        "você",
+        "estresse",
+        "gerenciamento",
+        "registros",
+        "coletados"
+      ],
+      "preferred_terms": [
+        "equipa",
+        "neutral professional wording",
+        "stress or tensão",
+        "gestão",
+        "registos",
+        "recolhidos"
+      ],
+      "warning_phrases": [
+        "identificar responsáveis",
+        "atividades ilícitas",
+        "verdadeiras ou não",
+        "ferramenta valiosa",
+        "ferramenta poderosa",
+        "ferramenta eficaz",
+        "prova legal",
+        "clarificar responsabilidades"
+      ]
+    },
+    "es-ES": {
+      "avoid_terms": [],
+      "preferred_terms": [],
+      "warning_phrases": [
+        "identificar responsables",
+        "actividades ilícitas",
+        "verdadero o falso",
+        "herramienta poderosa",
+        "herramienta eficaz",
+        "prueba legal"
+      ]
+    },
+    "fr-FR": {
+      "avoid_terms": [],
+      "preferred_terms": [],
+      "warning_phrases": [
+        "identifier les responsables",
+        "activités illégales",
+        "vrai ou faux",
+        "outil puissant",
+        "outil efficace",
+        "preuve légale"
+      ]
+    },
+    "en-US": {
+      "avoid_terms": [],
+      "preferred_terms": [],
+      "warning_phrases": [
+        "identify responsible persons",
+        "illegal activity",
+        "true or false",
+        "powerful tool",
+        "effective tool",
+        "legal proof"
+      ]
+    }
+  }
+}

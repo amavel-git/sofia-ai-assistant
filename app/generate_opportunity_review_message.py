@@ -1,11 +1,18 @@
 import json
 from pathlib import Path
+import sys
 
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
 
-WORKSPACE_ID = "local.ao"
-LOCAL_SITE_PATH = SOFIA_ROOT / "sites" / "local_sites" / "ao"
+WORKSPACE_ID = sys.argv[1] if len(sys.argv) > 1 else None
+
+if not WORKSPACE_ID:
+    print("Usage: python app/generate_opportunity_review_message.py <workspace_id>")
+    raise SystemExit(1)
+
+workspace_slug = WORKSPACE_ID.split(".")[-1]
+LOCAL_SITE_PATH = SOFIA_ROOT / "sites" / "local_sites" / workspace_slug
 
 OPPORTUNITIES_FILE = LOCAL_SITE_PATH / "external_opportunities.json"
 

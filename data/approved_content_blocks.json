@@ -9,7 +9,8 @@
     "Seed approved content blocks generated from the uploaded multilingual FAQ JSON.",
     "Use as controlled source material, not automatic duplicate text.",
     "Local workspace profiles should guide localization, service availability, and CTA wording.",
-    "Added 60 approved semantic website-derived blocks on 2026-05-09T10:34:18.019054+00:00."
+    "Added 60 approved semantic website-derived blocks on 2026-05-09T10:34:18.019054+00:00.",
+    "Added Portuguese problem-oriented corporate investigation blocks for Sofia generation quality on 2026-06-04."
   ],
   "blocks": [
     {
@@ -10552,6 +10553,249 @@
           "Use to paraphrase, synthesize, localize, and strengthen professional content."
         ]
       }
+    },
+    {
+      "block_id": "problem_inventory_manipulation_pt_PT_ao_001",
+      "source_type": "approved_problem_knowledge_seed",
+      "language": "pt-PT",
+      "category": "inventory_manipulation",
+      "tags": [
+        "inventory_manipulation",
+        "inventory_control",
+        "warehouse_losses",
+        "stock_discrepancies",
+        "warehouse",
+        "stock",
+        "internal_investigation",
+        "employee_theft",
+        "loss_prevention"
+      ],
+      "service_type": "corporate_investigation_polygraph",
+      "risk_level": "standard_with_limitations",
+      "allowed_use": [
+        "landing_page",
+        "service_page",
+        "repair_expansion"
+      ],
+      "approval": {
+        "approved": true,
+        "approved_by": "manual_seed",
+        "approved_at": "2026-06-04"
+      },
+      "reuse_policy": {
+        "may_adapt": true,
+        "copy_verbatim_only_if_needed": false,
+        "avoid_duplicate_exact_text_across_pages": true
+      },
+      "recommended_when": [
+        "inventory manipulation",
+        "stock losses",
+        "warehouse theft",
+        "missing goods",
+        "internal audit discrepancies",
+        "warehouse access control"
+      ],
+      "text": "Em investigações empresariais relacionadas com inventário, o problema normalmente não começa com uma certeza, mas com sinais repetidos: diferenças entre o stock físico e os registos internos, mercadorias desaparecidas, produtos de alto valor sem explicação operacional clara, acessos ao armazém que não correspondem aos movimentos de entrada e saída, ou auditorias internas que não conseguem distinguir erro administrativo, falha de controlo e possível furto interno. Nestes casos, uma avaliação poligráfica pode ser considerada como ferramenta complementar para abordar uma questão específica e bem definida, sempre integrada com auditorias, controlo documental, registos de acesso, entrevistas internas e procedimentos da empresa."
+    },
+    {
+      "block_id": "problem_fuel_diversion_pt_PT_ao_001",
+      "source_type": "approved_problem_knowledge_seed",
+      "language": "pt-PT",
+      "category": "fuel_diversion",
+      "tags": [
+        "fuel_diversion",
+        "transport_fraud",
+        "logistics_investigation",
+        "employee_theft",
+        "loss_prevention",
+        "asset_protection",
+        "internal_investigation",
+        "transport",
+        "fuel"
+      ],
+      "service_type": "corporate_investigation_polygraph",
+      "risk_level": "standard_with_limitations",
+      "allowed_use": [
+        "landing_page",
+        "service_page",
+        "repair_expansion"
+      ],
+      "approval": {
+        "approved": true,
+        "approved_by": "manual_seed",
+        "approved_at": "2026-06-04"
+      },
+      "reuse_policy": {
+        "may_adapt": true,
+        "copy_verbatim_only_if_needed": false,
+        "avoid_duplicate_exact_text_across_pages": true
+      },
+      "recommended_when": [
+        "fuel diversion",
+        "transport companies",
+        "drivers",
+        "fuel cards",
+        "logistics losses",
+        "fleet investigation"
+      ],
+      "text": "Os desvios de combustível em empresas de transporte podem envolver consumo anormal por viatura, diferenças entre quilometragem e abastecimentos, uso indevido de cartões de combustível, suspeitas sobre motoristas, supervisores ou pessoal de logística, ou padrões que só aparecem depois de comparar registos de frota, rotas, abastecimentos e relatórios internos. A avaliação poligráfica pode ajudar quando a empresa já delimitou uma questão concreta, como a participação de uma pessoa específica num desvio, venda não autorizada, abastecimento fictício ou colaboração com terceiros. O exame não substitui controlo de frota, auditoria documental ou prova material, mas pode apoiar a clarificação de declarações em contexto de investigação interna."
+    },
+    {
+      "block_id": "problem_internal_theft_pt_PT_ao_001",
+      "source_type": "approved_problem_knowledge_seed",
+      "language": "pt-PT",
+      "category": "internal_theft",
+      "tags": [
+        "internal_theft",
+        "employee_theft",
+        "corporate_investigation",
+        "loss_prevention",
+        "internal_investigation",
+        "asset_protection",
+        "theft"
+      ],
+      "service_type": "corporate_investigation_polygraph",
+      "risk_level": "standard_with_limitations",
+      "allowed_use": [
+        "landing_page",
+        "service_page",
+        "repair_expansion"
+      ],
+      "approval": {
+        "approved": true,
+        "approved_by": "manual_seed",
+        "approved_at": "2026-06-04"
+      },
+      "reuse_policy": {
+        "may_adapt": true,
+        "copy_verbatim_only_if_needed": false,
+        "avoid_duplicate_exact_text_across_pages": true
+      },
+      "recommended_when": [
+        "employee theft",
+        "internal theft",
+        "corporate losses",
+        "multiple suspects",
+        "specific incident investigation"
+      ],
+      "text": "Em suspeitas de furto interno, a dificuldade para a empresa raramente é apenas financeira. Também existe o risco de acusar funcionários inocentes, deteriorar o ambiente de trabalho, perder confiança na equipa e agir sem base suficiente. O polígrafo pode ser útil quando existe uma suspeita concreta e limitada no tempo, como desaparecimento de dinheiro, equipamento, combustível, mercadoria ou documentos, e quando a empresa precisa avaliar a veracidade de declarações relacionadas com um incidente específico. A aplicação deve ser voluntária, confidencial, eticamente conduzida e complementada por outros elementos da investigação."
+    },
+    {
+      "block_id": "problem_corporate_investigation_pt_PT_ao_001",
+      "source_type": "approved_problem_knowledge_seed",
+      "language": "pt-PT",
+      "category": "corporate_investigation",
+      "tags": [
+        "corporate_investigation",
+        "internal_investigation",
+        "internal_fraud",
+        "employee_theft",
+        "workplace_misconduct",
+        "loss_prevention"
+      ],
+      "service_type": "corporate_investigation_polygraph",
+      "risk_level": "standard_with_limitations",
+      "allowed_use": [
+        "landing_page",
+        "service_page",
+        "repair_expansion"
+      ],
+      "approval": {
+        "approved": true,
+        "approved_by": "manual_seed",
+        "approved_at": "2026-06-04"
+      },
+      "reuse_policy": {
+        "may_adapt": true,
+        "copy_verbatim_only_if_needed": false,
+        "avoid_duplicate_exact_text_across_pages": true
+      },
+      "recommended_when": [
+        "corporate investigation",
+        "internal investigation",
+        "company misconduct",
+        "employee statements",
+        "specific issue testing"
+      ],
+      "text": "Numa investigação corporativa, o valor do exame de polígrafo depende da definição clara do assunto investigado. O teste é mais apropriado quando a pergunta central pode ser delimitada em factos específicos: participação num furto, conhecimento prévio de uma fraude, manipulação de documentos, ocultação de informação relevante ou envolvimento directo num incidente. O exame não deve ser usado para explorar assuntos vagos ou pessoais sem ligação ao caso. A sua função é apoiar a tomada de decisão interna com informação adicional, mantendo consentimento, confidencialidade e prudência profissional."
+    },
+    {
+      "block_id": "problem_access_control_pt_PT_ao_001",
+      "source_type": "approved_problem_knowledge_seed",
+      "language": "pt-PT",
+      "category": "access_control",
+      "tags": [
+        "access_control",
+        "warehouse_losses",
+        "asset_protection",
+        "inventory_control",
+        "internal_investigation",
+        "employee_theft"
+      ],
+      "service_type": "corporate_investigation_polygraph",
+      "risk_level": "standard_with_limitations",
+      "allowed_use": [
+        "landing_page",
+        "service_page",
+        "repair_expansion"
+      ],
+      "approval": {
+        "approved": true,
+        "approved_by": "manual_seed",
+        "approved_at": "2026-06-04"
+      },
+      "reuse_policy": {
+        "may_adapt": true,
+        "copy_verbatim_only_if_needed": false,
+        "avoid_duplicate_exact_text_across_pages": true
+      },
+      "recommended_when": [
+        "access control",
+        "warehouse access",
+        "restricted areas",
+        "missing goods",
+        "internal controls"
+      ],
+      "text": "Problemas de controlo de acesso podem surgir quando muitas pessoas entram em áreas restritas, quando os registos de entrada não são fiáveis, quando chaves, cartões ou códigos são partilhados, ou quando a empresa não consegue relacionar o desaparecimento de bens com uma pessoa ou turno específico. Em casos assim, o polígrafo só deve ser considerado depois de a empresa organizar os dados disponíveis e definir perguntas claras relacionadas com o incidente. A avaliação pode ajudar a esclarecer se determinado colaborador teve participação, conhecimento ou ocultou informação relevante sobre o acesso não autorizado ou o desaparecimento de bens."
+    },
+    {
+      "block_id": "problem_workplace_misconduct_pt_PT_ao_001",
+      "source_type": "approved_problem_knowledge_seed",
+      "language": "pt-PT",
+      "category": "workplace_misconduct",
+      "tags": [
+        "workplace_misconduct",
+        "internal_investigation",
+        "sabotage",
+        "corporate_investigation",
+        "employee_theft",
+        "internal_fraud"
+      ],
+      "service_type": "corporate_investigation_polygraph",
+      "risk_level": "standard_with_limitations",
+      "allowed_use": [
+        "landing_page",
+        "service_page",
+        "repair_expansion"
+      ],
+      "approval": {
+        "approved": true,
+        "approved_by": "manual_seed",
+        "approved_at": "2026-06-04"
+      },
+      "reuse_policy": {
+        "may_adapt": true,
+        "copy_verbatim_only_if_needed": false,
+        "avoid_duplicate_exact_text_across_pages": true
+      },
+      "recommended_when": [
+        "sabotage",
+        "internal misconduct",
+        "company investigation",
+        "employee involvement",
+        "confidential internal issue"
+      ],
+      "text": "Em casos de conduta interna indevida, como sabotagem, ocultação de informação, cumplicidade em desvios ou violação de regras internas, a empresa precisa separar suspeitas de factos verificáveis. O polígrafo pode apoiar a investigação quando existe um evento específico, pessoas identificadas e perguntas directamente relacionadas com a conduta investigada. Deve ser usado com prudência, sem substituir prova documental, análise técnica, entrevistas, processos disciplinares adequados ou aconselhamento jurídico quando necessário."
     }
   ]
 }

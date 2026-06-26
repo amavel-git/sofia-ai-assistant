@@ -1,0 +1,17 @@
+{
+  "preferred": {
+    "documentary": true,
+    "professional": true,
+    "human_interaction": true,
+    "office_environment": true,
+    "consultation": true,
+    "conference": true
+  },
+  "avoid": {
+    "interrogation_room": true,
+    "police_cliche": true,
+    "authority_implication": true,
+    "guarantee_claim": true,
+    "unrealistic_instrument": true
+  }
+}

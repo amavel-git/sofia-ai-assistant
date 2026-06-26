@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from datetime import datetime
 import sys
+import re
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,11 +37,121 @@ def page_text(page):
         page.get("url", ""),
         page.get("slug", ""),
         page.get("section", ""),
-        page.get("page_type", "")
+        page.get("page_type", ""),
+        page.get("title", ""),
+        page.get("h1", ""),
+        page.get("topic", "")
     ]))
 
 
-def add_link(suggestions, source_page, target_page, reason, priority, link_type):
+def load_language_profile(workspace_folder: Path):
+    profile_path = workspace_folder / "language_profile.json"
+    if not profile_path.exists():
+        return {}
+    return load_json(profile_path)
+
+
+def get_internal_linking_rules(language_profile: dict):
+    return language_profile.get("internal_linking_rules", {}) or {}
+
+
+def normalize_for_terms(value: str) -> str:
+    value = str(value or "").lower()
+    value = re.sub(r"https?://[^/]+", " ", value)
+    value = re.sub(r"[^a-zA-ZÀ-ÿ0-9]+", " ", value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
+def page_terms(page: dict, link_profile_rules: dict = None) -> set:
+    link_profile_rules = link_profile_rules or {}
+    generic_terms = {
+        normalize_for_terms(term)
+        for term in link_profile_rules.get("generic_terms", [])
+    }
+
+    text = normalize_for_terms(" ".join([
+        page.get("slug", ""),
+        page.get("section", ""),
+        page.get("page_type", ""),
+        page.get("title", ""),
+        page.get("h1", ""),
+        page.get("topic", "")
+    ]))
+
+    terms = set()
+    for term in text.split():
+        if len(term) < 4:
+            continue
+        if term in generic_terms:
+            continue
+        terms.add(term)
+
+    return terms
+
+
+def semantic_overlap_score(source_page: dict, target_page: dict, link_profile_rules: dict = None) -> int:
+    source_terms = page_terms(source_page, link_profile_rules)
+    target_terms = page_terms(target_page, link_profile_rules)
+
+    if not source_terms or not target_terms:
+        return 0
+
+    return len(source_terms.intersection(target_terms))
+
+
+def infer_relationship(target_role: str, link_type: str, source_page: dict, target_page: dict, link_profile_rules: dict = None) -> str:
+    target_role = normalize(target_role)
+    link_type = normalize(link_type)
+
+    if target_role == "contact":
+        return "contact"
+    if target_role == "faq":
+        return "faq_support"
+    if target_role == "how_it_works":
+        return "process_explanation"
+    if target_role == "main_service_page":
+        return "pillar_page"
+    if target_role == "related_service":
+        return "topic_related"
+
+    if semantic_overlap_score(source_page, target_page, link_profile_rules) > 0:
+        return "semantic_related"
+
+    return link_type or "internal_link"
+
+
+def is_low_value_structural_page(page: dict) -> bool:
+    """
+    Avoid using tag/category/archive-like pages as preferred semantic targets.
+    This is structural, not workspace-specific.
+    """
+    url = normalize(page.get("url", ""))
+    section = normalize(page.get("section", ""))
+    slug = normalize(page.get("slug", ""))
+
+    low_value_signals = [
+        "/tag/",
+        "/category/",
+        "tag",
+        "category",
+        "archive"
+    ]
+
+    haystack = " ".join([url, section, slug])
+    return any(signal in haystack for signal in low_value_signals)
+
+
+def add_link(
+    suggestions,
+    source_page,
+    target_page,
+    reason,
+    priority,
+    link_type,
+    relationship="",
+    target_role="",
+    link_profile_rules=None,
+):
     if not source_page or not target_page:
         return
 
@@ -50,83 +161,115 @@ def add_link(suggestions, source_page, target_page, reason, priority, link_type)
     if not source_url or not target_url or source_url == target_url:
         return
 
+    source_slug = normalize(source_page.get("slug", ""))
+    target_slug = normalize(target_page.get("slug", ""))
+
+    # Avoid linking pages that are effectively the same topic/slug
+    # even when they live under different URL paths.
+    if source_slug and target_slug and source_slug == target_slug:
+        return
+
     for item in suggestions:
         if item["source_url"] == source_url and item["target_url"] == target_url:
             return
+
+    semantic_score = semantic_overlap_score(source_page, target_page, link_profile_rules)
+    inferred_relationship = relationship or infer_relationship(
+        target_role=target_role,
+        link_type=link_type,
+        source_page=source_page,
+        target_page=target_page,
+        link_profile_rules=link_profile_rules,
+    )
+
+    minimum_scores = (link_profile_rules or {}).get("minimum_semantic_score", {})
+    minimum_score = int(minimum_scores.get(link_type, 0))
+
+    if link_type == "topic_related" and semantic_score < minimum_score:
+        return
+
+    minimum_scores = (link_profile_rules or {}).get("minimum_semantic_score", {})
+    minimum_score = int(minimum_scores.get(link_type, 0))
+
+    if link_type == "topic_related" and semantic_score < minimum_score:
+        return
 
     suggestions.append({
         "source_url": source_url,
         "source_slug": source_page.get("slug", ""),
         "source_page_type": source_page.get("page_type", ""),
+        "source_title": source_page.get("title", "") or source_page.get("h1", ""),
+        "source_topic": source_page.get("topic", ""),
         "target_url": target_url,
         "target_slug": target_page.get("slug", ""),
         "target_page_type": target_page.get("page_type", ""),
+        "target_title": target_page.get("title", "") or target_page.get("h1", ""),
+        "target_topic": target_page.get("topic", ""),
         "anchor_text": "AUTO",
         "reason": reason,
         "priority": priority,
         "link_type": link_type,
+        "relationship": inferred_relationship,
+        "target_role": target_role,
+        "semantic_score": semantic_score,
+        "source_terms": sorted(page_terms(source_page, link_profile_rules)),
+        "target_terms": sorted(page_terms(target_page, link_profile_rules)),
         "status": "suggested"
     })
-
 
 def find_pages_by_type(pages, page_type):
     return [page for page in pages if normalize(page.get("page_type")) == normalize(page_type)]
 
 
-def find_first_page_by_role(pages, role):
+def find_first_page_by_role(pages, role, source_page=None, link_profile_rules=None):
     role = normalize(role)
 
     role_signals = {
-        "faq": ["faq", "perguntas", "respostas", "questions", "answers"],
-        "how_it_works": ["how", "works", "funcionamento", "procedimento", "procedure", "process"],
-        "contact": ["contact", "contato", "contacto"],
-        "main_service_page": ["polygraph", "poligrafo", "lie-detector", "detector"],
-        "service_page": ["polygraph", "poligrafo", "test", "teste", "exam", "exame"]
+        "faq": ["faq", "questions", "answers"],
+        "how_it_works": ["how", "works", "procedure", "process"],
+        "contact": ["contact"],
+        "main_service_page": ["polygraph", "poligrafo", "lie", "detector"],
+        "service_page": ["polygraph", "poligrafo", "test", "exam"]
     }
 
-    if role == "faq":
-        candidates = find_pages_by_type(pages, "faq")
-        if candidates:
-            return candidates[0]
-
-    if role == "contact":
-        candidates = find_pages_by_type(pages, "contact")
-        if candidates:
-            return candidates[0]
-
-    if role == "main_service_page":
-        candidates = find_pages_by_type(pages, "pillar")
-        if candidates:
-            return candidates[0]
-
+    candidates = []
     signals = role_signals.get(role, [])
 
-    best_page = None
-    best_score = 0
-
     for page in pages:
+        page_type = normalize(page.get("page_type"))
         text = page_text(page)
+
         score = 0
+
+        if role == "faq" and page_type == "faq_page":
+            score += 100
+        elif role == "contact" and ("contact" in text or "contacto" in text or "contato" in text):
+            score += 100
+        elif role == "main_service_page" and page_type in ["pillar", "home", "service_page"]:
+            score += 60
+        elif role == "how_it_works" and page_type in ["info_page", "content_page", "faq_page"]:
+            score += 40
+        elif role == "service_page" and page_type == "service_page":
+            score += 80
 
         for signal in signals:
             if normalize(signal) in text:
-                score += 1
+                score += 10
 
-        if role == "main_service_page" and normalize(page.get("page_type")) == "pillar":
-            score += 2
+        if source_page:
+            score += semantic_overlap_score(source_page, page, link_profile_rules) * 25
 
-        if role == "service_page" and normalize(page.get("page_type")) == "service_page":
-            score += 2
+        if is_low_value_structural_page(page):
+            score -= 80
 
-        if score > best_score:
-            best_score = score
-            best_page = page
+        if score > 0:
+            candidates.append((score, page))
 
-    if best_score > 0:
-        return best_page
+    if not candidates:
+        return None
 
-    return None
-
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    return candidates[0][1]
 
 def build_topic_page_map(content_opportunities):
     topic_page_map = {}
@@ -186,20 +329,20 @@ def get_priority(priority_rules, source_type, target_role, link_type):
     return "medium"
 
 
-def target_page_for_role(pages, role, source_page=None):
+def target_page_for_role(pages, role, source_page=None, link_profile_rules=None):
     role = normalize(role)
 
     if role == "faq":
-        return find_first_page_by_role(pages, "faq")
+        return find_first_page_by_role(pages, "faq", source_page, link_profile_rules)
 
     if role == "how_it_works":
-        return find_first_page_by_role(pages, "how_it_works")
+        return find_first_page_by_role(pages, "how_it_works", source_page, link_profile_rules)
 
     if role == "contact":
-        return find_first_page_by_role(pages, "contact")
+        return find_first_page_by_role(pages, "contact", source_page, link_profile_rules)
 
     if role == "main_service_page":
-        return find_first_page_by_role(pages, "main_service_page")
+        return find_first_page_by_role(pages, "main_service_page", source_page, link_profile_rules)
 
     if role == "related_service":
         if not source_page:
@@ -233,7 +376,7 @@ def target_page_for_role(pages, role, source_page=None):
     return None
 
 
-def generate_page_role_links(pages, internal_link_rules):
+def generate_page_role_links(pages, internal_link_rules, link_profile_rules=None):
     suggestions = []
 
     page_role_rules = internal_link_rules.get("page_role_rules", {})
@@ -260,11 +403,14 @@ def generate_page_role_links(pages, internal_link_rules):
                             target_page=target_page,
                             reason=rule.get("reason", "Internal link suggested by page role rule."),
                             priority=get_priority(priority_rules, source_type, target_role, "navigation"),
-                            link_type="navigation"
+                            link_type="navigation",
+                            relationship="navigation",
+                            target_role=target_role,
+                            link_profile_rules=link_profile_rules
                         )
                 continue
 
-            target_page = target_page_for_role(pages, target_role, source_page)
+            target_page = target_page_for_role(pages, target_role, source_page, link_profile_rules)
 
             link_type = "supporting_information"
             if target_role == "contact":
@@ -280,13 +426,22 @@ def generate_page_role_links(pages, internal_link_rules):
                 target_page=target_page,
                 reason=rule.get("reason", "Internal link suggested by page role rule."),
                 priority=get_priority(priority_rules, source_type, target_role, link_type),
-                link_type=link_type
+                link_type=link_type,
+                relationship=infer_relationship(
+                    target_role=target_role,
+                    link_type=link_type,
+                    source_page=source_page,
+                    target_page=target_page,
+                    link_profile_rules=link_profile_rules,
+                ),
+                target_role=target_role,
+                link_profile_rules=link_profile_rules
             )
 
     return suggestions
 
 
-def generate_topic_relationship_links(pages, content_opportunities, internal_link_rules):
+def generate_topic_relationship_links(pages, content_opportunities, internal_link_rules, link_profile_rules=None):
     suggestions = []
 
     topic_relationships = internal_link_rules.get("topic_relationships", {})
@@ -315,7 +470,10 @@ def generate_topic_relationship_links(pages, content_opportunities, internal_lin
                 target_page=target_page,
                 reason=f"Topic relationship: {source_topic} should connect to {related_topic}.",
                 priority=priority_rules.get("related_service_to_related_service", "medium"),
-                link_type="topic_related"
+                link_type="topic_related",
+                relationship="topic_related",
+                target_role="related_topic",
+                link_profile_rules=link_profile_rules
             )
 
     return suggestions
@@ -396,15 +554,20 @@ def main():
 
     pages = site_structure.get("pages", [])
 
+    language_profile = load_language_profile(workspace_folder)
+    link_profile_rules = get_internal_linking_rules(language_profile)
+
     role_links = generate_page_role_links(
         pages=pages,
-        internal_link_rules=internal_link_rules
+        internal_link_rules=internal_link_rules,
+        link_profile_rules=link_profile_rules
     )
 
     topic_links = generate_topic_relationship_links(
         pages=pages,
         content_opportunities=content_opportunities,
-        internal_link_rules=internal_link_rules
+        internal_link_rules=internal_link_rules,
+        link_profile_rules=link_profile_rules
     )
 
     suggestions = merge_suggestions(role_links, topic_links)

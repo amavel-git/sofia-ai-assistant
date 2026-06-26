@@ -1,0 +1,558 @@
+{
+  "version": "1.1",
+  "purpose": "Global section intelligence for Sofia-generated content. This file explains what each section type should contain, avoid, and accomplish. It must remain content-neutral, country-neutral, and structure-focused.",
+  "rules": {
+    "sections_define_writing_intent": true,
+    "no_country_specific_cta": true,
+    "no_wordpress_block_ids": true,
+    "no_service_specific_finished_copy": true,
+    "no_competitor_content": true,
+    "repair_should_be_targeted_not_full_rewrite": true
+  },
+  "global_writing_policy": {
+    "core_goal": "Sofia should write like an experienced investigator and professional service advisor, not like a generic SEO copywriter.",
+    "preferred_flow": [
+      "problem",
+      "consequences",
+      "investigation challenges",
+      "polygraph role",
+      "limitations",
+      "next step"
+    ],
+    "avoid": [
+      "generic encyclopedia-style explanations",
+      "starting every page with what a polygraph is",
+      "overpromising",
+      "dramatic or sensational language",
+      "assuming guilt",
+      "inventing facts, prices, offices, statistics, names, or legal claims"
+    ]
+  },
+  "polygraph_language_policy": {
+    "avoid": [
+      "detects lies",
+      "identifies guilty people",
+      "proves who did it",
+      "proves fraud",
+      "illegal practices",
+      "someone is lying",
+      "detector de mentiras as the main professional term",
+      "answers the client needs",
+      "100 percent certainty",
+      "guaranteed result"
+    ],
+    "prefer": [
+      "helps clarify specific issues",
+      "may support a broader investigation",
+      "records physiological responses associated with specific questions",
+      "can assist professional assessment",
+      "should be interpreted within the full case context",
+      "exame poligráfico",
+      "avaliação poligráfica",
+      "teste de polígrafo",
+      "possible irregularities",
+      "suspected misconduct",
+      "versions of events"
+    ]
+  },
+  "language_localization_policy": {
+    "pt-PT": {
+      "avoid": [
+        "equipe",
+        "você",
+        "estresse",
+        "gerenciamento",
+        "registros",
+        "coletados",
+        "coletadas"
+      ],
+      "prefer": [
+        "equipa",
+        "neutral professional wording",
+        "stress or tensão",
+        "gestão",
+        "registos",
+        "recolhidos",
+        "recolhidas"
+      ]
+    }
+  },
+  "sections": {
+    "hero": {
+      "purpose": "Open the page by addressing the visitor's main problem, search intent, concern, urgency, or decision point.",
+      "should_include": [
+        "the main problem or question",
+        "the relevant service context",
+        "a clear reason to continue reading"
+      ],
+      "avoid": [
+        "long technical explanations",
+        "history of the polygraph",
+        "generic marketing claims",
+        "guarantees"
+      ],
+      "tone": "clear, direct, professional",
+      "target_length": "80-180 words",
+      "writing_guidance": [
+        "Start with the client situation, not with a definition.",
+        "Make the topic immediately recognizable.",
+        "Use practical, concrete language.",
+        "Avoid dramatic or exaggerated wording."
+      ]
+    },
+    "problem": {
+      "purpose": "Explain the underlying issue that motivates the visitor to seek information or professional assistance.",
+      "should_include": [
+        "the practical problem",
+        "how the issue is usually discovered",
+        "uncertainty or suspicion",
+        "conflicting explanations",
+        "business, personal, legal, or investigative context where relevant"
+      ],
+      "avoid": [
+        "explaining the polygraph too early",
+        "sales language",
+        "generic definitions",
+        "accusatory language",
+        "assuming misconduct before investigation"
+      ],
+      "tone": "realistic, professional, empathetic",
+      "target_length": "180-350 words",
+      "writing_guidance": [
+        "Focus on the real-world problem before discussing the polygraph.",
+        "Explain how the issue is usually noticed or suspected.",
+        "Show that several explanations may be possible.",
+        "Describe the uncertainty faced by the client or organization.",
+        "Avoid immediately assuming wrongdoing.",
+        "Make the section feel specific to the topic."
+      ]
+    },
+    "consequences": {
+      "purpose": "Explain what may happen if the issue remains unresolved.",
+      "should_include": [
+        "financial consequences",
+        "operational consequences",
+        "relationship or workplace consequences",
+        "legal or reputational exposure where relevant",
+        "impact on trust and decision-making"
+      ],
+      "avoid": [
+        "fearmongering",
+        "exaggeration",
+        "guaranteed outcomes",
+        "absolute claims"
+      ],
+      "tone": "professional, factual, serious",
+      "target_length": "150-300 words",
+      "writing_guidance": [
+        "Go beyond simple financial loss.",
+        "Explain how uncertainty can affect management decisions.",
+        "Mention trust, morale, false accusations, or internal tension where relevant.",
+        "For business topics, include operational and control consequences.",
+        "Avoid invented numbers, statistics, currencies, or financial examples unless provided."
+      ]
+    },
+    "investigation_challenges": {
+      "purpose": "Explain why the issue may be difficult to clarify through ordinary documents, interviews, assumptions, or observation alone.",
+      "should_include": [
+        "lack of direct evidence",
+        "conflicting statements",
+        "incomplete documentation",
+        "silent witnesses",
+        "difficulty identifying responsibility",
+        "access, opportunity, knowledge, and benefit issues"
+      ],
+      "avoid": [
+        "claiming the polygraph solves everything",
+        "dismissing other investigation methods",
+        "overpromising",
+        "assuming guilt"
+      ],
+      "tone": "analytical, investigative, balanced",
+      "target_length": "180-350 words",
+      "writing_guidance": [
+        "Explain why identifying responsibility is often harder than identifying the loss.",
+        "Show the difference between detecting a discrepancy and proving who caused it.",
+        "Discuss access, opportunity, knowledge, and benefit where relevant.",
+        "Mention that documents may show a problem without explaining intent.",
+        "Explain why interviews may produce conflicting or incomplete versions.",
+        "Emphasize careful investigation before disciplinary or legal decisions."
+      ]
+    },
+    "client_situations": {
+      "purpose": "Describe realistic situations where the service may be relevant.",
+      "should_include": [
+        "practical case examples",
+        "typical client concerns",
+        "situations where uncertainty must be clarified"
+      ],
+      "avoid": [
+        "fictional dramatic stories",
+        "excessive detail",
+        "accusatory wording",
+        "invented facts"
+      ],
+      "tone": "practical, grounded, professional",
+      "target_length": "150-300 words",
+      "writing_guidance": [
+        "Use realistic but general scenarios.",
+        "Avoid invented names, amounts, locations, or precise facts.",
+        "Frame examples as possible situations, not established facts.",
+        "Keep scenarios directly connected to the page topic."
+      ]
+    },
+    "local_context": {
+      "purpose": "Add city, country, or market-specific context without inserting local CTA details, phone numbers, or WordPress block references.",
+      "should_include": [
+        "local availability",
+        "regional service relevance",
+        "common local client needs",
+        "appointment context"
+      ],
+      "avoid": [
+        "hardcoded phone numbers",
+        "local WordPress block IDs",
+        "unsupported legal claims",
+        "fake office claims"
+      ],
+      "tone": "local, useful, professional",
+      "target_length": "150-300 words"
+    },
+    "definition": {
+      "purpose": "Define the central topic clearly and responsibly.",
+      "should_include": [
+        "plain-language definition",
+        "scope of the topic",
+        "important distinctions"
+      ],
+      "avoid": [
+        "overly technical language",
+        "absolute claims",
+        "unnecessary history"
+      ],
+      "tone": "clear, educational, responsible",
+      "target_length": "120-250 words"
+    },
+    "applications": {
+      "purpose": "Explain common professional, private, corporate, legal, or investigative applications.",
+      "should_include": [
+        "relevant use cases",
+        "who may request the service",
+        "why the service may be considered"
+      ],
+      "avoid": [
+        "claiming universal suitability",
+        "unsupported legal positioning",
+        "copying service lists without explanation"
+      ],
+      "tone": "informative, structured, professional",
+      "target_length": "200-400 words"
+    },
+    "benefits": {
+      "purpose": "Explain possible benefits without making absolute promises or guarantees.",
+      "should_include": [
+        "clarification",
+        "structured questioning",
+        "decision support",
+        "professional process",
+        "confidential handling"
+      ],
+      "avoid": [
+        "guaranteed truth discovery",
+        "100 percent accuracy claims",
+        "legal guarantees",
+        "powerful tool language"
+      ],
+      "tone": "balanced, professional, measured",
+      "target_length": "150-300 words"
+    },
+    "polygraph_role": {
+      "purpose": "Explain how a professionally conducted polygraph examination may support a broader investigation or decision-making process.",
+      "should_include": [
+        "clarification of specific issues",
+        "structured question formulation",
+        "support for internal investigations",
+        "role as one component of a broader assessment",
+        "need for consent and professional interpretation"
+      ],
+      "avoid": [
+        "presenting polygraph as infallible",
+        "claiming it replaces legal advice",
+        "claiming it replaces all investigation methods",
+        "absolute certainty",
+        "claiming it identifies responsible persons",
+        "claiming it proves fraud or guilt"
+      ],
+      "tone": "balanced, responsible, professional",
+      "target_length": "200-350 words",
+      "writing_guidance": [
+        "Present the polygraph as a complementary tool.",
+        "Explain that it may help clarify specific statements or defined issues.",
+        "Do not present it as proof or as a replacement for investigation.",
+        "Mention that it should be interpreted with other available information.",
+        "Use cautious professional language.",
+        "Avoid phrases such as powerful tool, highly effective, or provides the answers."
+      ]
+    },
+    "professional_context": {
+      "purpose": "Explain when professional support or specialist assessment may be relevant.",
+      "should_include": [
+        "case suitability",
+        "professional assessment",
+        "importance of correct question formulation",
+        "need for voluntary participation"
+      ],
+      "avoid": [
+        "aggressive sales language",
+        "pressure tactics",
+        "guarantees"
+      ],
+      "tone": "advisory, professional, calm",
+      "target_length": "150-300 words"
+    },
+    "process": {
+      "purpose": "Explain how the service is requested, prepared, conducted, and followed up.",
+      "should_include": [
+        "initial consultation",
+        "case review",
+        "question preparation",
+        "pre-test interview",
+        "polygraph examination",
+        "result discussion or report where applicable"
+      ],
+      "avoid": [
+        "overly technical sensor descriptions",
+        "intimidating language",
+        "interrogation imagery",
+        "guaranteed results",
+        "claiming stress automatically means deception"
+      ],
+      "tone": "transparent, reassuring, professional",
+      "target_length": "200-350 words",
+      "writing_guidance": [
+        "Explain the process after the client problem is established.",
+        "Keep technical details brief and understandable.",
+        "Use terms such as physiological responses associated with specific questions.",
+        "Avoid suggesting that one physiological reaction automatically proves deception."
+      ]
+    },
+    "limitations": {
+      "purpose": "Explain responsible use, consent, confidentiality, ethical limits, and professional boundaries.",
+      "should_include": [
+        "voluntary participation",
+        "confidentiality",
+        "ethical practice",
+        "case-specific assessment",
+        "limits of interpretation",
+        "no guarantee of outcome"
+      ],
+      "avoid": [
+        "legal guarantees",
+        "absolute reliability claims",
+        "claims of infallibility",
+        "pressure on examinees"
+      ],
+      "tone": "responsible, careful, professional",
+      "target_length": "150-300 words"
+    },
+    "trust": {
+      "purpose": "Support credibility through professionalism, transparency, confidentiality, training, ethics, and responsible communication.",
+      "should_include": [
+        "professional handling",
+        "confidential process",
+        "clear communication",
+        "ethical boundaries",
+        "case-by-case assessment"
+      ],
+      "avoid": [
+        "empty trust claims",
+        "unverifiable awards",
+        "exaggerated authority",
+        "guarantees"
+      ],
+      "tone": "credible, calm, professional",
+      "target_length": "150-300 words"
+    },
+    "pricing": {
+      "purpose": "Present prices, ranges, or indicative cost information clearly.",
+      "should_include": [
+        "indicative prices or ranges if available",
+        "service categories",
+        "what the price refers to",
+        "case-specific confirmation where needed"
+      ],
+      "avoid": [
+        "hidden-fee style wording",
+        "guaranteed final prices if not confirmed",
+        "confusing tables"
+      ],
+      "tone": "clear, practical, transparent",
+      "target_length": "100-250 words"
+    },
+    "pricing_factors": {
+      "purpose": "Explain factors that may affect the final cost.",
+      "should_include": [
+        "location",
+        "number of examinees",
+        "case complexity",
+        "urgency",
+        "travel",
+        "report requirements",
+        "language requirements"
+      ],
+      "avoid": [
+        "vague excuses",
+        "unexplained price changes",
+        "misleading low-price positioning"
+      ],
+      "tone": "transparent, practical, professional",
+      "target_length": "150-300 words"
+    },
+    "included_services": {
+      "purpose": "Explain what is normally included in the appointment or service.",
+      "should_include": [
+        "case review",
+        "question preparation",
+        "pre-test interview",
+        "examination",
+        "result explanation",
+        "report if applicable"
+      ],
+      "avoid": [
+        "promising services not always included",
+        "unclear package descriptions"
+      ],
+      "tone": "clear, practical, professional",
+      "target_length": "120-250 words"
+    },
+    "faq": {
+      "purpose": "Answer common practical, commercial, informational, or case-specific questions.",
+      "should_include": [
+        "real client questions",
+        "investigation-specific concerns",
+        "practical limits",
+        "process questions",
+        "case suitability questions",
+        "ethical and consent questions"
+      ],
+      "avoid": [
+        "duplicate answers",
+        "keyword stuffing",
+        "overly long answers",
+        "unsupported claims",
+        "generic encyclopedia questions unless necessary"
+      ],
+      "tone": "clear, helpful, professional",
+      "target_length": "4-6 questions unless otherwise specified",
+      "writing_guidance": [
+        "Prefer real client questions over generic textbook questions.",
+        "For investigation topics, include questions such as whether the polygraph can replace an audit, whether an employee can be disciplined solely on the result, and what happens if several people had access.",
+        "Keep answers concise, cautious, and practical.",
+        "Do not overuse What is a polygraph? unless the page is introductory.",
+        "At least half of FAQ questions should be specific to the page topic."
+      ]
+    },
+    "cta": {
+      "purpose": "Invite the visitor to request guidance, ask about their case, or schedule a consultation.",
+      "should_include": [
+        "confidential guidance",
+        "case-specific assessment",
+        "clear next step",
+        "evaluation of whether the service is appropriate"
+      ],
+      "avoid": [
+        "pressure",
+        "urgency manipulation",
+        "guarantees",
+        "hardcoded phone numbers",
+        "promising answers, proof, certainty, or successful resolution"
+      ],
+      "tone": "calm, professional, reassuring",
+      "target_length": "60-140 words",
+      "writing_guidance": [
+        "Invite the reader to discuss the situation confidentially.",
+        "Frame the next step as assessing whether the examination is appropriate.",
+        "Avoid promising that the service will solve the problem or provide the answer."
+      ]
+    },
+    "soft_cta": {
+      "purpose": "Offer a gentle next step without aggressive sales wording.",
+      "should_include": [
+        "invitation to ask a question",
+        "case-specific guidance",
+        "low-pressure wording"
+      ],
+      "avoid": [
+        "sales pressure",
+        "hard urgency",
+        "guarantees"
+      ],
+      "tone": "soft, helpful, professional",
+      "target_length": "50-120 words"
+    },
+    "strategic_links": {
+      "purpose": "Add useful internal links, related services, pillar pages, supporting articles, or next-step pages.",
+      "should_include": [
+        "related service pages",
+        "pillar pages",
+        "pricing pages",
+        "FAQ pages",
+        "city pages where relevant"
+      ],
+      "avoid": [
+        "irrelevant links",
+        "too many links",
+        "repeated anchor text",
+        "keyword stuffing"
+      ],
+      "tone": "useful, navigational, SEO-aware",
+      "target_length": "short link section"
+    },
+    "related_services": {
+      "purpose": "Connect the page to related services or relevant next pages.",
+      "should_include": [
+        "closely related services",
+        "logical next pages",
+        "supporting service categories"
+      ],
+      "avoid": [
+        "unrelated services",
+        "excessive cross-linking",
+        "duplicated internal links"
+      ],
+      "tone": "helpful, structured, professional",
+      "target_length": "100-220 words"
+    },
+    "main_content": {
+      "purpose": "Develop the main educational or explanatory body of an article.",
+      "should_include": [
+        "specific explanation",
+        "context",
+        "practical considerations",
+        "professionally relevant detail"
+      ],
+      "avoid": [
+        "generic filler",
+        "repeating the introduction",
+        "unnecessary polygraph basics when not relevant"
+      ],
+      "tone": "educational, professional, specific",
+      "target_length": "300-700 words"
+    },
+    "introduction": {
+      "purpose": "Introduce the topic and answer the reader's search intent clearly.",
+      "should_include": [
+        "direct answer",
+        "topic framing",
+        "reason the topic matters"
+      ],
+      "avoid": [
+        "slow introductions",
+        "generic opening sentences",
+        "history unless relevant"
+      ],
+      "tone": "clear, direct, useful",
+      "target_length": "80-180 words"
+    }
+  }
+}

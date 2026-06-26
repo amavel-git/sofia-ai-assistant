@@ -14,6 +14,100 @@ DEFAULT_MAX_BLOCKS = 6
 MAX_BLOCK_TEXT_CHARS = 1200
 
 
+# ---------------------------------------------------------------------------
+# Client-problem knowledge taxonomy
+# ---------------------------------------------------------------------------
+# These categories and tags are deliberately language-agnostic.
+# They describe the business/client problem that brings the visitor to Sofia,
+# not the language Sofia will use in the final page. Localized wording belongs
+# in approved_content_blocks.json and the drafting layer.
+
+CLIENT_PROBLEM_CATEGORIES = {
+    "employee_theft",
+    "internal_theft",
+    "internal_fraud",
+    "corporate_investigation",
+    "loss_prevention",
+    "inventory_manipulation",
+    "inventory_control",
+    "warehouse_losses",
+    "stock_discrepancies",
+    "fuel_diversion",
+    "transport_fraud",
+    "logistics_investigation",
+    "procurement_fraud",
+    "expense_fraud",
+    "asset_protection",
+    "access_control",
+    "workplace_misconduct",
+    "sexual_harassment",
+    "sabotage",
+}
+
+FOUNDATION_CATEGORIES = {
+    "polygraph_process",
+    "procedure",
+    "ethics",
+    "confidentiality",
+    "limitations",
+    "results",
+    "quality_standards",
+    "examiner_qualifications",
+    "applications",
+}
+
+FAQ_SUPPORT_CATEGORIES = {
+    "pricing",
+    "booking",
+    "questions",
+    "duration",
+    "location",
+    "medication",
+    "nervousness",
+    "minors",
+    "definition",
+    "eligibility",
+    "preparation",
+}
+
+# Map language-neutral topic tags from strategy briefs to related knowledge
+# categories/tags. This lets a short examiner request such as “fuel diversion”
+# pull investigation/business-problem knowledge, not only generic procedure FAQs.
+TOPIC_TAG_ALIASES = {
+    "theft": ["internal_theft", "employee_theft", "loss_prevention", "corporate_investigation"],
+    "employee_theft": ["internal_theft", "loss_prevention", "corporate_investigation"],
+    "internal_theft": ["employee_theft", "loss_prevention", "corporate_investigation"],
+    "warehouse": ["warehouse_losses", "inventory_control", "stock_discrepancies", "access_control"],
+    "inventory": ["inventory_manipulation", "inventory_control", "stock_discrepancies", "warehouse_losses"],
+    "stock": ["stock_discrepancies", "warehouse_losses", "inventory_control"],
+    "stock_loss": ["warehouse_losses", "inventory_control", "stock_discrepancies"],
+    "goods_disappearance": ["warehouse_losses", "asset_protection", "internal_theft"],
+    "access_control": ["warehouse_losses", "asset_protection", "internal_investigation"],
+    "internal_investigation": ["corporate_investigation", "internal_fraud", "loss_prevention"],
+    "fuel": ["fuel_diversion", "transport_fraud", "logistics_investigation", "asset_protection"],
+    "fuel_diversion": ["transport_fraud", "logistics_investigation", "employee_theft", "loss_prevention"],
+    "transport": ["transport_fraud", "logistics_investigation", "fuel_diversion"],
+    "logistics": ["logistics_investigation", "transport_fraud", "warehouse_losses"],
+    "fraud": ["internal_fraud", "corporate_investigation", "loss_prevention"],
+    "sabotage": ["workplace_misconduct", "corporate_investigation", "internal_fraud"],
+}
+
+
+def expand_tags(tags_hint: Optional[List[str]]) -> List[str]:
+    """Return language-neutral tag hints plus related problem-oriented aliases."""
+
+    expanded: List[str] = []
+
+    for raw_tag in tags_hint or []:
+        tag = str(raw_tag or "").strip().lower()
+        if not tag:
+            continue
+
+        expanded.append(tag)
+        expanded.extend(TOPIC_TAG_ALIASES.get(tag, []))
+
+    return list(dict.fromkeys(expanded))
+
 
 def load_json(path: Path, default: Any):
     if not path.exists():
@@ -108,7 +202,8 @@ def score_block(block: Dict[str, Any], topic: str, tags_hint: Optional[List[str]
     score = 0
 
     topic_tokens = set(tokenize(topic))
-    tags_hint = [str(tag).lower() for tag in (tags_hint or [])]
+    expanded_tags = expand_tags(tags_hint)
+    tags_hint = [str(tag).lower() for tag in expanded_tags]
 
     block_tags = set(str(tag).lower() for tag in block.get("tags", []))
     block_category = str(block.get("category", "")).lower()
@@ -117,68 +212,52 @@ def score_block(block: Dict[str, Any], topic: str, tags_hint: Optional[List[str]
     source_type = str(block.get("source_type", "")).lower()
 
     # ------------------------------------------------------------
-    # Strong preference for semantic/service/topic blocks
+    # 1. Prefer client-problem knowledge over generic polygraph knowledge
     # ------------------------------------------------------------
 
-    preferred_categories = {
-        "infidelity",
-        "theft",
-        "legal_tests",
-        "polygraph_process",
-        "examiner_qualifications",
-        "ethics",
-        "quality_standards",
-        "confidentiality",
-        "limitations",
-        "sexual_harassment",
-        "pre_employment",
-        "maintenance_testing",
-        "applications",
-        "procedure",
-        "results",
-    }
+    if block_category in CLIENT_PROBLEM_CATEGORIES:
+        score += 35
 
-    if block_category in preferred_categories:
-        score += 20
+    if block_tags.intersection(CLIENT_PROBLEM_CATEGORIES):
+        score += 25
 
-    # ------------------------------------------------------------
-    # FAQ blocks should help, but not dominate
-    # ------------------------------------------------------------
+    if block_category in FOUNDATION_CATEGORIES:
+        score += 14
 
-    faq_penalty_categories = {
-        "pricing",
-        "booking",
-        "questions",
-        "duration",
-        "location",
-        "medication",
-        "nervousness",
-        "minors",
-    }
+    if block_tags.intersection(FOUNDATION_CATEGORIES):
+        score += 8
 
-    if block_category in faq_penalty_categories:
-        score -= 4
+    # FAQ blocks are useful support material but should not dominate service pages.
+    if block_category in FAQ_SUPPORT_CATEGORIES:
+        score -= 6
 
-    # ------------------------------------------------------------
-    # Prefer approved semantic scraped blocks
-    # ------------------------------------------------------------
-
+    # Approved semantic scraped/site-derived blocks are often more useful for
+    # landing-page drafting than generic FAQ snippets, if clean enough.
     if source_type == "approved_scraped_website_candidate":
         score += 12
 
     # ------------------------------------------------------------
-    # Tag hint matching
+    # 2. Strong tag/category matching from the strategy package
     # ------------------------------------------------------------
 
     for tag in tags_hint:
         if tag in block_tags:
-            score += 12
+            score += 18
 
         if tag == block_category:
-            score += 15
+            score += 24
+
+        if tag in block_category:
+            score += 10
+
+        if tag in block_title:
+            score += 8
+
+        if tag in block_text:
+            score += 4
 
     # ------------------------------------------------------------
-    # Topic semantic/token matching
+    # 3. Topic semantic/token matching
     # ------------------------------------------------------------
 
     for token in topic_tokens:
@@ -195,34 +274,35 @@ def score_block(block: Dict[str, Any], topic: str, tags_hint: Optional[List[str]
             score += 2
 
     # ------------------------------------------------------------
-    # Polygraph foundation knowledge
+    # 4. Prefer blocks that describe client situations and investigation use
     # ------------------------------------------------------------
 
-    useful_tags = {
-        "procedure",
-        "accuracy",
-        "reliability",
-        "confidentiality",
-        "privacy",
-        "ethics",
-        "results",
-        "limitations",
-        "quality_standards",
-        "examiner_qualifications",
+    client_problem_terms = {
+        "loss", "losses", "missing", "discrepancy", "discrepancies",
+        "inventory", "stock", "warehouse", "fuel", "driver", "transport",
+        "employee", "staff", "internal", "investigation", "audit", "access",
+        "fraud", "theft", "misconduct", "diversion", "shrinkage",
+        "perda", "perdas", "desaparecimento", "mercadoria", "inventário",
+        "armazém", "combustível", "motorista", "transporte", "funcionário",
+        "auditoria", "acesso", "furto", "desvio", "fraude",
     }
 
-    if block_tags.intersection(useful_tags):
-        score += 5
+    text_tokens = set(tokenize(block_text + " " + block_title + " " + block_category))
+    problem_overlap = text_tokens.intersection(client_problem_terms)
+    if problem_overlap:
+        score += min(18, len(problem_overlap) * 3)
 
     # ------------------------------------------------------------
-    # Penalize very short/weak blocks
+    # 5. Penalize weak or too-generic blocks for problem-oriented pages
     # ------------------------------------------------------------
 
     if len(block_text) < 120:
         score -= 6
 
-    return score
+    if block_category == "definition" and tags_hint:
+        score -= 10
 
+    return score
 
 def is_clean_enough_block(block: Dict[str, Any]) -> bool:
     source_type = str(block.get("source_type", "")).lower()
@@ -292,6 +372,9 @@ def select_relevant_blocks(
     language = normalize_language(workspace.get("language", "en"))
     accepted_languages = set(language_candidates(language))
 
+    tags_hint = expand_tags(tags_hint)
+    problem_oriented_request = bool(set(tags_hint).intersection(CLIENT_PROBLEM_CATEGORIES))
+
     blocks = load_approved_blocks()
 
     # Safety filter:
@@ -339,7 +422,14 @@ def select_relevant_blocks(
         text = str(block.get("text", "") or block.get("content", "") or "").strip()
 
         # Avoid letting one category dominate the whole package.
-        max_per_category = 2
+        # For client-problem pages, allow more problem blocks and fewer generic FAQ blocks.
+        if category in CLIENT_PROBLEM_CATEGORIES:
+            max_per_category = 2
+        elif problem_oriented_request and category in FAQ_SUPPORT_CATEGORIES:
+            max_per_category = 1
+        else:
+            max_per_category = 2
+
         if category_counts.get(category, 0) >= max_per_category:
             continue
 

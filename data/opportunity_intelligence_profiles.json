@@ -1,0 +1,205 @@
+{
+  "version": "1.0",
+  "purpose": "Workspace-agnostic semantic issue profiles for Sofia Opportunity Intelligence. Do not store localized website wording here.",
+  "issue_profiles": {
+    "inventory_manipulation": {
+      "content_angles": [
+        "inventory discrepancies",
+        "stock losses",
+        "internal theft",
+        "warehouse access control",
+        "stock movement irregularities"
+      ],
+      "faq_topics": [
+        "inventory manipulation",
+        "warehouse investigations",
+        "employee involvement",
+        "polygraph process",
+        "confidentiality",
+        "limitations"
+      ],
+      "internal_link_topics": [
+        "employee theft",
+        "internal investigations",
+        "corporate investigations",
+        "polygraph services for companies"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "employee discreetly removing products from a warehouse",
+          "missing inventory in a logistics storage area",
+          "hidden stock or boxes separated from normal inventory",
+          "warehouse inventory discrepancy"
+        ],
+        "investigation_scene": [
+          "manager reviewing warehouse records",
+          "internal audit of warehouse stock",
+          "professional review of access and inventory records"
+        ],
+        "analysis_scene": [
+          "inventory reports and access logs",
+          "stock movement analysis",
+          "warehouse audit documentation"
+        ]
+      }
+    },
+    "fuel_fraud_transport": {
+      "content_angles": [
+        "fuel losses",
+        "diesel theft",
+        "fleet control",
+        "transport company investigations",
+        "fuel consumption discrepancies"
+      ],
+      "faq_topics": [
+        "fuel theft",
+        "fleet investigations",
+        "employee responsibility",
+        "polygraph process",
+        "confidentiality",
+        "limitations"
+      ],
+      "internal_link_topics": [
+        "employee theft",
+        "transport companies",
+        "corporate investigations",
+        "polygraph services for companies"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "employee siphoning fuel from a truck",
+          "suspicious fuel transfer near a transport vehicle",
+          "fuel containers beside a fleet vehicle",
+          "fuel theft in a transport depot"
+        ],
+        "investigation_scene": [
+          "manager reviewing fuel consumption reports",
+          "fleet investigation meeting",
+          "professional review of vehicle and route records"
+        ],
+        "analysis_scene": [
+          "fuel consumption records",
+          "fleet reports and route analysis",
+          "diesel usage discrepancy documentation"
+        ]
+      }
+    },
+    "financial_fraud": {
+      "content_angles": [
+        "economic fraud",
+        "financial irregularities",
+        "internal fraud",
+        "compliance investigation",
+        "unauthorized financial activity"
+      ],
+      "faq_topics": [
+        "financial fraud",
+        "internal investigations",
+        "financial documentation",
+        "polygraph process",
+        "confidentiality",
+        "limitations"
+      ],
+      "internal_link_topics": [
+        "corporate investigations",
+        "employee integrity",
+        "financial misconduct",
+        "polygraph services for companies"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "suspicious financial transaction review",
+          "financial irregularity in an office environment",
+          "employee handling sensitive financial records suspiciously",
+          "possible internal financial misconduct"
+        ],
+        "investigation_scene": [
+          "compliance team reviewing a financial case",
+          "internal financial audit meeting",
+          "professional review of financial irregularities"
+        ],
+        "analysis_scene": [
+          "financial records analysis",
+          "transaction review documentation",
+          "audit documents and case notes"
+        ]
+      }
+    },
+    "workplace_drug_use": {
+      "content_angles": [
+        "workplace drug concerns",
+        "employee impairment risk",
+        "safety and compliance",
+        "sensitive workplace investigation"
+      ],
+      "faq_topics": [
+        "workplace drug use",
+        "employee investigations",
+        "consent",
+        "confidentiality",
+        "polygraph process",
+        "limitations"
+      ],
+      "internal_link_topics": [
+        "employee integrity",
+        "corporate investigations",
+        "polygraph services for companies"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "workplace concern involving possible employee impairment",
+          "professional office environment with visible concern but no sensational imagery",
+          "manager noticing unusual employee behavior in a workplace"
+        ],
+        "investigation_scene": [
+          "HR and compliance discussion",
+          "professional internal investigation meeting",
+          "manager reviewing incident information"
+        ],
+        "analysis_scene": [
+          "incident reports and workplace policy documents",
+          "case notes for an internal workplace investigation",
+          "documentation review in a confidential HR setting"
+        ]
+      }
+    },
+    "internal_theft": {
+      "content_angles": [
+        "employee theft",
+        "missing company property",
+        "internal investigation",
+        "access and opportunity analysis"
+      ],
+      "faq_topics": [
+        "employee theft",
+        "internal investigation",
+        "access to property",
+        "polygraph process",
+        "confidentiality",
+        "limitations"
+      ],
+      "internal_link_topics": [
+        "corporate investigations",
+        "employee integrity",
+        "polygraph services for companies"
+      ],
+      "visual_scenarios": {
+        "problem_scene": [
+          "employee discreetly removing company property",
+          "missing company assets in a workplace",
+          "suspicious handling of company materials"
+        ],
+        "investigation_scene": [
+          "manager reviewing access records",
+          "internal review of missing assets",
+          "professional investigation meeting"
+        ],
+        "analysis_scene": [
+          "access logs and asset records",
+          "documentation related to missing property",
+          "case notes in an internal theft investigation"
+        ]
+      }
+    }
+  }
+}

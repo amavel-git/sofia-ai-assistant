@@ -1,0 +1,27 @@
+{
+  "workspace_id": "local.es",
+  "language": "es",
+  "domain": "https://poligrafoespana.com",
+  "overrides": [
+    {
+      "topic": "metodología del polígrafo",
+      "preferred_content_type": "educational_page",
+      "preferred_slug": "metodologia-poligrafo",
+      "recommended_angle": "Explicar la metodología profesional del examen poligráfico, diferenciándola del funcionamiento técnico, la fiabilidad, la ciencia y la historia del polígrafo.",
+      "avoid_overlap_with": [
+        "https://poligrafoespana.com/funcionamiento-poligrafo/",
+        "https://poligrafoespana.com/fiabilidad-del-poligrafo/",
+        "https://poligrafoespana.com/ciencia-del-poligrafo/",
+        "https://poligrafoespana.com/historia-poligrafo/"
+      ],
+      "recommended_internal_links": [
+        "https://poligrafoespana.com/funcionamiento-poligrafo/",
+        "https://poligrafoespana.com/ciencia-del-poligrafo/",
+        "https://poligrafoespana.com/fiabilidad-del-poligrafo/",
+        "https://poligrafoespana.com/faq-poligrafo/",
+        "https://poligrafoespana.com/contacto/"
+      ]
+    }
+  ],
+  "last_updated": "2026-06-11"
+}

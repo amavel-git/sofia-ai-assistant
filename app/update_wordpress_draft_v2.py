@@ -78,9 +78,13 @@ def update_wp_draft(workspace, draft):
         "title": draft.get("title"),
         "content": html_content,
         "status": wp_config.get("default_status", "draft"),
-        "slug": draft.get("slug")
+        "slug": draft.get("slug"),
+        "meta": {
+            "_yoast_wpseo_focuskw": draft.get("focus_keyphrase") or draft.get("target_keyword") or "",
+            "_yoast_wpseo_title": draft.get("seo_title") or draft.get("title") or "",
+            "_yoast_wpseo_metadesc": draft.get("meta_description") or ""
+        }
     }
-
     response = requests.post(
         endpoint,
         auth=(username, password),
@@ -121,8 +125,8 @@ def main():
         print(f"Draft not found: {draft_id}")
         sys.exit(1)
 
-    if draft.get("status") != "ready_for_publishing":
-        print("Draft must be ready_for_publishing.")
+    if not draft.get("wordpress_id"):
+        print("Draft has no WordPress ID. Use create_wordpress_draft.py first.")
         return
 
     wp_result = update_wp_draft(workspace, draft)
@@ -133,6 +137,8 @@ def main():
     draft["wordpress_id"] = wp_result.get("id")
     draft["wordpress_link"] = wp_result.get("link")
     draft["wordpress_updated_at"] = now_iso()
+    draft["wordpress_status"] = "draft_updated"
+    draft["draft_status"] = "wordpress_review"
 
     save_json(draft_registry_path, registry)
 

@@ -1,0 +1,145 @@
+{
+  "version": "1.0",
+
+  "issue_profiles": {
+
+    "inventory_manipulation": {
+
+      "content_angles": [
+        "inventory discrepancies",
+        "stock losses",
+        "internal theft",
+        "warehouse controls",
+        "access management"
+      ],
+
+      "faq_topics": [
+        "inventory manipulation",
+        "warehouse investigations",
+        "employee involvement",
+        "polygraph process",
+        "confidentiality",
+        "limitations"
+      ],
+
+      "internal_link_topics": [
+        "employee theft",
+        "internal investigations",
+        "polygraph services",
+        "corporate investigations"
+      ],
+
+      "visual_scenarios": {
+
+        "problem_scene": [
+          "employee removing products from warehouse",
+          "missing inventory",
+          "hidden stock",
+          "inventory discrepancy"
+        ],
+
+        "investigation_scene": [
+          "manager reviewing warehouse records",
+          "internal audit",
+          "warehouse investigation"
+        ],
+
+        "analysis_scene": [
+          "inventory reports",
+          "access logs",
+          "stock movement analysis"
+        ]
+      }
+    },
+
+    "fuel_theft": {
+
+      "content_angles": [
+        "fuel losses",
+        "fleet control",
+        "diesel theft",
+        "transport company investigations"
+      ],
+
+      "faq_topics": [
+        "fuel theft",
+        "fleet investigations",
+        "employee responsibility",
+        "polygraph process",
+        "confidentiality"
+      ],
+
+      "internal_link_topics": [
+        "transport companies",
+        "employee theft",
+        "corporate investigations"
+      ],
+
+      "visual_scenarios": {
+
+        "problem_scene": [
+          "employee siphoning fuel from truck",
+          "missing fuel",
+          "diesel theft",
+          "fuel losses"
+        ],
+
+        "investigation_scene": [
+          "manager reviewing fuel reports",
+          "fleet investigation",
+          "vehicle inspection"
+        ],
+
+        "analysis_scene": [
+          "fuel consumption records",
+          "fleet reports",
+          "route analysis"
+        ]
+      }
+    },
+
+    "financial_fraud": {
+
+      "content_angles": [
+        "economic fraud",
+        "internal fraud",
+        "financial irregularities",
+        "compliance investigations"
+      ],
+
+      "faq_topics": [
+        "financial fraud",
+        "internal investigations",
+        "confidentiality",
+        "polygraph process"
+      ],
+
+      "internal_link_topics": [
+        "corporate investigations",
+        "employee integrity",
+        "financial misconduct"
+      ],
+
+      "visual_scenarios": {
+
+        "problem_scene": [
+          "suspicious financial transaction",
+          "financial irregularity",
+          "fraud indicators"
+        ],
+
+        "investigation_scene": [
+          "compliance review",
+          "financial audit",
+          "case review meeting"
+        ],
+
+        "analysis_scene": [
+          "financial records analysis",
+          "transaction review",
+          "audit documentation"
+        ]
+      }
+    }
+  }
+}

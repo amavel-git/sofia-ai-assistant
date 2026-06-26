@@ -14,6 +14,73 @@ SOFIA_ROOT = Path(__file__).resolve().parents[1]
 GLOBAL_DRAFT_REGISTRY_FILE = SOFIA_ROOT / "sites" / "draft_registry.json"
 
 
+def clean_related_links_sections(html):
+    """
+    Keep only one related-links section.
+    Remove plain-text related-link list items.
+    Remove placeholder/example URLs.
+    Language-specific headings come from existing visible content; this is a cleanup safeguard.
+    """
+    import re
+
+    headings = [
+        "Enlaces relacionados",
+        "Enlaces Estratégicos",
+        "Enlaces estratégicos",
+        "Enlaces relevantes",
+        "Related links",
+        "Liens utiles",
+        "Ligações relacionadas",
+    ]
+
+    pattern = (
+        r'(<h2>\s*(?:' + "|".join(re.escape(h) for h in headings) + r')\s*</h2>\s*'
+        r'(?:<p>.*?</p>\s*)*'
+        r'(?:<ul>.*?</ul>\s*)?)'
+    )
+
+    sections = re.findall(pattern, html, flags=re.IGNORECASE | re.DOTALL)
+    if not sections:
+        return html
+
+    valid_sections = []
+    for section in sections:
+        section = re.sub(
+            r'<li>\s*(?!<a\b)(.*?)</li>\s*',
+            '',
+            section,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        section = re.sub(
+            r'<p>\s*(?!<a\b)([^<]{2,120})\s*</p>\s*',
+            '',
+            section,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        section = re.sub(
+            r'<li>\s*<a\s+href=["\']https?://(?:www\.)?example\.com/?.*?</a>\s*</li>\s*',
+            '',
+            section,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+        section = re.sub(
+            r'<p>\s*<a\s+href=["\']https?://(?:www\.)?example\.com/?.*?</a>\s*</p>\s*',
+            '',
+            section,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        if '<a ' in section.lower():
+            valid_sections.append(section.strip())
+
+    html = re.sub(pattern, '', html, flags=re.IGNORECASE | re.DOTALL).rstrip()
+
+    if valid_sections:
+        html += "\n\n" + valid_sections[-1] + "\n"
+
+    return html
+
+
 def load_json(path):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -178,21 +245,94 @@ def demote_extra_h1_tags(content: str):
     return content[:h1_matches[0].end()] + rest
 
 
-def normalize_faq_heading(content: str):
-    faq_patterns = [
-        r"<h1[^>]*>\s*(frequently asked questions|faq|perguntas frequentes|preguntas frecuentes|questions fréquentes)\s*</h1>",
-        r"<h2[^>]*>\s*(frequently asked questions|faq|perguntas frequentes|preguntas frecuentes|questions fréquentes)\s*</h2>",
-        r"<h3[^>]*>\s*(frequently asked questions|faq|perguntas frequentes|preguntas frecuentes|questions fréquentes)\s*</h3>",
+def normalize_faq_heading(content: str, language_profile: dict = None):
+    language_profile = language_profile or {}
+    language = str(language_profile.get("language") or language_profile.get("locale") or "").lower()
+
+    if language.startswith("es"):
+        canonical_heading = "Preguntas frecuentes"
+    elif language.startswith("pt"):
+        canonical_heading = "Perguntas frequentes"
+    elif language.startswith("fr"):
+        canonical_heading = "Questions fréquentes"
+    else:
+        canonical_heading = "Frequently asked questions"
+
+    faq_pattern = (
+        r"<h[123][^>]*>\s*"
+        r"(frequently asked questions|faq|perguntas frequentes|preguntas frecuentes|questions fréquentes)"
+        r"\s*</h[123]>"
+    )
+
+    return re.sub(
+        faq_pattern,
+        f"<h2>{canonical_heading}</h2>",
+        content,
+        flags=re.IGNORECASE
+    )
+
+
+
+
+
+def remove_legacy_contact_sections_after_reusable_cta(content: str):
+    """
+    Remove AI-generated legacy contact/next-step sections.
+    The configured reusable contact CTA block is inserted later by
+    assemble_wordpress_content.py / apply_gutenberg_blocks.py.
+    """
+    content = str(content or "")
+
+    patterns = [
+        r'<h2[^>]*>\s*Próximos\s+Pasos\s*</h2>\s*<p[^>]*>[\s\S]*?</p>\s*',
+        r'<h2[^>]*>\s*Contacto\s+Confidencial\s*</h2>\s*(?:<p[^>]*>[\s\S]*?</p>\s*)*',
+        r'<h2[^>]*>\s*Solicite\s+Información\s*</h2>\s*(?:<p[^>]*>[\s\S]*?</p>\s*)*',
+        r'<h2[^>]*>\s*¿Necesita\s+orientación\s+sobre\s+una\s+prueba\s+de\s+polígrafo\?\s*</h2>\s*(?:<p[^>]*>[\s\S]*?</p>\s*)*',
     ]
 
-    for pattern in faq_patterns:
-        content = re.sub(
-            pattern,
-            "<h2>Perguntas frequentes</h2>",
-            content,
-            flags=re.IGNORECASE
-        )
+    for pattern in patterns:
+        content = re.sub(pattern, '', content, flags=re.IGNORECASE | re.DOTALL)
 
+    return content
+
+
+def clean_orphan_related_link_blocks(content: str):
+    """
+    Remove orphan/malformed related-link Gutenberg fragments left by repeated
+    internal-link injection and cleanup cycles.
+    """
+    content = str(content or "")
+
+    # Remove list blocks with no anchors.
+    content = re.sub(
+        r'<!--\s*wp:list\s*-->\s*<ul>\s*(?:<li>(?!\s*<a\b)[\s\S]*?</li>\s*)+</ul>\s*<!--\s*/wp:list\s*-->\s*',
+        '',
+        content,
+        flags=re.IGNORECASE,
+    )
+
+    # Remove any empty heading opener immediately before a Gutenberg list.
+    content = re.sub(
+        r'(?:<!--\s*wp:heading\s*-->\s*)+(?=<!--\s*wp:list\b)',
+        '',
+        content,
+        flags=re.IGNORECASE,
+    )
+
+    return content
+
+
+def clean_dangling_gutenberg_comments(content: str):
+    """
+    Remove stray closing Gutenberg comments that are no longer paired
+    after section cleanup.
+    """
+    content = re.sub(
+        r'<!--\s*/wp:heading\s*-->\s*(?=<!--\s*wp:list\b|<h2\b|$)',
+        '',
+        str(content or ''),
+        flags=re.IGNORECASE,
+    )
     return content
 
 
@@ -232,6 +372,64 @@ def remove_forbidden_phrases(content: str, language_profile: dict):
     return content
 
 
+
+def apply_content_quality_replacements(content: str, language_profile: dict):
+    """
+    Workspace-specific, non-blocking wording improvements.
+
+    Rules come from:
+
+        language_profile.json
+        -> content_quality_replacements
+
+    Example:
+
+        {
+            "from": "identificar a los responsables",
+            "to": "aportar información complementaria para orientar la investigación"
+        }
+
+    No validation failure is triggered.
+    """
+
+    rules = language_profile.get(
+        "content_quality_replacements",
+        []
+    )
+
+    if not isinstance(rules, list):
+        return content
+
+    replacement_count = 0
+
+    for rule in rules:
+
+        if not isinstance(rule, dict):
+            continue
+
+        old = str(rule.get("from") or "").strip()
+        new = str(rule.get("to") or "").strip()
+
+        if not old or not new:
+            continue
+
+        content, count = re.subn(
+            re.escape(old),
+            new,
+            content,
+            flags=re.IGNORECASE
+        )
+
+        replacement_count += count
+
+    if replacement_count:
+        print(
+            f"Applied {replacement_count} content quality replacement(s)."
+        )
+
+    return content
+
+
 def fix_faq_structure(content: str):
     content = re.sub(
         r"<p>\s*<strong>(.*?)</strong>\s*</p>",
@@ -261,6 +459,19 @@ def get_faq_heading_match(content: str):
 
 
 def get_faq_question_count(content: str):
+    content = str(content or "")
+
+    yoast_count = len(
+        re.findall(
+            r'class=["\']schema-faq-question["\']',
+            content,
+            flags=re.IGNORECASE,
+        )
+    )
+
+    if yoast_count:
+        return yoast_count
+
     faq_heading = get_faq_heading_match(content)
 
     if not faq_heading:
@@ -432,6 +643,41 @@ def ensure_minimum_faq_questions(content: str, draft: dict):
     ).strip()
 
 
+
+def remove_plain_faq_sections_after_yoast(content: str):
+    """
+    If a draft already has a Yoast FAQ block, remove any later legacy
+    plain FAQ section in H2/H3/P format.
+    """
+    content = str(content or "")
+
+    if "<!-- /wp:yoast/faq-block -->" not in content:
+        return content
+
+    faq_heading = (
+        r'<h2[^>]*>\s*'
+        r'(preguntas frecuentes|perguntas frequentes|questions fréquentes|frequently asked questions|faq)'
+        r'\s*</h2>'
+    )
+
+    legacy_faq_pattern = (
+        faq_heading
+        + r'\s*'
+        + r'(?:<h3[^>]*>[\s\S]*?</h3>\s*<p[^>]*>[\s\S]*?</p>\s*)+'
+    )
+
+    before, sep, after = content.partition("<!-- /wp:yoast/faq-block -->")
+
+    after = re.sub(
+        legacy_faq_pattern,
+        "",
+        after,
+        flags=re.IGNORECASE,
+    )
+
+    return before + sep + after
+
+
 def get_content_from_draft(draft):
     return (
         draft.get("generated_content", {}).get("content", "")
@@ -440,7 +686,65 @@ def get_content_from_draft(draft):
     )
 
 
+
+def remove_existing_sofia_reusable_blocks(content: str, language_profile: dict):
+    """
+    Remove previously inserted Sofia reusable block refs so Gutenberg block
+    application is idempotent.
+    """
+    default_refs = {"1690", "1699", "1702", "1713", "1718", "1722"}
+
+    configured = language_profile.get("sofia_reusable_block_ids") or []
+
+    try:
+        configured_refs = {str(int(x)) for x in configured}
+    except Exception:
+        configured_refs = set()
+
+    allowed_refs = default_refs | configured_refs
+
+    before = str(content or "")
+
+    def remove_comment_if_sofia_block(match):
+        comment = match.group(0)
+        compact = re.sub(r"\s+", "", comment)
+
+        if "wp:block" not in compact:
+            return comment
+
+        for ref in allowed_refs:
+            if f'"ref":{ref}' in compact:
+                return ""
+
+        return comment
+
+    after = re.sub(
+        r"<!--[\s\S]*?-->",
+        remove_comment_if_sofia_block,
+        before,
+        flags=re.IGNORECASE,
+    )
+
+    removed_count = len(before) - len(after)
+
+    if removed_count:
+        print("Removed existing Sofia reusable block refs.")
+
+    return after
+
+
 def synchronize_content_fields(draft, content):
+    # Final safety cleanup before saving.
+    content, removed_count = re.subn(
+        r'<!--\s*wp:block\s+\{"ref"\s*:\s*(1690|1699|1702|1713|1718|1722)\s*\}\s*/-->\s*',
+        '',
+        str(content or ''),
+        flags=re.IGNORECASE,
+    )
+
+    if removed_count:
+        print(f"Removed {removed_count} existing Sofia reusable block ref(s).")
+
     if "generated_content" not in draft or not isinstance(draft["generated_content"], dict):
         draft["generated_content"] = {}
 
@@ -586,12 +890,24 @@ def main():
     content = remove_markdown_metadata_blocks(content)
     content = ensure_h1(content, h1_text)
     content = demote_extra_h1_tags(content)
-    content = normalize_faq_heading(content)
+    content = normalize_faq_heading(content, language_profile)
     content = fix_invalid_tags(content)
     content = remove_forbidden_phrases(content, language_profile)
+
+    content = apply_content_quality_replacements(
+        content,
+        language_profile
+    )
+
     content = fix_faq_structure(content)
     content = ensure_faq_heading(content)
     content = ensure_minimum_faq_questions(content, draft)
+    content = remove_plain_faq_sections_after_yoast(content)
+    content = remove_existing_sofia_reusable_blocks(content, language_profile)
+    content = clean_related_links_sections(content)
+    content = remove_legacy_contact_sections_after_reusable_cta(content)
+    content = clean_orphan_related_link_blocks(content)
+    content = clean_dangling_gutenberg_comments(content)
 
     synchronize_content_fields(draft, content)
 

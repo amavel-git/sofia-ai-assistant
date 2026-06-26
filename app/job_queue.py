@@ -40,12 +40,14 @@ SUPPORTED_JOB_TYPES = {
 TERMINAL_STATUSES = {
     "completed",
     "failed",
+    "failed_after_retries",
     "cancelled",
 }
 
 ACTIVE_STATUSES = {
     "queued",
     "running",
+    "retry_pending",
 }
 
 
@@ -305,12 +307,14 @@ def create_job(
         raise ValueError(f"Unsupported job type: {job_type}")
 
     existing_job = has_active_job_for_item(
-        workspace_id=workspace_id,
-        job_type=job_type,
-        item_id=item_id,
+    workspace_id=workspace_id,
+    job_type=job_type,
+    item_id=item_id,
     )
 
     if existing_job:
+        existing_job["_reused_existing_job"] = True
+        existing_job["_created_new_job"] = False
         return existing_job
 
     registry = load_job_registry(workspace_id)
@@ -323,6 +327,8 @@ def create_job(
         "job_type": job_type,
         "item_id": item_id,
         "status": "queued",
+        "_reused_existing_job": False,
+        "_created_new_job": True,
         "created_at": now,
         "updated_at": now,
         "started_at": None,
@@ -331,7 +337,10 @@ def create_job(
         "source": source,
         "payload": payload or {},
         "attempts": 0,
-        "max_attempts": 1,
+        "max_attempts": 3 if job_type in [
+            "revise_draft",
+            "approved_opportunity_to_review_draft",
+        ] else 2,
         "current_step": None,
         "steps_completed": [],
         "result": None,
@@ -468,6 +477,58 @@ def mark_job_failed(
     )
 
 
+def mark_job_retry_pending(
+    workspace_id: str,
+    job_id: str,
+    error_message: str,
+    error_details: Optional[Dict[str, Any]] = None,
+    retry_delay_seconds: int = 300,
+) -> Dict[str, Any]:
+    """
+    Mark a job as retry_pending after a temporary technical failure.
+
+    This keeps the job active so Sofia can retry it later instead of treating it
+    as permanently failed.
+    """
+
+    now = utc_now_iso()
+
+    return update_job(
+        workspace_id,
+        job_id,
+        {
+            "status": "retry_pending",
+            "completed_at": None,
+            "current_step": None,
+            "last_error": {
+                "message": error_message,
+                "details": error_details or {},
+                "recorded_at": now,
+            },
+            "next_retry_at": now,
+            "retry_delay_seconds": retry_delay_seconds,
+        },
+    )
+
+
+def iso_due_or_missing(value: Optional[str]) -> bool:
+    """
+    Return True if an ISO timestamp is missing, invalid, or already due.
+    Invalid/missing values are treated as due so jobs do not get stuck forever.
+    """
+
+    if not value:
+        return True
+
+    try:
+        due_at = datetime.fromisoformat(str(value))
+        if due_at.tzinfo is None:
+            due_at = due_at.replace(tzinfo=timezone.utc)
+        return due_at <= datetime.now(timezone.utc)
+    except Exception:
+        return True
+
+
 def get_next_queued_job(
     workspace_id: str,
     job_type: Optional[str] = None,
@@ -483,8 +544,12 @@ def get_next_queued_job(
     queued_jobs: List[Dict[str, Any]] = []
 
     for job in registry.get("jobs", []):
-        if job.get("status") != "queued":
+        if job.get("status") not in ["queued", "retry_pending"]:
             continue
+
+        if job.get("status") == "retry_pending":
+            if not iso_due_or_missing(job.get("next_retry_at")):
+                continue
 
         if job_type and job.get("job_type") != job_type:
             continue

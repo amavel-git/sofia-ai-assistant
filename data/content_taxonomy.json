@@ -1,0 +1,1211 @@
+{
+  "version": "1.1",
+  "purpose": "Global content taxonomy for Sofia. This file maps service topics and investigation issues to section-level content intelligence so Sofia can produce problem-first, investigation-focused content instead of generic polygraph explanations.",
+  "rules": {
+    "taxonomy_guides_content_selection": true,
+    "no_finished_article_copy": true,
+    "no_country_specific_cta": true,
+    "no_wordpress_block_ids": true,
+    "no_competitor_content": true,
+    "knowledge_blocks_should_inspire_not_be_copied": true,
+    "avoid_assuming_guilt": true,
+    "avoid_absolute_claims": true
+  },
+  "topic_groups": {
+    "corporate_investigations": {
+      "description": "Company, employee, loss, fraud, misconduct, and internal investigation topics.",
+      "topics": [
+        "internal_theft",
+        "fuel_diversion",
+        "inventory_manipulation",
+        "procurement_fraud",
+        "workplace_misconduct",
+        "confidential_information_leak",
+        "expense_claim_fraud",
+        "time_attendance_fraud",
+        "conflict_of_interest",
+        "bribery_corruption"
+      ]
+    },
+    "human_resources": {
+      "description": "Recruitment, integrity screening, periodic employee testing, and workplace trust topics.",
+      "topics": [
+        "pre_employment",
+        "employee_maintenance",
+        "executive_screening",
+        "integrity_testing"
+      ]
+    },
+    "private_cases": {
+      "description": "Relationship, family, and personal trust topics.",
+      "topics": [
+        "infidelity",
+        "relationship_trust",
+        "family_dispute"
+      ]
+    },
+    "sexual_offense_related": {
+      "description": "Sensitive sexual allegation, defense, monitoring, and treatment-support topics.",
+      "topics": [
+        "sexual_offense_allegation",
+        "false_accusation_defense",
+        "consent_dispute",
+        "post_conviction_monitoring",
+        "sex_offender_treatment_support"
+      ]
+    },
+    "legal_applications": {
+      "description": "Lawyer, defense, case preparation, credibility, criminal, and civil legal-support topics.",
+      "topics": [
+        "legal_defense",
+        "criminal_defense",
+        "civil_dispute",
+        "lawyer_case_preparation",
+        "witness_credibility",
+        "post_conviction_claim"
+      ]
+    }
+  },
+  "topics": {
+    "internal_theft": {
+      "label": "Internal theft",
+      "recommended_page_types": ["landing_page", "blog_post", "pillar_page"],
+      "section_focus": {
+        "problem": [
+          "missing cash, stock, tools, equipment, documents, or company property",
+          "management may know that a loss occurred but not who had direct involvement",
+          "suspicion may fall on several employees with access or opportunity",
+          "the company may need to act without damaging trust or accusing the wrong person"
+        ],
+        "consequences": [
+          "direct financial loss",
+          "workplace distrust",
+          "risk of unfair accusations",
+          "damage to internal morale",
+          "repeated losses if responsibility is not clarified"
+        ],
+        "investigation_challenges": [
+          "documents may show a loss but not the person responsible",
+          "several employees may have access to the same area, keys, cash, system, or stock",
+          "employees may deny involvement or provide conflicting explanations",
+          "witnesses may be reluctant to speak",
+          "the company must distinguish error, negligence, poor controls, and deliberate theft"
+        ],
+        "polygraph_role": [
+          "may help clarify specific questions about participation, knowledge, concealment, or benefit",
+          "can support a broader internal investigation when combined with documents, access records, interviews, and stock controls",
+          "should focus on clearly defined incidents rather than general suspicion",
+          "should not be presented as proof of guilt"
+        ],
+        "limitations": [
+          "must be voluntary",
+          "does not replace a full internal investigation",
+          "should not be the only basis for disciplinary action",
+          "results must be interpreted within the full case context"
+        ],
+        "faq": [
+          "Can a polygraph replace an internal theft investigation?",
+          "What if several employees had access to the missing property?",
+          "Can the examination clarify whether an employee participated in a specific theft?",
+          "Should a company discipline an employee based only on a polygraph result?",
+          "What information should be collected before requesting the examination?"
+        ]
+      }
+    },
+    "fuel_diversion": {
+      "label": "Fuel diversion",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "unexplained fuel consumption in transport or logistics operations",
+          "differences between mileage, route plans, fuel card use, and actual fuel purchases",
+          "fuel records showing a loss without clearly showing whether the cause is waste, poor controls, error, negligence, or deliberate diversion",
+          "management uncertainty about whether the issue involves drivers, supervisors, suppliers, fuel card users, or internal logistics staff",
+          "the need to investigate without making premature accusations against employees"
+        ],
+        "consequences": [
+          "higher operating costs and reduced fleet profitability",
+          "loss of confidence in fuel records, route data, and internal controls",
+          "workplace tension when suspicion falls on several employees",
+          "risk of unfair accusations if the company acts before clarifying the facts",
+          "difficulty making disciplinary, operational, or audit decisions while responsibility remains unclear"
+        ],
+        "investigation_challenges": [
+          "the loss may be visible in fuel records, but the records may not show who caused it",
+          "GPS data, fuel cards, invoices, route sheets, and mileage logs may show discrepancies without proving intent",
+          "several people may have access to vehicles, cards, receipts, tanks, or supplier contacts",
+          "the company may need to distinguish poor control, operational waste, negligence, collusion, and deliberate diversion",
+          "employees may provide conflicting explanations for the same fuel discrepancy",
+          "technical monitoring may identify where the loss appears but not whether a person knowingly participated"
+        ],
+        "polygraph_role": [
+          "may help clarify specific statements about participation, knowledge, assistance, concealment, or benefit from fuel diversion",
+          "should focus on defined issues such as unauthorised sale, fictitious fuel purchase, misuse of fuel cards, or concealment of known irregularities",
+          "can support a broader internal investigation when combined with fleet records, fuel audits, GPS data, invoices, access logs, and interviews",
+          "should not be presented as proof of fraud or as a replacement for operational and financial controls"
+        ],
+        "limitations": [
+          "should be used only with voluntary examinees",
+          "should focus on specific, reviewable issues rather than general suspicion",
+          "does not replace accounting, GPS, fleet, supplier, or fuel-control evidence",
+          "results must be interpreted within the full context of the investigation"
+        ],
+        "faq": [
+          "Can a polygraph replace a fuel audit?",
+          "What if several drivers used the same vehicle or fuel card?",
+          "Can the examination clarify whether a driver knowingly participated in fuel diversion?",
+          "Can the examination be used when records show a discrepancy but not who caused it?",
+          "Should the company rely only on a polygraph result before taking disciplinary action?",
+          "What information should the company collect before requesting an examination?"
+        ]
+      }
+    },
+    "inventory_manipulation": {
+      "label": "Inventory manipulation",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "stock discrepancies between warehouse records and physical inventory",
+          "possible manipulation of entries, transfers, returns, damaged goods, write-offs, or stock adjustments",
+          "uncertainty about whether the problem is error, weak control, negligence, theft, or deliberate manipulation",
+          "several departments may be involved, including warehouse, purchasing, logistics, accounting, and management"
+        ],
+        "consequences": [
+          "financial loss",
+          "incorrect purchasing or stock decisions",
+          "hidden theft or fraud continuing over time",
+          "loss of confidence in inventory systems",
+          "internal tension between departments"
+        ],
+        "investigation_challenges": [
+          "many employees may interact with stock before a discrepancy is discovered",
+          "records may show an inconsistency without showing intent",
+          "errors and deliberate manipulation may appear similar",
+          "responsibility may be divided between receiving, storage, dispatch, returns, and record-keeping",
+          "employees may blame system errors or procedural confusion"
+        ],
+        "polygraph_role": [
+          "may clarify whether specific individuals knowingly manipulated records, concealed losses, or participated in unauthorised stock movement",
+          "should focus on defined acts, dates, transactions, or events",
+          "can support internal interviews, audits, and stock-control reviews",
+          "should not replace a proper inventory audit"
+        ],
+        "limitations": [
+          "requires precise question formulation",
+          "must be part of a broader investigation",
+          "should not be used to test vague suspicion",
+          "must respect voluntary participation and professional limits"
+        ],
+        "faq": [
+          "Can a polygraph replace an inventory audit?",
+          "What if several employees handled the same stock?",
+          "Can the examination clarify whether records were knowingly manipulated?",
+          "What documents should be reviewed before the examination?",
+          "Can the test distinguish error from deliberate manipulation?"
+        ]
+      }
+    },
+    "procurement_fraud": {
+      "label": "Procurement fraud",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "suspicions involving inflated invoices, false suppliers, kickbacks, favoritism, or manipulated purchasing decisions",
+          "uncertainty about whether a decision was poor management, weak control, negligence, conflict of interest, or deliberate misconduct",
+          "concerns involving employees, suppliers, intermediaries, or third-party contractors"
+        ],
+        "consequences": [
+          "overpayment",
+          "loss of supplier trust",
+          "damage to governance and internal controls",
+          "possible disciplinary or legal exposure",
+          "difficulty trusting future procurement decisions"
+        ],
+        "investigation_challenges": [
+          "irregularities may be hidden behind apparently valid paperwork",
+          "several people may request, approve, process, or receive goods or services",
+          "supplier relationships can make responsibility difficult to determine",
+          "employees may claim decisions were normal business judgment",
+          "financial records may show a transaction but not the intent behind it"
+        ],
+        "polygraph_role": [
+          "may clarify specific questions about knowledge, benefit, concealment, or involvement in defined transactions",
+          "can support compliance, audit, or internal investigation processes",
+          "should focus on specific suppliers, invoices, approvals, or payments",
+          "should not replace legal review, financial audit, or compliance investigation"
+        ],
+        "limitations": [
+          "does not prove corruption or legal liability",
+          "must avoid vague or overly broad questions",
+          "requires voluntary participation",
+          "results must be evaluated with documentary evidence"
+        ],
+        "faq": [
+          "Can a polygraph replace a procurement audit?",
+          "Can the examination address suspected kickbacks or supplier favoritism?",
+          "What if several employees approved the same transaction?",
+          "Can the examination clarify whether an employee knowingly concealed a conflict of interest?",
+          "Should lawyers or compliance officers be involved?"
+        ]
+      }
+    },
+    "workplace_misconduct": {
+      "label": "Workplace misconduct",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "allegations of misconduct inside the workplace",
+          "conflicting accounts between employees",
+          "management pressure to respond fairly without relying only on rumor",
+          "sensitive facts that may affect discipline, trust, or employee relations"
+        ],
+        "consequences": [
+          "workplace tension",
+          "loss of trust in management",
+          "possible HR or legal complications",
+          "reputational damage",
+          "risk of unfair action if facts are not clarified"
+        ],
+        "investigation_challenges": [
+          "witnesses may be reluctant",
+          "accounts may conflict",
+          "documentation may be limited",
+          "sensitive allegations require careful handling",
+          "disciplinary action requires fairness and proportionality"
+        ],
+        "polygraph_role": [
+          "may assist in clarifying specific factual issues when appropriate",
+          "can support a broader HR or investigative process",
+          "should be used carefully with consent and professional boundaries",
+          "should not replace HR or legal advice"
+        ],
+        "limitations": [
+          "not suitable for every HR situation",
+          "must respect dignity, voluntariness, and confidentiality",
+          "should not be used as pressure",
+          "must be limited to relevant factual issues"
+        ],
+        "faq": [
+          "Can a polygraph be used in a workplace misconduct investigation?",
+          "What if employees give conflicting versions?",
+          "Is participation voluntary?",
+          "Can the result be the only basis for disciplinary action?",
+          "When should HR or legal counsel be involved?"
+        ]
+      }
+    },
+    "confidential_information_leak": {
+      "label": "Confidential information leak",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "suspected disclosure of confidential information to unauthorised parties",
+          "concerns involving client lists, pricing, contracts, strategy, internal documents, or trade secrets",
+          "difficulty determining whether information was leaked intentionally, accidentally, or through weak controls"
+        ],
+        "consequences": [
+          "commercial damage",
+          "loss of client trust",
+          "competitive disadvantage",
+          "legal or contractual exposure",
+          "internal suspicion among employees with access"
+        ],
+        "investigation_challenges": [
+          "digital access logs may show who accessed information but not intent",
+          "several employees may have legitimate access",
+          "information may be copied, photographed, forwarded, or discussed informally",
+          "employees may deny disclosure or claim accidental handling"
+        ],
+        "polygraph_role": [
+          "may clarify specific questions about unauthorised disclosure, knowledge, or concealment",
+          "can support digital forensic review, access-log analysis, and internal interviews",
+          "should focus on clearly defined information and timeframes"
+        ],
+        "limitations": [
+          "does not replace digital forensics or legal review",
+          "must avoid vague questions about loyalty or character",
+          "should focus on specific acts and voluntary participation"
+        ],
+        "faq": [
+          "Can a polygraph help investigate a confidential information leak?",
+          "What if several employees had access to the same documents?",
+          "Can the test clarify whether information was shared intentionally?",
+          "Should digital evidence be reviewed first?"
+        ]
+      }
+    },
+    "expense_claim_fraud": {
+      "label": "Expense claim fraud",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "suspected false receipts, inflated expenses, duplicate claims, personal purchases, or manipulated travel costs",
+          "uncertainty about whether the issue is error, weak control, or deliberate false reporting",
+          "concerns involving employees, supervisors, or approvers"
+        ],
+        "consequences": [
+          "financial loss",
+          "normalisation of dishonest expense behaviour",
+          "loss of trust in reporting systems",
+          "administrative burden and internal conflict"
+        ],
+        "investigation_challenges": [
+          "receipts may appear valid",
+          "approvals may be routine or poorly checked",
+          "employees may claim misunderstanding of policy",
+          "several people may be involved in submission and approval"
+        ],
+        "polygraph_role": [
+          "may clarify specific questions about knowingly submitting false claims or concealing improper expenses",
+          "can support audit and HR review",
+          "should focus on specific claims, dates, and documents"
+        ],
+        "limitations": [
+          "does not replace expense audit",
+          "requires precise questions",
+          "must respect voluntary participation"
+        ],
+        "faq": [
+          "Can a polygraph help investigate false expense claims?",
+          "What if the employee says it was a misunderstanding?",
+          "Can the examination address specific receipts or trips?",
+          "Should expense records be reviewed first?"
+        ]
+      }
+    },
+    "time_attendance_fraud": {
+      "label": "Time and attendance fraud",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "suspected false clock-ins, buddy punching, falsified overtime, remote work misreporting, or unauthorised absence",
+          "difficulty distinguishing system errors, poor supervision, and intentional misconduct",
+          "concerns about fairness when suspicion affects multiple employees"
+        ],
+        "consequences": [
+          "payroll losses",
+          "unfairness among employees",
+          "loss of trust in attendance systems",
+          "operational disruption"
+        ],
+        "investigation_challenges": [
+          "attendance systems may show irregularities but not intent",
+          "supervisors may lack direct observation",
+          "employees may blame system failures or misunderstandings",
+          "multiple employees may share access or cover for each other"
+        ],
+        "polygraph_role": [
+          "may clarify specific questions about knowingly falsifying attendance or assisting another employee",
+          "can support HR, payroll, and access-control review",
+          "should focus on defined dates and acts"
+        ],
+        "limitations": [
+          "does not replace payroll audit or access control review",
+          "must not be used to test vague suspicion",
+          "requires voluntary participation"
+        ],
+        "faq": [
+          "Can a polygraph help investigate false attendance records?",
+          "What if the employee says the system was wrong?",
+          "Can the test address specific dates or shifts?",
+          "Should payroll and access records be reviewed first?"
+        ]
+      }
+    },
+    "conflict_of_interest": {
+      "label": "Conflict of interest",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "suspected undisclosed relationship, personal benefit, side business, supplier connection, or divided loyalty",
+          "uncertainty about whether decisions were influenced by private interests",
+          "difficulty proving knowledge, benefit, or concealment"
+        ],
+        "consequences": [
+          "loss of trust in decision-making",
+          "procurement or governance risk",
+          "commercial disadvantage",
+          "possible disciplinary or legal exposure"
+        ],
+        "investigation_challenges": [
+          "relationships may be informal or hidden",
+          "documents may not show private benefit",
+          "employees may deny influence or claim coincidence",
+          "several decisions may need to be reviewed"
+        ],
+        "polygraph_role": [
+          "may clarify specific questions about undisclosed benefit, knowledge, or concealment",
+          "can support compliance review and internal interviews",
+          "should focus on defined relationships, transactions, or benefits"
+        ],
+        "limitations": [
+          "does not replace compliance or legal review",
+          "must avoid vague loyalty questions",
+          "requires precise factual issues"
+        ],
+        "faq": [
+          "Can a polygraph help investigate conflict of interest?",
+          "What if the relationship was informal?",
+          "Can the examination address undisclosed benefits?",
+          "Should compliance review happen first?"
+        ]
+      }
+    },
+    "bribery_corruption": {
+      "label": "Bribery and corruption",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "suspected bribes, kickbacks, improper payments, facilitation payments, gifts, or undisclosed benefits",
+          "difficulty determining whether a payment or benefit influenced a decision",
+          "concerns involving employees, suppliers, clients, agents, or intermediaries"
+        ],
+        "consequences": [
+          "legal and compliance exposure",
+          "loss of trust in governance",
+          "financial loss",
+          "reputational damage",
+          "internal control failure"
+        ],
+        "investigation_challenges": [
+          "payments may be disguised as normal transactions",
+          "benefits may be indirect or given through third parties",
+          "employees may deny knowledge or intent",
+          "documents may show payment but not the real reason"
+        ],
+        "polygraph_role": [
+          "may clarify specific questions about receiving, requesting, offering, concealing, or benefiting from improper payments",
+          "can support compliance investigation, audit, and interviews",
+          "should focus on defined events, payments, or benefits"
+        ],
+        "limitations": [
+          "does not replace legal, compliance, or financial investigation",
+          "must avoid broad accusations",
+          "requires voluntary participation and careful question formulation"
+        ],
+        "faq": [
+          "Can a polygraph help investigate suspected bribery?",
+          "What if payments appear in normal accounting records?",
+          "Can the test address knowledge of an improper payment?",
+          "Should legal or compliance counsel be involved?"
+        ]
+      }
+    },
+    "pre_employment": {
+      "label": "Pre-employment screening",
+      "recommended_page_types": ["landing_page", "blog_post", "pillar_page"],
+      "section_focus": {
+        "problem": [
+          "employers may need to assess integrity risk before hiring for sensitive positions",
+          "concerns may involve theft history, drug use, falsified qualifications, confidential information, conflicts of interest, or undisclosed misconduct",
+          "the challenge is to make hiring decisions responsibly without relying only on assumptions"
+        ],
+        "consequences": [
+          "hiring people into sensitive roles without adequate integrity assessment may create financial, security, or reputational risk",
+          "poor screening can expose companies to theft, fraud, data leaks, or workplace misconduct",
+          "unfair or poorly designed screening can harm candidates and expose the company to ethical or legal problems"
+        ],
+        "investigation_challenges": [
+          "CVs, references, and interviews may not reveal all relevant integrity concerns",
+          "some information may be difficult to verify independently",
+          "screening must be proportionate, voluntary, and related to the role",
+          "questions must avoid irrelevant personal areas"
+        ],
+        "polygraph_role": [
+          "may support integrity screening when role relevance, consent, and proper question formulation exist",
+          "should focus on job-relevant topics such as prior theft, falsification, unauthorised disclosure, or serious policy violations",
+          "must be part of a broader recruitment and background-check process"
+        ],
+        "limitations": [
+          "should not replace interviews, reference checks, or background checks",
+          "must be legally and ethically appropriate for the country and role",
+          "requires voluntary participation and clear explanation"
+        ],
+        "faq": [
+          "Can a polygraph be used before hiring?",
+          "What kinds of questions are appropriate in pre-employment screening?",
+          "Can the test replace background checks?",
+          "Is candidate consent required?",
+          "Should all roles be screened or only sensitive positions?"
+        ]
+      }
+    },
+    "employee_maintenance": {
+      "label": "Employee maintenance testing",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "companies may need periodic integrity monitoring for employees in sensitive roles",
+          "concerns may involve access to cash, inventory, confidential data, security, clients, fuel, or high-value assets",
+          "the goal is to manage risk without creating unnecessary pressure or distrust"
+        ],
+        "consequences": [
+          "undetected misconduct may continue over time",
+          "poorly managed testing can damage morale",
+          "inconsistent screening may create perceptions of unfairness",
+          "risk management must be balanced with ethics and employee dignity"
+        ],
+        "investigation_challenges": [
+          "maintenance testing must be policy-based, not arbitrary",
+          "questions must be role-relevant and specific",
+          "participation, consent, and communication must be handled carefully",
+          "testing should not replace supervision, controls, audits, or HR processes"
+        ],
+        "polygraph_role": [
+          "may support integrity monitoring in high-trust or sensitive positions",
+          "can help assess specific policy-related issues when properly designed",
+          "should be integrated into a broader compliance, HR, or security framework"
+        ],
+        "limitations": [
+          "not suitable for every workplace",
+          "must be transparent, voluntary, and professionally managed",
+          "should not be used as intimidation or routine pressure"
+        ],
+        "faq": [
+          "What is employee maintenance testing?",
+          "Which roles may justify periodic integrity testing?",
+          "Can maintenance testing replace internal controls?",
+          "How should employees be informed?",
+          "What topics are appropriate for maintenance examinations?"
+        ]
+      }
+    },
+    "executive_screening": {
+      "label": "Executive screening",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "senior employees may have access to money, strategy, confidential data, clients, suppliers, and decision-making authority",
+          "companies may need additional confidence before placing someone in a high-trust role",
+          "concerns may include conflicts of interest, financial misconduct, data disclosure, or undisclosed integrity risks"
+        ],
+        "consequences": [
+          "executive misconduct can cause strategic, financial, reputational, and governance damage",
+          "poor screening at senior level may affect the entire organisation",
+          "loss of trust in leadership can be difficult to repair"
+        ],
+        "investigation_challenges": [
+          "senior candidates may have complex histories and wide business networks",
+          "some integrity concerns may not appear in ordinary references",
+          "screening must be proportionate and professionally justified",
+          "questions must remain job-relevant"
+        ],
+        "polygraph_role": [
+          "may support broader executive due diligence when legally and ethically appropriate",
+          "should focus on defined job-relevant integrity issues",
+          "must be integrated with background checks, interviews, and references"
+        ],
+        "limitations": [
+          "does not replace due diligence",
+          "must respect consent and legal boundaries",
+          "should not be used for irrelevant personal intrusion"
+        ],
+        "faq": [
+          "Can a polygraph be used for executive screening?",
+          "What topics are appropriate for senior-role screening?",
+          "Can the examination replace background checks?",
+          "Is executive screening suitable for every company?"
+        ]
+      }
+    },
+    "integrity_testing": {
+      "label": "Integrity testing",
+      "recommended_page_types": ["pillar_page", "landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "organisations may need to assess trustworthiness in roles involving assets, data, security, money, or vulnerable clients",
+          "integrity concerns may appear before hiring, after incidents, or during periodic risk reviews",
+          "the challenge is to assess risk responsibly without overreaching"
+        ],
+        "consequences": [
+          "weak integrity controls may expose the organisation to theft, fraud, abuse, leaks, or misconduct",
+          "excessive or poorly designed testing may damage trust and fairness",
+          "integrity programs require clear boundaries and professional standards"
+        ],
+        "investigation_challenges": [
+          "integrity is broad and must be translated into specific, relevant questions",
+          "general character questions are usually less useful than defined conduct questions",
+          "testing must be proportionate to role risk and case context"
+        ],
+        "polygraph_role": [
+          "may support integrity assessment when focused on specific job-relevant conduct",
+          "can complement interviews, background checks, audits, and internal controls",
+          "should not be used as a broad character judgment"
+        ],
+        "limitations": [
+          "must avoid vague moral judgments",
+          "requires clear consent and relevance",
+          "should be interpreted as part of a broader assessment"
+        ],
+        "faq": [
+          "What is integrity testing?",
+          "Can a polygraph assess general honesty?",
+          "Which topics are appropriate for integrity testing?",
+          "Can integrity testing be used before hiring?",
+          "Can it be used for existing employees?"
+        ]
+      }
+    },
+    "infidelity": {
+      "label": "Infidelity",
+      "recommended_page_types": ["landing_page", "blog_post", "faq_page"],
+      "section_focus": {
+        "problem": [
+          "relationship doubt after messages, secrecy, absences, behaviour changes, social media contact, or previous incidents",
+          "conflicting explanations between partners",
+          "loss of trust and repeated arguments",
+          "need for clarification before making important personal decisions",
+          "the risk that accusations without clarity can deepen the conflict"
+        ],
+        "consequences": [
+          "emotional distress",
+          "relationship instability",
+          "difficulty rebuilding trust",
+          "repeated conflict",
+          "risk of making decisions based only on suspicion"
+        ],
+        "investigation_challenges": [
+          "private behaviour may leave little direct evidence",
+          "partners may interpret the same facts differently",
+          "messages or behaviour may raise questions but not answer them",
+          "accusations can escalate emotional conflict",
+          "questions must be formulated carefully and respectfully"
+        ],
+        "polygraph_role": [
+          "may help address specific agreed questions between partners",
+          "can support a structured conversation about defined issues",
+          "should focus on clear conduct questions rather than broad emotional judgments",
+          "requires voluntary participation and careful preparation"
+        ],
+        "limitations": [
+          "should not be used to pressure a partner",
+          "does not solve relationship problems by itself",
+          "requires consent and emotional care",
+          "questions must avoid humiliation or unnecessary personal intrusion"
+        ],
+        "faq": [
+          "Can a polygraph help clarify infidelity concerns?",
+          "Can one partner force the other to take the test?",
+          "What kind of questions can be asked in an infidelity test?",
+          "Can the test repair trust by itself?",
+          "What happens if the couple disagrees about the questions?"
+        ]
+      }
+    },
+    "relationship_trust": {
+      "label": "Relationship trust",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "relationship trust may be damaged by secrecy, conflicting explanations, financial doubts, online contact, or past incidents",
+          "the issue may not always be infidelity but may involve honesty about a specific event",
+          "partners may need a structured way to clarify defined questions"
+        ],
+        "consequences": [
+          "emotional pressure",
+          "repeated arguments",
+          "difficulty making decisions",
+          "loss of confidence in communication",
+          "risk of escalating suspicion"
+        ],
+        "investigation_challenges": [
+          "private issues may lack clear evidence",
+          "partners may have different memories or interpretations",
+          "questions must be respectful and specific",
+          "the process must avoid coercion"
+        ],
+        "polygraph_role": [
+          "may support clarification of defined relationship questions when both parties agree",
+          "can help structure a difficult conversation",
+          "should not be presented as a solution to the relationship itself"
+        ],
+        "limitations": [
+          "requires voluntary participation",
+          "must not be used as emotional pressure",
+          "does not replace counselling or legal advice where relevant"
+        ],
+        "faq": [
+          "Can a polygraph help with relationship trust issues?",
+          "What if the issue is not sexual infidelity?",
+          "Can the questions be agreed in advance?",
+          "Can a partner be pressured into the test?",
+          "What happens after the result?"
+        ]
+      }
+    },
+    "family_dispute": {
+      "label": "Family dispute",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "families may face serious disputes involving money, property, accusations, personal conduct, or conflicting versions of events",
+          "trust may be damaged when relatives accuse each other without clarity",
+          "a specific factual question may need clarification before decisions are made"
+        ],
+        "consequences": [
+          "family conflict",
+          "breakdown of communication",
+          "emotional stress",
+          "financial or legal uncertainty",
+          "risk of acting on suspicion rather than facts"
+        ],
+        "investigation_challenges": [
+          "family members may interpret events emotionally",
+          "evidence may be limited",
+          "questions must avoid broad personal accusations",
+          "participation must be voluntary"
+        ],
+        "polygraph_role": [
+          "may help clarify specific factual questions in a controlled setting",
+          "can support decision-making when the issue is clearly defined",
+          "should not replace mediation, legal advice, or counselling where needed"
+        ],
+        "limitations": [
+          "not suitable for every family conflict",
+          "requires consent and careful preparation",
+          "must avoid emotional pressure"
+        ],
+        "faq": [
+          "Can a polygraph be used in a family dispute?",
+          "What kind of family questions are appropriate?",
+          "Can one family member force another to take the test?",
+          "Should legal advice be obtained first?"
+        ]
+      }
+    },
+    "sexual_offense_allegation": {
+      "label": "Sexual offense allegation",
+      "recommended_page_types": ["landing_page", "blog_post", "faq_page"],
+      "section_focus": {
+        "problem": [
+          "sexual offense allegations are highly sensitive and may involve serious personal, legal, and reputational consequences",
+          "the facts may be disputed, incomplete, delayed, or emotionally difficult",
+          "parties may seek additional professional assessment of specific factual statements",
+          "the process must be handled with caution, dignity, and strict ethical limits"
+        ],
+        "consequences": [
+          "serious personal and legal consequences",
+          "reputational damage",
+          "emotional distress",
+          "risk of mishandling sensitive allegations",
+          "need for professional boundaries and careful wording"
+        ],
+        "investigation_challenges": [
+          "allegations may involve private events with limited witnesses",
+          "memories, interpretations, and statements may conflict",
+          "legal processes may already be active or possible",
+          "questions must avoid retraumatisation, coercion, or irrelevant sexual detail",
+          "professional and legal boundaries are especially important"
+        ],
+        "polygraph_role": [
+          "may be considered only for carefully defined factual issues in appropriate circumstances",
+          "should be coordinated with legal or therapeutic professionals where relevant",
+          "must not be presented as proving guilt or innocence",
+          "requires strict consent, preparation, and ethical screening"
+        ],
+        "limitations": [
+          "does not replace police, judicial, medical, psychological, or legal processes",
+          "not suitable for every sexual allegation",
+          "must avoid coercion and sensational language",
+          "requires professional judgment before accepting the case"
+        ],
+        "faq": [
+          "Can a polygraph be used in a sexual offense allegation?",
+          "Does the result prove guilt or innocence?",
+          "Should a lawyer be consulted first?",
+          "What kinds of questions may be appropriate?",
+          "Can the examiner refuse the case?"
+        ]
+      }
+    },
+    "false_accusation_defense": {
+      "label": "False accusation defense",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "a person may state that an accusation is false and seek a way to support their position",
+          "the allegation may carry serious personal, professional, or legal consequences",
+          "the factual issue must be clearly defined before any examination is considered"
+        ],
+        "consequences": [
+          "reputational harm",
+          "family or workplace consequences",
+          "legal exposure",
+          "emotional distress",
+          "difficulty demonstrating credibility"
+        ],
+        "investigation_challenges": [
+          "the context may be legally sensitive",
+          "the examination must avoid broad claims of innocence",
+          "questions must address specific alleged conduct or facts",
+          "legal advice may be necessary before testing"
+        ],
+        "polygraph_role": [
+          "may support private credibility assessment regarding defined factual denials",
+          "can assist case preparation when coordinated responsibly",
+          "must not be presented as legal proof or guaranteed exoneration"
+        ],
+        "limitations": [
+          "does not replace legal defense",
+          "does not guarantee court admissibility",
+          "must be voluntary and professionally documented",
+          "may be refused if the case is unsuitable"
+        ],
+        "faq": [
+          "Can a polygraph help when someone says they are falsely accused?",
+          "Does the test prove innocence?",
+          "Should the lawyer be involved?",
+          "What kind of denial questions can be asked?",
+          "Can the report be used in legal proceedings?"
+        ]
+      }
+    },
+    "consent_dispute": {
+      "label": "Consent dispute",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "a dispute may involve conflicting statements about consent, communication, memory, or specific conduct",
+          "the matter may be emotionally and legally sensitive",
+          "questions must be defined with extreme care"
+        ],
+        "consequences": [
+          "serious legal and personal consequences",
+          "emotional distress",
+          "risk of inappropriate questioning",
+          "need for professional and legal safeguards"
+        ],
+        "investigation_challenges": [
+          "consent-related matters may involve complex legal and psychological considerations",
+          "polygraph questions must not oversimplify legal concepts",
+          "legal advice should be considered before testing",
+          "case suitability must be assessed carefully"
+        ],
+        "polygraph_role": [
+          "may only be considered for specific factual questions, not broad legal conclusions",
+          "must not be used to decide legal consent by itself",
+          "should be handled with strict professional caution"
+        ],
+        "limitations": [
+          "does not determine legal consent",
+          "does not replace legal, judicial, or psychological assessment",
+          "may be unsuitable depending on facts and jurisdiction"
+        ],
+        "faq": [
+          "Can a polygraph answer a legal question about consent?",
+          "What kind of factual questions may be appropriate?",
+          "Should a lawyer be consulted first?",
+          "Can the examiner refuse this type of case?"
+        ]
+      }
+    },
+    "post_conviction_monitoring": {
+      "label": "Post-conviction monitoring",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "post-conviction contexts may require structured monitoring of compliance, disclosure, or risk-related behaviour",
+          "professionals may need information to support treatment, supervision, or case management",
+          "testing must be used within a clear professional framework"
+        ],
+        "consequences": [
+          "poorly managed monitoring may create unreliable information",
+          "inadequate disclosure may affect treatment or supervision",
+          "misuse of testing may harm ethical practice"
+        ],
+        "investigation_challenges": [
+          "questions must be carefully aligned with treatment or supervision goals",
+          "results must be interpreted by qualified professionals",
+          "testing should not be isolated from case management",
+          "ethical and legal boundaries are essential"
+        ],
+        "polygraph_role": [
+          "may support disclosure, compliance monitoring, or treatment-related assessment when professionally appropriate",
+          "should be integrated with treatment, supervision, and case management",
+          "must not be treated as a standalone risk assessment"
+        ],
+        "limitations": [
+          "does not replace treatment or supervision",
+          "requires trained professionals and clear protocols",
+          "must respect legal and ethical requirements"
+        ],
+        "faq": [
+          "What is post-conviction polygraph monitoring?",
+          "Can the test replace treatment or supervision?",
+          "Who should request this type of examination?",
+          "What kinds of questions are appropriate?"
+        ]
+      }
+    },
+    "sex_offender_treatment_support": {
+      "label": "Sex offender treatment support",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "treatment professionals may need structured information to support disclosure, compliance, and risk-management goals",
+          "the examination must be connected to therapeutic or supervision objectives",
+          "questions must be carefully controlled and professionally justified"
+        ],
+        "consequences": [
+          "incomplete disclosure can affect treatment planning",
+          "misuse of testing can create ethical problems",
+          "poorly designed examinations may produce limited value"
+        ],
+        "investigation_challenges": [
+          "treatment-related examinations require specialised protocols",
+          "questions must be relevant to treatment goals",
+          "results must be interpreted carefully and not used in isolation"
+        ],
+        "polygraph_role": [
+          "may support treatment planning, disclosure, and compliance monitoring",
+          "should be coordinated with treatment or supervision professionals",
+          "must be handled by qualified examiners familiar with this context"
+        ],
+        "limitations": [
+          "does not replace therapy, supervision, or risk assessment",
+          "requires consent and appropriate professional framework",
+          "not suitable for informal or unsupported use"
+        ],
+        "faq": [
+          "How can polygraph support treatment?",
+          "Does it replace therapy?",
+          "Who should define the examination questions?",
+          "What professional safeguards are needed?"
+        ]
+      }
+    },
+    "legal_defense": {
+      "label": "Legal defense",
+      "recommended_page_types": ["landing_page", "blog_post", "pillar_page"],
+      "section_focus": {
+        "problem": [
+          "a person involved in a legal matter may need additional professional assessment of specific factual statements",
+          "lawyers may seek information to support case preparation, credibility assessment, or private decision-making",
+          "the matter may involve conflicting accounts or limited evidence"
+        ],
+        "consequences": [
+          "case strategy may be affected by unresolved factual questions",
+          "poorly handled testing can create unrealistic expectations",
+          "misunderstanding legal value can harm decision-making"
+        ],
+        "investigation_challenges": [
+          "legal relevance and admissibility vary by jurisdiction",
+          "questions must be legally and professionally appropriate",
+          "the examination must avoid broad legal conclusions",
+          "lawyer coordination may be important"
+        ],
+        "polygraph_role": [
+          "may support private case preparation or factual assessment in appropriate circumstances",
+          "can help clarify specific statements or denials",
+          "should be coordinated with legal counsel where relevant",
+          "must not be presented as legal proof"
+        ],
+        "limitations": [
+          "does not replace legal advice",
+          "does not guarantee admissibility",
+          "must be interpreted in context",
+          "may not be suitable for every case"
+        ],
+        "faq": [
+          "Can a polygraph help in legal defense?",
+          "Does the result prove innocence?",
+          "Can a lawyer request the examination?",
+          "Can the report be used in court?",
+          "What questions are appropriate in a legal defense case?"
+        ]
+      }
+    },
+    "criminal_defense": {
+      "label": "Criminal defense",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "criminal allegations may involve serious consequences and disputed facts",
+          "the defense may need additional information regarding a specific denial or factual issue",
+          "testing must be coordinated carefully with legal strategy"
+        ],
+        "consequences": [
+          "serious legal exposure",
+          "risk of misunderstanding the role of the examination",
+          "case decisions may depend on careful interpretation of all available information"
+        ],
+        "investigation_challenges": [
+          "legal questions must not be confused with factual test questions",
+          "admissibility rules vary",
+          "the examiner must avoid legal conclusions",
+          "defense counsel should guide the use of the examination"
+        ],
+        "polygraph_role": [
+          "may support private factual assessment or case preparation",
+          "can address specific denials or factual issues",
+          "should be discussed with defense counsel",
+          "does not determine guilt or innocence"
+        ],
+        "limitations": [
+          "does not replace legal defense",
+          "does not guarantee admissibility",
+          "should not be used without legal consideration"
+        ],
+        "faq": [
+          "Can a polygraph be used in a criminal defense case?",
+          "Should my lawyer be involved?",
+          "Does the result prove innocence?",
+          "Can the report be submitted to court?",
+          "What type of questions can be asked?"
+        ]
+      }
+    },
+    "civil_dispute": {
+      "label": "Civil dispute",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "civil disputes may involve conflicting statements about money, contracts, property, conduct, or responsibility",
+          "parties may seek additional information before negotiation, settlement, or litigation decisions",
+          "the factual issue must be specific and suitable for testing"
+        ],
+        "consequences": [
+          "financial uncertainty",
+          "legal costs",
+          "loss of trust between parties",
+          "risk of making decisions based on incomplete information"
+        ],
+        "investigation_challenges": [
+          "civil matters may involve documents, communications, and competing interpretations",
+          "questions must focus on specific factual claims",
+          "legal counsel may need to evaluate usefulness"
+        ],
+        "polygraph_role": [
+          "may support private assessment of specific disputed facts",
+          "can assist case preparation or negotiation decisions",
+          "should not replace legal advice or documentary evidence"
+        ],
+        "limitations": [
+          "does not guarantee legal acceptance",
+          "must be interpreted in context",
+          "may be unsuitable if the issue is purely legal rather than factual"
+        ],
+        "faq": [
+          "Can a polygraph help in a civil dispute?",
+          "What kinds of civil issues may be suitable?",
+          "Should a lawyer review the questions?",
+          "Can the result be used in settlement discussions?"
+        ]
+      }
+    },
+    "lawyer_case_preparation": {
+      "label": "Lawyer case preparation",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "lawyers may need additional insight into a client's statement, witness statement, or specific factual denial",
+          "the examination may help assess whether a matter should be developed, challenged, or approached cautiously",
+          "case preparation requires clear boundaries between factual questions and legal conclusions"
+        ],
+        "consequences": [
+          "case strategy may be affected by unresolved credibility questions",
+          "poorly framed questions can reduce usefulness",
+          "misunderstanding results can create unrealistic expectations"
+        ],
+        "investigation_challenges": [
+          "lawyers and examiners must define precise factual issues",
+          "questions should not ask for legal conclusions",
+          "admissibility and strategic value vary",
+          "documentation and case context are important"
+        ],
+        "polygraph_role": [
+          "may support private legal strategy and factual assessment",
+          "can help clarify defined statements before decisions are made",
+          "should be coordinated with counsel"
+        ],
+        "limitations": [
+          "does not replace legal advice",
+          "does not guarantee admissibility",
+          "must be used carefully and ethically"
+        ],
+        "faq": [
+          "Why might a lawyer request a polygraph examination?",
+          "Can the examiner help formulate legally appropriate questions?",
+          "Does the report guarantee court acceptance?",
+          "When is the examination not suitable?"
+        ]
+      }
+    },
+    "witness_credibility": {
+      "label": "Witness credibility",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "a case may depend on conflicting witness statements or disputed factual accounts",
+          "lawyers or parties may seek additional information about a specific statement",
+          "credibility must be approached carefully and not reduced to a broad character judgment"
+        ],
+        "consequences": [
+          "case strategy may be influenced by witness reliability",
+          "wrong assumptions about a witness can affect legal decisions",
+          "poorly designed testing can create confusion"
+        ],
+        "investigation_challenges": [
+          "witness credibility is complex",
+          "questions must focus on specific factual statements",
+          "memory, interpretation, and intent must be distinguished",
+          "legal counsel may need to evaluate usefulness"
+        ],
+        "polygraph_role": [
+          "may help assess specific factual statements when appropriate",
+          "should not be used as a broad judgment of character",
+          "can support but not replace legal evaluation"
+        ],
+        "limitations": [
+          "does not determine overall credibility",
+          "does not replace court assessment",
+          "must be limited to defined facts"
+        ],
+        "faq": [
+          "Can a polygraph assess witness credibility?",
+          "What kinds of witness questions are suitable?",
+          "Does it decide whether a witness is credible?",
+          "Should the lawyer prepare the issue first?"
+        ]
+      }
+    },
+    "post_conviction_claim": {
+      "label": "Post-conviction claim",
+      "recommended_page_types": ["landing_page", "blog_post"],
+      "section_focus": {
+        "problem": [
+          "a person may maintain innocence or dispute specific facts after conviction",
+          "legal representatives may seek additional assessment for case review or post-conviction strategy",
+          "the issue must be specific and professionally suitable"
+        ],
+        "consequences": [
+          "serious legal and personal implications",
+          "risk of unrealistic expectations",
+          "need for careful documentation and legal coordination"
+        ],
+        "investigation_challenges": [
+          "post-conviction matters are legally complex",
+          "questions must focus on defined factual denials",
+          "the examination does not overturn a conviction",
+          "lawyer involvement is usually important"
+        ],
+        "polygraph_role": [
+          "may support private case review or factual assessment",
+          "can address specific claims when appropriate",
+          "should be coordinated with legal counsel"
+        ],
+        "limitations": [
+          "does not replace appeal or post-conviction legal procedure",
+          "does not guarantee legal acceptance",
+          "must be handled with strict professional caution"
+        ],
+        "faq": [
+          "Can a polygraph help after conviction?",
+          "Does the test reopen a case?",
+          "Should a lawyer request the examination?",
+          "What kinds of questions can be asked?"
+        ]
+      }
+    }
+  }
+}

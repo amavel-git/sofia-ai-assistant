@@ -1,0 +1,855 @@
+{
+  "version": "2.0",
+  "purpose": "Global page structure definitions for Sofia-generated website content. Blueprints define page architecture only. Country-specific presentation, WordPress block IDs, CTA choices, images, social distribution, market intelligence, and content knowledge must remain in separate files.",
+  "rules": {
+    "blueprints_define_structure_only": true,
+    "no_country_specific_cta": true,
+    "no_wordpress_block_ids": true,
+    "no_service_specific_content": true,
+    "no_competitor_content": true,
+    "no_image_file_ids": true,
+    "no_social_media_copy": true
+  },
+  "supported_page_types": [
+    "landing_page",
+    "blog_post",
+    "city_page",
+    "faq_page",
+    "pricing_page",
+    "pillar_page",
+    "educational_page",
+    "authority_page"
+  ],
+  "section_library": {
+    "hero": {
+      "description": "Opening section that frames the page topic, search intent, urgency, or visitor need."
+    },
+    "problem": {
+      "description": "Explains the practical problem, suspicion, conflict, loss, doubt, or risk that brings the visitor to the page."
+    },
+    "consequences": {
+      "description": "Explains business, personal, legal, emotional, operational, or reputational consequences if the problem is not addressed."
+    },
+    "investigation_challenges": {
+      "description": "Explains why the issue may be difficult to clarify with normal investigation methods alone."
+    },
+    "client_situations": {
+      "description": "Describes realistic situations where the service may be relevant."
+    },
+    "local_context": {
+      "description": "Adds city, country, or market-specific context without inserting country-specific CTA or WordPress block data."
+    },
+    "definition": {
+      "description": "Defines the central topic clearly and responsibly."
+    },
+    "applications": {
+      "description": "Explains common professional, private, corporate, legal, or investigative applications."
+    },
+    "benefits": {
+      "description": "Explains possible benefits without making absolute promises or guarantees."
+    },
+    "polygraph_role": {
+      "description": "Explains how a professional polygraph examination may support the broader decision-making or investigation process."
+    },
+    "professional_context": {
+      "description": "Explains when professional support or specialist assessment may be relevant."
+    },
+    "process": {
+      "description": "Explains how the service is requested, prepared, conducted, and followed up."
+    },
+    "limitations": {
+      "description": "Explains consent, confidentiality, professional limits, ethical boundaries, and responsible use."
+    },
+    "trust": {
+      "description": "Supports credibility through professionalism, confidentiality, training, ethics, or transparent process information."
+    },
+    "pricing": {
+      "description": "Presents prices, price ranges, service categories, or indicative cost information."
+    },
+    "pricing_factors": {
+      "description": "Explains factors that may affect the final cost."
+    },
+    "included_services": {
+      "description": "Explains what is normally included in the service or appointment."
+    },
+    "faq": {
+      "description": "Answers common practical, commercial, informational, or case-specific questions."
+    },
+    "cta": {
+      "description": "Invites the visitor to take the next step, such as requesting guidance, asking about a case, or scheduling a consultation."
+    },
+    "soft_cta": {
+      "description": "Offers a gentle next step without aggressive sales wording."
+    },
+    "strategic_links": {
+      "description": "Adds useful internal links, related services, pillar pages, or supporting content."
+    },
+    "related_services": {
+      "description": "Connects the page to related services or relevant next pages."
+    },
+    "main_content": {
+      "description": "Main educational or explanatory body of an article."
+    },
+    "introduction": {
+      "description": "Introduces the topic and answers the reader's search intent clearly."
+    }
+  },
+  "global_hooks": {
+    "presentation_hooks": {
+      "enabled": true,
+      "description": "Allows future country-specific WordPress/Gutenberg presentation files to control reusable blocks, CTA blocks, FAQ blocks, trust blocks, related-service blocks, and layout preferences."
+    },
+    "image_hooks": {
+      "enabled": true,
+      "description": "Allows future image planning, WordPress media-library matching, and possible AI-generated image workflows without storing image IDs inside the blueprint."
+    },
+    "distribution_hooks": {
+      "enabled": true,
+      "description": "Allows future website and social media derivatives without storing social copy inside the blueprint."
+    }
+  },
+  "future_local_files": {
+    "page_presentation": "sites/local_sites/{workspace}/page_presentation.json",
+    "image_profile": "sites/local_sites/{workspace}/image_profile.json",
+    "distribution_profile": "sites/local_sites/{workspace}/distribution_profile.json"
+  },
+  "default_hook_capabilities": {
+    "presentation_hooks": {
+      "allow_reusable_blocks": true,
+      "allow_cta_block": true,
+      "allow_faq_block": true,
+      "allow_trust_block": true,
+      "allow_related_services_block": true,
+      "allow_strategic_links_block": true
+    },
+    "image_hooks": {
+      "allow_featured_image": true,
+      "allow_inline_images": true,
+      "allow_wordpress_media_match": true,
+      "allow_future_ai_generation": true
+    },
+    "distribution_hooks": {
+      "allow_social_derivatives": true,
+      "allowed_platforms": [
+        "website",
+        "facebook",
+        "instagram",
+        "linkedin",
+        "google_business_profile",
+        "tiktok"
+      ]
+    }
+  },
+  "page_blueprints": {
+    "landing_page": {
+      "description": "Service or commercial landing page focused on conversion, problem awareness, investigative relevance, trust, ethical limits, and clear next steps.",
+      "recommended_for": [
+        "service pages",
+        "commercial investigation pages",
+        "corporate investigation pages",
+        "private case pages",
+        "examiner-originated content requests"
+      ],
+      "sections": [
+        {
+          "id": "hero_problem",
+          "type": "hero",
+          "required": true,
+          "purpose": "Open with the visitor's problem, urgency, suspicion, service need, or decision point."
+        },
+        {
+          "id": "problem_context",
+          "type": "problem",
+          "required": true,
+          "purpose": "Explain the practical problem behind the service request before explaining the polygraph."
+        },
+        {
+          "id": "consequences",
+          "type": "consequences",
+          "required": true,
+          "purpose": "Explain the operational, personal, financial, legal, reputational, emotional, or workplace consequences of unresolved doubt or misconduct."
+        },
+        {
+          "id": "investigation_challenges",
+          "type": "investigation_challenges",
+          "required": true,
+          "purpose": "Explain why the issue may be difficult to clarify using ordinary investigation methods, documents, interviews, or suspicion alone."
+        },
+        {
+          "id": "polygraph_role",
+          "type": "polygraph_role",
+          "required": true,
+          "purpose": "Explain how a professional polygraph examination may support the broader investigation, decision-making process, or clarification of a specific issue."
+        },
+        {
+          "id": "professional_process",
+          "type": "process",
+          "required": true,
+          "purpose": "Explain the professional process clearly and responsibly."
+        },
+        {
+          "id": "limits_and_ethics",
+          "type": "limitations",
+          "required": true,
+          "purpose": "Explain consent, confidentiality, professional boundaries, ethical limits, and the fact that the polygraph should not be presented as infallible or as a substitute for legal advice."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer commercial, practical, and case-specific client questions."
+        },
+        {
+          "id": "cta_section",
+          "type": "cta",
+          "required": true,
+          "purpose": "Invite the visitor to request confidential professional guidance."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": false,
+          "purpose": "Add useful internal links where relevant."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": true,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Transactional or commercial investigation intent.",
+        "opening_rule": "Start with the visitor's practical problem, concern, suspicion, decision point, or service need. Do not start with a generic definition.",
+        "structure_guidance": [
+          "Problem first.",
+          "Then consequences or practical risks.",
+          "Then realistic situations where the service may help.",
+          "Then explain the professional role of the polygraph.",
+          "Then process, limits, FAQ, and contact."
+        ],
+        "ai_engine_guidance": [
+          "Use clear entity names and unambiguous headings.",
+          "Answer the main service question directly.",
+          "Explain suitability, limitations, consent, and professional boundaries.",
+          "Include topic-specific examples instead of generic filler."
+        ],
+        "faq_guidance": "FAQs should answer commercial and case-specific questions about suitability, process, confidentiality, limits, cost factors, and next steps.",
+        "cta_guidance": "Use a soft consultation CTA. Do not pressure, guarantee results, or imply certainty.",
+        "avoid": [
+          "Generic encyclopedia openings",
+          "Scientific history before client problem",
+          "Guarantees",
+          "Legal proof claims",
+          "Aggressive sales language"
+        ]
+      }
+    },
+    "blog_post": {
+      "description": "Informational article answering a search query while explaining the topic responsibly and connecting it to professional context where appropriate.",
+      "recommended_for": [
+        "informational SEO articles",
+        "authority-building content",
+        "question-based articles",
+        "educational content"
+      ],
+      "sections": [
+        {
+          "id": "direct_answer",
+          "type": "introduction",
+          "required": true,
+          "purpose": "Answer the reader's question or search intent clearly at the beginning."
+        },
+        {
+          "id": "problem_context",
+          "type": "problem",
+          "required": true,
+          "purpose": "Explain the practical situation, concern, doubt, or investigation context behind the search."
+        },
+        {
+          "id": "main_explanation",
+          "type": "main_content",
+          "required": true,
+          "purpose": "Develop the topic with useful, specific, non-generic information."
+        },
+        {
+          "id": "key_considerations",
+          "type": "professional_context",
+          "required": true,
+          "purpose": "Explain what the reader should consider before taking action and when professional support may be relevant."
+        },
+        {
+          "id": "limits_and_ethics",
+          "type": "limitations",
+          "required": true,
+          "purpose": "Explain limitations, consent, confidentiality, and responsible use."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer related informational questions."
+        },
+        {
+          "id": "soft_next_step",
+          "type": "soft_cta",
+          "required": true,
+          "purpose": "Offer a soft next step without aggressive sales wording."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": true,
+          "purpose": "Add 2 to 5 relevant internal links from the provided internal links list where they fit naturally."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": true,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Informational article or topical explanation.",
+        "opening_rule": "Answer the query directly in the introduction.",
+        "structure_guidance": [
+          "Answer the main question early.",
+          "Explain context and practical relevance.",
+          "Develop the topic with specific information.",
+          "Add considerations, limitations, FAQ, soft CTA, and related links."
+        ],
+        "ai_engine_guidance": [
+          "Use answer-first structure.",
+          "Use descriptive headings.",
+          "Provide specific examples and clear definitions.",
+          "Avoid generic filler."
+        ],
+        "faq_guidance": "FAQs should match related long-tail search questions.",
+        "cta_guidance": "Use a soft next step when professional guidance may be relevant.",
+        "avoid": [
+          "Generic article filler",
+          "Sales-heavy tone",
+          "Unrelated service promotion"
+        ]
+      }
+    },
+    "city_page": {
+      "description": "Local city page focused on service availability, local relevance, practical appointment guidance, trust, and responsible limits.",
+      "recommended_for": [
+        "city SEO pages",
+        "local service pages",
+        "regional appointment pages"
+      ],
+      "sections": [
+        {
+          "id": "local_service_intro",
+          "type": "hero",
+          "required": true,
+          "purpose": "Introduce the service in the target city or local area."
+        },
+        {
+          "id": "local_context",
+          "type": "local_context",
+          "required": true,
+          "purpose": "Explain relevant local context, availability, common needs, or regional service considerations."
+        },
+        {
+          "id": "common_client_situations",
+          "type": "client_situations",
+          "required": true,
+          "purpose": "Describe common local reasons individuals, companies, lawyers, or organizations may request the service."
+        },
+        {
+          "id": "service_process",
+          "type": "process",
+          "required": true,
+          "purpose": "Explain how the service is arranged and conducted in or near the target city."
+        },
+        {
+          "id": "local_trust_and_limits",
+          "type": "trust",
+          "required": true,
+          "purpose": "Explain confidentiality, professional limits, appointment handling, and local availability responsibly."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer city-specific practical questions."
+        },
+        {
+          "id": "contact_section",
+          "type": "cta",
+          "required": true,
+          "purpose": "Invite the visitor to request guidance or schedule a consultation."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": false,
+          "purpose": "Add useful internal links to related local, service, pricing, or pillar pages where relevant."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": true,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Local service and appointment intent.",
+        "opening_rule": "Start with local service availability and practical local relevance.",
+        "structure_guidance": [
+          "Introduce the service in the local area.",
+          "Explain local appointment or coverage context.",
+          "Describe common local client situations.",
+          "Explain the process.",
+          "Add trust, limits, FAQ, and contact."
+        ],
+        "ai_engine_guidance": [
+          "Use clear local entities such as city, region, and service type.",
+          "Explain availability without inventing office addresses.",
+          "Answer local booking, travel, appointment, and confidentiality questions."
+        ],
+        "faq_guidance": "FAQs should answer city-specific questions about availability, appointments, travel, confidentiality, and suitability.",
+        "cta_guidance": "Invite the visitor to request local guidance or appointment information.",
+        "avoid": [
+          "Invented addresses",
+          "False claims of local office presence",
+          "Thin location-only content",
+          "Duplicated city boilerplate"
+        ]
+      }
+    },
+    "faq_page": {
+      "description": "FAQ page answering common questions clearly and responsibly, with grouped questions when appropriate.",
+      "recommended_for": [
+        "general FAQ pages",
+        "service-specific FAQ pages",
+        "city-specific FAQ pages",
+        "pricing FAQ pages"
+      ],
+      "sections": [
+        {
+          "id": "faq_intro",
+          "type": "introduction",
+          "required": true,
+          "purpose": "Introduce the FAQ topic and scope."
+        },
+        {
+          "id": "faq_groups",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer grouped questions in a clear, searchable format."
+        },
+        {
+          "id": "limits_and_context",
+          "type": "limitations",
+          "required": true,
+          "purpose": "Clarify professional limits, consent, confidentiality, case-specific assessment, and responsible interpretation."
+        },
+        {
+          "id": "soft_next_step",
+          "type": "soft_cta",
+          "required": true,
+          "purpose": "Invite the reader to ask about their specific case."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": false,
+          "purpose": "Add useful links to related service pages, pillar pages, pricing pages, or contact pages."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": false,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Question-answer intent.",
+        "opening_rule": "Start with the scope of the FAQ and the type of questions answered.",
+        "structure_guidance": [
+          "Group questions logically.",
+          "Answer directly before adding explanation.",
+          "Use concise but useful answers.",
+          "Include limits and professional context.",
+          "Offer a soft next step."
+        ],
+        "ai_engine_guidance": [
+          "Use clear question headings.",
+          "Provide direct answers suitable for search snippets and AI answer extraction.",
+          "Avoid vague answers that repeat the same generic wording."
+        ],
+        "faq_guidance": "The entire page should be FAQ-driven, with topic grouping when useful.",
+        "cta_guidance": "Invite the reader to ask about a specific situation after the FAQ.",
+        "avoid": [
+          "Long unrelated introductions",
+          "Repeating the same answer in multiple questions",
+          "Overly promotional FAQ answers"
+        ]
+      }
+    },
+    "pricing_page": {
+      "description": "Pricing page explaining indicative prices, factors affecting cost, what may be included, and responsible booking guidance.",
+      "recommended_for": [
+        "country pricing pages",
+        "city pricing pages",
+        "service pricing pages"
+      ],
+      "sections": [
+        {
+          "id": "pricing_intro",
+          "type": "hero",
+          "required": true,
+          "purpose": "Introduce price information clearly and avoid misleading guarantees."
+        },
+        {
+          "id": "price_table_or_ranges",
+          "type": "pricing",
+          "required": true,
+          "purpose": "Present prices, ranges, or indicative cost categories."
+        },
+        {
+          "id": "what_affects_price",
+          "type": "pricing_factors",
+          "required": true,
+          "purpose": "Explain factors that may affect the final cost, such as location, number of examinees, case complexity, travel, report needs, or urgency."
+        },
+        {
+          "id": "what_is_included",
+          "type": "included_services",
+          "required": true,
+          "purpose": "Explain what is normally included in the appointment or service."
+        },
+        {
+          "id": "booking_guidance",
+          "type": "process",
+          "required": true,
+          "purpose": "Explain how to request confirmation and schedule the service."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer common price and booking questions."
+        },
+        {
+          "id": "contact_section",
+          "type": "cta",
+          "required": true,
+          "purpose": "Invite the visitor to request a case-specific quote."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": false,
+          "purpose": "Add useful internal links to service, city, FAQ, or contact pages."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": false,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Commercial price, cost, tariff, or quotation intent.",
+        "opening_rule": "Start with clear price context or explain that prices depend on case factors.",
+        "structure_guidance": [
+          "Introduce pricing clearly.",
+          "Present prices or ranges if available.",
+          "Explain factors affecting cost.",
+          "Explain what is included.",
+          "Explain booking or quote process.",
+          "Add pricing FAQ and contact."
+        ],
+        "ai_engine_guidance": [
+          "Use clear price-related headings.",
+          "Separate confirmed prices from indicative guidance.",
+          "Explain uncertainty transparently.",
+          "Avoid bait-and-switch or vague commercial wording."
+        ],
+        "faq_guidance": "FAQs should answer cost, payment, travel, report, number of examinees, urgency, and quote questions.",
+        "cta_guidance": "Invite the visitor to request a case-specific quote.",
+        "avoid": [
+          "Hidden pricing logic",
+          "Guaranteed final price when variables exist",
+          "Legal or result guarantees"
+        ]
+      }
+    },
+    "pillar_page": {
+      "description": "Broad authoritative page that explains a core topic, connects related subtopics, supports internal linking, and acts as a semantic hub.",
+      "recommended_for": [
+        "core service hubs",
+        "polygraph test pillar pages",
+        "corporate investigation hubs",
+        "legal application hubs",
+        "authority-building pages"
+      ],
+      "sections": [
+        {
+          "id": "pillar_intro",
+          "type": "hero",
+          "required": true,
+          "purpose": "Introduce the core topic, visitor intent, and why the topic matters."
+        },
+        {
+          "id": "definition_and_scope",
+          "type": "definition",
+          "required": true,
+          "purpose": "Define the topic clearly and explain the scope of the page."
+        },
+        {
+          "id": "main_applications",
+          "type": "applications",
+          "required": true,
+          "purpose": "Explain the main professional, private, corporate, legal, or investigative applications."
+        },
+        {
+          "id": "benefits_and_use_cases",
+          "type": "benefits",
+          "required": true,
+          "purpose": "Explain potential benefits and practical use cases without making absolute claims."
+        },
+        {
+          "id": "process_overview",
+          "type": "process",
+          "required": true,
+          "purpose": "Explain the general process at a high level."
+        },
+        {
+          "id": "limitations_and_ethics",
+          "type": "limitations",
+          "required": true,
+          "purpose": "Explain limitations, consent, confidentiality, ethical use, and responsible interpretation."
+        },
+        {
+          "id": "related_services",
+          "type": "related_services",
+          "required": true,
+          "purpose": "Connect the pillar page to relevant service pages, city pages, pricing pages, or supporting articles."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer broad questions that support topical authority and search visibility."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": true,
+          "purpose": "Create a clear internal-linking hub for related pages."
+        },
+        {
+          "id": "cta_section",
+          "type": "cta",
+          "required": true,
+          "purpose": "Invite the visitor to request guidance or continue to the most relevant service page."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": true,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Broad mixed informational and commercial intent around a core topic.",
+        "opening_rule": "Start with a broad overview of the core topic and explain what the page covers.",
+        "structure_guidance": [
+          "Define the core topic.",
+          "Explain scope and main applications.",
+          "Connect to subtopics.",
+          "Explain process and limitations.",
+          "Include related services, FAQs, internal links, and contact."
+        ],
+        "ai_engine_guidance": [
+          "Act as a semantic hub.",
+          "Use clear sections that answer broad and related queries.",
+          "Link naturally to supporting pages.",
+          "Avoid overfocusing on one narrow service."
+        ],
+        "faq_guidance": "FAQs should cover broad, high-volume, and entity-building questions.",
+        "cta_guidance": "Invite the visitor to continue to the most relevant service or request guidance.",
+        "avoid": [
+          "Thin hub pages",
+          "Repeating subpage content verbatim",
+          "Overly narrow examples only"
+        ]
+      }
+    },
+    "educational_page": {
+      "description": "Educational page focused on explaining a topic, concept, methodology, process, reliability issue, or professional practice.",
+      "recommended_for": [
+        "methodology pages",
+        "reliability pages",
+        "history pages",
+        "process explanation pages",
+        "educational content",
+        "myth clarification pages",
+        "question formulation pages"
+      ],
+      "sections": [
+        {
+          "id": "topic_definition",
+          "type": "definition",
+          "required": true,
+          "purpose": "Define the topic clearly and answer the visitor's initial search intent."
+        },
+        {
+          "id": "topic_importance",
+          "type": "professional_context",
+          "required": true,
+          "purpose": "Explain why the topic matters and why it is relevant in professional practice."
+        },
+        {
+          "id": "core_concepts",
+          "type": "main_content",
+          "required": true,
+          "purpose": "Explain the central concepts, principles, methodology, or theoretical foundations."
+        },
+        {
+          "id": "practical_application",
+          "type": "applications",
+          "required": true,
+          "purpose": "Explain how the concept is applied in real situations or professional practice."
+        },
+        {
+          "id": "common_misunderstandings",
+          "type": "limitations",
+          "required": true,
+          "purpose": "Clarify misconceptions, limitations, and responsible interpretation."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer educational and topic-specific questions."
+        },
+        {
+          "id": "soft_next_step",
+          "type": "soft_cta",
+          "required": true,
+          "purpose": "Offer a non-commercial next step for readers who want additional guidance."
+        },
+        {
+          "id": "internal_links",
+          "type": "strategic_links",
+          "required": true,
+          "purpose": "Link to relevant educational, pillar, FAQ, or supporting pages."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": true,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Informational or explanatory intent.",
+        "opening_rule": "Start by defining the topic and explaining why it matters. Do not frame the page as a service landing page.",
+        "structure_guidance": [
+          "Define the topic clearly.",
+          "Explain why the concept matters in professional practice.",
+          "Explain core concepts or methodology.",
+          "Show practical application.",
+          "Clarify misunderstandings and limitations.",
+          "Provide topic-specific FAQs and related educational links."
+        ],
+        "ai_engine_guidance": [
+          "Use precise, explanatory headings.",
+          "Answer the informational query early.",
+          "Use structured explanations that AI answer engines can summarize.",
+          "Include limitations and responsible interpretation.",
+          "Avoid turning the page into a sales page."
+        ],
+        "faq_guidance": "FAQs should be educational and topic-specific, not generic service FAQs.",
+        "cta_guidance": "Use a soft next step only after the explanation. The CTA should invite questions or professional guidance, not sell aggressively.",
+        "avoid": [
+          "Headings such as 'Situations where this service may help'",
+          "Client pain-point opening unless the topic requires it",
+          "Generic service examples",
+          "Overpromising clarity, certainty, or proof"
+        ]
+      }
+    },
+    "authority_page": {
+      "description": "Authority-building page focused on standards, research, scientific evidence, professional associations, methodology validation, and industry guidance.",
+      "recommended_for": [
+        "ASTM standards",
+        "APA standards",
+        "IAIPP standards",
+        "scientific studies",
+        "research summaries",
+        "validation research",
+        "professional guidance"
+      ],
+      "sections": [
+        {
+          "id": "topic_definition",
+          "type": "definition",
+          "required": true,
+          "purpose": "Define the standard, research topic, organization, or professional concept."
+        },
+        {
+          "id": "research_background",
+          "type": "main_content",
+          "required": true,
+          "purpose": "Explain the research, evidence, historical background, or professional framework."
+        },
+        {
+          "id": "professional_relevance",
+          "type": "professional_context",
+          "required": true,
+          "purpose": "Explain why the topic is relevant to examiners, investigators, organizations, or clients."
+        },
+        {
+          "id": "limitations_and_context",
+          "type": "limitations",
+          "required": true,
+          "purpose": "Provide balanced context, limitations, and responsible interpretation."
+        },
+        {
+          "id": "faq_section",
+          "type": "faq",
+          "required": true,
+          "purpose": "Answer research, standards, and authority-related questions."
+        },
+        {
+          "id": "related_topics",
+          "type": "strategic_links",
+          "required": true,
+          "purpose": "Connect the topic to related standards, research, services, or educational content."
+        }
+      ],
+      "enabled_hooks": {
+        "presentation_hooks": true,
+        "image_hooks": true,
+        "distribution_hooks": true
+      },
+      "drafting_instructions": {
+        "search_intent": "Authority, standards, research, professional credibility, or evidence-seeking intent.",
+        "opening_rule": "Start by identifying the standard, research topic, professional body, or authority concept and why it matters.",
+        "structure_guidance": [
+          "Define the authority topic.",
+          "Explain research or standards background.",
+          "Explain professional relevance.",
+          "Discuss practical implications.",
+          "Add limitations and responsible interpretation.",
+          "Connect to related standards, methodology, or educational pages."
+        ],
+        "ai_engine_guidance": [
+          "Use entity-rich headings.",
+          "Mention relevant standards or professional organizations only when appropriate and supported.",
+          "Separate facts, professional interpretation, and practical implications.",
+          "Avoid unsupported scientific or legal claims."
+        ],
+        "faq_guidance": "FAQs should address standards, research meaning, professional use, limitations, and how the topic relates to practice.",
+        "cta_guidance": "Use a trust-oriented soft CTA, such as inviting readers to ask how standards apply to their case or organization.",
+        "avoid": [
+          "Sales-first structure",
+          "Unsupported authority claims",
+          "Invented citations",
+          "Claims of universal acceptance or court admissibility"
+        ]
+      }
+    }
+  }
+}

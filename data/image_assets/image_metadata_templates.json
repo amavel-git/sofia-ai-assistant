@@ -1,0 +1,166 @@
+{
+  "es": {
+    "default": {
+      "alt_templates": [
+        "Imagen profesional sobre {topic} en {country}",
+        "Contexto profesional relacionado con {topic} en {country}"
+      ],
+      "title_templates": [
+        "{topic} en {country}"
+      ],
+      "caption_templates": [
+        "Imagen de apoyo para contextualizar {topic}.",
+        "Contenido visual relacionado con {topic}."
+      ]
+    },
+    "interview": {
+      "alt_templates": [
+        "Examinador de polígrafo revisando documentación durante una entrevista previa en {country}",
+        "Consulta profesional antes de una evaluación poligráfica en {country}",
+        "Preparación de preguntas durante una entrevista previa de polígrafo en {country}"
+      ],
+      "title_templates": [
+        "{topic} en {country}",
+        "Entrevista previa y {topic}"
+      ],
+      "caption_templates": [
+        "La entrevista previa permite revisar el caso, explicar el procedimiento y preparar las preguntas antes de la evaluación.",
+        "La preparación profesional de las preguntas forma parte del proceso metodológico de una evaluación poligráfica."
+      ]
+    },
+    "methodology": {
+      "alt_templates": [
+        "Examinador revisando datos y documentación durante una evaluación poligráfica en {country}",
+        "Análisis profesional dentro de la metodología del polígrafo en {country}"
+      ],
+      "title_templates": [
+        "{topic} en {country}"
+      ],
+      "caption_templates": [
+        "La metodología del polígrafo requiere preparación, registro fisiológico e interpretación profesional.",
+        "El proceso metodológico ayuda a estructurar la evaluación y la interpretación de las respuestas fisiológicas."
+      ]
+    },
+    "charts": {
+      "alt_templates": [
+        "Revisión profesional de gráficos poligráficos durante una evaluación en {country}",
+        "Análisis de registros fisiológicos en una evaluación poligráfica en {country}"
+      ],
+      "title_templates": [
+        "Análisis de gráficos poligráficos en {country}",
+        "{topic} en {country}"
+      ],
+      "caption_templates": [
+        "El análisis de gráficos forma parte de la interpretación profesional de una evaluación poligráfica.",
+        "Los registros fisiológicos deben ser interpretados por un examinador formado y dentro del contexto del caso."
+      ]
+    },
+    "instrumentation": {
+      "alt_templates": [
+        "Equipo de polígrafo preparado para una evaluación profesional en {country}",
+        "Instrumentación utilizada para registrar respuestas fisiológicas durante una evaluación poligráfica en {country}"
+      ],
+      "title_templates": [
+        "Instrumentación poligráfica en {country}",
+        "{topic} en {country}"
+      ],
+      "caption_templates": [
+        "La instrumentación permite registrar respuestas fisiológicas durante una evaluación poligráfica.",
+        "El equipo debe utilizarse dentro de un protocolo estructurado y por un examinador formado."
+      ]
+    }
+  },
+  "en": {
+    "default": {
+      "alt_templates": [
+        "Professional image related to {topic} in {country}",
+        "Professional context for {topic} in {country}"
+      ],
+      "title_templates": [
+        "{topic} in {country}"
+      ],
+      "caption_templates": [
+        "Supporting image for {topic}.",
+        "Visual context related to {topic}."
+      ]
+    },
+    "interview": {
+      "alt_templates": [
+        "Polygraph examiner reviewing documents during a professional pre-test interview in {country}",
+        "Professional consultation before a polygraph evaluation in {country}",
+        "Question preparation during a polygraph pre-test interview in {country}"
+      ],
+      "title_templates": [
+        "{topic} in {country}",
+        "Pre-test interview and {topic}"
+      ],
+      "caption_templates": [
+        "The pre-test interview helps explain the procedure and prepare the questions before the evaluation.",
+        "Professional question preparation is part of the methodology of a polygraph evaluation."
+      ]
+    },
+    "methodology": {
+      "alt_templates": [
+        "Examiner reviewing data and documents during a polygraph evaluation in {country}",
+        "Professional analysis within polygraph methodology in {country}"
+      ],
+      "title_templates": [
+        "{topic} in {country}"
+      ],
+      "caption_templates": [
+        "Polygraph methodology requires preparation, physiological recording and professional interpretation.",
+        "The methodological process helps structure the evaluation and interpretation of physiological responses."
+      ]
+    }
+  },
+  "fr": {
+    "default": {
+      "alt_templates": [
+        "Image professionnelle liée à {topic} en {country}"
+      ],
+      "title_templates": [
+        "{topic} en {country}"
+      ],
+      "caption_templates": [
+        "Image de soutien pour contextualiser {topic}."
+      ]
+    },
+    "interview": {
+      "alt_templates": [
+        "Examinateur polygraphique lors d’un entretien préalable professionnel en {country}",
+        "Consultation professionnelle avant une évaluation polygraphique en {country}"
+      ],
+      "title_templates": [
+        "{topic} en {country}"
+      ],
+      "caption_templates": [
+        "L’entretien préalable permet d’expliquer la procédure et de préparer les questions avant l’évaluation."
+      ]
+    }
+  },
+  "pt": {
+    "default": {
+      "alt_templates": [
+        "Imagem profissional relacionada com {topic} em {country}"
+      ],
+      "title_templates": [
+        "{topic} em {country}"
+      ],
+      "caption_templates": [
+        "Imagem de apoio para contextualizar {topic}."
+      ]
+    },
+    "interview": {
+      "alt_templates": [
+        "Examinador de polígrafo durante uma entrevista prévia profissional em {country}",
+        "Consulta profissional antes de uma avaliação poligráfica em {country}"
+      ],
+      "title_templates": [
+        "{topic} em {country}"
+      ],
+      "caption_templates": [
+        "A entrevista prévia permite explicar o procedimento e preparar as perguntas antes da avaliação."
+      ]
+    }
+  }
+}

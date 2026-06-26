@@ -1,0 +1,167 @@
+{
+  "version": "1.0",
+  "workspace_id": "local.es",
+  "language": "es",
+  "country_localized": "España",
+  "purpose": "Spain-specific opportunity intelligence wording and templates. Structural logic must remain in app/opportunity_intelligence.py.",
+  "service_terms": {
+    "polygraph": "polígrafo",
+    "polygraph_test": "prueba de polígrafo",
+    "polygraph_evaluation": "evaluación poligráfica",
+    "polygraph_exam": "examen poligráfico"
+  },
+  "service_angles": {
+    "polygraph_investigation": {
+      "label": "investigación con apoyo poligráfico",
+      "preferred_service_term": "prueba de polígrafo"
+    }
+  },
+  "templates": {
+    "recommended_title": "Investigación de {issue} en {sector}",
+    "recommended_h1": "Prueba de polígrafo para investigar {issue} en {sector} en {country}",
+    "recommended_focus_keyphrase": "polígrafo {issue} {sector}",
+    "recommended_slug_basis": "poligrafo {issue} {sector}",
+    "recommended_seo_title": "Polígrafo para investigar {issue} en {sector} | España",
+    "recommended_meta_description": "Información profesional sobre el uso del polígrafo para investigar {issue} en {sector} en {country}."
+  },
+  "fallback_templates": {
+    "recommended_title": "Investigación profesional con apoyo poligráfico",
+    "recommended_h1": "Prueba de polígrafo para investigación profesional en {country}",
+    "recommended_focus_keyphrase": "prueba de polígrafo investigación profesional",
+    "recommended_slug_basis": "prueba poligrafo investigacion profesional",
+    "recommended_seo_title": "Prueba de polígrafo para investigación profesional | España",
+    "recommended_meta_description": "Información profesional sobre el uso del polígrafo como apoyo en investigaciones profesionales en {country}."
+  },
+  "issue_labels": {
+    "financial_fraud": "fraude económico",
+    "fuel_fraud_transport": "fraude de combustible",
+    "workplace_drug_use": "consumo de drogas en empleados",
+    "inventory_manipulation": "manipulación de inventario",
+    "internal_theft": "robo interno",
+    "infidelity": "infidelidad",
+    "pre_employment": "integridad prelaboral",
+    "general_polygraph_service": "investigación profesional"
+  },
+  "sector_labels": {
+    "financial_services": "entidades financieras",
+    "transport": "empresas de transporte",
+    "logistics_warehousing": "almacenes logísticos",
+    "corporate": "empresas"
+  },
+  "image_strategy": {
+    "default_featured_role": "problem_scene",
+    "required_problem_image": true,
+    "support_roles": [
+      "investigation_scene",
+      "analysis_scene"
+    ],
+    "avoid_generic_featured_image": true,
+    "problem_first_rule": "La imagen principal debe representar el problema o situación investigada, no una consulta genérica."
+  },
+  "metadata_templates": {
+    "problem_scene": {
+      "title": "Investigación de {issue}",
+      "alt_text": "Situación relacionada con {issue} en {sector}",
+      "description": "Imagen profesional utilizada como apoyo visual en una página sobre {issue} en {sector} en {country}."
+    },
+    "investigation_scene": {
+      "title": "Revisión interna de información",
+      "alt_text": "Revisión profesional de información durante una investigación interna",
+      "description": "Imagen profesional utilizada como apoyo visual para representar la revisión de información en una investigación relacionada con {issue} en {country}."
+    },
+    "analysis_scene": {
+      "title": "Análisis documental de la investigación",
+      "alt_text": "Análisis documental durante una investigación profesional",
+      "description": "Imagen profesional utilizada como apoyo visual para representar el análisis de documentación y la preparación de preguntas en una investigación de {issue} en {country}."
+    }
+  },
+  "issue_patterns": {
+    "financial_fraud": [
+      "fraude económico",
+      "fraude economico",
+      "fraude financiero",
+      "irregularidades financieras",
+      "desvío de fondos",
+      "desvio de fondos"
+    ],
+    "fuel_fraud_transport": [
+      "fraude de combustible",
+      "robo de combustible",
+      "desvío de combustible",
+      "desvio de combustible",
+      "gasolina",
+      "diésel",
+      "diesel",
+      "carburante"
+    ],
+    "workplace_drug_use": [
+      "consumo de drogas",
+      "drogas",
+      "sustancias",
+      "estupefacientes",
+      "empleados bajo efectos"
+    ],
+    "inventory_manipulation": [
+      "manipulación de inventario",
+      "manipulacion de inventario",
+      "inventario",
+      "stock",
+      "almacén",
+      "almacen",
+      "existencias"
+    ],
+    "internal_theft": [
+      "robo interno",
+      "hurto interno",
+      "sustracción",
+      "sustraccion",
+      "robo de activos"
+    ],
+    "infidelity": [
+      "infidelidad",
+      "pareja",
+      "engaño sentimental",
+      "relación extramatrimonial"
+    ],
+    "pre_employment": [
+      "pre empleo",
+      "pre-empleo",
+      "prelaboral",
+      "contratación",
+      "selección de personal"
+    ]
+  },
+  "sector_patterns": {
+    "financial_services": [
+      "entidades financieras",
+      "sector financiero",
+      "banco",
+      "bancos",
+      "financiera",
+      "institución financiera",
+      "institucion financiera"
+    ],
+    "transport": [
+      "transporte",
+      "flota",
+      "camiones",
+      "empresa de transporte",
+      "empresas de transporte"
+    ],
+    "logistics_warehousing": [
+      "almacén",
+      "almacen",
+      "almacenes",
+      "logística",
+      "logistica",
+      "centro logístico"
+    ],
+    "corporate": [
+      "empresa",
+      "empresas",
+      "corporativo",
+      "organización",
+      "organizacion"
+    ]
+  }
+}

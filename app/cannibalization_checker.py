@@ -166,6 +166,20 @@ def collect_from_site_structure(workspace_path):
         page_type = page.get("page_type", "")
         section = page.get("section", "")
 
+        url_lower = str(url or "").lower()
+        section_lower = str(section or "").lower()
+        page_type_lower = str(page_type or "").lower()
+
+        if (
+            section_lower in ["tag", "category", "archive", "author"]
+            or page_type_lower in ["tag", "category", "archive", "author"]
+            or "/tag/" in url_lower
+            or "/category/" in url_lower
+            or "/categoria/" in url_lower
+            or "/etiqueta/" in url_lower
+        ):
+            continue
+
         terms = [
             slug_to_phrase(slug),
             slug,
@@ -214,35 +228,6 @@ def collect_from_site_content_memory(workspace_path):
                 terms=terms,
                 url=item.get("url", ""),
                 metadata=item
-            )
-        )
-
-    for item in data.get("draft_content", []):
-        terms = [
-            item.get("title"),
-            item.get("target_keyword"),
-        ]
-
-        candidates.append(
-            make_candidate(
-                source_file="site_content_memory.json",
-                source_type="draft_memory",
-                label=item.get("title") or item.get("target_keyword"),
-                terms=terms,
-                url="",
-                metadata=item
-            )
-        )
-
-    for keyword in data.get("keyword_index", []):
-        candidates.append(
-            make_candidate(
-                source_file="site_content_memory.json",
-                source_type="keyword_index",
-                label=keyword,
-                terms=[keyword],
-                url="",
-                metadata={}
             )
         )
 

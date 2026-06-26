@@ -1,0 +1,592 @@
+{
+  "workspace_id": "local.es",
+  "language": "es",
+  "locale": "es-ES",
+  "country": "ES",
+  "language_name": "Spanish",
+  "preferred_terms": {
+    "cta_contact_heading": "Contacte con nosotros",
+    "faq_heading": "Preguntas frecuentes",
+    "internal_link_phrase": "Este tema también puede estar relacionado con {link}.",
+    "contact_anchor": "contactar con nosotros",
+    "service_name": "prueba del polígrafo",
+    "examiner_term": "perito poligráfico",
+    "process_term": "examen poligráfico",
+    "contact_phrase_examples": [
+      "Contacte con nosotros",
+      "Solicite información",
+      "Consulte su caso de forma confidencial",
+      "Hable con un examinador profesional"
+    ],
+    "internal_links_heading": "Enlaces relacionados",
+    "internal_links_intro": "También puede consultar otras páginas relacionadas con este servicio."
+  },
+  "tone": {
+    "style": "profesional, claro, prudente y orientado a la confianza",
+    "avoid": [
+      "promesas absolutas",
+      "lenguaje sensacionalista",
+      "afirmaciones de certeza total",
+      "tono acusatorio"
+    ]
+  },
+  "content_quality_rules": {
+    "minimum_word_count": 800,
+    "warning_phrases": [
+      {
+        "phrase": "pruebas claras y objetivas",
+        "message": "Evitar sugerir que el polígrafo ofrece pruebas definitivas. Usar una formulación más prudente."
+      },
+      {
+        "phrase": "respuestas que busca",
+        "message": "Evitar prometer las respuestas que el cliente desea. Usar una formulación neutral."
+      },
+      {
+        "phrase": "identificar a los responsables",
+        "message": "Evitar sugerir que el polígrafo identifica responsables. Evalúa respuestas fisiológicas ante preguntas específicas."
+      },
+      {
+        "phrase": "revelar la verdad",
+        "message": "Evitar afirmaciones absolutas sobre la verdad. Usar aclarar aspectos del caso o aportar información complementaria."
+      },
+      {
+        "phrase": "la solución",
+        "message": "Evitar presentar el polígrafo como una solución única. Usar herramienta complementaria."
+      },
+      {
+        "phrase": "herramienta poderosa",
+        "message": "Evitar lenguaje promocional. Usar herramienta técnica o herramienta complementaria."
+      },
+      {
+        "phrase": "estrés asociado con la decepción",
+        "message": "Terminología incorrecta. Usar respuestas fisiológicas asociadas al estrés ante preguntas relevantes."
+      },
+      {
+        "phrase": "detector de mentiras",
+        "message": "Utilice terminología profesional como prueba de polígrafo, evaluación poligráfica o examen poligráfico."
+      }
+    ],
+    "forbidden_placeholders": [
+      "[número de teléfono]",
+      "[dirección de correo electrónico]",
+      "[enlace a página",
+      "[link to",
+      "[phone number]",
+      "[email address]",
+      "r:\\[[^\\]]{3,80}\\]",
+      "nuestroservicio.com",
+      "tuempresa.com",
+      "+34 965 123 456",
+      "+34 965 000 000",
+      "info@nuestroservicio.com",
+      "info@tuempresa.com"
+    ],
+    "replacements": [
+      {
+        "find": "detector de mentiras",
+        "replace": "prueba de polígrafo"
+      },
+      {
+        "find": "de forma profissional",
+        "replace": "profesionalmente"
+      },
+      {
+        "find": "evaluación precisa y ética",
+        "replace": "evaluación profesional y ética"
+      },
+      {
+        "find": "determinar si la persona está siendo sincera o no",
+        "replace": "evaluar las respuestas fisiológicas ante preguntas específicas"
+      },
+      {
+        "find": "indicativas de la veracidad de las respuestas",
+        "replace": "relevantes para el análisis profesional de las respuestas fisiológicas"
+      },
+      {
+        "find": "identificar candidatos",
+        "replace": "aportar información complementaria sobre candidatos"
+      }
+    ],
+    "quality_replacements": [
+      {
+        "find": "detector de mentiras",
+        "replace": "prueba de polígrafo"
+      },
+      {
+        "find": "de forma profissional",
+        "replace": "profesionalmente"
+      },
+      {
+        "find": "evaluación precisa y ética",
+        "replace": "evaluación profesional y ética"
+      },
+      {
+        "find": "determinar si la persona está siendo sincera o no",
+        "replace": "evaluar respuestas fisiológicas ante preguntas específicas"
+      },
+      {
+        "find": "indicativas de la veracidad de las respuestas",
+        "replace": "relevantes para el análisis profesional de las respuestas fisiológicas"
+      },
+      {
+        "find": "identificar candidatos",
+        "replace": "aportar información complementaria sobre candidatos"
+      },
+      {
+        "find": "Consequencias",
+        "replace": "Consecuencias"
+      },
+      {
+        "find": "consequencias",
+        "replace": "consecuencias"
+      },
+      {
+        "find": "La fraude",
+        "replace": "El fraude"
+      },
+      {
+        "find": "la fraude",
+        "replace": "el fraude"
+      },
+      {
+        "find": "fraudes de combustible",
+        "replace": "fraude de combustible"
+      },
+      {
+        "find": "operacional",
+        "replace": "operativo"
+      },
+      {
+        "find": "poligráfico",
+        "replace": "poligráfica"
+      }
+    ]
+  },
+  "internal_linking_rules": {
+    "max_links": 3,
+    "generic_terms": [
+      "polígrafo",
+      "poligrafo",
+      "prueba",
+      "examen",
+      "test",
+      "servicio",
+      "servicios",
+      "del",
+      "para",
+      "con",
+      "por"
+    ],
+    "fallback_cleanup_patterns": [
+      "\\s*Para información relacionada,\\s*consulte también\\s*[^.<>\\n]*\\.",
+      "\\s*Si desea comentar un caso concreto,\\s*puede contactar con nosotros\\s*para recibir orientación inicial\\."
+    ],
+    "preferred_link_types": {
+      "conversion": 100,
+      "supporting_information": 80,
+      "topic_related": 60
+    },
+    "preferred_relationships": {
+      "pillar_page": 100,
+      "process_explanation": 95,
+      "faq_support": 90,
+      "scientific_context": 85,
+      "reliability_context": 80,
+      "contact": 75,
+      "topic_related": 50
+    },
+    "minimum_semantic_score": {
+      "topic_related": 4,
+      "supporting_information": 1,
+      "conversion": 0
+    },
+    "allow_strategic_link_block_fallback": true,
+    "strategic_links_heading": "Enlaces relacionados",
+    "strategic_links_intro": "También puede consultar otras páginas relacionadas con este servicio.",
+    "strategic_links_cleanup_headings": [
+      "Enlaces relacionados",
+      "Enlaces estratégicos",
+      "Enlaces Estratégicos",
+      "Enlaces relevantes"
+    ]
+  },
+  "topic_labels": {
+    "methodology": "metodología del polígrafo",
+    "appointment_booking": "solicitud de una prueba de polígrafo",
+    "question_formulation": "formulación de preguntas",
+    "technology": "tecnología y equipos de polígrafo",
+    "false_positives": "falsos positivos",
+    "inconclusive_results": "resultados inconclusos",
+    "countermeasures": "contramedidas",
+    "procedure": "procedimiento de la prueba de polígrafo",
+    "anxiety_medication": "ansiedad, medicación y polígrafo",
+    "city_cordoba": "Córdoba",
+    "city_granada": "Granada",
+    "city_toledo": "Toledo",
+    "city_zaragoza": "Zaragoza",
+    "city_alicante": "Alicante",
+    "city_cadiz": "Cádiz",
+    "city_las_palmas": "Las Palmas",
+    "city_tenerife": "Tenerife",
+    "city_valladolid": "Valladolid"
+  },
+  "topic_title_templates": {
+    "default": "Oportunidad de contenido sobre {topic_label}",
+    "city_page": "Página local de prueba de polígrafo en {topic_label}",
+    "educational_page": "Página educativa sobre {topic_label}",
+    "authority_page": "Página de autoridad sobre {topic_label}",
+    "pillar_page": "Página principal sobre {topic_label}",
+    "landing_page": "Página de servicio sobre {topic_label}",
+    "pricing_page": "Página de precios sobre {topic_label}",
+    "faq_page": "Preguntas frecuentes sobre {topic_label}",
+    "blog_post": "Artículo sobre {topic_label}"
+  },
+  "page_type_seo_templates": {
+    "city_page": {
+      "focus_keyphrase": "prueba de polígrafo {city}",
+      "page_title": "Prueba de polígrafo en {city}",
+      "seo_title": "Prueba de polígrafo en {city} | Polígrafo España",
+      "slug": "prueba-poligrafo-{city_slug}",
+      "meta_description": "Prueba de polígrafo en {city} para casos de infidelidad, investigaciones laborales y asuntos legales. Atención profesional y confidencial.",
+      "image_alt_text": "Prueba de polígrafo en {city}",
+      "image_filename": "prueba-poligrafo-{city_slug}.jpg"
+    },
+    "educational_page": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic} | Polígrafo España",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Guía profesional sobre el proceso, aplicaciones, límites y criterios de uso responsable de la evaluación poligráfica en España.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    },
+    "authority_page": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic}",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Información profesional sobre normas, metodología y criterios responsables en poligrafía.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    },
+    "pillar_page": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic}",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Guía profesional sobre el proceso, aplicaciones, límites y criterios de uso del polígrafo.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    },
+    "landing_page": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic}",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Servicio profesional, confidencial y prudente de evaluación poligráfica.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    },
+    "pricing_page": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic}",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Información orientativa sobre precios, factores del caso y reserva de una prueba de polígrafo.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    },
+    "faq_page": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic}",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Respuestas claras y prudentes a preguntas frecuentes sobre el polígrafo.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    },
+    "blog_post": {
+      "focus_keyphrase": "{topic}",
+      "page_title": "{topic}",
+      "seo_title": "{topic}",
+      "slug": "{topic_slug}",
+      "meta_description": "{topic}. Información profesional sobre este tema en el contexto de la evaluación poligráfica.",
+      "image_alt_text": "{topic}",
+      "image_filename": "{topic_slug}.jpg"
+    }
+  },
+  "examiner_display_labels": {
+    "page_types": {
+      "city_page": "Página local",
+      "landing_page": "Página de servicio",
+      "service_page": "Página de servicio",
+      "pillar_page": "Página principal",
+      "educational_page": "Página educativa",
+      "authority_page": "Página de autoridad",
+      "pricing_page": "Página de precios",
+      "faq_page": "Página de preguntas frecuentes",
+      "blog_post": "Artículo informativo"
+    },
+    "intent_types": {
+      "local_transactional": "Búsqueda local / contratación",
+      "transactional": "Contratación / solicitud de servicio",
+      "commercial": "Comparación o decisión comercial",
+      "informational": "Información / explicación",
+      "mixed": "Información y contratación",
+      "navigational": "Búsqueda de una página concreta"
+    },
+    "blueprints": {
+      "city_page": "Página local",
+      "landing_page": "Página de servicio",
+      "service_page": "Página de servicio",
+      "pillar_page": "Página principal",
+      "educational_page": "Página educativa",
+      "authority_page": "Página de autoridad",
+      "pricing_page": "Página de precios",
+      "faq_page": "Página de preguntas frecuentes",
+      "blog_post": "Artículo informativo"
+    }
+  },
+  "terminology_guidance": {
+    "mode": "soft_guidance",
+    "generation_behavior": "guide_but_do_not_block",
+    "validation_behavior": "warn_examiner_unless_legally_or_ethically_dangerous",
+    "preferred_terms": [
+      "evaluación poligráfica",
+      "examen poligráfico",
+      "prueba de polígrafo",
+      "respuestas fisiológicas",
+      "preguntas específicas",
+      "interpretación profesional",
+      "información complementaria",
+      "marco ético y profesional",
+      "consentimiento informado"
+    ],
+    "discouraged_terms": [
+      {
+        "term": "herramienta poderosa",
+        "preferred_alternative": "herramienta técnica complementaria",
+        "reason": "Puede sonar promocional.",
+        "severity": "warning"
+      },
+      {
+        "term": "detector de mentiras",
+        "preferred_alternative": "prueba de polígrafo o evaluación poligráfica",
+        "reason": "Término popular, menos profesional.",
+        "severity": "warning"
+      },
+      {
+        "term": "identificar empleados",
+        "preferred_alternative": "aportar información complementaria dentro de una investigación",
+        "reason": "Puede sonar acusatorio.",
+        "severity": "warning"
+      },
+      {
+        "term": "actividad delictiva",
+        "preferred_alternative": "posible irregularidad o conducta investigada",
+        "reason": "Evitar lenguaje jurídico concluyente si no existe resolución.",
+        "severity": "warning"
+      },
+      {
+        "term": "estrés asociado con la deshonestidad",
+        "preferred_alternative": "respuestas fisiológicas ante preguntas relevantes",
+        "reason": "Evitar vincular automáticamente estrés y deshonestidad.",
+        "severity": "warning"
+      },
+      {
+        "term": "información veraz y precisa",
+        "preferred_alternative": "información complementaria para valorar el caso",
+        "reason": "Evitar prometer precisión absoluta.",
+        "severity": "warning"
+      },
+      {
+        "term": "evidencia crucial",
+        "preferred_alternative": "información complementaria dentro de una investigación",
+        "reason": "Evitar presentar el resultado como prueba decisiva.",
+        "severity": "warning"
+      },
+      {
+        "term": "identificar rápidamente a los responsables",
+        "preferred_alternative": "ayudar a orientar la investigación sobre los hechos examinados",
+        "reason": "Evitar sugerir que el polígrafo identifica culpables.",
+        "severity": "warning"
+      },
+      {
+        "term": "identificar a los responsables",
+        "preferred_alternative": "aportar información complementaria sobre las respuestas evaluadas",
+        "reason": "Evitar lenguaje acusatorio.",
+        "severity": "warning"
+      },
+      {
+        "term": "ciudad rica en historia y cultura",
+        "preferred_alternative": "contexto local de atención profesional",
+        "reason": "Evitar relleno turístico sin valor para la página de servicio.",
+        "severity": "warning"
+      }
+    ]
+  },
+  "forbidden_terms": [
+    "também",
+    "perguntas",
+    "respostas",
+    "secção",
+    "orientação",
+    "connosco",
+    "entre em contacto"
+  ],
+  "repair_guidance": {
+    "language_name": "Spanish",
+    "fallback_expansion_paragraphs": [
+      "<p>En una evaluación poligráfica profesional, la metodología no debe interpretarse como una respuesta automática o aislada. El valor del procedimiento depende de la preparación del caso, la revisión de las preguntas, el consentimiento informado y la interpretación técnica de los registros fisiológicos obtenidos durante la prueba.</p>",
+      "<p>Por esta razón, la metodología del polígrafo debe entenderse como parte de un proceso profesional más amplio. Sus resultados pueden aportar información complementaria, pero siempre deben analizarse junto con el contexto del caso, la documentación disponible y otros elementos de investigación o valoración profesional.</p>"
+    ],
+    "fallback_expansion_by_page_type": {
+      "city_page": [
+        "<p>Para clientes de esta ciudad, una evaluación poligráfica debe organizarse con una explicación clara del procedimiento, revisión previa de las preguntas y consentimiento informado. La finalidad es valorar si el examen es adecuado para el caso concreto, sin prometer resultados automáticos ni conclusiones absolutas.</p>",
+        "<p>En una página local, el servicio debe presentarse como una atención profesional disponible para personas, empresas o abogados de la zona, manteniendo siempre la confidencialidad, los límites técnicos del examen y la necesidad de interpretar los resultados junto con el contexto del caso.</p>"
+      ],
+      "pillar_page": [
+        "<p>Antes de solicitar una prueba de polígrafo, es recomendable explicar el contexto del caso, definir el objetivo del examen y confirmar que las preguntas puedan formularse de manera clara, específica y verificable.</p>",
+        "<p>La evaluación poligráfica debe entenderse como un procedimiento profesional complementario. Sus resultados pueden ayudar a orientar una decisión, pero siempre deben interpretarse con prudencia y dentro del contexto general del asunto.</p>"
+      ],
+      "educational_page": [
+        "<p>En una evaluación poligráfica profesional, la metodología no debe interpretarse como una respuesta automática o aislada. El valor del procedimiento depende de la preparación del caso, la revisión de las preguntas, el consentimiento informado y la interpretación técnica de los registros fisiológicos obtenidos durante la prueba.</p>",
+        "<p>Por esta razón, la metodología del polígrafo debe entenderse como parte de un proceso profesional más amplio. Sus resultados pueden aportar información complementaria, pero siempre deben analizarse junto con el contexto del caso, la documentación disponible y otros elementos de investigación o valoración profesional.</p>"
+      ]
+    }
+  },
+  "content_quality_replacements": [
+    {
+      "from": "identificar a los responsables",
+      "to": "aportar información complementaria para orientar la investigación",
+      "severity": "warning",
+      "blocking": false
+    },
+    {
+      "from": "determinar si algún empleado está involucrado",
+      "to": "proporcionar información complementaria dentro del proceso de investigación",
+      "severity": "warning",
+      "blocking": false
+    },
+    {
+      "from": "detectar mentiras",
+      "to": "evaluar respuestas fisiológicas ante preguntas específicas",
+      "severity": "warning",
+      "blocking": false
+    },
+    {
+      "from": "probar inocencia",
+      "to": "aportar información adicional para la evaluación del caso",
+      "severity": "warning",
+      "blocking": false
+    },
+    {
+      "from": "demostrar culpabilidad",
+      "to": "complementar otros elementos de la investigación",
+      "severity": "warning",
+      "blocking": false
+    },
+    {
+      "from": "determinar la culpabilidad",
+      "to": "aportar información complementaria dentro del proceso de investigación",
+      "severity": "warning",
+      "blocking": false
+    }
+  ],
+  "content_repair": {
+    "faq_language_leakage": {
+      "enabled": true,
+      "target_locale_prefix": "es",
+      "scope": "faq_h3",
+      "replacements": {
+        "O que é": "Qué es",
+        "O que acontece": "Qué ocurre",
+        "Como funciona": "Cómo funciona",
+        "Como posso": "Cómo puedo",
+        "Posso disciplinar um funcionário": "Puedo disciplinar a un empleado",
+        "funcionário": "empleado",
+        "apenas com base": "solo con base",
+        "nos resultados": "en los resultados",
+        "do exame poligráfico": "del examen poligráfico",
+        "uma avaliação poligráfica": "una evaluación poligráfica",
+        "avaliação poligráfica": "evaluación poligráfica"
+      },
+      "ensure_question_marks": true
+    },
+    "faq_rebuild": {
+      "enabled": true,
+      "target_locale_prefix": "es",
+      "minimum_items": 6,
+      "heading": "Preguntas frecuentes",
+      "templates": [
+        {
+          "question": "¿Puede una evaluación poligráfica ayudar en una investigación de {issue} en {sector}?",
+          "answer": "Sí, puede aportar información complementaria cuando existen declaraciones contradictorias, dudas específicas o hechos verificables relacionados con {issue}. No sustituye una auditoría interna, una revisión documental ni una investigación completa."
+        },
+        {
+          "question": "¿Qué información conviene revisar antes de plantear una prueba relacionada con {issue}?",
+          "answer": "Conviene revisar registros internos, documentos disponibles, accesos, autorizaciones, controles, declaraciones previas y cualquier información relacionada con {issue}. Esta revisión permite formular preguntas claras, específicas y profesionalmente adecuadas."
+        },
+        {
+          "question": "¿Qué ocurre si varias personas pudieron tener acceso, autorización o conocimiento sobre {object}?",
+          "answer": "Cuando varias personas pudieron tener acceso, autorización, conocimiento o participación en los hechos, la evaluación debe centrarse en preguntas concretas y verificables sobre {issue}. El resultado debe interpretarse junto con los demás elementos de la investigación y no como una conclusión aislada."
+        },
+        {
+          "question": "¿Puede tomarse una decisión disciplinaria solo con base en el resultado del examen?",
+          "answer": "No. El resultado de una evaluación poligráfica no debe ser la única base para una decisión disciplinaria. Debe valorarse junto con documentos, registros, declaraciones, criterios profesionales y cualquier otro elemento relevante para la investigación de {issue}."
+        },
+        {
+          "question": "¿La evaluación poligráfica reemplaza una auditoría o revisión interna?",
+          "answer": "No. La evaluación poligráfica es una herramienta complementaria. En casos de {issue}, la auditoría, la revisión documental, el análisis interno y las entrevistas siguen siendo necesarios para comprender el contexto completo."
+        },
+        {
+          "question": "¿Cómo se protege la confidencialidad durante el proceso?",
+          "answer": "La información relacionada con {issue} debe tratarse de forma confidencial, con consentimiento informado y dentro de un marco profesional y ético. También es importante limitar el acceso a los resultados a las personas autorizadas dentro del procedimiento acordado."
+        },
+        {
+          "question": "¿Qué limitaciones tiene el examen poligráfico en este tipo de investigación?",
+          "answer": "El examen no es infalible y no constituye prueba absoluta. Sus resultados deben interpretarse profesionalmente, teniendo en cuenta el contexto de {issue}, la formulación de las preguntas y los demás elementos disponibles."
+        },
+        {
+          "question": "¿Cómo se solicita una evaluación profesional para un caso de {issue}?",
+          "answer": "El primer paso es explicar el contexto del caso, la información disponible y el objetivo de la evaluación. Con esa información se puede valorar si el examen es adecuado, qué preguntas podrían formularse y qué límites deben tenerse en cuenta."
+        }
+      ]
+    }
+  },
+  "language_guard": {
+    "enabled": true,
+    "target_language_name": "Spanish",
+    "target_locale_prefix": "es",
+    "must_include_markers": [
+      "el",
+      "la",
+      "de",
+      "que",
+      "para",
+      "con",
+      "en"
+    ],
+    "forbidden_language_markers": [
+      "ção",
+      "ções",
+      "não",
+      "uma",
+      "você",
+      "também",
+      "empresa está",
+      "combustível",
+      "poligráfico",
+      "funcionário",
+      "avaliação",
+      "consequências",
+      "perdas",
+      "registros de abastecimento",
+      "suspeita",
+      "responsável",
+      "ambiente de trabalho"
+    ],
+    "max_forbidden_hits": 2,
+    "repair_instruction": "Rewrite the complete HTML content in Spanish only. Preserve the same HTML structure, H1/H2/H3 hierarchy, intent, factual meaning, professional tone, SEO focus, and ethical limitation statements. Do not write Portuguese."
+  }
+}

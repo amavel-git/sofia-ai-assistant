@@ -146,13 +146,18 @@ def find_draft_in_registry(draft_id, workspace):
     return find_draft_in_workspace_registry(draft_id, workspace)
 
 
-def draft_validation_passed(draft_id, workspace):
+def draft_can_be_sent_for_review(draft_id, workspace):
     draft = find_draft_in_registry(draft_id, workspace)
 
     if not draft:
         return False
 
-    return draft.get("validation", {}).get("status") == "passed"
+    if not draft.get("html_content") and not draft.get("generated_content", {}).get("content"):
+        return False
+
+    validation_status = draft.get("validation", {}).get("status", "")
+
+    return validation_status in ["passed", "warning", "failed", ""]
 
 def draft_has_wordpress_draft(draft_id, workspace):
     draft = find_draft_in_registry(draft_id, workspace)
@@ -160,22 +165,11 @@ def draft_has_wordpress_draft(draft_id, workspace):
     if not draft:
         return False
 
-    upload = draft.get("wordpress_upload", {})
-    update = draft.get("wordpress_update", {})
+    if draft.get("wordpress_id") or draft.get("wordpress_link"):
+        return True
 
-    return (
-        upload.get("uploaded") is True
-        and bool(upload.get("wordpress_id"))
-    ) or (
-        update.get("updated") is True
-        and bool(update.get("wordpress_id"))
-    )
-
-    if not draft:
-        return False
-
-    upload = draft.get("wordpress_upload", {})
-    update = draft.get("wordpress_update", {})
+    upload = draft.get("wordpress_upload", {}) or {}
+    update = draft.get("wordpress_update", {}) or {}
 
     return (
         upload.get("uploaded") is True
@@ -192,11 +186,12 @@ def get_wordpress_link(draft_id, workspace):
     if not draft:
         return ""
 
-    update = draft.get("wordpress_update", {})
-    upload = draft.get("wordpress_upload", {})
+    update = draft.get("wordpress_update", {}) or {}
+    upload = draft.get("wordpress_upload", {}) or {}
 
     return (
-        update.get("wordpress_link")
+        draft.get("wordpress_link")
+        or update.get("wordpress_link")
         or upload.get("wordpress_link")
         or ""
     )
@@ -219,8 +214,8 @@ def strip_html_for_preview(content):
     content = re.sub(r"<[^>]+>", " ", content)
     content = re.sub(r"\s+", " ", content).strip()
 
-    if len(content) > 1200:
-        content = content[:1200].rsplit(" ", 1)[0] + "..."
+    if len(content) > 700:
+        content = content[:700].rsplit(" ", 1)[0] + "..."
 
     return content
 
@@ -257,25 +252,29 @@ def get_wordpress_review_info(draft_id, workspace):
     upload = draft.get("wordpress_upload", {}) or {}
 
     wordpress_id = (
-        update.get("wordpress_id")
+        draft.get("wordpress_id")
+        or update.get("wordpress_id")
         or upload.get("wordpress_id")
         or ""
     )
 
     wordpress_link = (
-        update.get("wordpress_link")
+        draft.get("wordpress_link")
+        or update.get("wordpress_link")
         or upload.get("wordpress_link")
         or ""
     )
 
     wordpress_status = (
-        update.get("wordpress_status")
+        draft.get("wordpress_status")
+        or update.get("wordpress_status")
         or upload.get("wordpress_status")
         or ""
     )
 
     post_type = (
-        update.get("post_type")
+        draft.get("post_type")
+        or update.get("post_type")
         or upload.get("post_type")
         or ""
     )
@@ -309,252 +308,268 @@ def get_draft_content_preview(draft_id, workspace):
 
 def build_message(item, workspace):
     language = workspace.get("language", "en")
-    template = get_template("draft_review", language)
+    normalized_language = normalize_language(language)
 
     draft_id = item.get("draft_id")
-    title = item.get("working_title")
-    keyphrase = item.get("target_keyword")
+    draft = find_draft_in_registry(draft_id, workspace) or {}
 
-    channels_text = format_enabled_channels(workspace, template)
-    check_items = template.get("check_items", [])
-    check_items_text = "\n".join([f"- {item}" for item in check_items])
-    content_preview = get_draft_content_preview(draft_id, workspace)
-    preview_label = get_preview_label(language)
+    title = (
+        item.get("working_title")
+        or item.get("title")
+        or draft.get("working_title")
+        or draft.get("title")
+        or ""
+    )
+
+    keyphrase = (
+        item.get("target_keyword")
+        or item.get("focus_keyphrase")
+        or draft.get("target_keyword")
+        or draft.get("focus_keyphrase")
+        or ""
+    )
+
+    content_type = (
+        item.get("content_type")
+        or draft.get("content_type")
+        or "unknown"
+    )
+
+    validation_status = (
+        draft.get("validation", {}).get("status")
+        or item.get("validation_status")
+        or "unknown"
+    )
+
+    validation_warnings = (
+    draft.get("validation", {}).get("warnings")
+    or []
+    )
+
+    summary = (
+        draft.get("summary")
+        or draft.get("notes")
+        or item.get("summary")
+        or item.get("notes")
+        or ""
+    )
+
+    if not summary:
+        if normalized_language.startswith("pt"):
+            summary = f"Rascunho focado em {keyphrase} para o mercado local."
+        elif normalized_language == "es":
+            summary = f"Borrador enfocado en {keyphrase} para el mercado local."
+        elif normalized_language == "fr":
+            summary = f"Brouillon axé sur {keyphrase} pour le marché local."
+        else:
+            summary = f"Draft focused on {keyphrase} for the local market."
+
+    warnings_text = ""
+
+    if validation_warnings:
+        if normalized_language.startswith("pt"):
+            warnings_text = "\nAvisos para revisão do examinador:\n"
+        elif normalized_language == "es":
+            warnings_text = "\nAvisos para revisión del examinador:\n"
+        elif normalized_language == "fr":
+            warnings_text = "\nAvertissements pour révision par l’examinateur :\n"
+        else:
+            warnings_text = "\nWarnings for examiner review:\n"
+
+        for warning in validation_warnings[:10]:
+            warnings_text += f"- {warning}\n"
+
     wp_info = get_wordpress_review_info(draft_id, workspace)
 
-    normalized_language = normalize_language(language)
+    if normalized_language.startswith("pt"):
+        labels = {
+            "website_header": "[SOFIA – RASCUNHO DE WEBSITE PRONTO]",
+            "wordpress_header": "[SOFIA – RASCUNHO WORDPRESS PRONTO PARA REVISÃO]",
+            "draft": "Rascunho",
+            "workspace": "Workspace",
+            "type": "Tipo",
+            "wordpress_type": "Tipo no WordPress",
+            "title": "Título",
+            "focus": "Frase-chave",
+            "validation": "Validação",
+            "summary": "Resumo",
+            "wordpress_draft": "Rascunho WordPress",
+            "wordpress_id": "ID no WordPress",
+            "wordpress_status": "Estado no WordPress",
+            "next_step": "Próximo passo",
+            "approve": "Clique em Aprovar se o rascunho pode seguir para preparação no WordPress.",
+            "complete": "Clique em Finalizado se o rascunho está pronto para revisão/publicação manual.",
+            "revise": "Clique em Rever se deseja pedir alterações.",
+        }
+    elif normalized_language == "es":
+        labels = {
+            "website_header": "[SOFIA – BORRADOR DE SITIO WEB LISTO]",
+            "wordpress_header": "[SOFIA – BORRADOR WORDPRESS LISTO PARA REVISIÓN]",
+            "draft": "Borrador",
+            "workspace": "Workspace",
+            "type": "Tipo",
+            "wordpress_type": "Tipo en WordPress",
+            "title": "Título",
+            "focus": "Frase clave",
+            "validation": "Validación",
+            "summary": "Resumen",
+            "wordpress_draft": "Borrador WordPress",
+            "wordpress_id": "ID de WordPress",
+            "wordpress_status": "Estado en WordPress",
+            "next_step": "Próximo paso",
+            "approve": "Haga clic en Aprobar si el borrador puede pasar a preparación en WordPress.",
+            "complete": "Haga clic en Finalizado si el borrador está listo para revisión/publicación manual.",
+            "revise": "Haga clic en Revisar si desea pedir cambios.",
+        }
+    elif normalized_language == "fr":
+        labels = {
+            "website_header": "[SOFIA – BROUILLON DE SITE WEB PRÊT]",
+            "wordpress_header": "[SOFIA – BROUILLON WORDPRESS PRÊT POUR RÉVISION]",
+            "draft": "Brouillon",
+            "workspace": "Workspace",
+            "type": "Type",
+            "wordpress_type": "Type WordPress",
+            "title": "Titre",
+            "focus": "Requête principale",
+            "validation": "Validation",
+            "summary": "Résumé",
+            "wordpress_draft": "Brouillon WordPress",
+            "wordpress_id": "ID WordPress",
+            "wordpress_status": "Statut WordPress",
+            "next_step": "Prochaine étape",
+            "approve": "Cliquez sur Approuver si le brouillon peut passer à la préparation WordPress.",
+            "complete": "Cliquez sur Terminé si le brouillon est prêt pour révision/publication manuelle.",
+            "revise": "Cliquez sur Réviser si vous souhaitez demander des modifications.",
+        }
+    else:
+        labels = {
+            "website_header": "[SOFIA – WEBSITE DRAFT READY]",
+            "wordpress_header": "[SOFIA – WORDPRESS DRAFT READY FOR REVIEW]",
+            "draft": "Draft",
+            "workspace": "Workspace",
+            "type": "Type",
+            "wordpress_type": "WordPress type",
+            "title": "Title",
+            "focus": "Focus keyword",
+            "validation": "Validation",
+            "summary": "Summary",
+            "wordpress_draft": "WordPress draft",
+            "wordpress_id": "WordPress ID",
+            "wordpress_status": "WordPress status",
+            "next_step": "Next step",
+            "approve": "Click Approve if the draft can move to WordPress preparation.",
+            "complete": "Click Completed if the draft is ready for manual review/publication.",
+            "revise": "Click Revise if you want changes.",
+        }
 
     if wp_info.get("has_wordpress_draft"):
         wordpress_link = wp_info.get("wordpress_link") or "Link not available"
-        wordpress_id = wp_info.get("wordpress_id") or "N/A"
-        wordpress_status = wp_info.get("wordpress_status") or "draft"
 
+        # WordPress-first stabilization:
+        # The examiner only needs the review link and next action.
+        # Internal fields such as validation status, WordPress ID, post type,
+        # and WordPress status remain in the registry/logs, not in Telegram.
         if normalized_language.startswith("pt"):
             return f"""
-[SOFIA – RASCUNHO WORDPRESS ATUALIZADO]
-
-ID do rascunho: {draft_id}
-Workspace: {workspace.get("workspace_id")}
-País: {workspace.get("country")}
-Idioma: {workspace.get("language")}
+[SOFIA – RASCUNHO PRONTO PARA REVISÃO]
 
 Título:
 {title}
 
-Frase-chave principal:
-{keyphrase}
-
-Rascunho WordPress:
+Link para revisão no WordPress:
 {wordpress_link}
 
-ID no WordPress:
-{wordpress_id}
+Resumo:
+{summary}
 
-Estado no WordPress:
-{wordpress_status}
-
-Canais onde o conteúdo poderá ser usado:
-{channels_text}
-
-Pré-visualização do conteúdo:
-{content_preview}
-
-Tarefa do examinador:
-Por favor, reveja o rascunho diretamente no WordPress e confirme se está pronto para revisão/publicação manual.
-
-Por favor, confirme:
-- O conteúdo está profissionalmente correto?
-- A terminologia está adequada ao mercado local?
-- O Yoast SEO está adequado?
-- Existe algum risco legal, cultural ou comercial?
-- O serviço descrito está realmente disponível neste país?
-
-A publicação final ao vivo NÃO foi feita automaticamente.
+{warnings_text}
 
 Próximo passo:
-- Clique em Finalizado se o rascunho está pronto para revisão/publicação manual no WordPress.
-- Clique em Rever se deseja que a Sofia faça alterações ao rascunho.
-
-Use os botões abaixo para finalizar ou solicitar alterações.
+- Clique em Finalizado se o rascunho está pronto.
+- Clique em Rever se deseja pedir alterações.
 """.strip()
 
         if normalized_language == "es":
             return f"""
-[SOFIA – BORRADOR WORDPRESS ACTUALIZADO]
-
-ID del borrador: {draft_id}
-Workspace: {workspace.get("workspace_id")}
-País: {workspace.get("country")}
-Idioma: {workspace.get("language")}
+[SOFIA – BORRADOR LISTO PARA REVISIÓN]
 
 Título:
 {title}
 
-Frase clave principal:
-{keyphrase}
-
-Borrador WordPress:
+Enlace para revisión en WordPress:
 {wordpress_link}
 
-ID de WordPress:
-{wordpress_id}
+Resumen:
+{summary}
 
-Estado en WordPress:
-{wordpress_status}
-
-Canales donde se podrá usar el contenido:
-{channels_text}
-
-Vista previa del contenido:
-{content_preview}
-
-Tarea del examinador:
-Por favor, revise el borrador directamente en WordPress y confirme si está listo para revisión/publicación manual.
-
-Por favor, confirme:
-- ¿El contenido es profesionalmente correcto?
-- ¿La terminología es adecuada para el mercado local?
-- ¿El Yoast SEO está adecuado?
-- ¿Existe algún riesgo legal, cultural o comercial?
-- ¿El servicio descrito está realmente disponible en este país?
-
-La publicación final en vivo NO se ha realizado automáticamente.
+{warnings_text}
 
 Próximo paso:
-- Haga clic en Finalizado si el borrador está listo para revisión/publicación manual en WordPress.
-- Haga clic en Revisar si desea que Sofia haga cambios en el borrador.
-
-Use los botones de abajo para finalizar o solicitar cambios.
+- Haga clic en Finalizado si el borrador está listo.
+- Haga clic en Revisar si desea pedir cambios.
 """.strip()
 
         if normalized_language == "fr":
             return f"""
-[SOFIA – BROUILLON WORDPRESS MIS À JOUR]
-
-ID du brouillon : {draft_id}
-Workspace : {workspace.get("workspace_id")}
-Pays : {workspace.get("country")}
-Langue : {workspace.get("language")}
+[SOFIA – BROUILLON PRÊT POUR RÉVISION]
 
 Titre :
 {title}
 
-Requête principale :
-{keyphrase}
-
-Brouillon WordPress :
+Lien de révision WordPress :
 {wordpress_link}
 
-ID WordPress :
-{wordpress_id}
+Résumé :
+{summary}
 
-Statut WordPress :
-{wordpress_status}
-
-Canaux où le contenu pourra être utilisé :
-{channels_text}
-
-Aperçu du contenu :
-{content_preview}
-
-Tâche de l’examinateur :
-Veuillez examiner le brouillon directement dans WordPress et confirmer s’il est prêt pour révision/publication manuelle.
-
-Veuillez confirmer :
-- Le contenu est-il professionnellement correct ?
-- La terminologie est-elle adaptée au marché local ?
-- Le Yoast SEO est-il approprié ?
-- Existe-t-il un risque juridique, culturel ou commercial ?
-- Le service décrit est-il réellement disponible dans ce pays ?
-
-La publication finale en ligne n’a PAS été effectuée automatiquement.
+{warnings_text}
 
 Prochaine étape :
-- Cliquez sur Terminé si le brouillon est prêt pour révision/publication manuelle dans WordPress.
-- Cliquez sur Réviser si vous souhaitez que Sofia modifie le brouillon.
-
-Utilisez les boutons ci-dessous pour terminer ou demander des modifications.
+- Cliquez sur Terminé si le brouillon est prêt.
+- Cliquez sur Réviser si vous souhaitez demander des modifications.
 """.strip()
 
         return f"""
-[SOFIA – WORDPRESS DRAFT UPDATED]
-
-Draft ID: {draft_id}
-Workspace: {workspace.get("workspace_id")}
-Country: {workspace.get("country")}
-Language: {workspace.get("language")}
+[SOFIA – DRAFT READY FOR REVIEW]
 
 Title:
 {title}
 
-Focus Keyphrase:
-{keyphrase}
-
-WordPress Draft:
+WordPress review link:
 {wordpress_link}
 
-WordPress ID:
-{wordpress_id}
+Summary:
+{summary}
 
-WordPress Status:
-{wordpress_status}
-
-Channels where this content may be used:
-{channels_text}
-
-Content preview:
-{content_preview}
-
-Examiner task:
-Please review the draft directly in WordPress and confirm whether it is ready for manual review/publication.
-
-Please confirm:
-- Is the content professionally correct?
-- Is the terminology appropriate for the local market?
-- Is the Yoast SEO appropriate?
-- Is there any legal, cultural, or commercial risk?
-- Is the described service actually available in this country?
-
-Final live publication has NOT been done automatically.
+{warnings_text}
 
 Next step:
-- Click Completed if the draft is ready for manual WordPress review/publication.
-- Click Revise if you want Sofia to make changes to the draft.
-
-Use the buttons below to complete or request changes.
+- Click Completed if the draft is ready.
+- Click Revise if you want changes.
 """.strip()
 
     return f"""
-{template.get("header", "[SOFIA – DRAFT REVIEW]")}
+{labels["website_header"]}
 
-{template.get("draft_id_label", "Draft ID")}: {draft_id}
-{template.get("workspace_label", "Workspace")}: {workspace.get("workspace_id")}
-{template.get("country_label", "Country")}: {workspace.get("country")}
-{template.get("language_label", "Language")}: {workspace.get("language")}
+{labels["draft"]}: {draft_id}
+{labels["workspace"]}: {workspace.get("workspace_id")}
+{labels["type"]}: {content_type}
 
-{template.get("title_label", "Title")}:
+{labels["title"]}:
 {title}
 
-{template.get("keyphrase_label", "Focus Keyphrase")}:
+{labels["focus"]}:
 {keyphrase}
 
-{template.get("channels_label", "Channels where this content may be used")}:
-{channels_text}
+{labels["validation"]}:
+{validation_status}
 
-{preview_label}:
-{content_preview}
+{labels["summary"]}:
+{summary}
 
-{template.get("task_label", "Examiner task")}:
-{template.get("action", "Please review this draft for professional and local accuracy.")}
-
-{template.get("check_label", "Please confirm:")}
-{check_items_text}
-
-{template.get("next_step_label", "Next step after approval")}:
-{template.get("next_step", "Sofia will prepare or update the corresponding draft for final review.")}
-
-{template.get("button_instruction", "Use the buttons below to approve or request changes.")}
-
+{labels["next_step"]}:
+- {labels["approve"]}
+- {labels["revise"]}
 """.strip()
 
 
@@ -646,12 +661,246 @@ def send_telegram_message(bot_token, chat_id, text, reply_markup=None):
     return result
 
 
+
+def load_external_opportunities(workspace):
+    path = ROOT / workspace.get("folder_path", "") / "external_opportunities.json"
+
+    if not path.exists():
+        return path, {"version": "1.0", "opportunities": []}
+
+    data = load_json(path)
+
+    if isinstance(data, list):
+        data = {
+            "version": "1.0",
+            "opportunities": data
+        }
+
+    data.setdefault("opportunities", [])
+    return path, data
+
+
+def find_opportunity(opportunities, opportunity_id):
+    for item in opportunities:
+        if (
+            item.get("opportunity_id") == opportunity_id
+            or item.get("id") == opportunity_id
+        ):
+            return item
+    return None
+
+
+
+def load_language_profile_for_workspace(workspace):
+    folder_path = workspace.get("folder_path", "")
+    if not folder_path:
+        return {}
+
+    path = ROOT / folder_path / "language_profile.json"
+
+    if not path.exists():
+        return {}
+
+    try:
+        return load_json(path)
+    except Exception:
+        return {}
+
+
+def display_label(language_profile, group, value):
+    value = str(value or "").strip()
+    labels = (
+        language_profile
+        .get("examiner_display_labels", {})
+        .get(group, {})
+    )
+
+    return labels.get(value, value)
+
+
+def build_opportunity_rationale(opportunity, language_profile):
+    templates = language_profile.get("opportunity_messages", {}) or {}
+
+    competitor_total_pages = opportunity.get("competitor_total_pages")
+    competitor_coverage_count = opportunity.get("competitor_coverage_count")
+    our_coverage_count = opportunity.get("our_coverage_count", 0)
+
+    if competitor_total_pages is not None and competitor_coverage_count is not None:
+        template = templates.get("competitor_gap")
+        if template:
+            try:
+                return template.format(
+                    competitor_total_pages=competitor_total_pages,
+                    competitor_coverage_count=competitor_coverage_count,
+                    our_coverage_count=our_coverage_count,
+                )
+            except Exception:
+                pass
+
+    return (
+        opportunity.get("rationale")
+        or templates.get("default_rationale")
+        or "Sofia recommends reviewing this opportunity for the local market."
+    )
+
+def build_opportunity_message(opportunity, workspace):
+    language = normalize_language(workspace.get("language", "en"))
+    language_profile = load_language_profile_for_workspace(workspace)
+
+    title = opportunity.get("title") or opportunity.get("topic_label") or opportunity.get("topic") or ""
+
+    raw_page_type = opportunity.get("page_type") or "unknown"
+    raw_blueprint_id = opportunity.get("blueprint_id") or ""
+    raw_intent_type = opportunity.get("intent_type") or ""
+
+    page_type = display_label(language_profile, "page_types", raw_page_type)
+    blueprint_id = display_label(language_profile, "blueprints", raw_blueprint_id)
+    intent_type = display_label(language_profile, "intent_types", raw_intent_type)
+
+    rationale = build_opportunity_rationale(opportunity, language_profile)
+
+    if language == "es":
+        return f"""
+[SOFIA – OPORTUNIDAD DE CONTENIDO]
+
+Título:
+{title}
+
+Tipo de página:
+{page_type}
+
+Intención:
+{intent_type}
+
+Blueprint recomendado:
+{blueprint_id}
+
+Motivo:
+{rationale}
+
+Próximo paso:
+- Haga clic en Aprobar si desea que Sofia prepare el borrador.
+- Haga clic en Revisar si desea modificar el enfoque.
+- Haga clic en Rechazar si no desea trabajar esta oportunidad.
+""".strip()
+
+    return f"""
+[SOFIA – CONTENT OPPORTUNITY]
+
+Title:
+{title}
+
+Page type:
+{page_type}
+
+Intent:
+{intent_type}
+
+Recommended blueprint:
+{blueprint_id}
+
+Reason:
+{rationale}
+
+Next step:
+- Click Approve if Sofia should prepare the draft.
+- Click Revise if you want to modify the angle.
+- Click Reject if you do not want this opportunity.
+""".strip()
+
+
+def build_opportunity_keyboard(opportunity_id, workspace_id, language="en"):
+    language = normalize_language(language)
+
+    if language == "es":
+        approve = "✅ Aprobar"
+        modify = "✏️ Revisar"
+        reject = "❌ Rechazar"
+    elif language.startswith("pt"):
+        approve = "✅ Aprovar"
+        modify = "✏️ Rever"
+        reject = "❌ Rejeitar"
+    elif language == "fr":
+        approve = "✅ Approuver"
+        modify = "✏️ Réviser"
+        reject = "❌ Rejeter"
+    else:
+        approve = "✅ Approve"
+        modify = "✏️ Modify"
+        reject = "❌ Reject"
+
+    return {
+        "inline_keyboard": [
+            [
+                {"text": approve, "callback_data": f"APPROVE|{workspace_id}|{opportunity_id}"},
+                {"text": modify, "callback_data": f"MODIFY|{workspace_id}|{opportunity_id}"},
+                {"text": reject, "callback_data": f"REJECT|{workspace_id}|{opportunity_id}"},
+            ]
+        ]
+    }
+
+
+def send_specific_opportunity(workspace, workspace_id, opportunity_id, sending):
+    opportunity_path, data = load_external_opportunities(workspace)
+    opportunity = find_opportunity(data.get("opportunities", []), opportunity_id)
+
+    if not opportunity:
+        print(f"Opportunity not found: {opportunity_id}")
+        return False
+
+    telegram_group_id = workspace.get("telegram_group_id")
+    telegram_group = workspace.get("telegram_group", "")
+
+    if sending and not telegram_group_id:
+        print(f"No telegram_group_id found for workspace: {workspace_id}")
+        return False
+
+    bot_token = os.getenv("SOFIA_TELEGRAM_BOT_TOKEN")
+    if bot_token:
+        bot_token = bot_token.strip().strip('"').strip("'")
+
+    if sending and not bot_token:
+        print("Missing environment variable: SOFIA_TELEGRAM_BOT_TOKEN")
+        return False
+
+    message = build_opportunity_message(opportunity, workspace)
+    keyboard = build_opportunity_keyboard(
+        opportunity_id,
+        workspace_id,
+        workspace.get("language", "en")
+    )
+
+    print("\n" + "=" * 60)
+    print(f"TELEGRAM GROUP: {telegram_group}")
+    print(f"TELEGRAM GROUP ID: {telegram_group_id}")
+    print("=" * 60)
+    print(message)
+    print("=" * 60)
+
+    if sending:
+        send_telegram_message(
+            bot_token,
+            telegram_group_id,
+            message,
+            reply_markup=keyboard
+        )
+
+        opportunity["telegram_notified"] = True
+        opportunity["telegram_notified_at"] = now_iso()
+        opportunity["updated_at"] = now_iso()
+        save_json(opportunity_path, data)
+
+        print("Telegram opportunity message sent with buttons.")
+
+    return True
+
 def main():
     if len(sys.argv) < 2:
         print("Usage:")
         print("  python app/notify_examiner_review.py WORKSPACE_ID --preview")
         print("  python app/notify_examiner_review.py WORKSPACE_ID --send")
         print("  python app/notify_examiner_review.py WORKSPACE_ID --send-draft DRAFT_ID")
+        print("  python app/notify_examiner_review.py WORKSPACE_ID --send-opportunity OPP-ID")
         print("Example:")
         print("  python app/notify_examiner_review.py local.ao --send")
         print("  python app/notify_examiner_review.py local.ao --send-draft DRAFT-0001")
@@ -661,6 +910,7 @@ def main():
 
     mode = sys.argv[2] if len(sys.argv) > 2 else "--preview"
     specific_draft_id = None
+    specific_opportunity_id = None
 
     if mode == "--send-draft":
         if len(sys.argv) < 4:
@@ -669,8 +919,15 @@ def main():
             return
         specific_draft_id = sys.argv[3]
 
-    if mode not in ["--preview", "--send", "--send-draft"]:
-        print("Invalid mode. Use --preview, --send, or --send-draft.")
+    if mode == "--send-opportunity":
+        if len(sys.argv) < 4:
+            print("Usage:")
+            print("  python app/notify_examiner_review.py WORKSPACE_ID --send-opportunity OPP-ID")
+            return
+        specific_opportunity_id = sys.argv[3]
+
+    if mode not in ["--preview", "--send", "--send-draft", "--send-opportunity"]:
+        print("Invalid mode. Use --preview, --send, --send-draft, or --send-opportunity.")
         return
 
     workspaces = load_json(WORKSPACES_PATH)
@@ -686,7 +943,7 @@ def main():
     telegram_group_id = workspace.get("telegram_group_id")
     telegram_group = workspace.get("telegram_group", "")
 
-    sending = mode in ["--send", "--send-draft"]
+    sending = mode in ["--send", "--send-draft", "--send-opportunity"]
 
     if sending and not telegram_group_id:
         print(f"No telegram_group_id found for workspace: {workspace_id}")
@@ -698,6 +955,15 @@ def main():
 
     if sending and not bot_token:
         print("Missing environment variable: SOFIA_TELEGRAM_BOT_TOKEN")
+        return
+
+    if specific_opportunity_id:
+        send_specific_opportunity(
+            workspace=workspace,
+            workspace_id=workspace_id,
+            opportunity_id=specific_opportunity_id,
+            sending=sending
+        )
         return
 
     review_items = review_queue.get("review_items", [])
@@ -715,8 +981,8 @@ def main():
             print(f"Draft not found in workspace registry: {specific_draft_id}")
             return
 
-        if draft.get("validation", {}).get("status") != "passed":
-            print(f"Draft validation has not passed: {specific_draft_id}")
+        if not draft.get("html_content") and not draft.get("generated_content", {}).get("content"):
+            print(f"Draft has no generated content ready: {specific_draft_id}")
             return
 
         wp_info = get_wordpress_review_info(specific_draft_id, workspace)
@@ -805,11 +1071,11 @@ def main():
         item for item in review_items
         if item.get("status") == "pending_review"
         and item.get("telegram_notified") is not True
-        and draft_validation_passed(item.get("draft_id"), workspace)
+        and draft_can_be_sent_for_review(item.get("draft_id"), workspace)
     ]
 
     if not pending_reviews:
-        print("No pending examiner review notifications with validation status 'passed'.")
+        print("No pending examiner review notifications with generated content ready.")
         return
 
     sent_count = 0

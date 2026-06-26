@@ -125,68 +125,107 @@ def format_risk_notes(risk_notes):
 
 
 def build_message(opportunity, workspace):
-    language = workspace.get("language", "en")
-    template = get_template("opportunity_review", language)
+    language = normalize_language(workspace.get("language", "en"))
 
     opportunity_id = opportunity.get("id") or opportunity.get("opportunity_id") or "N/A"
-    topic = opportunity.get("topic", "N/A")
-    opportunity_type = opportunity.get("opportunity_type", "N/A")
-    recommended_content_type = opportunity.get("recommended_content_type", "N/A")
-    priority = opportunity.get("priority", "N/A")
-    business_reason = opportunity.get("business_reason", "")
-    risk_notes = opportunity.get("risk_notes", [])
+    topic = (
+    opportunity.get("workspace_language_topic")
+    or opportunity.get("raw_signal")
+    or opportunity.get("localized_topic")
+    or opportunity.get("seo_brief", {}).get("page_title")
+    or opportunity.get("topic")
+    or "N/A"
+    )
+    recommended_content_type = opportunity.get("recommended_content_type", "landing_page")
+    opportunity_type = opportunity.get("opportunity_type", "")
 
-    none_text = template.get("none", "None")
+    is_examiner_request = opportunity_type == "examiner_requested_topic"
 
-    if not business_reason:
-        business_reason = none_text
+    if language.startswith("pt"):
+        header = "[SOFIA – NOVA TAREFA]"
+        source = "Pedido do examinador" if is_examiner_request else "Sugestão da Sofia"
+        return f"""
+{header}
 
-    risk_notes_text = format_risk_notes(risk_notes)
-    if risk_notes_text == "None":
-        risk_notes_text = none_text
-
-    channels_text = format_enabled_channels(workspace, template)
-
-    check_items = template.get("check_items", [])
-    check_items_text = "\n".join([f"- {item}" for item in check_items])
-
-    return f"""
-{template.get("header", "[SOFIA – CONTENT OPPORTUNITY]")}
-
-{template.get("opportunity_id_label", "Opportunity ID")}: {opportunity_id}
-{template.get("workspace_label", "Workspace")}: {workspace.get("workspace_id")}
-{template.get("country_label", "Country")}: {workspace.get("country")}
-{template.get("language_label", "Language")}: {workspace.get("language")}
-
-{template.get("topic_label", "Concept / Topic")}:
+Tema:
 {topic}
 
-{template.get("opportunity_type_label", "Opportunity Type")}:
-{opportunity_type}
-
-{template.get("recommended_content_type_label", "Recommended Content Type")}:
+Tipo:
 {recommended_content_type}
 
-{template.get("priority_label", "Priority")}:
-{priority}
+Origem:
+{source}
 
-{template.get("channels_label", "Available Publishing Channels")}:
-{channels_text}
+A Sofia pode preparar este conteúdo.
 
-{template.get("business_reason_label", "Why Sofia suggests this")}:
-{business_reason}
+Se desejar alterar o objetivo, o tema ou o enfoque, clique em Modificar e envie as suas instruções.
 
-{template.get("risk_notes_label", "Risk / Local Review Notes")}:
-{risk_notes_text}
+ID: {opportunity_id}
+""".strip()
 
-{template.get("examiner_task_label", "Examiner task")}:
-{template.get("action", "Please validate the concept before Sofia creates the draft.")}
+    if language == "es":
+        header = "[SOFIA – NUEVA TAREA]"
+        source = "Solicitud del examinador" if is_examiner_request else "Sugerencia de Sofia"
+        return f"""
+{header}
 
-{template.get("check_label", "Please check:")}
-{check_items_text}
+Tema:
+{topic}
 
-{template.get("button_instruction", "Use the buttons below to approve or request changes.")}
+Tipo:
+{recommended_content_type}
 
+Origen:
+{source}
+
+Sofia puede preparar este contenido.
+
+Si desea cambiar el objetivo, el tema o el enfoque, haga clic en Modificar y envíe sus instrucciones.
+
+ID: {opportunity_id}
+""".strip()
+
+    if language == "fr":
+        header = "[SOFIA – NOUVELLE TÂCHE]"
+        source = "Demande de l’examinateur" if is_examiner_request else "Suggestion de Sofia"
+        return f"""
+{header}
+
+Sujet :
+{topic}
+
+Type :
+{recommended_content_type}
+
+Origine :
+{source}
+
+Sofia peut préparer ce contenu.
+
+Si vous souhaitez modifier l’objectif, le sujet ou l’angle, cliquez sur Modifier et envoyez vos instructions.
+
+ID : {opportunity_id}
+""".strip()
+
+    header = "[SOFIA – NEW TASK]"
+    source = "Examiner request" if is_examiner_request else "Sofia suggestion"
+    return f"""
+{header}
+
+Topic:
+{topic}
+
+Type:
+{recommended_content_type}
+
+Source:
+{source}
+
+Sofia can prepare this content.
+
+To change the goal, topic, or angle, click Modify and send your instructions.
+
+ID: {opportunity_id}
 """.strip()
 
 

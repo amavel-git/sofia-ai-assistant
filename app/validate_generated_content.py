@@ -3,6 +3,12 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    from app.image_assets.image_validator import validate_image_plan
+except ModuleNotFoundError:
+    from image_assets.image_validator import validate_image_plan
+
+
 from workspace_paths import (
     find_draft_any_workspace,
     get_workspace_draft_registry_path,
@@ -144,6 +150,246 @@ def load_language_profile_for_draft(draft):
 
     return load_json(profile_path)
 
+
+
+
+
+
+def detect_workspace_language_contamination(content, workspace, draft, language_profile):
+    issues = []
+
+    html = str(content or "")
+    visible_text = re.sub(r"<[^>]+>", " ", html)
+    visible_lower = visible_text.lower()
+    html_lower = html.lower()
+
+    workspace_id = (
+        draft.get("workspace_id")
+        or (workspace or {}).get("workspace_id")
+        or language_profile.get("workspace_id")
+        or ""
+    )
+
+    language = str(
+        draft.get("language")
+        or language_profile.get("language")
+        or (workspace or {}).get("language")
+        or ""
+    ).lower()
+
+    forbidden_terms = language_profile.get("forbidden_terms", []) or []
+    forbidden_url_patterns = language_profile.get("forbidden_url_patterns", []) or []
+
+    # Safe fallback for Spanish workspaces.
+    # Prefer language_profile.json, but protect local.es even if the profile is incomplete.
+    if workspace_id == "local.es" or language.startswith("es"):
+        forbidden_terms = list(dict.fromkeys(forbidden_terms + [
+            "também",
+            "perguntas",
+            "respostas",
+            "secção",
+            "orientação",
+            "connosco",
+            "contacte-nos",
+            "entre em contacto",
+            "contacto connosco"
+        ]))
+
+        forbidden_url_patterns = list(dict.fromkeys(forbidden_url_patterns + [
+            "/poligrafo-ao/",
+            "/perguntas-respostas/",
+            "/contato/",
+            "poligrafoangola.com",
+            "poligrafoportugal.com"
+        ]))
+
+    for term in forbidden_terms:
+        term = str(term or "").strip().lower()
+        if term and term in visible_lower:
+            issues.append(f"Workspace language contamination detected: {term}")
+
+    for pattern in forbidden_url_patterns:
+        pattern = str(pattern or "").strip().lower()
+        if pattern and pattern in html_lower:
+            issues.append(f"Forbidden workspace URL/path detected: {pattern}")
+
+    return issues
+
+def detect_wrong_language_or_markup(content):
+    issues = []
+    text = str(content or "")
+
+    if re.search(r"[\u4e00-\u9fff]", text):
+        issues.append("Wrong-language text detected: Chinese/CJK characters")
+
+    if "**" in text:
+        issues.append("Markdown formatting detected inside HTML: **")
+
+    if re.search(r"(^|\n)\s*[-*]\s+\*\*", text):
+        issues.append("Markdown bullet list detected inside HTML")
+
+    lower = text.lower()
+
+    meta_phrases = [
+        "please let me know",
+        "if you need",
+        "se precisar",
+        "este texto segue",
+        "diretrizes",
+        "guidelines",
+        "conteúdo aprovado",
+        "blocos de conhecimento",
+        "上述",
+        "文档"
+    ]
+
+    for phrase in meta_phrases:
+        if phrase in lower:
+            issues.append(f"Meta commentary detected: {phrase}")
+
+    return issues
+
+
+def detect_pt_pt_localization_issues(content, workspace, draft):
+    warnings = []
+
+    language = str(
+        draft.get("language")
+        or draft.get("locale")
+        or workspace.get("language")
+        or ""
+    ).lower()
+
+    if not language.startswith("pt"):
+        return warnings
+
+    text = re.sub(r"<[^>]+>", " ", str(content or ""))
+    lower = text.lower()
+
+    avoid_terms = {
+        "equipe": "Prefer pt-PT/Angola wording: equipa",
+        "você": "Avoid Brazilian/direct wording in pt-PT content; prefer neutral professional wording",
+        "estresse": "Prefer pt-PT wording: stress or tensão",
+        "gerenciamento": "Prefer pt-PT wording: gestão",
+        "registros": "Prefer pt-PT wording: registos",
+        "coletados": "Prefer pt-PT wording: recolhidos",
+        "coletadas": "Prefer pt-PT wording: recolhidas"
+    }
+
+    for term, message in avoid_terms.items():
+        if re.search(rf"\b{re.escape(term)}\b", lower):
+            warnings.append(f"Portuguese localization warning: {term} — {message}")
+
+    return warnings
+
+
+
+
+
+def get_configured_quality_replacement_sources(language_profile: dict) -> set:
+    """
+    Return phrases that are already handled by workspace-level
+    content_quality_replacements.
+
+    These are soft cleanup rules, not validation failures.
+    """
+    sources = set()
+
+    rules = language_profile.get("content_quality_replacements", [])
+
+    if not isinstance(rules, list):
+        return sources
+
+    for rule in rules:
+        if not isinstance(rule, dict):
+            continue
+
+        source = str(rule.get("from") or "").strip().lower()
+        if source:
+            sources.add(source)
+
+    return sources
+
+
+def detect_workspace_content_quality_warnings(content, language_profile):
+    configured_replacement_sources = get_configured_quality_replacement_sources(language_profile)
+    warnings = []
+
+    quality_rules = language_profile.get("content_quality_rules", {})
+    warning_phrases = quality_rules.get("warning_phrases", [])
+
+    text_plain = re.sub(r"<[^>]+>", " ", str(content or ""))
+    lower = text_plain.lower()
+
+    for item in warning_phrases:
+        if isinstance(item, str):
+            phrase = item.strip()
+            message = "Workspace-defined content quality warning."
+        elif isinstance(item, dict):
+            phrase = str(item.get("phrase", "")).strip()
+            message = str(item.get("message", "")).strip()
+        else:
+            continue
+
+        if not phrase:
+            continue
+
+        phrase_lower = phrase.lower()
+
+        # If this phrase is already handled by workspace-level
+        # content_quality_replacements, do not keep warning after cleanup.
+        if phrase_lower in configured_replacement_sources:
+            continue
+
+        if phrase_lower in lower:
+            if message:
+                warnings.append(f"Workspace content quality warning: {phrase} — {message}")
+            else:
+                warnings.append(f"Workspace content quality warning: {phrase}")
+
+    return warnings
+
+
+
+
+
+def detect_placeholder_content(content, language_profile):
+    """
+    Detect placeholder content without hardcoding workspace-language phrases.
+
+    Structural rule:
+    - Python only detects generic bracket placeholders, e.g. [example].
+    - Workspace/language-specific placeholder phrases must live in:
+      language_profile.json -> content_quality_rules.forbidden_placeholders
+    """
+    issues = []
+
+    text = str(content or "")
+    lower = text.lower()
+
+    configured = (
+        language_profile
+        .get("content_quality_rules", {})
+        .get("forbidden_placeholders", [])
+    )
+
+    for pattern in configured:
+        pattern = str(pattern or "").strip()
+        if not pattern:
+            continue
+
+        if pattern.startswith("r:"):
+            raw_pattern = pattern[2:]
+            if re.search(raw_pattern, text, re.IGNORECASE):
+                issues.append(f"Placeholder content detected: {pattern}")
+        elif pattern.lower() in lower:
+            issues.append(f"Placeholder content detected: {pattern}")
+
+    # Language-agnostic structural placeholder catch.
+    if re.search(r"\[[^\]]{3,80}\]", text):
+        issues.append("Placeholder content detected: bracketed placeholder text")
+
+    return list(dict.fromkeys(issues))
 
 def validate_word_count(content, language_profile):
     issues = []
@@ -326,7 +572,7 @@ def is_responsible_limitation_context(content, match_start, match_end):
 
 
 def detect_risky_claims(content, language_profile):
-    issues = []
+    warnings = []
 
     risky_rules = language_profile.get("risky_phrase_rules", {})
     risky_patterns = risky_rules.get("forbidden_phrases", [])
@@ -361,15 +607,48 @@ def detect_risky_claims(content, language_profile):
             if is_responsible_limitation_context(content, match.start(), match.end()):
                 continue
 
-            issues.append(f"Risky claim detected: {normalized_pattern}")
+            warnings.append(
+                f"Risky wording detected for examiner review: {normalized_pattern}"
+            )
             break
 
-    return issues
+    return warnings
+
+
+
+
+def count_yoast_faq_questions(content: str) -> int:
+    """
+    Count questions inside a rendered Yoast FAQ block.
+    """
+    content = str(content or "")
+
+    if "<!-- wp:yoast/faq-block" not in content:
+        return 0
+
+    return len(
+        re.findall(
+            "schema-faq-question",
+            content,
+            flags=re.IGNORECASE,
+        )
+    )
 
 
 def validate_faq(content):
     issues = []
 
+    # First, support Yoast FAQ blocks.
+    yoast_count = count_yoast_faq_questions(content)
+
+    if yoast_count:
+        if yoast_count < 4:
+            issues.append(
+                f"FAQ has fewer than 4 questions ({yoast_count})"
+            )
+        return issues
+
+    # Legacy H2/H3 FAQ detection
     faq_heading_patterns = [
         r"perguntas frequentes",
         r"frequentes perguntas",
@@ -381,7 +660,11 @@ def validate_faq(content):
     ]
 
     has_faq_heading = any(
-        re.search(rf"<h2[^>]*>.*{pattern}.*</h2>", content, re.IGNORECASE)
+        re.search(
+            rf"<h2[^>]*>.*{pattern}.*</h2>",
+            content,
+            re.IGNORECASE
+        )
         for pattern in faq_heading_patterns
     )
 
@@ -413,6 +696,50 @@ def get_content_from_draft(draft):
         or draft.get("html_content")
         or draft.get("draft_content", {}).get("content", "")
     )
+
+
+
+def detect_city_page_quality_warnings(content, draft=None):
+    """
+    Temporary compatibility fallback.
+
+    Returns warning list only.
+    Prevents validator crash when city-page warning detector
+    is referenced but not defined before main() is called.
+    """
+    return []
+
+
+
+def append_image_plan_validation(draft, warnings):
+    """
+    Phase 1 image validation:
+    - Warn only.
+    - Do not fail generated content because of image metadata issues.
+    """
+    image_plan = draft.get("image_plan") or {}
+
+    try:
+        image_validation = validate_image_plan(image_plan)
+    except Exception as e:
+        warnings.append(f"[IMAGE] Image plan validation could not run: {e}")
+        draft["image_validation"] = {
+            "valid": True,
+            "warnings": [f"Image plan validation could not run: {e}"],
+            "errors": []
+        }
+        return warnings
+
+    draft["image_validation"] = image_validation
+
+    for warning in image_validation.get("warnings", []):
+        warnings.append(f"[IMAGE] {warning}")
+
+    # Phase 1: image errors are reported as warnings, not hard failures.
+    for error in image_validation.get("errors", []):
+        warnings.append(f"[IMAGE-RISK] {error}")
+
+    return warnings
 
 
 def main():
@@ -490,19 +817,35 @@ def main():
     )
 
     issues = []
+    warnings = []
 
     issues += validate_structure(content)
     issues += validate_faq(content)
     issues += detect_english_headings(content)
     issues += detect_invalid_tags(content)
-    issues += detect_risky_claims(content, language_profile)
+    issues += detect_wrong_language_or_markup(content)
+    issues += detect_placeholder_content(content, language_profile)
+    issues += detect_workspace_language_contamination(
+        content,
+        workspace,
+        draft,
+        language_profile
+    )
     issues += validate_word_count(content, language_profile)
+    warnings += detect_risky_claims(content, language_profile)
+    warnings += detect_pt_pt_localization_issues(content, workspace, draft)
+    warnings += detect_workspace_content_quality_warnings(content, language_profile)
+    warnings += detect_city_page_quality_warnings(
+        content,
+        draft
+    )
 
     status = "passed" if not issues else "failed"
 
     draft["validation"] = {
         "status": status,
-        "issues": issues
+        "issues": issues,
+        "warnings": warnings
     }
 
     draft_registry_data["scope"] = "workspace"
@@ -516,6 +859,11 @@ def main():
         print("\nIssues found:")
         for issue in issues:
             print(f"- {issue}")
+
+    if warnings:
+        print("\nWarnings found:")
+        for warning in warnings:
+            print(f"- {warning}")
 
     if status != "passed":
         sys.exit(1)

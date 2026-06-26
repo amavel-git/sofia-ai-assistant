@@ -1,0 +1,42 @@
+{
+  "es": {
+    "ES": "España",
+    "FR": "Francia",
+    "PT": "Portugal",
+    "AO": "Angola",
+    "BR": "Brasil",
+    "BE": "Bélgica",
+    "TR": "Türkiye",
+    "IN": "India"
+  },
+  "fr": {
+    "ES": "Espagne",
+    "FR": "France",
+    "PT": "Portugal",
+    "AO": "Angola",
+    "BR": "Brésil",
+    "BE": "Belgique",
+    "TR": "Türkiye",
+    "IN": "Inde"
+  },
+  "pt": {
+    "ES": "Espanha",
+    "FR": "França",
+    "PT": "Portugal",
+    "AO": "Angola",
+    "BR": "Brasil",
+    "BE": "Bélgica",
+    "TR": "Türkiye",
+    "IN": "Índia"
+  },
+  "en": {
+    "ES": "Spain",
+    "FR": "France",
+    "PT": "Portugal",
+    "AO": "Angola",
+    "BR": "Brazil",
+    "BE": "Belgium",
+    "TR": "Türkiye",
+    "IN": "India"
+  }
+}

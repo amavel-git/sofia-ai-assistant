@@ -1,0 +1,579 @@
+{
+  "version": "1.0",
+  "last_updated": "",
+  "assets": [
+    {
+      "asset_id": "IMG-GLOBAL-0001",
+      "filename": "Interview.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "interview",
+      "style": "documentary",
+      "topics": [
+        "pre-test interview",
+        "consultation",
+        "communication"
+      ],
+      "suitable_for": [
+        "featured_image",
+        "service_page",
+        "process_section",
+        "before_faq"
+      ],
+      "avoid_for": [
+        "instrument_page"
+      ],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0002",
+      "filename": "Explaining_polygraph.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "consultation",
+      "style": "documentary",
+      "topics": [
+        "process explanation",
+        "consultation",
+        "education"
+      ],
+      "suitable_for": [
+        "featured_image",
+        "process_section",
+        "before_faq"
+      ],
+      "avoid_for": [],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "consultation",
+        "interview",
+        "confidential_conversation"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "landing_page",
+        "educational_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "confidential_consultation",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0003",
+      "filename": "Examinee_connected.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "interview",
+      "style": "documentary",
+      "topics": [
+        "polygraph procedure",
+        "examination process"
+      ],
+      "suitable_for": [
+        "process_section",
+        "educational_page"
+      ],
+      "avoid_for": [
+        "about_page"
+      ],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0004",
+      "filename": "Polygraph_office.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "office",
+      "style": "documentary",
+      "topics": [
+        "office",
+        "consultation"
+      ],
+      "suitable_for": [
+        "featured_image",
+        "service_page",
+        "about_page"
+      ],
+      "avoid_for": [],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "office",
+        "professional_environment",
+        "trust"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "city_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "professional_office",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0005",
+      "filename": "Polygraph_expert.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "training",
+      "style": "documentary",
+      "topics": [
+        "professional examiner",
+        "training"
+      ],
+      "suitable_for": [
+        "about_page",
+        "training_page"
+      ],
+      "avoid_for": [],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "training",
+        "authority",
+        "professional_expert"
+      ],
+      "best_for_page_types": [
+        "authority_page",
+        "educational_page",
+        "pillar_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "professional_expert",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0006",
+      "filename": "Polygraph_charts.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "charts",
+      "style": "educational",
+      "topics": [
+        "chart analysis",
+        "polygraph charts"
+      ],
+      "suitable_for": [
+        "educational_page",
+        "methodology_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "charts",
+        "methodology",
+        "chart_analysis"
+      ],
+      "best_for_page_types": [
+        "educational_page",
+        "authority_page",
+        "pillar_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "chart_analysis",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0007",
+      "filename": "Charts_exam.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "charts",
+      "style": "educational",
+      "topics": [
+        "chart analysis"
+      ],
+      "suitable_for": [
+        "methodology_page",
+        "training_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "charts",
+        "methodology",
+        "chart_analysis"
+      ],
+      "best_for_page_types": [
+        "educational_page",
+        "authority_page",
+        "pillar_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "chart_analysis",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0008",
+      "filename": "Charts_lie_detector.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "charts",
+      "style": "educational",
+      "topics": [
+        "polygraph records"
+      ],
+      "suitable_for": [
+        "educational_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "charts",
+        "methodology",
+        "chart_analysis"
+      ],
+      "best_for_page_types": [
+        "educational_page",
+        "authority_page",
+        "pillar_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "chart_analysis",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0009",
+      "filename": "Polar_chart.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "charts",
+      "style": "educational",
+      "topics": [
+        "P.O.L.A.R. chart"
+      ],
+      "suitable_for": [
+        "training_page",
+        "instrument_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "charts",
+        "methodology",
+        "chart_analysis"
+      ],
+      "best_for_page_types": [
+        "educational_page",
+        "authority_page",
+        "pillar_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "chart_analysis",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0010",
+      "filename": "Polygraph_charts_pointing.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "methodology",
+      "style": "educational",
+      "topics": [
+        "chart interpretation"
+      ],
+      "suitable_for": [
+        "methodology_page",
+        "training_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "methodology",
+        "documents",
+        "question_review"
+      ],
+      "best_for_page_types": [
+        "educational_page",
+        "pillar_page",
+        "authority_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "question_review",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0011",
+      "filename": "Chart_polygraph.png",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "charts",
+      "style": "educational",
+      "topics": [
+        "polygraph chart"
+      ],
+      "suitable_for": [
+        "methodology_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "charts",
+        "methodology",
+        "chart_analysis"
+      ],
+      "best_for_page_types": [
+        "educational_page",
+        "authority_page",
+        "pillar_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "chart_analysis",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0012",
+      "filename": "History_polygraph_test.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "history",
+      "style": "educational",
+      "topics": [
+        "history of polygraph"
+      ],
+      "suitable_for": [
+        "history_page"
+      ],
+      "avoid_for": [],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "educational_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0013",
+      "filename": "analog_polygraph.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "instrumentation",
+      "style": "technical",
+      "topics": [
+        "analog polygraph"
+      ],
+      "suitable_for": [
+        "history_page",
+        "instrument_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "educational_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0014",
+      "filename": "Data_acquisition_system.png",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "instrumentation",
+      "style": "technical",
+      "topics": [
+        "data acquisition system"
+      ],
+      "suitable_for": [
+        "instrument_page",
+        "training_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": false,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "educational_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0015",
+      "filename": "Polar_polygraph_kit.png",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "instrumentation",
+      "style": "technical",
+      "topics": [
+        "P.O.L.A.R. polygraph"
+      ],
+      "suitable_for": [
+        "instrument_page"
+      ],
+      "avoid_for": [
+        "service_page"
+      ],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "educational_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0016",
+      "filename": "Juge.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "legal",
+      "style": "documentary",
+      "topics": [
+        "legal context",
+        "expert witness"
+      ],
+      "suitable_for": [
+        "legal_page"
+      ],
+      "avoid_for": [
+        "infidelity_page"
+      ],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "educational_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    },
+    {
+      "asset_id": "IMG-GLOBAL-0017",
+      "filename": "Polygraph_treatment.jpg",
+      "scope": "global",
+      "source_type": "existing_asset",
+      "category": "treatment",
+      "style": "documentary",
+      "topics": [
+        "therapeutic polygraph"
+      ],
+      "suitable_for": [
+        "treatment_page"
+      ],
+      "avoid_for": [],
+      "social_reuse": true,
+      "requires_localization": false,
+      "status": "approved",
+      "categories": [
+        "interview",
+        "consultation",
+        "pre_test"
+      ],
+      "best_for_page_types": [
+        "service_page",
+        "educational_page",
+        "landing_page"
+      ],
+      "avoid_for_page_types": [],
+      "visual_context": "pre_test_interview",
+      "reuse_allowed": true
+    }
+  ]
+}

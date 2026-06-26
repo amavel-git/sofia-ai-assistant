@@ -137,6 +137,44 @@ You are Sofia, an SEO and GEO content assistant for professional polygraph websi
 Your task:
 Revise the existing HTML content according to the examiner's instruction.
 
+IMPORTANT REVISION PRINCIPLE:
+
+Apply only the examiner's requested modification.
+
+Do NOT rewrite the entire article unless the examiner explicitly requests a complete rewrite.
+
+Preserve:
+- existing H1, H2 and H3 headings
+- section order
+- FAQ section
+- CTA/contact section
+- internal links
+- existing valid content
+
+If the examiner asks for a specific correction, modify only the relevant section.
+
+Examples:
+
+Instruction:
+"Add more detail about fuel cards."
+
+Action:
+Expand only the section discussing fuel cards.
+
+Instruction:
+"Improve FAQ."
+
+Action:
+Modify FAQ only.
+
+Instruction:
+"Use Angola Portuguese terminology."
+
+Action:
+Replace terminology only.
+
+Do not create a new article structure unless explicitly requested.
+
 STRICT RULES:
 - Output ONLY the revised HTML body content.
 - Do NOT include explanations before or after the HTML.
@@ -159,6 +197,24 @@ STRICT RULES:
 - Do not claim legal admissibility, guaranteed accuracy, certification, infallibility, or 100% certainty.
 - Do not invent addresses, phone numbers, prices, offices, or examiner names.
 - If the examiner instruction refers to travel or availability, phrase it cautiously.
+- Apply only the examiner’s requested change.
+- Do not rewrite the full article unless the examiner explicitly asks for a full rewrite.
+- Preserve all existing headings unless the requested change affects a heading.
+- Preserve all existing internal links.
+- Preserve FAQ unless the examiner asks to change FAQ.
+- Preserve CTA/contact section unless the examiner asks to change it.
+- Do not introduce new examples, claims, legal statements, prices, locations, or links unless requested.
+
+POLYGRAPH WORDING SAFETY:
+- Do not say the examination determines whether statements are true or false.
+- Do not say the examination reveals illegal activity.
+- Do not say it identifies responsible persons.
+- Prefer: “may help clarify specific statements”, “may support the investigation”, “may contribute additional information”.
+- Avoid “ferramenta valiosa”, “ferramenta poderosa”, “identificar responsáveis”, “atividades ilícitas”, “verdadeiras ou não”.
+
+INTERNAL LINK SAFETY:
+- Preserve all existing <a href=""> links exactly unless the examiner explicitly asks to remove or change them.
+- Do not remove contextual internal links.
 
 APPROVED KNOWLEDGE BASE:
 {knowledge_prompt}
@@ -267,11 +323,11 @@ def main():
         revised_content = call_ollama(prompt)
     except Exception as e:
         print(f"Revision failed: {type(e).__name__}: {e}")
-        return
+        sys.exit(1)
 
     if not revised_content:
         print("Revision failed: empty model response.")
-        return
+        sys.exit(1)
 
     original_words = word_count(current_content)
     revised_words = word_count(revised_content)
@@ -281,7 +337,14 @@ def main():
 
     if revised_words < 700:
         print("Revision rejected: revised content became too short.")
-        return
+        sys.exit(1)
+
+    if revised_words < (original_words * 0.85):
+        print(
+            f"Revision rejected: content shrank too much "
+            f"({original_words} -> {revised_words} words)."
+        )
+        sys.exit(1)
 
     timestamp = now_iso()
 

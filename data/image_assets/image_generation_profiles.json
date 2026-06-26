@@ -1,0 +1,17 @@
+{
+  "default": {
+    "preferred_style": "documentary",
+    "preferred_topics": [
+      "consultation",
+      "pre-test interview",
+      "document review",
+      "corporate meeting"
+    ],
+    "avoid": [
+      "police interrogation",
+      "handcuffs",
+      "courtroom drama",
+      "aggressive interrogation"
+    ]
+  }
+}

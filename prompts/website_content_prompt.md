@@ -60,15 +60,13 @@ The content must include:
 - short paragraphs (2–4 lines)
 - bullet points and lists where useful
 
-Structure example:
+Structure priority:
 
-- Introduction
-- What it is / explanation
-- How it works
-- When it is used
-- Benefits / considerations
-- FAQs (for blog or informational pages)
-- Call to action (CTA)
+- Start with the client problem or search intent.
+- Explain the practical situation before explaining the polygraph.
+- Use topic-specific examples and realistic scenarios.
+- Keep general polygraph explanations secondary.
+- Include process, limitations, FAQ, and contact invitation after the problem has been established.
 
 ---
 
@@ -181,61 +179,6 @@ Ensure content:
 - is structured for easy extraction by AI systems
 
 ---
-
-## Output Format (STRICT)
-
-Return the content in this exact structure:
-
-### Title:
-
-### Meta Title:
-
-### Meta Description:
-
-### Slug:
-
-### Focus Keyphrase:
-
-### H1:
-
-### Body Content (HTML format):
-
-Use:
-
-- <h2>, <h3>
-- <p>
-- <ul>, <li>
-
-### Image Suggestions
-
-### Internal Link Suggestions
-
-### External Link Suggestions
-
-### Yoast SEO Fields (MANDATORY)
-
-Provide the following fields clearly:
-
-- Focus Keyphrase:
-  (maximum 4 words, must be concise, must match the core search intent, and be very close to the target keyword)
-  Important:
-  - The focus keyphrase MUST NOT exceed 4 words.
-  - Avoid unnecessary filler words.
-  - Keep it clean, direct, and search-focused.
-
-- SEO Title:
-  (maximum ~60 characters, include main keyword naturally)
-
-- Slug:
-  (maximum 4 words, short, clean, keyword-based, lowercase, use hyphens, no accents)
-
-- Meta Description:
-  (maximum 156 characters, clear and compelling, include keyword naturally)
-
-- Image Suggestions:
-  Provide at least 2 images with:
-  - file name (SEO-friendly, lowercase, hyphen-separated)
-  - ALT text (descriptive, includes keyword naturally)
 
 Example format:
 

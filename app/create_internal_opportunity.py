@@ -6,6 +6,22 @@ from datetime import datetime, timezone
 
 from cannibalization_checker import check_workspace_cannibalization
 
+try:
+    from app.parse_examiner_request import parse_examiner_request
+except Exception:
+    from parse_examiner_request import parse_examiner_request
+
+try:
+    from app.examiner_intelligence import (
+        build_examiner_intent_model,
+        load_json as load_examiner_profile,
+    )
+except Exception:
+    from examiner_intelligence import (
+        build_examiner_intent_model,
+        load_json as load_examiner_profile,
+    )
+
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
 WORKSPACES_PATH = SOFIA_ROOT / "data" / "workspaces.json"
@@ -340,6 +356,152 @@ def build_strategy_brief(topic, content_type):
     }
 
 
+
+
+def build_opportunity_validation_report(
+    *,
+    parsed_request,
+    examiner_intent_model,
+    blueprint_decision,
+    sensitivity,
+    cannibalization,
+):
+    """
+    Validate the internally created opportunity before it enters examiner review.
+
+    This is advisory metadata only.
+    It does not block opportunity creation.
+    """
+
+    warnings = []
+    checks = {}
+
+    checks["examiner_intent_confidence"] = examiner_intent_model.get("confidence", "")
+    checks["needs_clarification"] = bool(examiner_intent_model.get("needs_clarification", False))
+    checks["page_type"] = blueprint_decision.get("page_type", "")
+    checks["blueprint_id"] = blueprint_decision.get("blueprint_id", "")
+    checks["intent_type"] = blueprint_decision.get("intent_type", "")
+    checks["blueprint_decision_source"] = blueprint_decision.get("decision_source", "")
+    checks["cannibalization_status"] = cannibalization.get("status", "")
+    checks["sensitivity"] = sensitivity
+
+    if examiner_intent_model.get("needs_clarification"):
+        warnings.append("examiner_intent_needs_clarification")
+
+    if examiner_intent_model.get("confidence") == "low":
+        warnings.append("low_examiner_intent_confidence")
+
+    if not blueprint_decision.get("page_type"):
+        warnings.append("missing_page_type")
+
+    if not blueprint_decision.get("blueprint_id"):
+        warnings.append("missing_blueprint_id")
+
+    if cannibalization.get("status") in ("strong_overlap", "possible_conflict"):
+        warnings.append("possible_cannibalization_issue")
+
+    if sensitivity in ("high", "manual_review"):
+        warnings.append("sensitive_topic_requires_manual_review")
+
+    parser_type = parsed_request.get("page_type") or parsed_request.get("recommended_content_type") or ""
+    intent_type = examiner_intent_model.get("recommended_page_type") or ""
+
+    if parser_type and intent_type and parser_type != intent_type:
+        warnings.append("parser_and_examiner_intent_page_type_differ")
+
+    passed_basic_checks = not any(
+        warning in warnings
+        for warning in [
+            "low_examiner_intent_confidence",
+            "missing_page_type",
+            "missing_blueprint_id",
+        ]
+    )
+
+    return {
+        "version": "1.0",
+        "source": "internal_opportunity_validation_v1",
+        "passed_basic_checks": passed_basic_checks,
+        "warnings": warnings,
+        "checks": checks,
+    }
+
+
+
+def build_blueprint_decision(parsed_request, examiner_intent_model, raw_request):
+    """
+    Decide page_type and blueprint_id from examiner intent, with parser values
+    used only when they are explicit and useful.
+
+    This keeps the examiner intent model as the main strategic source.
+    """
+
+    parser_content_type = parsed_request.get("recommended_content_type") or ""
+    parser_page_type = parsed_request.get("page_type") or ""
+    parser_blueprint_id = parsed_request.get("blueprint_id") or ""
+
+    intent_page_type = examiner_intent_model.get("recommended_page_type") or ""
+    intent_blueprint = examiner_intent_model.get("recommended_blueprint") or ""
+    intent_seo = examiner_intent_model.get("seo_intent") or ""
+
+    fallback_type = infer_content_type(raw_request)
+
+    # If examiner intent recommends a non-default authority/FAQ/etc. page,
+    # prefer that over generic parser landing_page defaults.
+    if intent_page_type and intent_page_type != "landing_page":
+        content_type = intent_page_type
+        page_type = intent_page_type
+        blueprint_id = intent_blueprint or intent_page_type
+        source = "examiner_intent_non_default"
+    else:
+        content_type = (
+            parser_content_type
+            or parser_page_type
+            or intent_page_type
+            or fallback_type
+        )
+        page_type = (
+            parser_page_type
+            or intent_page_type
+            or content_type
+        )
+        blueprint_id = (
+            parser_blueprint_id
+            or intent_blueprint
+            or page_type
+        )
+        source = "parser_with_examiner_intent_fallback"
+
+    parser_intent_type = parsed_request.get("intent_type")
+
+    if parser_intent_type in ("", None, "informational") and intent_seo:
+        intent_type = intent_seo
+        intent_source = "examiner_intent"
+    else:
+        intent_type = (
+            parser_intent_type
+            or intent_seo
+            or ("transactional" if content_type in ["landing_page", "service_page"] else "informational")
+        )
+        intent_source = "parser_or_fallback"
+
+    return {
+        "content_type": content_type,
+        "page_type": page_type,
+        "blueprint_id": blueprint_id,
+        "intent_type": intent_type,
+        "decision_source": source,
+        "intent_source": intent_source,
+        "parser_content_type": parser_content_type,
+        "parser_page_type": parser_page_type,
+        "parser_blueprint_id": parser_blueprint_id,
+        "intent_page_type": intent_page_type,
+        "intent_blueprint": intent_blueprint,
+        "intent_seo": intent_seo,
+    }
+
+
+
 def create_internal_opportunity(workspace_id, raw_request, requested_by=None, telegram_chat_id=None, telegram_message_id=None):
     workspace = find_workspace(workspace_id)
 
@@ -371,14 +533,120 @@ def create_internal_opportunity(workspace_id, raw_request, requested_by=None, te
 
     opportunities = data["opportunities"]
 
-    topic = clean_topic(raw_request)
-    content_type = infer_content_type(raw_request)
+    parsed_request = parse_examiner_request(
+        workspace_id=workspace_id,
+        raw_text=raw_request,
+        use_ai=True
+    )
+
+    if not parsed_request.get("requires_opportunity", True):
+        command_type = parsed_request.get("command_type", "unknown")
+        routing_target = parsed_request.get("routing_target", "unknown")
+        raise RuntimeError(
+            "Parsed examiner request is not a content opportunity. "
+            f"command_type={command_type}, routing_target={routing_target}. "
+            "Route this request through the Sofia coordinator instead."
+        )
+
+    topic = (
+        parsed_request.get("human_title")
+        or parsed_request.get("title")
+        or parsed_request.get("clean_request")
+        or clean_topic(raw_request)
+    ).strip()
+
+    target_keyword = (
+        parsed_request.get("short_target_keyword")
+        or parsed_request.get("target_keyword")
+        or topic
+    ).strip()
+
+    language = normalize_language(workspace.get("language", "en"))
+
+    examiner_profile_path = (
+        SOFIA_ROOT
+        / folder_path
+        / "examiner_intelligence_profile.json"
+    )
+
+    examiner_profile = load_examiner_profile(
+        examiner_profile_path
+    )
+
+    examiner_intent_model = build_examiner_intent_model(
+        raw_request,
+        profile=examiner_profile,
+        workspace_context={
+            "workspace_id": workspace_id,
+            "language": language,
+            "country": workspace.get("country"),
+        },
+    )
+
+    blueprint_decision = build_blueprint_decision(
+        parsed_request,
+        examiner_intent_model,
+        raw_request,
+    )
+
+    content_type = blueprint_decision.get("content_type")
+    page_type = blueprint_decision.get("page_type")
+    blueprint_id = blueprint_decision.get("blueprint_id")
+    intent_type = blueprint_decision.get("intent_type")
+
+    sensitivity = parsed_request.get("sensitivity", "normal")
+    requires_manual_review = bool(parsed_request.get("requires_manual_review", sensitivity != "normal"))
+
     opportunity_id = next_opportunity_id(opportunities, workspace)
     language = normalize_language(workspace.get("language", "en"))
+
     country = workspace.get("market_code") or workspace.get("country") or ""
-    cannibalization = simple_cannibalization_check(topic, workspace)
-    seo_brief = build_seo_brief(topic, workspace, content_type)
+    cannibalization = simple_cannibalization_check(target_keyword, workspace)
+    opportunity_validation = build_opportunity_validation_report(
+        parsed_request=parsed_request,
+        examiner_intent_model=examiner_intent_model,
+        blueprint_decision=blueprint_decision,
+        sensitivity=sensitivity,
+        cannibalization=cannibalization,
+    )
+
+    seo_brief = build_seo_brief(target_keyword, workspace, content_type)
+
+    # Override deterministic SEO fields with parser-clean fields.
+    clean_slug = (
+        parsed_request.get("short_slug")
+        or parsed_request.get("suggested_slug")
+        or slugify(target_keyword)
+    )
+    seo_brief["focus_keyphrase"] = target_keyword
+    seo_brief["page_title"] = parsed_request.get("human_title") or topic
+    seo_title_source = parsed_request.get("seo_title") or parsed_request.get("human_title") or topic
+    seo_brief["seo_title"] = (
+        f"{seo_title_source} | Polígrafo España" if language == "es" else seo_title_source
+    )[:70].rstrip(" -|,.;:")
+    seo_brief["slug"] = clean_slug
+    seo_brief["meta_description"] = (
+        f"{target_keyword}. Información profesional sobre el uso responsable, "
+        f"límites y contexto de la evaluación poligráfica en España."
+        if language == "es"
+        else seo_brief.get("meta_description", "")
+    )[:155]
+    seo_brief.setdefault("suggested_headings", {})
+    seo_brief["suggested_headings"]["h1"] = parsed_request.get("human_title") or topic
+    seo_brief["image_alt_text"] = parsed_request.get("image_topic") or topic
+    seo_brief["image_filename"] = f"{clean_slug}.jpg"
+
     strategy_brief = build_strategy_brief(topic, content_type)
+
+    if sensitivity in ["high", "manual_review"]:
+        strategy_brief.setdefault("warnings", [])
+        strategy_brief["warnings"].extend([
+            "Sensitive topic: avoid predicting future behaviour, dangerousness, recidivism, or rehabilitation success.",
+            "Frame the polygraph only as a complementary tool for specific, reviewable questions.",
+            "Emphasize consent, professional limits, confidentiality, and examiner review."
+        ])
+        strategy_brief["sensitivity"] = sensitivity
+        strategy_brief["requires_manual_review"] = True
 
     opportunity = {
         "id": opportunity_id,
@@ -396,17 +664,37 @@ def create_internal_opportunity(workspace_id, raw_request, requested_by=None, te
         "telegram_message_id": str(telegram_message_id or ""),
         "opportunity_type": "examiner_requested_topic",
         "recommended_content_type": content_type,
-        "intent_type": "transactional" if content_type in ["landing_page", "service_page"] else "informational",
+        "page_type": page_type,
+        "blueprint_id": blueprint_id,
+        "intent_type": intent_type,
+        "target_keyword": target_keyword,
+        "suggested_slug": seo_brief.get("slug", ""),
+        "sensitivity": sensitivity,
+        "requires_manual_review": requires_manual_review,
+        "parsed_request": parsed_request,
+        "examiner_intent_model": examiner_intent_model,
+        "blueprint_decision": blueprint_decision,
+        "opportunity_validation": opportunity_validation,
         "priority": "high",
         "confidence": 0.95,
         "status": "validated",
-        "related_keywords": [
+        "related_keywords": list(dict.fromkeys([
+            target_keyword,
             topic
-        ],
-        "detected_concepts": [
-            "examiner_originated_content_request"
-        ],
-        "business_reason": "Created from an examiner-originated Telegram request inside the workspace group.",
+        ])),
+        "detected_concepts": list(dict.fromkeys([
+            "examiner_originated_content_request",
+            examiner_intent_model.get("business_domain", ""),
+            examiner_intent_model.get("intent_id", ""),
+            examiner_intent_model.get("issue_id", ""),
+            examiner_intent_model.get("investigation_type", ""),
+            examiner_intent_model.get("visitor_profile", ""),
+        ])),
+        "business_reason": (
+            "Created from an examiner-originated Telegram request inside the workspace group. "
+            f"Examiner intent: {examiner_intent_model.get('client_problem', '')}. "
+            f"Visitor profile: {examiner_intent_model.get('visitor_profile', '')}."
+        ),
         "risk_notes": [
             "Manual examiner review required before draft generation.",
             "Confirm local legal and ethical considerations before publication."
@@ -417,7 +705,11 @@ def create_internal_opportunity(workspace_id, raw_request, requested_by=None, te
         "review_status": "pending_examiner",
         "cannibalization_notes": cannibalization["notes"],
         "cannibalization_details": cannibalization.get("details", {}),
-        "local_topic_notes": "Internal examiner request. No local restriction detected by the basic trigger parser.",
+        "local_topic_notes": (
+            "Internal examiner request parsed by Sofia examiner request parser. "
+            f"Sensitivity: {sensitivity}. "
+            f"Examiner intent confidence: {examiner_intent_model.get('confidence', '')}."
+        ),
         "language_mismatch": False,
         "language_notes": "Language taken from workspace configuration.",
         "geo_relevance": "workspace_specific",
@@ -430,6 +722,8 @@ def create_internal_opportunity(workspace_id, raw_request, requested_by=None, te
             "created_from": "telegram_group_message",
             "workspace_id": workspace_id,
             "raw_request": raw_request,
+            "parsed_request": parsed_request,
+            "examiner_intent_model": examiner_intent_model,
             "requested_by": requested_by or "",
             "telegram_chat_id": str(telegram_chat_id or ""),
             "telegram_message_id": str(telegram_message_id or ""),

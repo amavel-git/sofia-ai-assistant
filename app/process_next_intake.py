@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import datetime
 
 from cannibalization_checker import check_workspace_cannibalization
+from draft_page_plan import attach_page_plan_to_draft_record
 from workspace_paths import (
     get_workspace_draft_registry_path,
     empty_draft_registry,
@@ -270,95 +271,45 @@ def main():
         extra_terms=[idea_title]
     )
 
-    existing_cannibalization = intake_item.get("cannibalization_check", {})
-    examiner_override = existing_cannibalization.get("examiner_override") is True
-
-    raw_overlap_found = cannibalization.get("result") in [
+    raw_cannibalization_result = cannibalization.get("result", "clear")
+    cannibalization_warning = raw_cannibalization_result in [
         "strong_overlap",
         "possible_overlap"
     ]
-    overlap_found = is_blocking_cannibalization(cannibalization)
-    advisory_only = raw_overlap_found and not overlap_found
 
-    if advisory_only:
-        intake_item["status"] = "checked"
-        intake_item["cannibalization_check"] = {
-            "checked": True,
-            "result": "advisory_overlap",
-            "notes": cannibalization.get("notes", ""),
-            "risk_score": cannibalization.get("risk_score", 0),
-            "matches": cannibalization.get("matches", []),
-            "checked_sources": cannibalization.get("checked_sources", {}),
-            "advisory_only": True
-        }
+    intake_item["status"] = "checked"
+    intake_item["cannibalization_check"] = {
+        "checked": True,
+        "result": (
+            "advisory_overlap"
+            if cannibalization_warning
+            else cannibalization.get("result", "clear")
+        ),
+        "original_result": raw_cannibalization_result,
+        "notes": cannibalization.get("notes", ""),
+        "risk_score": cannibalization.get("risk_score", 0),
+        "matches": cannibalization.get("matches", []),
+        "checked_sources": cannibalization.get("checked_sources", {}),
+        "advisory_only": cannibalization_warning,
+        "examiner_warning_required": cannibalization_warning,
+        "recommended_examiner_options": [
+            "continue_as_planned",
+            "revise_angle",
+            "merge_with_existing_page",
+            "cancel_opportunity"
+        ] if cannibalization_warning else []
+    }
 
-        print("Cannibalization Check Result:")
-        print(f"  Result: {cannibalization.get('result', 'possible_overlap')}")
+    print("Cannibalization Check Result:")
+    print(f"  Result: {raw_cannibalization_result}")
+    print(f"  Risk score: {cannibalization.get('risk_score', 0)}")
+    print(f"  Notes: {cannibalization.get('notes', '')}")
+
+    if cannibalization_warning:
         print("  Advisory only: true")
-        print(f"  Notes: {cannibalization.get('notes', '')}")
-        print("\nContinuing draft creation because no real blocking page/draft was found.\n")
-
-    elif overlap_found and not examiner_override:
-        intake_item["status"] = "checked"
-        intake_item["cannibalization_check"] = {
-            "checked": True,
-            "result": cannibalization.get("result", "possible_overlap"),
-            "notes": cannibalization.get("notes", ""),
-            "risk_score": cannibalization.get("risk_score", 0),
-            "matches": cannibalization.get("matches", []),
-            "checked_sources": cannibalization.get("checked_sources", {})
-        }
-
-        try:
-            save_json(INTAKE_FILE, intake_data)
-        except Exception as e:
-            print(f"ERROR: Could not update content_intake.json: {e}")
-            return
-
-        print("Cannibalization Check Result:")
-        print(f"  Result: {cannibalization.get('result', 'possible_overlap')}")
-        print(f"  Notes: {cannibalization.get('notes', '')}")
-        print("\nDraft creation stopped.")
-        return
-
-    if overlap_found and examiner_override:
-        override_reason = existing_cannibalization.get(
-            "override_reason",
-            "Examiner approved continuing despite possible overlap."
-        )
-
-        intake_item["status"] = "checked"
-        intake_item["cannibalization_check"] = {
-            "checked": True,
-            "result": "approved_override",
-            "notes": existing_cannibalization.get(
-                "notes",
-                "Examiner approved continuing despite possible overlap."
-            ),
-            "examiner_override": True,
-            "override_reason": override_reason,
-            "original_result": cannibalization.get("result", "possible_overlap"),
-            "risk_score": cannibalization.get("risk_score", 0),
-            "matches": cannibalization.get("matches", []),
-            "checked_sources": cannibalization.get("checked_sources", {})
-        }
-
-        print("Cannibalization Check Result:")
-        print(f"  Result: {cannibalization.get('result', 'possible_overlap')}")
-        print("  Examiner override: true")
-        print(f"  Override reason: {override_reason}")
-        print("\nContinuing draft creation due to examiner override.\n")
-
+        print("  Draft creation will continue. Examiner warning will be attached for review.\n")
     else:
-        intake_item["status"] = "checked"
-        intake_item["cannibalization_check"] = {
-            "checked": True,
-            "result": cannibalization.get("result", "clear"),
-            "notes": cannibalization.get("notes", ""),
-            "risk_score": cannibalization.get("risk_score", 0),
-            "matches": cannibalization.get("matches", []),
-            "checked_sources": cannibalization.get("checked_sources", {})
-        }
+        print("  Advisory only: false\n")
 
     duplicate_draft = duplicate_draft_exists(drafts, workspace_id, target_keyword)
 
@@ -400,13 +351,47 @@ def main():
         "language": intake_item.get("language", ""),
         "site_target": intake_item.get("site_target", ""),
         "content_type": intake_item.get("content_type", ""),
-        "working_title": idea_title,
+
+        "page_type": intake_item.get("page_type", ""),
+        "blueprint_id": intake_item.get("blueprint_id", ""),
+        "intent_type": intake_item.get("intent_type", ""),
+        "page_type_classification": intake_item.get(
+            "page_type_classification",
+            {}
+        ),
+
+        "working_title": (
+            intake_item.get("page_h1")
+            or intake_item.get("idea_title")
+            or idea_title
+        ),
+        "title": (
+            intake_item.get("page_h1")
+            or intake_item.get("idea_title")
+            or idea_title
+        ),
         "target_keyword": target_keyword,
+        "focus_keyphrase": target_keyword,
         "secondary_keywords": intake_item.get("secondary_keywords", []),
         "search_intent": intake_item.get("search_intent", ""),
         "suggested_slug": intake_item.get("suggested_slug", ""),
-        "cannibalization_result": "clear",
-        "cannibalization_notes": "No matching keyword found in workspace memory.",
+        "slug": intake_item.get("suggested_slug", ""),
+
+        "normalized_title": intake_item.get("normalized_title", ""),
+        "page_h1": intake_item.get("page_h1", ""),
+        "issue": intake_item.get("issue", ""),
+        "sector": intake_item.get("sector", ""),
+        "sector_id": intake_item.get("sector_id", ""),
+        "service_angle": intake_item.get("service_angle", ""),
+        "topic_family": intake_item.get("topic_family", ""),
+        "visual_topic_family": intake_item.get("visual_topic_family", ""),
+        "recommended_seo_title": intake_item.get("recommended_seo_title", ""),
+        "recommended_meta_description": intake_item.get("recommended_meta_description", ""),
+        "intake_intelligence": intake_item.get("intake_intelligence", {}) or {},
+        "opportunity_intelligence": intake_item.get("opportunity_intelligence", {}) or {},
+        "cannibalization_result": intake_item.get("cannibalization_check", {}).get("result", "clear"),
+        "cannibalization_notes": intake_item.get("cannibalization_check", {}).get("notes", ""),
+        "cannibalization_advisory": intake_item.get("cannibalization_check", {}),
         "review_target": {
             "queue_level": queue_level,
             "queue_id": target_queue
@@ -416,6 +401,43 @@ def main():
         "assigned_reviewer": "",
         "notes": ""
     }
+
+    new_draft["seo_brief"] = intake_item.get("seo_brief", {}) or {}
+    new_draft["draft_input"] = intake_item.get("draft_input", {}) or {}
+    new_draft["content_strategy_brief"] = (
+        intake_item.get("content_strategy_brief", {})
+        or intake_item.get("strategy_brief", {})
+        or {}
+    )
+
+    seo_brief = new_draft.get("seo_brief", {}) or {}
+    draft_input = new_draft.get("draft_input", {}) or {}
+
+    if seo_brief:
+        new_draft["working_title"] = seo_brief.get("page_title") or new_draft.get("working_title", "")
+        new_draft["title"] = seo_brief.get("page_title") or new_draft.get("title", "")
+        new_draft["target_keyword"] = seo_brief.get("focus_keyphrase") or new_draft.get("target_keyword", "")
+        new_draft["focus_keyphrase"] = seo_brief.get("focus_keyphrase") or new_draft.get("focus_keyphrase", "")
+        new_draft["slug"] = seo_brief.get("slug") or new_draft.get("slug", "")
+        new_draft["seo_title"] = seo_brief.get("seo_title") or new_draft.get("seo_title", "")
+        new_draft["meta_description"] = seo_brief.get("meta_description") or new_draft.get("meta_description", "")
+
+    if draft_input:
+        new_draft["draft_input"] = draft_input
+
+    try:
+        new_draft = attach_page_plan_to_draft_record(
+            draft=new_draft,
+            workspace_id=workspace_id,
+            overwrite=False,
+        )
+        print("Page plan attached:")
+        print(f"  Blueprint ID: {new_draft.get('page_plan', {}).get('blueprint_id', '')}")
+        print(f"  Page type: {new_draft.get('page_plan', {}).get('page_type', '')}")
+        print(f"  Locked: {new_draft.get('page_plan', {}).get('locked', False)}\\n")
+    except Exception as e:
+        print(f"ERROR: Could not attach page plan to draft: {e}")
+        return
 
     drafts.append(new_draft)
 

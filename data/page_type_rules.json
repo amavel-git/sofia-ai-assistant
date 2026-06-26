@@ -1,0 +1,291 @@
+{
+  "version": "1.0",
+  "purpose": "Global page type classification rules for Sofia. This file may contain multilingual signals. The Python classifier must remain structural and language agnostic.",
+  "default_page_type": "blog_post",
+  "explicit_type_aliases": {
+    "landing_page": [
+      "landing page",
+      "service page",
+      "sales page",
+      "commercial page",
+      "page"
+    ],
+    "blog_post": [
+      "blog",
+      "blog post",
+      "article",
+      "post"
+    ],
+    "city_page": [
+      "city page",
+      "local page",
+      "geo page"
+    ],
+    "faq_page": [
+      "faq",
+      "faq page",
+      "questions page"
+    ],
+    "pricing_page": [
+      "pricing page",
+      "price page",
+      "cost page"
+    ],
+    "pillar_page": [
+      "pillar page",
+      "hub page",
+      "main page"
+    ],
+    "educational_page": [
+      "educational page",
+      "informational page",
+      "guide"
+    ],
+    "authority_page": [
+      "authority page",
+      "standards page",
+      "research page"
+    ]
+  },
+  "page_type_rules": {
+    "city_page": {
+      "intent_type": "local_transactional",
+      "signal_weight": 10,
+      "strong_signal_weight": 30,
+      "strong_signals": [
+        "city page",
+        "local service",
+        "near me"
+      ],
+      "signals": [
+        "madrid",
+        "barcelona",
+        "valencia",
+        "sevilla",
+        "zaragoza",
+        "lisbon",
+        "porto",
+        "paris",
+        "lyon",
+        "marseille",
+        "dubai",
+        "istanbul",
+        "córdoba",
+        "cordoba",
+        "granada",
+        "toledo",
+        "alicante",
+        "cádiz",
+        "cadiz",
+        "tenerife",
+        "las palmas",
+        "valladolid"
+      ]
+    },
+    "pricing_page": {
+      "intent_type": "commercial",
+      "signal_weight": 10,
+      "strong_signal_weight": 30,
+      "strong_signals": [
+        "pricing",
+        "prices",
+        "tariffs",
+        "price list"
+      ],
+      "signals": [
+        "price",
+        "prices",
+        "pricing",
+        "cost",
+        "costs",
+        "tariff",
+        "tariffs",
+        "precio",
+        "precios",
+        "tarifa",
+        "tarifas",
+        "coste",
+        "costo",
+        "prix",
+        "tarif",
+        "tarifs",
+        "preço",
+        "preços"
+      ]
+    },
+    "authority_page": {
+      "intent_type": "informational_authority",
+      "signal_weight": 10,
+      "strong_signal_weight": 30,
+      "strong_signals": [
+        "ASTM",
+        "APA",
+        "IAIPP",
+        "NCCA"
+      ],
+      "signals": [
+        "standard",
+        "standards",
+        "research",
+        "study",
+        "studies",
+        "validation",
+        "scientific",
+        "norma",
+        "normas",
+        "estándar",
+        "estándares",
+        "investigación",
+        "validación",
+        "recherche",
+        "étude",
+        "études",
+        "validação",
+        "pesquisa"
+      ]
+    },
+    "educational_page": {
+      "intent_type": "informational",
+      "signal_weight": 10,
+      "strong_signal_weight": 25,
+      "strong_signals": [
+        "methodology",
+        "metodología",
+        "metodologia",
+        "méthodologie"
+      ],
+      "signals": [
+        "methodology",
+        "reliability",
+        "history",
+        "how it works",
+        "process",
+        "procedure",
+        "questions",
+        "myths",
+        "science",
+        "metodología",
+        "fiabilidad",
+        "historia",
+        "funcionamiento",
+        "proceso",
+        "procedimiento",
+        "preguntas",
+        "mitos",
+        "ciencia",
+        "metodologia",
+        "fiabilidade",
+        "história",
+        "fonctionnement",
+        "fiabilité",
+        "histoire",
+        "mythes"
+      ]
+    },
+    "faq_page": {
+      "intent_type": "informational",
+      "signal_weight": 10,
+      "strong_signal_weight": 30,
+      "strong_signals": [
+        "frequently asked questions",
+        "preguntas frecuentes",
+        "foire aux questions"
+      ],
+      "signals": [
+        "faq",
+        "questions",
+        "answers",
+        "preguntas",
+        "respuestas",
+        "dudas",
+        "perguntas",
+        "respostas"
+      ]
+    },
+    "pillar_page": {
+      "intent_type": "mixed",
+      "signal_weight": 8,
+      "strong_signal_weight": 25,
+      "strong_signals": [
+        "polygraph test",
+        "test de polígrafo",
+        "prueba de polígrafo",
+        "examen polygraphique"
+      ],
+      "signals": [
+        "polygraph",
+        "polígrafo",
+        "poligrafo",
+        "lie detector",
+        "detector de mentiras",
+        "détecteur de mensonge"
+      ]
+    },
+    "landing_page": {
+      "intent_type": "transactional",
+      "signal_weight": 10,
+      "strong_signal_weight": 25,
+      "strong_signals": [
+        "polygraph test for",
+        "prueba de polígrafo para",
+        "test de polígrafo para"
+      ],
+      "signals": [
+        "infidelity",
+        "theft",
+        "fraud",
+        "employee",
+        "corporate",
+        "legal",
+        "lawyer",
+        "court",
+        "HR",
+        "recruitment",
+        "infidelidad",
+        "robo",
+        "hurto",
+        "fraude",
+        "empresa",
+        "laboral",
+        "abogados",
+        "justicia",
+        "recursos humanos",
+        "infidélité",
+        "vol",
+        "entreprise",
+        "juridique",
+        "infidelidade",
+        "furto",
+        "roubo",
+        "empresa"
+      ]
+    },
+    "blog_post": {
+      "intent_type": "informational",
+      "signal_weight": 1,
+      "strong_signal_weight": 1,
+      "strong_signals": [],
+      "signals": []
+    }
+  },
+  "page_type_priority_order": [
+    "pricing_page",
+    "city_page",
+    "authority_page",
+    "educational_page",
+    "landing_page",
+    "faq_page",
+    "pillar_page",
+    "blog_post"
+  ],
+  "page_type_priority_bonus": {
+    "pricing_page": 40,
+    "city_page": 35,
+    "authority_page": 30,
+    "educational_page": 25,
+    "landing_page": 20,
+    "faq_page": 15,
+    "pillar_page": 0,
+    "blog_post": 0
+  }
+}

@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import sys
 
 
 SOFIA_ROOT = Path(__file__).resolve().parents[1]
@@ -7,9 +8,14 @@ SOFIA_ROOT = Path(__file__).resolve().parents[1]
 GLOBAL_SOURCES_FILE = SOFIA_ROOT / "data" / "opportunity_sources.json"
 GLOBAL_TYPES_FILE = SOFIA_ROOT / "data" / "opportunity_types.json"
 
-# Test workspace for now
-WORKSPACE_ID = "local.ao"
-LOCAL_SITE_PATH = SOFIA_ROOT / "sites" / "local_sites" / "ao"
+WORKSPACE_ID = sys.argv[1] if len(sys.argv) > 1 else None
+
+if not WORKSPACE_ID:
+    print("Usage: python app/validate_external_opportunities.py <workspace_id>")
+    raise SystemExit(1)
+
+workspace_slug = WORKSPACE_ID.split(".")[-1]
+LOCAL_SITE_PATH = SOFIA_ROOT / "sites" / "local_sites" / workspace_slug
 
 LOCAL_PROFILE_FILE = LOCAL_SITE_PATH / "local_intelligence_profile.json"
 LOCAL_OPPORTUNITIES_FILE = LOCAL_SITE_PATH / "external_opportunities.json"
